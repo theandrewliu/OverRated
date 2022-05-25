@@ -1,7 +1,6 @@
 ## Dating app name ideas 
 * Friendr 
 * True Colors
-* 
 
 ## Members
 
@@ -43,3 +42,9 @@ possible star ratings (0/5 scale)(5 best - 0 ugh)
     * Catishing? (possibly the most toxic thing on here?)
     * Date Planning Ability 
     *
+
+## Design
+# [API design](docs/apis.md)
+# [Data model](docs/data-model.md)
+# [GHI](docs/ghi.md)
+# [Integrations](docs/integrations.md)
