@@ -51,3 +51,16 @@ The `meet_up` entity contains the data about a location that a meet up can be he
 | date of review | date | yes | no |
 
 the `Review` entity will contain data pertaining to the profile of a reviewer and a reviewee along with some adition information including a character field a date attirubute and a system of scoring them via a star system
+
+
+## User
+
+
+| Name | Type | Unique | Optional |
+|-|-|-|-|
+| email | string | yes | no |
+| username |string | yes | no |
+| DOB | date | no || no |
+| password | string | no | no |
+
+the `User` entity will contain data pertaining to the user of the account. 
