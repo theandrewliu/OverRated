@@ -17,8 +17,7 @@ services: # Container that we want to run
       PGDATABASE: overrated
       PGUSER: overrated
       PGPASSWORD: overrated
-  # not sure about db directories 
-  db: 
+  db: # not sure about db directories 
     build: 
       context: data
       dockerfile: Dockerfile.dev
