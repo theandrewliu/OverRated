@@ -1,0 +1,42 @@
+volumes:
+  overrated:
+    external: true
+  pg-admin:
+    external: true
+services:
+  api:
+    build:
+      context: api
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+    environment:
+      PGHOST: db
+      PGDATABASE: overrated
+      PGUSER: overrated
+      PGPASSWORD: overrated
+  # not sure about db directories 
+  db: 
+    build: 
+      context: data
+      dockerfile: Dockerfile.dev
+    volumes:
+      - overrated:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: overrated
+      POSTGRES_USER: overrated
+      POSTGRES_DB: overrated
+    ports: 
+      - "15432:5432"
+  pg-admin:
+    image: dpage/pgadmin4
+    volumes: 
+      - pg-admin:/var/lib/pgadmin4
+    ports:
+      - 8082:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: email@overrated.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_DISABLE_POSTFIX: 1

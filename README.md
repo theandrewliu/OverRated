@@ -1,6 +1,5 @@
 ## Dating app name ideas 
-* Friendr 
-* True Colors
+* OverRated
 
 ## Members
 
@@ -11,7 +10,7 @@
 
 ## Intended market 
 
-The people we expect to use this are individuals over the age of 18 residing in North America looking to make connections with others. With the help of our rating implementation we will get honset reviews from users about their experiences talking to people on the app. 
+The people we expect to use this are individuals over the age of 18 residing in North America looking to make connections with others. With the help of our rating implementation we will get honest reviews from users about their experiences talking to people on the app. 
 
 * Adults over the age of 18
 * People who want to make new connections
