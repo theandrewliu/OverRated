@@ -1,13 +1,13 @@
-volumes:
+volumes: #create USB drives
   overrated:
     external: true
   pg-admin:
     external: true
-services:
-  api:
+services: # Container that we want to run
+  api: # have to run docker-compose build
     build:
-      context: api
-      dockerfile: Dockerfile.dev
+      context: api # name of the directory
+      dockerfile: Dockerfile.dev # name of the dockerfile
     ports:
       - "8000:8000"
     volumes:
@@ -31,7 +31,7 @@ services:
     ports: 
       - "15432:5432"
   pg-admin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4 #I only have to docker-compse up
     volumes: 
       - pg-admin:/var/lib/pgadmin4
     ports:
