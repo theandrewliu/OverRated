@@ -26,22 +26,34 @@ services: # Container that we want to run
     volumes:
       - ./api:/app
     environment:
-      PGHOST: db
+      PGHOST: postgres #changed name from db to postgres
       PGDATABASE: overrated
       PGUSER: overrated
       PGPASSWORD: overrated
-  db: # not sure about db directories 
-    build: 
-      context: data
-      dockerfile: Dockerfile.dev
+  postgres:
+    image: postgres:14-bullseye
     volumes:
+      # For your initialization scripts
+      - ./data/postgres/init:/docker-entrypoint-initdb.d
+      # For the data stored by PostgreSQL
       - overrated:/var/lib/postgresql/data
     environment:
+      # Password for the postgres superuser
+      # See 01-create-databases.sql for the name/password
+      #   for the user of the application database
       POSTGRES_PASSWORD: overrated
-      POSTGRES_USER: overrated
-      POSTGRES_DB: overrated
-    ports: 
-      - "15432:5432"
+  # db: # not sure about db directories 
+  #   build: 
+  #     context: data
+  #     dockerfile: Dockerfile.dev
+  #   volumes:
+  #     - overrated:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: overrated
+  #     POSTGRES_USER: overrated
+  #     POSTGRES_DB: overrated
+  #   ports: 
+  #     - "15432:5432"
   pg-admin:
     image: dpage/pgadmin4 #I only have to docker-compse up
     volumes: 

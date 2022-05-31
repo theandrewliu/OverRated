@@ -30,7 +30,7 @@ services: # Container that we want to run
     ports: 
       - "15432:5432"
   pg-admin:
-    image: dpage/pgadmin4 #I only have to docker-compse up
+    image: dpage/pgadmin4 #I only have to bat-man up
     volumes: 
       - pg-admin:/var/lib/pgadmin4
     ports:

@@ -6,4 +6,7 @@ In the journals, every day that you work on the project, you must make an entry 
 - At least one ah-ha! moment that you had during your coding, however small
 
 ## May 27, 2022
-Today, created our sql server to get ready for fastAPI endpoints.
+Today, we created our sql server to get ready for fastAPI endpoints.
+
+## May 31, 2022
+Today I added react capabilities in preparation to be able to create the front-end portion of the app

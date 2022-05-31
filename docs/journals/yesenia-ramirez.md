@@ -9,7 +9,7 @@ In the journals, every day that you work on the project, you must make an entry 
 ## May 27, 2022
 * App name and logos
 
-We came up with our app name and designed some logos as options for our website 
+We came up with our app name and designed some logos as options for our website.
 
 * Docker and sql files
  
