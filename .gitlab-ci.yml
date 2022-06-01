@@ -1,0 +1,35 @@
+stages:
+  - test # run tests first and have them pass
+  - build # then build
+
+variables: 
+  MONGOHOST: fake
+  MONGODATABASE: fake
+  MONGOUSER: fake
+  MONGOPASSWORD: fake
+
+api-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd api
+    - pip install -r requirements.txt 
+    - python -m pytest 
+
+lint-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 api
+
+build-job:
+  stage: build
+  image: node:lts-bullseye
+  needs: 
+    - api-unit-test-job
+    - lint-test-job
+  script:
+    - cd ghi
+    - npm install
+    - npm run build
