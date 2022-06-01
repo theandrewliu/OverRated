@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-function Profile({ authorized }) {
+function Users({ authorized }) {
 
     if(!authorized) {
         return <Redirect to="/" />;
@@ -11,4 +11,4 @@ function Profile({ authorized }) {
     
 }
 
-export default Profile;
+export default Users;
