@@ -5,7 +5,8 @@ from models.profiles import (
     ProfileDeleteOperation,
     ProfileOut,
     ProfileCreateIn,
-    ProfileUpdateIn
+    ProfileUpdateIn,
+    AccountUpdateIn
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername
@@ -64,6 +65,16 @@ def row_to_profile_update(row):
     }
     return profile
 
+def row_to_account_update(row):
+    profile = {
+        "id": row[0],
+        "username": row[1],
+        "password": row[2],
+        "first_name":row[3],
+        "last_name":row[4],
+    }
+    return profile
+
 @router.get(
     "/api/profiles",
     response_model=ProfileList,
@@ -119,9 +130,10 @@ def create_profile(
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": f"{profile.username} username already exists"}
 
+# update personal info
 @router.put(
     "/api/profiles/{profile_id}",
-    response_model=Union[ProfileOut, ErrorMessage],
+    # response_model=Union[ProfileOut, ErrorMessage],
     responses={
         200: {"model": ProfileOut},
         404: {"model": ErrorMessage},
@@ -167,3 +179,35 @@ def delete_profile(profile_id: int, query=Depends(ProfileQueries)):
         return {"result": True}
     except:
         return {"result": False}
+
+# update login info
+@router.put(
+    "/api/account/{profile_id}",
+    # response_model=Union[ProfileOut, ErrorMessage],
+    responses={
+        200: {"model": ProfileOut},
+        404: {"model": ErrorMessage},
+        409: {"model": ErrorMessage},
+    },
+)
+def update_account(
+    profile_id: int,
+    profile: AccountUpdateIn,
+    response: Response,
+    query=Depends(ProfileQueries),
+):
+    try:
+        row = query.update_account(
+            profile_id,
+            profile.username,
+            profile.password,
+            profile.first_name,
+            profile.last_name,
+        )
+        if row is None:
+            response.status_code = status.HTTP_404_NOT_FOUND
+            return {"message": "Account not found"}
+        return row_to_account_update(row)
+    except DuplicateUsername:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": "Duplicate username"}

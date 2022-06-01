@@ -13,7 +13,7 @@ function Nav() {
         <div className="collapse navbar-collapse font-face-na sizer" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item" >
-                <NavLink className="nav-link active " aria-current="page" to="/manufacturers" >Explore</NavLink>
+                <NavLink className="nav-link" aria-current="page" to="/manufacturers" >Explore</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/manufacturers/new/">Connections</NavLink>
@@ -24,7 +24,9 @@ function Nav() {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/models/new">Meet Ups</NavLink>
               </li>
-              <li className="nav-thing right-side">
+          </ul>
+          <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
                 <NavLink className="nav-link" to="automobiles/">My Profile</NavLink>
               </li>
           </ul>
