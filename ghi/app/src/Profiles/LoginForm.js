@@ -28,6 +28,9 @@ function LoginForm({Login, error}) {
                 </div>
                 <input type="submit" value="LOGIN" />
             </div>
+            <div>
+                <Link to="/login">Login</Link>
+            </div>
         </form>
     )
 }
