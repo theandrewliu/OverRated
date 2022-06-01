@@ -16,6 +16,7 @@ CREATE TABLE public.profiles (
     date_of_birth DATE NOT NULL,
     photo text,
     about text,
+    height int,
     job character varying(50),
     education character varying(100),
     gender character varying(50),

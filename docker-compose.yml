@@ -17,14 +17,14 @@ services: # Container that we want to run
       NODE_ENV: development
       HOST: "0.0.0.0"
       REACT_APP_API_HOST: http://localhost:8000
-  api: # have to run docker-compose build
+  profiles_api: # have to run docker-compose build
     build:
-      context: api # name of the directory
+      context: profiles_api # name of the directory
       dockerfile: Dockerfile.dev # name of the dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ./api:/app
+      - ./profiles_api:/app
     environment:
       PGHOST: postgres #changed name from db to postgres
       PGDATABASE: overrated
@@ -32,6 +32,8 @@ services: # Container that we want to run
       PGPASSWORD: overrated
   postgres:
     image: postgres:14-bullseye
+    ports:
+      - "15432:5432"
     volumes:
       # For your initialization scripts
       - ./data/postgres/init:/docker-entrypoint-initdb.d
@@ -41,7 +43,7 @@ services: # Container that we want to run
       # Password for the postgres superuser
       # See 01-create-databases.sql for the name/password
       #   for the user of the application database
-      POSTGRES_PASSWORD: overrated
+      POSTGRES_PASSWORD: secret
   # db: # not sure about db directories 
   #   build: 
   #     context: data
@@ -55,7 +57,7 @@ services: # Container that we want to run
   #   ports: 
   #     - "15432:5432"
   pg-admin:
-    image: dpage/pgadmin4 #I only have to docker-compse up
+    image: dpage/pgadmin4 #I only have to docker-compose up
     volumes: 
       - pg-admin:/var/lib/pgadmin4
     ports:
