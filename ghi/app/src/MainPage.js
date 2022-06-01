@@ -1,5 +1,5 @@
 import ClueCard from './ClueCard';
-import './public'
+import { Link } from 'react-router-dom';
 
 function MainPage() {
 
