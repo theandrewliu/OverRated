@@ -1,25 +1,28 @@
 from math import ceil
 from psycopg_pool import ConnectionPool
-# from psycopg.errors import UniqueViolation 
+from psycopg.errors import UniqueViolation 
 
 pool = ConnectionPool()
 
 
-class DuplicateProfile(RuntimeError):
+class DuplicateUsername(RuntimeError):
     pass
 
 class ProfileQueries:
-    def get_all_profiles(self, page: int):
+    def get_all_profiles(self, page: int=0):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
-                print("up to line 15 works")
-                page_count = 0
-                # page_count = ceil(cursor.fetchone()[0] / 10)
-                print("does line 16 work?", page_count)
+                cursor.execute(
+                    """
+                    SELECT COUNT(*) FROM profiles;
+                """
+                )
+                page_count = ceil(cursor.fetchone()[0] / 10)
                 cursor.execute(
                     """
                     SELECT 
                         p.id,
+                        p.username,
                         p.first_name,
                         p.last_name,
                         p.location,
@@ -40,5 +43,49 @@ class ProfileQueries:
                     [page * 10],
                 )
                 rows = cursor.fetchall()
-                print("help", rows)
                 return page_count, list(rows)
+
+    def get_profile(self, id: int):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT 
+                        p.id,
+                        p.username,
+                        p.first_name,
+                        p.last_name,
+                        p.location,
+                        p.date_of_birth,
+                        p.photo,
+                        p.about,
+                        p.height,
+                        p.job,
+                        p.education,
+                        p.gender,
+                        p.sexual_orientation,
+                        p.religion,
+                        p.ethnicity,
+                        p.pronouns
+                    FROM profiles AS p
+                    WHERE p.id = %s
+                    """,
+                        [id],
+                )
+                return cursor.fetchone()
+
+    def insert_profile(self, username, password, first_name, last_name, location, dob):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        INSERT INTO profiles(username, password, first_name, last_name, location, date_of_birth)
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                        RETURNING id, username, password, first_name, last_name, location, date_of_birth
+                        """,
+                            [username, password, first_name, last_name, location, dob]
+                    )
+                    return cursor.fetchone()
+                except UniqueViolation:
+                    raise DuplicateUsername

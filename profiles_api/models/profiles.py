@@ -1,31 +1,49 @@
 from datetime import date
 from pydantic import BaseModel
-from typing import Optional
+from typing import Union
 
 
-
-
-class ProfileIn(BaseModel):
+class ProfileCreateIn(BaseModel):
     username: str
     password: str
-
-
-class ProfileOut(BaseModel):
-    id: int
     first_name: str
     last_name: str
     location: str
     date_of_birth: date
-    photo: Optional[str]
-    about: str
-    height: int
-    job: str
-    education: str
-    gender: str
-    sexual_orientation: str
-    religion: str
-    ethnicity: str
-    pronouns: str
+
+
+class ProfileUpdateIn(BaseModel):
+    id: int
+    photo: Union[str, None]
+    about: Union[str, None]
+    height: Union[int, None]
+    job: Union[str, None]
+    education: Union[str, None]
+    gender: Union[str, None]
+    sexual_orientation: Union[str, None]
+    religion: Union[str, None]
+    ethnicity: Union[str, None]
+    pronouns: Union[str, None]
+
+
+class ProfileOut(BaseModel):
+    id: int
+    username: str
+    first_name: str
+    last_name: str
+    location: str
+    date_of_birth: date
+    photo: Union[str, None]
+    about: Union[str, None]
+    height: Union[int, None]
+    job: Union[str, None]
+    education: Union[str, None]
+    gender: Union[str, None]
+    sexual_orientation: Union[str, None]
+    religion: Union[str, None]
+    ethnicity: Union[str, None]
+    pronouns: Union[str, None]
+
 
 class ProfileList(BaseModel):
     page_count: int
