@@ -9,4 +9,4 @@ In the journals, every day that you work on the project, you must make an entry 
 Today, we created our sql server to get ready for fastAPI endpoints.
 
 ## May 31, 2022
-Today I added react capabilities in preparation to be able to create the front-end portion of the app
+Today I added react capabilities in preparation to be able to create the front-end portion of the app, we refactored the database to be more organized by splitting them into separate sql files. Also got the list all profile endpoint to post 200 but had to edit out the page functionality for it to work. Will revisit that tomorrow to try and implement it.
