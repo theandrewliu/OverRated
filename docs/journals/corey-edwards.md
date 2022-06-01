@@ -19,3 +19,10 @@ I was around to watch Shawn and Jeff masterfully help us get out dockerfiles up 
 * SQL files
 
 I was the official creator of the Profile Model inside of our API. We also refactored the database by splitting them into separate SQL files. Also we began the process of setting the profile endpoint in the API but this came with many issues so after tinkering for what felt like an eternity. This was eventually solved with the implementation of Optional from typing thankfully. We didn't get to finish setting the endpoint but we are left with good footing for tomorrow.
+
+
+## June 1, 2022
+
+* Nav Bar
+
+So today was a very productive day and very stressful spent a lot of time refactoring and frankensteining the nav bar using css and bootstrap but i got it to where the logo takes you back to the home page, the nav bar color is color matched with the logo and the my profile is all the way on the right so good progress has been made i still need to fix the back end routes and clean up some things but we are on the right track
