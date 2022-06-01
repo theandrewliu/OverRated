@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import MainPage from './MainPage';
-import './index.css';
+// import './index.css';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/signup" element={<Signup/>} />
+          {/* <Route path="/signup" element={<Signup/>} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/profile" element={() => <Profile authorized={true}/>} />
+          <Route path="/profile" element={() => <Profile authorized={true}/>} /> */}
         </Routes>
       </div>
     </BrowserRouter>
