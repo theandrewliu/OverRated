@@ -8,6 +8,9 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/profile" element={() => <Profile authorized={true}/>} />
         </Routes>
       </div>
     </BrowserRouter>

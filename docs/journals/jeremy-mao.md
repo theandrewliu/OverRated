@@ -7,3 +7,6 @@ In the journals, every day that you work on the project, you must make an entry 
 
 Added the gitattributes and git ignore
 worked on orservice.sql
+
+Help with the back end a little
+added common.py
