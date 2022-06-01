@@ -13,7 +13,7 @@ class ProfileCreateIn(BaseModel):
 
 
 class ProfileUpdateIn(BaseModel):
-    id: int
+    location: str
     photo: Union[str, None]
     about: Union[str, None]
     height: Union[int, None]

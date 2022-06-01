@@ -89,3 +89,44 @@ class ProfileQueries:
                     return cursor.fetchone()
                 except UniqueViolation:
                     raise DuplicateUsername
+                
+    def update_profile(self, id, location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        UPDATE profiles
+                        SET location = %s,
+                            photo = %s,
+                            about = %s,
+                            height = %s,
+                            job = %s,
+                            education = %s,
+                            gender = %s,
+                            sexual_orientation = %s,
+                            religion = %s,
+                            ethnicity = %s,
+                            pronouns = %s
+                        WHERE id = %s
+                        RETURNING id, location, date_of_birth, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns
+                        """,
+                            [location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns, id]
+                    )
+                    return cursor.fetchone()
+                except UniqueViolation:
+                    raise DuplicateUsername
+    
+    def delete_profile(self, id):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        DELETE FROM profiles
+                        WHERE id = %s
+                        """,
+                            [id],
+                    )
+                except UniqueViolation:
+                    raise DuplicateUsername

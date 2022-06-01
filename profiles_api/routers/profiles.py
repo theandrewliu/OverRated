@@ -47,6 +47,22 @@ def row_to_profile_post(row):
     }
     return profile
 
+def row_to_profile_update(row):
+    profile = {
+        "id": row[0],
+        "location":row[1],
+        "photo":row[2],
+        "about":row[3],
+        "height":row[4],
+        "job":row[5],
+        "education":row[6],
+        "gender":row[7],
+        "sexual_orientation":row[8],
+        "religion":row[9],
+        "ethnicity":row[10],
+        "pronouns":row[11],
+    }
+    return profile
 
 @router.get(
     "/api/profiles",
@@ -103,3 +119,51 @@ def create_profile(
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": f"{profile.username} username already exists"}
 
+@router.put(
+    "/api/profiles/{profile_id}",
+    response_model=Union[ProfileOut, ErrorMessage],
+    responses={
+        200: {"model": ProfileOut},
+        404: {"model": ErrorMessage},
+        409: {"model": ErrorMessage},
+    },
+)
+def update_profile(
+    profile_id: int,
+    profile: ProfileUpdateIn,
+    response: Response,
+    query=Depends(ProfileQueries),
+):
+    try:
+        row = query.update_profile(
+            profile_id,
+            profile.location,
+            profile.photo,
+            profile.about,
+            profile.height,
+            profile.job,
+            profile.education,
+            profile.gender,
+            profile.sexual_orientation,
+            profile.religion,
+            profile.ethnicity,
+            profile.pronouns
+        )
+        if row is None:
+            response.status_code = status.HTTP_404_NOT_FOUND
+            return {"message": "Profile not found"}
+        return row_to_profile_update(row)
+    except DuplicateUsername:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": "Duplicate profile name"}
+
+@router.delete(
+    "/api/profiles/{profile_id}",
+    response_model=ProfileDeleteOperation,
+)
+def delete_profile(profile_id: int, query=Depends(ProfileQueries)):
+    try:
+        query.delete_profile(profile_id)
+        return {"result": True}
+    except:
+        return {"result": False}
