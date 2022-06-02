@@ -35,6 +35,9 @@ Today, I learned that adding Optional to a property in our model will allow us t
 
 Andrew and I worked on the backend. Andrew worked on db.py while I worked on the profiles.py in the routers directory. We completed our delete endpoint and two update endpoints (profile and account info). 
 
+* Email 
+I added an email property to our database. 
+
 Today, I learned how important indexes are when returning our input as a dictionary. The indexes in our row_to_profile functions need to match the order we are returning the properties in the db.py update function. 
 
 I also learned the role of our models and how the In vs Out models differ. Our In model needs to match the data we are inputting and the Out model needs to match the data that will be returned. And the Out models will include an id property.
