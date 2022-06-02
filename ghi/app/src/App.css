@@ -40,3 +40,25 @@
 .font-face-na{
   font-family:"NotablyAbsentRegular-8M2zJ";
 }
+
+.picture{
+  margin-left: auto;
+  margin-right: auto;
+  height: 200px;
+  width: 200px;
+  }
+
+#container {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.col1{
+  width:450px;
+  float:left;
+}
+
+.col2{
+  width:450px;
+  float:left;
+}
