@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
-import MainPage from './MainPage';
 import './index.css';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
@@ -14,7 +13,7 @@ function App() {
     </div>
       <div className="container">
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/"  />
 
           <Route path="users" element={<Users />}></Route>
 

@@ -13,21 +13,21 @@ function Nav() {
         <div className="collapse navbar-collapse font-face-na sizer" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item" >
-                <NavLink className="nav-link" aria-current="page" to="/manufacturers" >Explore</NavLink>
+                <NavLink className="nav-link" aria-current="page" to="/api/profiles/0/" >Explore</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/manufacturers/new/">Connections</NavLink>
+                <NavLink className="nav-link" to="/connections">Connections</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/models">Messages</NavLink>
+                <NavLink className="nav-link" to="/messages">Messages</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/models/new">Meet Ups</NavLink>
+                <NavLink className="nav-link" to="/meetups">Meet Ups</NavLink>
               </li>
           </ul>
           <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <NavLink className="nav-link" to="automobiles/">My Profile</NavLink>
+                <NavLink className="nav-link" to="/my_profile">My Profile</NavLink>
               </li>
           </ul>
         </div>
