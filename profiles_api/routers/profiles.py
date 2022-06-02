@@ -1,3 +1,4 @@
+from datetime import date
 from fastapi import APIRouter, Depends, Response, status
 from typing import Union
 from models.profiles import (
@@ -6,7 +7,9 @@ from models.profiles import (
     ProfileOut,
     ProfileCreateIn,
     ProfileUpdateIn,
-    AccountUpdateIn
+    AccountUpdateIn,
+    ProfileUpdateOut,
+    AccountUpdateOut
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername
@@ -48,30 +51,31 @@ def row_to_profile_post(row):
     }
     return profile
 
+
 def row_to_profile_update(row):
     profile = {
         "id": row[0],
-        "location":row[1],
-        "photo":row[2],
-        "about":row[3],
-        "height":row[4],
-        "job":row[5],
-        "education":row[6],
-        "gender":row[7],
-        "sexual_orientation":row[8],
-        "religion":row[9],
-        "ethnicity":row[10],
-        "pronouns":row[11],
+        "location":row[4],
+        "photo":row[6],
+        "about":row[7],
+        "height":row[8],
+        "job":row[9],
+        "education":row[10],
+        "gender":row[11],
+        "sexual_orientation":row[12],
+        "religion":row[13],
+        "ethnicity":row[14],
+        "pronouns":row[15],
     }
     return profile
+
 
 def row_to_account_update(row):
     profile = {
         "id": row[0],
         "username": row[1],
-        "password": row[2],
-        "first_name":row[3],
-        "last_name":row[4],
+        "first_name":row[2],
+        "last_name":row[3],
     }
     return profile
 
@@ -133,9 +137,9 @@ def create_profile(
 # update personal info
 @router.put(
     "/api/profiles/{profile_id}",
-    # response_model=Union[ProfileOut, ErrorMessage],
+    response_model=Union[ProfileUpdateOut, ErrorMessage],
     responses={
-        200: {"model": ProfileOut},
+        200: {"model": ProfileUpdateOut},
         404: {"model": ErrorMessage},
         409: {"model": ErrorMessage},
     },
@@ -164,10 +168,26 @@ def update_profile(
         if row is None:
             response.status_code = status.HTTP_404_NOT_FOUND
             return {"message": "Profile not found"}
+        
+        # return ProfileUpdateOut(
+        #         id = row[0],
+        #         location = row[4],
+        #         photo = row[6],
+        #         about= row[7],
+        #         height= row[8],
+        #         job= row[9],
+        #         education= row[10],
+        #         gender= row[11],
+        #         sexual_orientation= row[12],
+        #         religion= row[13],
+        #         ethnicity= row[14],
+        #         pronouns= row[15],
+        #     )
         return row_to_profile_update(row)
     except DuplicateUsername:
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": "Duplicate profile name"}
+
 
 @router.delete(
     "/api/profiles/{profile_id}",
@@ -180,12 +200,13 @@ def delete_profile(profile_id: int, query=Depends(ProfileQueries)):
     except:
         return {"result": False}
 
+
 # update login info
 @router.put(
-    "/api/account/{profile_id}",
-    # response_model=Union[ProfileOut, ErrorMessage],
+    "/api/accounts/{profile_id}",
+    response_model=Union[AccountUpdateOut, ErrorMessage],
     responses={
-        200: {"model": ProfileOut},
+        200: {"model": AccountUpdateOut},
         404: {"model": ErrorMessage},
         409: {"model": ErrorMessage},
     },
@@ -202,8 +223,14 @@ def update_account(
             profile.username,
             profile.password,
             profile.first_name,
-            profile.last_name,
+            profile.last_name
         )
+        # return AccountUpdateOut(
+        #     id=row[0],
+        #     username=row[1],
+        #     first_name=row[2],
+        #     last_name=row[3],
+        # )
         if row is None:
             response.status_code = status.HTTP_404_NOT_FOUND
             return {"message": "Account not found"}

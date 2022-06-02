@@ -109,7 +109,7 @@ class ProfileQueries:
                             ethnicity = %s,
                             pronouns = %s
                         WHERE id = %s
-                        RETURNING id, username, first_name, last_name, location, date_of_birth, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns
+                        RETURNING  id, username, first_name, last_name, location, date_of_birth, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns
                         """,
                             [location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns, id]
                     )
