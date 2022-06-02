@@ -1,3 +1,15 @@
 .bg-navColor{
     background-color: #f1976b;
 }
+
+.sizer{
+    font-size: 25pt;
+}
+
+.font-face-na{
+    font-family:"NotablyAbsentRegular-8M2zJ";
+  }
+
+.right-side{
+    align-self: flex-end
+}

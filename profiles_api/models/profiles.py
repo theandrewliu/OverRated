@@ -12,6 +12,14 @@ class ProfileCreateIn(BaseModel):
     date_of_birth: date
 
 
+class AccountUpdateIn(BaseModel):
+    username: str
+    password: str
+    first_name: str
+    last_name: str
+    location: str
+
+
 class ProfileUpdateIn(BaseModel):
     location: str
     photo: Union[str, None]
