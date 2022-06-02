@@ -10,3 +10,8 @@ worked on orservice.sql
 
 Help with the back end a little
 added common.py
+
+Created a profile folder
+worked on the main page a little bit
+Created a login, sign up and review form
+Created a few lists 

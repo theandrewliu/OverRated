@@ -4,7 +4,7 @@ import MainPage from './MainPage';
 import './index.css';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
-import Users from './Profiles/Users';
+// import Users from './Profiles/Users';
 import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 
@@ -18,7 +18,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
 
-          <Route path="users" element={<Users />}></Route>
+          {/* <Route path="users">
+          <Route index element={<UsersForm />} />
+          <Route path="history" element={<UsersList />} />
+          </Route> */}
 
           <Route path="login">
             <Route index element={<LoginForm />} />
