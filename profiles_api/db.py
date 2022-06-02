@@ -23,6 +23,7 @@ class ProfileQueries:
                     SELECT 
                         p.id,
                         p.username,
+                        p.email,
                         p.first_name,
                         p.last_name,
                         p.location,
@@ -53,6 +54,7 @@ class ProfileQueries:
                     SELECT 
                         p.id,
                         p.username,
+                        p.email,
                         p.first_name,
                         p.last_name,
                         p.location,
@@ -74,21 +76,24 @@ class ProfileQueries:
                 )
                 return cursor.fetchone()
 
-    def insert_profile(self, username, password, first_name, last_name, location, dob):
+
+    def insert_profile(self, username, email, password, first_name, last_name, location, dob):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 try:
                     cursor.execute(
                         """
-                        INSERT INTO profiles(username, password, first_name, last_name, location, date_of_birth)
-                        VALUES (%s, %s, %s, %s, %s, %s)
-                        RETURNING id, username, password, first_name, last_name, location, date_of_birth
+                        INSERT INTO profiles(username, email, password, first_name, last_name, location, date_of_birth)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        RETURNING id, username, email, password, first_name, last_name, location, date_of_birth
                         """,
-                            [username, password, first_name, last_name, location, dob]
+                            [username, email, password, first_name, last_name, location, dob]
                     )
                     return cursor.fetchone()
                 except UniqueViolation:
                     raise DuplicateUsername
+
+
     # update personal info             
     def update_profile(self, id, location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns):
         with pool.connection() as connection:
@@ -109,7 +114,7 @@ class ProfileQueries:
                             ethnicity = %s,
                             pronouns = %s
                         WHERE id = %s
-                        RETURNING id, username, first_name, last_name, location, date_of_birth, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns
+                        RETURNING  id, username, email, first_name, last_name, location, date_of_birth, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns
                         """,
                             [location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns, id]
                     )
@@ -118,7 +123,7 @@ class ProfileQueries:
                     raise DuplicateUsername
     
     # update login info
-    def update_account(self, id, username, password, first_name, last_name):
+    def update_account(self, id, username, email, password, first_name, last_name):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 try:
@@ -126,13 +131,14 @@ class ProfileQueries:
                         """
                         UPDATE profiles
                         SET username = %s,
+                            email = %s,
                             password = %s,
                             first_name =%s,
                             last_name =%s
                         WHERE id = %s
-                        RETURNING id, username, first_name, last_name, location, date_of_birth, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns
+                        RETURNING id, username, email, first_name, last_name, location, date_of_birth, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns
                         """,
-                            [username, password, first_name, last_name, id]
+                            [username, email, password, first_name, last_name, id]
                     )
                     return cursor.fetchone()
                 except UniqueViolation:

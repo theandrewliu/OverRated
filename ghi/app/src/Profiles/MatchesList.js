@@ -1,4 +1,4 @@
-function ConnectionList(props) {
+function MatchesList(props) {
     return(
     <table className="table table-striped">
       <thead>
@@ -14,9 +14,9 @@ function ConnectionList(props) {
         {props.users.map(user => {
           return (
             <tr key={user.id}>
-              <td>{ user.profile }</td>
-              <td>{ user.address }</td>
-              <td>{ user.phone }</td>
+              <td>{ user.info }</td>
+              <td>{ user.info }</td>
+              <td>{ user.info }</td>
             </tr>
           );
         })}
@@ -25,4 +25,4 @@ function ConnectionList(props) {
   );
 }
 
-export default CustomerList
+export default MatchesList

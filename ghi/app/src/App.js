@@ -4,6 +4,8 @@ import './index.css';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
 import Users from './Profiles/Users';
+import MatchesList from './Profiles/MatchesList';
+import ConnectionList from './Profiles/ConnectionsList';
 
 function App() {
   return (
@@ -20,6 +22,11 @@ function App() {
           <Route path="login">
             <Route index element={<LoginForm />} />
             <Route path="new" element={<SignupForm />} />
+          </Route> 
+
+          <Route path="matches">
+            <Route index element={<MatchesList />} />
+            <Route path="history" element={<ConnectionList />} />
           </Route> 
 
         </Routes>

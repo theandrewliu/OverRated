@@ -5,6 +5,7 @@ from typing import Union
 
 class ProfileCreateIn(BaseModel):
     username: str
+    email: str
     password: str
     first_name: str
     last_name: str
@@ -14,10 +15,18 @@ class ProfileCreateIn(BaseModel):
 
 class AccountUpdateIn(BaseModel):
     username: str
+    email: str
     password: str
     first_name: str
     last_name: str
-    location: str
+
+
+class AccountUpdateOut(BaseModel):
+    id: int
+    username: str
+    email: str
+    first_name: str
+    last_name: str
 
 
 class ProfileUpdateIn(BaseModel):
@@ -34,9 +43,25 @@ class ProfileUpdateIn(BaseModel):
     pronouns: Union[str, None]
 
 
+class ProfileUpdateOut(BaseModel):
+    id: int
+    location: str
+    photo: Union[str, None]
+    about: Union[str, None]
+    height: Union[int, None]
+    job: Union[str, None]
+    education: Union[str, None]
+    gender: Union[str, None]
+    sexual_orientation: Union[str, None]
+    religion: Union[str, None]
+    ethnicity: Union[str, None]
+    pronouns: Union[str, None]
+
+
 class ProfileOut(BaseModel):
     id: int
     username: str
+    email: str
     first_name: str
     last_name: str
     location: str

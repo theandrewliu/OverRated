@@ -18,7 +18,7 @@ I live shared on VSCode and we all completed our Dockerfiles, requirements.txt, 
 Today, I learned that I need to remove our database volume and recreate it when changing our database and to use single quotes instead of double quotes in our sql file. 
 
 
-## May 28, 2022
+## May 31, 2022
 * Sql files refactored 
 
 We created a postgres directory in our data directory where we separated our sql file into separate files. We had some troubleshooting we needed to do with our database ownership. 
@@ -28,3 +28,18 @@ We created a postgres directory in our data directory where we separated our sql
 We worked on a get request for a list of all our profiles. I coded the db.py and helped set up the directories. We had to troubleshoot as we were getting a 500 internal server error. We found that our page functionality was not working, so we edited that out for now and will work on that tomorrow. We also had to add Optional to our photo property in our model as that was causing an issue with the data since the photo was set to Null. I am doing research to see if using Union is better than using Optional. 
 
 Today, I learned that adding Optional to a property in our model will allow us to have Null in our data. 
+
+
+## June 1, 2022
+* Profile API endpoints
+
+Andrew and I worked on the backend. Andrew worked on db.py while I worked on the profiles.py in the routers directory. We completed our delete endpoint and two update endpoints (profile and account info). 
+
+* Email 
+I added an email property to our database. 
+
+Today, I learned how important indexes are when returning our input as a dictionary. The indexes in our row_to_profile functions need to match the order we are returning the properties in the db.py update function. 
+
+I also learned the role of our models and how the In vs Out models differ. Our In model needs to match the data we are inputting and the Out model needs to match the data that will be returned. And the Out models will include an id property.
+
+Also, I learned a new way to debug when having a problem with our response model by commenting out our response model, row_to_profile return statement and except statement. This allows us to have a better idea where the problem is since we can return a single row and check if our indexes are in the correct order and we are returning the correct information. We can then uncomment out one thing at a time until our function is working perfectly. 
