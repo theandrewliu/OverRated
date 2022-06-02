@@ -63,7 +63,7 @@ class ReviewsForm extends React.Component{
                             <input onChange={this.handleReviewChange} placeholder="Review" required type="text" name="review" id="review" className="form-control" />
                             <label htmlFor="review">Review</label>
                         </div>
-                        <button className="btn btn-primary">Lethal</button>
+                        <button className="btn btn-primary">Fatality</button>
                         </form>
                     </div>
                 </div>
