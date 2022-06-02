@@ -30,7 +30,7 @@ function LoginForm({Login, error}) {
                 <input type="submit" value="LOGIN" />
             </div>
             <div>
-                <Link to="/login">Login</Link>
+                <Link to="/signup">Sign Up</Link>
             </div>
         </form>
     )
