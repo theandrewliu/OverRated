@@ -54,6 +54,7 @@ class ProfileUpdateOut(BaseModel):
     ethnicity: Union[str, None]
     pronouns: Union[str, None]
 
+
 class ProfileOut(BaseModel):
     id: int
     username: str
