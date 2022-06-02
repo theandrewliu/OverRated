@@ -24,8 +24,9 @@ CREATE TABLE public.profiles (
     sexual_orientation character varying(50),
     religion character varying(50),
     ethnicity character varying(50),
-    pronouns character varying(50),
+    pronouns character varying(50)
 );
+
 -- education [0:highschool, 1:Associates, 2:Bachelors, 3:Masters, 4: PhD]
 -- gender [0:Male, 1:Female, 2:Other]
 -- sexual orientation [0:Straight, 1:Gay, 2:Bi, 3:Pansexual]
@@ -33,7 +34,12 @@ CREATE TABLE public.profiles (
 -- [M4M, M4F, M4O, F4M, F4F, F4O, O4M, O4F, O4O]
 -- Straight M looks for F | Straight F looks for M | Gay M looks for M | Gay F looks F | Bi M looks for both M and F | Bi F looks for both M and F | 
 
+---
+--- Create an interested table for gender each user is filtering for
+---
+
 CREATE TABLE public.interested (
-    profile_id NOT NULL,
-    interest character varying(10) NOT NULL,
-)
+    id serial NOT NULL PRIMARY KEY,
+    profile_id int NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    interest character varying(10) NOT NULL
+);
