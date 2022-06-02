@@ -9,6 +9,7 @@ DROP TABLE if exists public.profiles;
 CREATE TABLE public.profiles (
     id serial NOT NULL PRIMARY KEY,
     username character varying(100) NOT NULL UNIQUE,
+    email character varying(50) NOT NULL UNIQUE,
     password character varying(50) NOT NULL,
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,

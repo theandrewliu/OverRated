@@ -5,6 +5,7 @@ from typing import Union
 
 class ProfileCreateIn(BaseModel):
     username: str
+    email: str
     password: str
     first_name: str
     last_name: str
@@ -14,6 +15,7 @@ class ProfileCreateIn(BaseModel):
 
 class AccountUpdateIn(BaseModel):
     username: str
+    email: str
     password: str
     first_name: str
     last_name: str
@@ -22,6 +24,7 @@ class AccountUpdateIn(BaseModel):
 class AccountUpdateOut(BaseModel):
     id: int
     username: str
+    email: str
     first_name: str
     last_name: str
 
@@ -58,6 +61,7 @@ class ProfileUpdateOut(BaseModel):
 class ProfileOut(BaseModel):
     id: int
     username: str
+    email: str
     first_name: str
     last_name: str
     location: str

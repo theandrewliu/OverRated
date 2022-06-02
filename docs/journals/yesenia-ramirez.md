@@ -37,6 +37,6 @@ Andrew and I worked on the backend. Andrew worked on db.py while I worked on the
 
 Today, I learned how important indexes are when returning our input as a dictionary. The indexes in our row_to_profile functions need to match the order we are returning the properties in the db.py update function. 
 
-I also learned the role of our models and how the In vs Out models differ. Our In model needs to match the data we are inputting and the Out model needs to match the data that will be returned. 
+I also learned the role of our models and how the In vs Out models differ. Our In model needs to match the data we are inputting and the Out model needs to match the data that will be returned. And the Out models will include an id property.
 
 Also, I learned a new way to debug when having a problem with our response model by commenting out our response model, row_to_profile return statement and except statement. This allows us to have a better idea where the problem is since we can return a single row and check if our indexes are in the correct order and we are returning the correct information. We can then uncomment out one thing at a time until our function is working perfectly. 
