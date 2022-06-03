@@ -195,11 +195,13 @@ class ProfileQueries:
                     list_of_interests=[]
                     for interest in interests:
                         list_of_interests.append(interest[0])
+                        
                     profile.append(list_of_interests)
 
                     return profile
                 except UniqueViolation:
                     raise DuplicateUsername
+    
     
     # update login info
     def update_account(self, id, username, email, password, first_name, last_name):
