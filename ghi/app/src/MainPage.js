@@ -17,7 +17,7 @@ function MainPage() {
       <p className="lead mb-4">
           The premiere solution for loneliness!
         </p>
-        <p>
+        <p class="termsandconditions">
         By clicking Join, you agree to our Terms. 
         Learn how we process your data in our Privacy Policy and Cookies Policy.
         </p>
