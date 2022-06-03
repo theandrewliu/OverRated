@@ -1,7 +1,7 @@
 from datetime import date
 from pydantic import BaseModel
 from typing import Union
-from .interested import InterestedIn
+from .interested import Interested
 
 class ProfileCreateIn(BaseModel):
     username: str
@@ -11,7 +11,7 @@ class ProfileCreateIn(BaseModel):
     last_name: str
     location: str
     date_of_birth: date
-    interested: InterestedIn
+    interested: Interested
 
 
 class AccountUpdateIn(BaseModel):
@@ -42,6 +42,7 @@ class ProfileUpdateIn(BaseModel):
     religion: Union[str, None]
     ethnicity: Union[str, None]
     pronouns: Union[str, None]
+    interested: Interested
 
 
 
@@ -58,6 +59,7 @@ class ProfileUpdateOut(BaseModel):
     religion: Union[str, None]
     ethnicity: Union[str, None]
     pronouns: Union[str, None]
+    interested: list[str]
 
 class ProfileOutWithInterested(BaseModel):
     id: int

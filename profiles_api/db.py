@@ -38,13 +38,16 @@ class ProfileQueries:
                         , p.ethnicity
                         , p.pronouns
                     FROM profiles AS p
-                    LEFT JOIN interested AS i ON (i.profile_id = p.id)
+                   
                     LIMIT 10 OFFSET %s
                 """,
+                # here
+#  LEFT JOIN interested AS i ON (i.profile_id = p.id)
                     [page * 10],
                 )
                 rows = cursor.fetchall()
                 return page_count, list(rows)
+
 
     def get_profile(self, id: int):
         with pool.connection() as connection:
@@ -74,7 +77,22 @@ class ProfileQueries:
                     """,
                         [id],
                 )
-                return cursor.fetchone()
+                profile = list(cursor.fetchone())
+                cursor.execute(
+                    """
+                    SELECT
+                        i.interest
+                    FROM interested AS i
+                    WHERE i.profile_id = %s
+                    """,
+                        [id]
+                )
+                interests = cursor.fetchall() # this is a tuple inside a list 
+                list_of_interests=[]
+                for interest in interests:
+                    list_of_interests.append(interest[0])
+                profile.append(list_of_interests)
+                return profile
 
 
     def insert_profile(self, username, email, password, first_name, last_name, location, dob, pfences):
@@ -111,11 +129,6 @@ class ProfileQueries:
                 try:
                     cursor.execute(
                         """
-                        
-                        """
-                    )
-                    cursor.execute(
-                        """
                         UPDATE profiles
                         SET location = %s,
                             photo = %s,
@@ -133,7 +146,58 @@ class ProfileQueries:
                         """,
                             [location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns, id]
                     )
-                    return cursor.fetchone()
+
+                    profile = list(cursor.fetchone())
+
+                    cursor.execute(
+                        """
+                        SELECT interest
+                        FROM interested
+                        WHERE profile_id = %s
+                        """,
+                            [id]
+                    )
+                    interests = cursor.fetchall() # this is a tuple inside a list 
+                    list_of_interests=[]
+                    for interest in interests:
+                        list_of_interests.append(interest[0])
+
+
+                    preset = ["male", "female", "other"]
+
+                    for i in preset:
+                        if i in list_of_interests and i not in pfences.interested:
+                            cursor.execute(
+                                """
+                                DELETE FROM interested
+                                WHERE profile_id = %s AND interest = %s
+                                """,
+                                    [id, i]
+                            )
+                        if i not in list_of_interests and i in pfences.interested:
+                            cursor.execute(
+                                """
+                                INSERT INTO interested(profile_id, interest)
+                                VALUES(%s, %s)
+                                """,
+                                    [id, i]
+                            )
+
+                    cursor.execute(
+                        """
+                        SELECT interest
+                        FROM interested
+                        WHERE profile_id = %s
+                        """,
+                            [id]
+                    )
+                    interests = cursor.fetchall() # this is a tuple inside a list 
+                    list_of_interests=[]
+                    for interest in interests:
+                        list_of_interests.append(interest[0])
+                    profile.append(list_of_interests)
+
+                    return profile
                 except UniqueViolation:
                     raise DuplicateUsername
     
@@ -158,6 +222,7 @@ class ProfileQueries:
                     return cursor.fetchone()
                 except UniqueViolation:
                     raise DuplicateUsername
+
 
     def delete_profile(self, id):
         with pool.connection() as connection:

@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List
 
 
-class InterestedIn(BaseModel):
+class Interested(BaseModel):
     interested: List[str] #list of individual preferences
 
 

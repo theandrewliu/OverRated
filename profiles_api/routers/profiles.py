@@ -18,6 +18,28 @@ from db import ProfileQueries, DuplicateUsername
 router = APIRouter()
 
 
+def row_to_profile_list(row):
+    profile = {
+        "id": row[0],
+        "username": row[1],
+        "email": row[2],
+        "first_name":row[3],
+        "last_name":row[4],
+        "date_of_birth":row[6],
+        "location":row[5],
+        "photo":row[7],
+        "about":row[8],
+        "height":row[9],
+        "job":row[10],
+        "education":row[11],
+        "gender":row[12],
+        "sexual_orientation":row[13],
+        "religion":row[14],
+        "ethnicity":row[15],
+        "pronouns":row[16]
+    }
+    return profile
+
 def row_to_profile(row):
     profile = {
         "id": row[0],
@@ -37,6 +59,7 @@ def row_to_profile(row):
         "religion":row[14],
         "ethnicity":row[15],
         "pronouns":row[16],
+        "interested":row[17]
     }
     return profile
 
@@ -69,7 +92,8 @@ def row_to_profile_update(row):
         "sexual_orientation":row[13],
         "religion":row[14],
         "ethnicity":row[15],
-        "pronouns":row[16]
+        "pronouns":row[16],
+        "interested":row[17]
     }
     return profile
 
@@ -92,15 +116,15 @@ def get_profiles(page: int=0, query=Depends(ProfileQueries)):
     page_count, rows = query.get_all_profiles(page)
     return {
         "page_count": page_count,
-        "profiles": [row_to_profile(row) for row in rows],
+        "profiles": [row_to_profile_list(row) for row in rows],
     }
 
 
 @router.get(
     "/api/profiles/{profile_id}",
-    response_model=Union[ProfileOut, ErrorMessage],
+    response_model=Union[ProfileOutWithInterested, ErrorMessage],
     responses = {
-        200: {"model": ProfileOut},
+        200: {"model": ProfileOutWithInterested},
         404: {"model": ErrorMessage}
     }
 )
@@ -172,6 +196,7 @@ def update_profile(
             profile.religion,
             profile.ethnicity,
             profile.pronouns,
+            profile.interested
         )
         # return ProfileUpdateOut(
         #         id = row[0],

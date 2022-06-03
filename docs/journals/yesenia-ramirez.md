@@ -65,7 +65,5 @@ The steps executed in an API call using FastAPI:
 typing import List
 - This is a class-based object and you can get access to dictionary attributes by using the dot.notation ("object.name" format)
 
-cursor.fetchone() returns a tuple, but we turned it into a list so we could append to it in our for loop.
 
-for loop inside the insert_profile function in db.py:
-- 
+cursor.fetchone() returns a tuple, but we turned it into a list so we could append to it in our for loop.
