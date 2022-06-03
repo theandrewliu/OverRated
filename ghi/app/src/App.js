@@ -6,6 +6,7 @@ import SignupForm from './Profiles/SignupForm';
 // import Users from './Profiles/Users';
 import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
+import MainPage from './MainPage';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
     </div>
       <div className="container">
         <Routes>
-          <Route path="/"  />
+          <Route path="/" element={<MainPage />} />
 
           {/* <Route path="users">
           <Route index element={<UsersForm />} />
@@ -29,7 +30,7 @@ function App() {
 
           <Route path="matches">
             <Route index element={<MatchesList />} />
-            <Route path="history" element={<ConnectionList />} />
+            <Route path="connections" element={<ConnectionList />} />
           </Route> 
 
         </Routes>

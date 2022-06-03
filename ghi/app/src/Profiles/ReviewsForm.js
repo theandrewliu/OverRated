@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { startTransition } from 'react';
+import { FaStar } from "react-icons/fa";
 
 class ReviewsForm extends React.Component{
     constructor(props){
@@ -46,15 +47,42 @@ class ReviewsForm extends React.Component{
         const value = event.target.value;
         this.setState({ review: value });
     }
-
     
     render() {
+        const stars = Array(5).fill(0);
+        const [currentValue, setCurrentValue] = React.useState(0);
+        const [hoverValue, setHoverValue] = React.useState(undefined);
+
+        const handleClick = value => {
+            setCurrentValue(value)
+        };
+
+        const handleMouseover = value => {
+            setHoverValue(value)
+        }
+
+        const handleMouseLeave = () => {
+            setHoverValue(undefined)
+        }
+
         return (
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
                         <h1>How Toxic can You Be?</h1>
                         <form onSubmit={this.handleSubmit} id="create-form">
+                        <div style={styles.container}>
+                            {stars.map((_, index) => {
+                                return (
+                                    <FaStar key={index} 
+                                        size={24} style={{marginRight:10, cursor:"pointer"}}
+                                        color={(hoverValue || currentValue) > index ? colors.orange : colors.grey}
+                                        onClick={() => handleClick(index + 1)}
+                                        onMouseOver={() => handleMouseover(index + 1)}
+                                        onMouseLeave={handleMouseLeave}/>
+                                )
+                            })}
+                        </div>
                         <div className="form-floating mb-3">
                             <input onChange={this.handleUsernameChange} placeholder="Username" required type="text" name="username" id="username" className="form-control" />
                             <label htmlFor="username">Username</label>

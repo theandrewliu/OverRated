@@ -66,4 +66,9 @@
 .termsandconditions{
   width: 200px;
   margin: auto;
+  font-size: 60%;
+}
+
+body {
+  background-image: url('');
 }
