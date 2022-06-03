@@ -26,3 +26,13 @@ I was the official creator of the Profile Model inside of our API. We also refac
 * Nav Bar
 
 So today was a very productive day and very stressful spent a lot of time refactoring and frankensteining the nav bar using css and bootstrap but i got it to where the logo takes you back to the home page, the nav bar color is color matched with the logo and the my profile is all the way on the right so good progress has been made i still need to fix the back end routes and clean up some things but we are on the right track
+
+## June 2, 2022
+
+* Back End processes
+
+Today a large chunk of our day was spent regarding the processes and working in excalidraw and brainstorming ways that our matching process would work with the concepts of gender and sexuality and working out how we can do that and the creation of a new table and joining them with the profiles and connecting them with that they are vs what they are interested in seemed like the prevailing choice so we were able to do that together for our back end team to begin work on
+
+* React
+
+There wasnt much time left at the end of the day but i cleaned up some unneccesary files and changed some names around but we are working on getting it ready for when we can finally build individual pages 
