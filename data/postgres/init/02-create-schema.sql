@@ -41,5 +41,5 @@ CREATE TABLE public.profiles (
 CREATE TABLE public.interested (
     id serial NOT NULL PRIMARY KEY,
     profile_id int NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
-    interest character varying(10) NOT NULL
+    interest character varying(50) NOT NULL
 );

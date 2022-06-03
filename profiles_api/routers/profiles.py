@@ -9,7 +9,8 @@ from models.profiles import (
     ProfileUpdateIn,
     AccountUpdateIn,
     ProfileUpdateOut,
-    AccountUpdateOut
+    AccountUpdateOut,
+    ProfileOutWithInterested
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername
@@ -50,6 +51,7 @@ def row_to_profile_post(row):
         "last_name":row[5],
         "date_of_birth":row[7],
         "location":row[6],
+        "interested":row[8]
     }
     return profile
 
@@ -67,7 +69,7 @@ def row_to_profile_update(row):
         "sexual_orientation":row[13],
         "religion":row[14],
         "ethnicity":row[15],
-        "pronouns":row[16],
+        "pronouns":row[16]
     }
     return profile
 
@@ -112,9 +114,9 @@ def get_profile(profile_id: int, response: Response, query=Depends(ProfileQuerie
 
 @router.post(
     "/api/profiles/profiles",
-    response_model=Union[ProfileOut, ErrorMessage],
+    response_model=Union[ProfileOutWithInterested, ErrorMessage],
     responses={
-        200: {"model": ProfileOut},
+        200: {"model": ProfileOutWithInterested},
         409: {"model": ErrorMessage}
     },
 )
@@ -131,7 +133,8 @@ def create_profile(
             profile.first_name, 
             profile.last_name, 
             profile.location, 
-            profile.date_of_birth
+            profile.date_of_birth,
+            profile.interested
         )
         return row_to_profile_post(row)
     except DuplicateUsername:
@@ -168,7 +171,7 @@ def update_profile(
             profile.sexual_orientation,
             profile.religion,
             profile.ethnicity,
-            profile.pronouns
+            profile.pronouns,
         )
         # return ProfileUpdateOut(
         #         id = row[0],

@@ -13,3 +13,10 @@ Today I added react capabilities in preparation to be able to create the front-e
 
 ## June 01, 2022
 Got the rest of the Profile API's to work. Had to comment out the validation response for the PUT because it was throwing errors despite the edits going through. 
+
+## June 02, 2022
+Today, we added a interested table that tracks a user's gender preference in a partner. The interested table is linked to the profile table through the profile id. Also updated the post profile code to add user preference when creating an account. 
+
+We did this by creating a for loop after creating profile so we can have the profile id. Then in the for loop for every selection of gender preference, we would insert that into the interested table. We would return the profile with the appended preferences back to the router for the API response.
+
+We ended up using the typing import List suggested by Chris to create a list of strings that capture user preference. TIL that when using that variable, it's a class object so anything you want to call in has to be "object.name" format.

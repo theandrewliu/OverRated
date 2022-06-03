@@ -20,25 +20,25 @@ class ProfileQueries:
                 page_count = ceil(cursor.fetchone()[0] / 10)
                 cursor.execute(
                     """
-                    SELECT 
-                        p.id,
-                        p.username,
-                        p.email,
-                        p.first_name,
-                        p.last_name,
-                        p.location,
-                        p.date_of_birth,
-                        p.photo,
-                        p.about,
-                        p.height,
-                        p.job,
-                        p.education,
-                        p.gender,
-                        p.sexual_orientation,
-                        p.religion,
-                        p.ethnicity,
-                        p.pronouns
+                    SELECT p.id
+                        , p.username
+                        , p.email
+                        , p.first_name
+                        , p.last_name
+                        , p.location
+                        , p.date_of_birth
+                        , p.photo
+                        , p.about
+                        , p.height
+                        , p.job
+                        , p.education
+                        , p.gender
+                        , p.sexual_orientation
+                        , p.religion
+                        , p.ethnicity
+                        , p.pronouns
                     FROM profiles AS p
+                    LEFT JOIN interested AS i ON (i.profile_id = p.id)
                     LIMIT 10 OFFSET %s
                 """,
                     [page * 10],
@@ -77,7 +77,7 @@ class ProfileQueries:
                 return cursor.fetchone()
 
 
-    def insert_profile(self, username, email, password, first_name, last_name, location, dob):
+    def insert_profile(self, username, email, password, first_name, last_name, location, dob, pfences):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 try:
@@ -89,16 +89,31 @@ class ProfileQueries:
                         """,
                             [username, email, password, first_name, last_name, location, dob]
                     )
-                    return cursor.fetchone()
+                    profiles = list(cursor.fetchone())
+                    for pfence in pfences.interested:
+                        cursor.execute(
+                            """
+                            INSERT INTO interested(profile_id, interest)
+                            VALUES(%s, %s)
+                            """,
+                                [profiles[0], pfence]
+                        )
+                    profiles.append(pfences.interested) #yesenia is confused by this line - why do we append pfences.interested? ohh is that because we inserted new values into interested? 
+                    return profiles
                 except UniqueViolation:
                     raise DuplicateUsername
 
 
     # update personal info             
-    def update_profile(self, id, location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns):
+    def update_profile(self, id, location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns, pfences):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 try:
+                    cursor.execute(
+                        """
+                        
+                        """
+                    )
                     cursor.execute(
                         """
                         UPDATE profiles
