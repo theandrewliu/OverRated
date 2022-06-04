@@ -67,3 +67,12 @@ typing import List
 
 
 cursor.fetchone() returns a tuple, but we turned it into a list so we could append to it in our for loop.
+
+
+## June 3, 2022
+* Interested table joined 
+Today, Andrew and I implemented the interested table into the all of the profile api endpoints (detail, list, and update). 
+
+In the update_profile function in db.py, we used a for loop and if statements to update our interested table. 
+
+Today I learned that cursor.fetchall() returns a list with tuples inside. I am also understanding more how to debug FastAPI with print statements. 

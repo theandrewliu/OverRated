@@ -9,6 +9,23 @@ class DuplicateUsername(RuntimeError):
     pass
 
 class ProfileQueries:
+    def get_list_of_interests(self, id):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                        """
+                        SELECT interest
+                        FROM interested
+                        WHERE profile_id = %s
+                        """,
+                            [id],
+                )
+                interests = cursor.fetchall() # this is a tuple inside a list 
+                list_of_interests=[]
+                for interest in interests:
+                    list_of_interests.append(interest[0])
+                return list_of_interests
+
     def get_all_profiles(self, page: int=0):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
@@ -149,19 +166,7 @@ class ProfileQueries:
 
                     profile = list(cursor.fetchone())
 
-                    cursor.execute(
-                        """
-                        SELECT interest
-                        FROM interested
-                        WHERE profile_id = %s
-                        """,
-                            [id]
-                    )
-                    interests = cursor.fetchall() # this is a tuple inside a list 
-                    list_of_interests=[]
-                    for interest in interests:
-                        list_of_interests.append(interest[0])
-
+                    list_of_interests = self.get_list_of_interests(id)
 
                     preset = ["male", "female", "other"]
 
@@ -183,21 +188,8 @@ class ProfileQueries:
                                     [id, i]
                             )
 
-                    cursor.execute(
-                        """
-                        SELECT interest
-                        FROM interested
-                        WHERE profile_id = %s
-                        """,
-                            [id]
-                    )
-                    interests = cursor.fetchall() # this is a tuple inside a list 
-                    list_of_interests=[]
-                    for interest in interests:
-                        list_of_interests.append(interest[0])
-                        
-                    profile.append(list_of_interests)
-
+                    updated_list_of_interests = self.get_list_of_interests(id)
+                    profile.append(updated_list_of_interests)
                     return profile
                 except UniqueViolation:
                     raise DuplicateUsername
