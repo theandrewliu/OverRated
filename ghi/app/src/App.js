@@ -5,7 +5,6 @@ import Logout from './Logout';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
 import Chat from './Profiles/Chat';
-// import Users from './Profiles/Users';
 import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 import MainPage from './MainPage';
@@ -27,10 +26,6 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="logout" element={<Logout logout={logout} />} />
 
-          {/* <Route path="users">
-          <Route index element={<UsersForm />} />
-          <Route path="history" element={<UsersList />} />
-          </Route> */}
 
           <Route path="login">
             <Route index element={<LoginForm token={token} login={login} />} />

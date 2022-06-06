@@ -1,13 +1,10 @@
 import React from "react";
 
 
-class UsersForm extends React.Component {
+class ProfileForm extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            // email: "",
-            // first_name: "",
-            // last_name: "",
             photo: "",
             about: "",
             height: "",
@@ -18,18 +15,16 @@ class UsersForm extends React.Component {
             religion: "",
             pronouns: "",
         };
-        // this.handleEmailChange = this.handleEmailChange.bind(this);
-        // this.handleFirst_nameChange = this.handleDobChange.bind(this);
-        // this.handleLast_nameChange = this.handlePasswordChange.bind(this);
-        this.handlePhotoChange = this.handleVerify_PasswordChange.bind(this);
-        this.handleAboutChange = this.handleEmailChange.bind(this);
-        this.handleHeightChange = this.handleUsernameChange.bind(this);
-        this.handleJobChange = this.handleDobChange.bind(this);
-        this.handleEducationChange = this.handlePasswordChange.bind(this);
-        this.handleGenderChange = this.handleVerify_PasswordChange.bind(this);
-        this.handleSexual_orientationChange = this.handleDobChange.bind(this);
-        this.handleReligionChange = this.handlePasswordChange.bind(this);
-        this.handlePronounsChange = this.handleVerify_PasswordChange.bind(this);
+        
+        this.handlePhotoChange = this.handlePhotoChange.bind(this);
+        this.handleAboutChange = this.handleAboutChange.bind(this);
+        this.handleHeightChange = this.handleHeightChange.bind(this);
+        this.handleJobChange = this.handleJobChange.bind(this);
+        this.handleEducationChange = this.handleEducationChange.bind(this);
+        this.handleGenderChange = this.handleGenderChange.bind(this);
+        this.handleSexual_orientationChange = this.handleSexual_orientationChange.bind(this);
+        this.handleReligionChange = this.handleReligionChange.bind(this);
+        this.handlePronounsChange = this.handlePronounsChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -51,9 +46,6 @@ class UsersForm extends React.Component {
             const userform = await response.json();
             console.log(userform);
             this.setState({
-                // email: "",
-                // first_name: "",
-                // last_name: "",
                 photo: "",
                 about: "",
                 height: "",
@@ -67,18 +59,7 @@ class UsersForm extends React.Component {
         }
     }
 
-    // handleEmailChange(event) {
-    //     const value = event.target.value;
-    //     this.setState({ email: value });
-    // }
-    // handleFirst_nameChange(event) {
-    //     const value = event.target.value;
-    //     this.setState({ first_name: value });
-    // }
-    // handleLast_nameChange(event) {
-    //     const value = event.target.value;
-    //     this.setState({ last_name: value });
-    // }
+
     handlePhotoChange(event) {
         const value = event.target.value;
         this.setState({ photo: value });
@@ -123,18 +104,6 @@ class UsersForm extends React.Component {
                 <div className="shadow p-4 mt-4">
                     <h1>Overrated Sign Up Form</h1>
                     <form onSubmit={this.handleSubmit} id="create-form">
-                    {/* <div className="form-floating mb-3">
-                        <input onChange={this.handleEmailChange} value={this.state.email} placeholder="Email" required type="email" name="email" id="email" className="form-control" />
-                        <label htmlFor="email">Email</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <input onChange={this.handleFirst_nameChange} value={this.state.first_name} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
-                        <label htmlFor="first_name">First Name</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <input onChange={this.handleLast_nameChange} value={this.state.last_name} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
-                        <label htmlFor="last_name">Last Name</label> */}
-                    {/* </div> */}
                     <div className="form-floating mb-3">
                         <input onChange={this.handlePhotoChange} value={this.state.photo} placeholder="Photo" required type="image" name="photo" id="photo" className="form-control" />
                         <label htmlFor="photo">Photo</label>
@@ -180,4 +149,4 @@ class UsersForm extends React.Component {
     }
 }
 
-export default UsersForm;
+export default ProfileForm;
