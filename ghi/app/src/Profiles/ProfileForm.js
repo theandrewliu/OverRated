@@ -34,7 +34,7 @@ class ProfileForm extends React.Component {
 
         const user_Form_Url = "http://localhost:8090";
         const fetchConfig = {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
