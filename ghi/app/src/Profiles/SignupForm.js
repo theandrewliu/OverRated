@@ -1,19 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-
-// username: str
-// email: str
-// password: str
-// first_name: str
-// last_name: str
-// location: str
-// date_of_birth: date
-// interested: Interested
-=======
 import { Link, Navigate } from 'react-router-dom';
 
->>>>>>> d31d6776c0868cccfddd6028e5ac315b27778b45
 
 class SignupForm extends React.Component{
     constructor(props){
@@ -61,9 +48,6 @@ class SignupForm extends React.Component{
         const value = event.target.value;
         this.setState({ verify_password: value });
     }
-<<<<<<< HEAD
-// if statement for password
-=======
 
     validForm() {
         return this.state.password.length >= 8 &&
@@ -73,7 +57,6 @@ class SignupForm extends React.Component{
                this.state.dob;
     }
 
->>>>>>> d31d6776c0868cccfddd6028e5ac315b27778b45
     render() {
         if (this.props.token) {
             return <Navigate to="/my_profile" />;
