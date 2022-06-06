@@ -10,7 +10,6 @@ import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 import MainPage from './MainPage';
 import { useToken } from './authApi';
-import Chat from './Profiles/Chat';
 
 function App() {
   const [token, login, logout, signup] = useToken();
