@@ -10,7 +10,6 @@ import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 import MainPage from './MainPage';
 import { useToken } from './authApi';
-import Chat from './Profiles/Chat';
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -24,10 +23,8 @@ function App() {
       <div className="container">
         <Routes>
         
-        <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/chat" element={<Chat />} />
-        </Routes>
           <Route path="logout" element={<Logout logout={logout} />} />
 
           {/* <Route path="users">
