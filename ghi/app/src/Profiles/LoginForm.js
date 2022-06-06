@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 
 class LoginForm extends React.Component{
@@ -13,11 +13,15 @@ class LoginForm extends React.Component{
         this.setState({[name]: value})
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = (e) => {
         e.preventDefault()
+        this.props.login(this.state.username, this.state.password);
     }
 
     render(){
+        if (this.props.token) {
+            return <Navigate to="/my_profile" />;
+        }
         return(
             <div>
                 <div>
