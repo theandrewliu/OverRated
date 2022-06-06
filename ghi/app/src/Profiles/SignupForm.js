@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
+// username: str
+// email: str
+// password: str
+// first_name: str
+// last_name: str
+// location: str
+// date_of_birth: date
+// interested: Interested
 
 class SignupForm extends React.Component{
     constructor(props){
@@ -68,7 +75,7 @@ class SignupForm extends React.Component{
         const value = event.target.value;
         this.setState({ verify_password: value });
     }
-
+// if statement for password
     render() {
         return (
             <div className="row">

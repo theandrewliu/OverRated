@@ -16,7 +16,11 @@ function App() {
     </div>
       <div className="container">
         <Routes>
+        
+        <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/chat" element={<Chat />} />
+        </Routes>
 
           {/* <Route path="users">
           <Route index element={<UsersForm />} />

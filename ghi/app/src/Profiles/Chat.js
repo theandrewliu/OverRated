@@ -1,85 +1,117 @@
-// import React, { useState, useEffect } from "react";
-// import ScrollToBottom from "react-scroll-to-bottom";
+import React from 'react';
 
 
-// //Chat component
-// function Chat({ socket, username, room }) {
-//     const [currentMessage, setCurrentMessage] = useState("");
-//     const [messageList, setMessageList] = useState([]);
+function MessageRow(props) {
+  const when = new Date(props.message.timestamp);
+  return (
+    <tr>
+      <td>{props.message.client_id}</td>
+      <td>{when.toLocaleString()}</td>
+      <td>{props.message.content}</td>
+    </tr>
+  )
+}
 
-//     // function that is called when click button
-//     const sendMessage = async () => {
-//         if (currentMessage !== "") {
-//         // will contain all the message and send this object to the socket server
-//         const messageData = {
-//             room: room,
-//             author: username,
-//             message: currentMessage,
-//             time:
-//                 // Current date to get hours and minutes
-//                 new Date(Date.now()).getHours() +
-//                 ":" +
-//                 new Date(Date.now()).getMinutes(),
-//             };
-//             // first parameter is passed, second is passed to the socket server
-//             await socket.emit("send_message", messageData);
-//             setMessageList((list) => [...list, messageData]);
-//             setCurrentMessage("");
-//           }
-//         };
 
-//     // going to listen whenever any changes 
-//     useEffect(() => {
-//         socket.on("receive_message", (data) => {
-//             // grab the current message list 
-//             setMessageList((list) => [...list, data]);
-//             console.log(data);
-//         });
-//       }, [socket]);
+class Chat extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: [],
+      clientId: Number.parseInt(Math.random() * 10000000),
+      connected: false,
+      message: '',
+    };
+    this.sendMessage = this.sendMessage.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
+  }
 
-//       return (
-//         <div className="chat-window">
-//           <div className="chat-header">
-//             <p>Live Chat</p>
-//           </div>
-//           <div className="chat-body">
-//             <ScrollToBottom className="message-container">
-//               {messageList.map((messageContent) => {
-//                 return (
-//                   <div
-//                     className="message"
-//                     id={username === messageContent.author ? "you" : "other"}
-//                   >
-//                     <div>
-//                       <div className="message-content">
-//                         <p>{messageContent.message}</p>
-//                       </div>
-//                       <div className="message-meta">
-//                         <p id="time">{messageContent.time}</p>
-//                         <p id="author">{messageContent.author}</p>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 );
-//               })}
-//             </ScrollToBottom>
-//           </div>
-//           <div className="chat-footer">
-//             <input
-//               type="text"
-//               value={currentMessage}
-//               placeholder="Hey..."
-//               onChange={(event) => {
-//                 setCurrentMessage(event.target.value);
-//               }}
-//               onKeyPress={(event) => {
-//                 event.key === "Enter" && sendMessage();
-//               }}
-//             />
-//             <button onClick={sendMessage}>&#9658;</button>
-//           </div>
-//         </div>
-//       );
-//     }
-    
-//     export default Chat;
+  connect() {
+    if (this.loading && !this.state.connected) {
+      return;
+    }
+    this.loading = true;
+    // Should be an environment variable in the future
+    const url = `ws://localhost:8000/chat/${this.state.clientId}`;
+    this.socket = new WebSocket(url);
+    this.socket.addEventListener('open', () => {
+      this.setState({ connected: true });
+      this.loading = false;
+    });
+    this.socket.addEventListener('close', () => {
+      this.setState({ connected: false });
+      this.loading = false;
+      setTimeout(() => {
+        this.connect();
+      }, 1000);
+    });
+    this.socket.addEventListener('error', () => {
+      this.setState({ connected: false });
+      this.loading = false;
+      setTimeout(() => {
+        this.connect();
+      }, 1000);
+    });
+    this.socket.addEventListener('message', message => {
+      this.setState({
+        messages: [
+          JSON.parse(message.data),
+          ...this.state.messages,
+        ],
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.connect();
+  }
+
+  sendMessage(e) {
+    e.preventDefault();
+    this.socket.send(this.state.message);
+    this.setState({ message: '' });
+  }
+
+  updateMessage(e) {
+    this.setState({ message: e.target.value });
+  }
+
+  render() {
+    return (
+      <>
+        <h1>WebSocket Chat</h1>
+        <h2>Your ID: {this.state.clientId}</h2>
+        <form onSubmit={this.sendMessage}>
+            <input value={this.state.message}
+                   className="form-control"
+                   type="text"
+                   id="messageText"
+                   autoComplete="off"
+                   onChange={this.updateMessage}/>
+            <button disabled={!this.state.connected}
+                    className="btn btn-primary">
+              Send
+            </button>
+        </form>
+        <h2>Messages</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Date/Time</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.messages.map(message => (
+              <MessageRow key={message.clientId + message.timestamp}
+                          message={message} />
+            ))}
+          </tbody>
+        </table>
+      </>
+    )
+  }
+}
+
+export default Chat;

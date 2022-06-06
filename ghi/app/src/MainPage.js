@@ -6,6 +6,7 @@ function MainPage() {
 
 
   return (
+    <body>
     <div className="px-4 my-5 text-center" >
     <div id="container">
       <div class="col1">
@@ -33,6 +34,7 @@ function MainPage() {
         </div>
       </div>
     </div>
+    </body>
   );
 }
 
