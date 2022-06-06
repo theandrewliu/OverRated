@@ -38,9 +38,6 @@ class LoginForm extends React.Component{
                         <label htmlFor="password">Password</label>
                         </div>
                         <button onSubmit={this.handleSubmit}>Log In</button>
-                        <div>
-                            <Link to="/signup">Sign Up</Link>
-                        </div>
                     </form>
                 </div>
             </div>

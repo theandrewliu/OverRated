@@ -8,14 +8,20 @@ class SignupForm extends React.Component{
         this.state = {
             email: '',
             username: '',
+            first_name:'',
+            last_name:'',
             dob: '',
+            location:'',
             password: '',
             verify_password: '',
             error: '',
         };
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+        this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleDobChange = this.handleDobChange.bind(this);
+        this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleVerify_PasswordChange = this.handleVerify_PasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,9 +42,21 @@ class SignupForm extends React.Component{
         const value = event.target.value;
         this.setState({ username: value });
     }
+    handleFirstNameChange(event) {
+        const value = event.target.value;
+        this.setState({ first_name: value });
+    }
+    handleLastNameChange(event) {
+        const value = event.target.value;
+        this.setState({ last_name: value });
+    }
     handleDobChange(event) {
         const value = event.target.value;
         this.setState({ dob: value });
+    }
+    handleLocationChange(event) {
+        const value = event.target.value;
+        this.setState({ location: value });
     }
     handlePasswordChange(event) {
         const value = event.target.value;
@@ -54,6 +72,9 @@ class SignupForm extends React.Component{
                this.state.password === this.state.verify_password &&
                this.state.email &&
                this.state.username &&
+               this.state.first_name &&
+               this.state.last_name &&
+               this.state.location &&
                this.state.dob;
     }
 
@@ -77,8 +98,20 @@ class SignupForm extends React.Component{
                             <label htmlFor="username">Username</label>
                         </div>
                         <div className="form-floating mb-3">
+                            <input onChange={this.handleFirstNameChange} value={this.state.first_name} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
+                            <label htmlFor="first_name">First Name</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={this.handleLastNameChange} value={this.state.last_name} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
+                            <label htmlFor="last_name">Last name</label>
+                        </div>
+                        <div className="form-floating mb-3">
                             <input onChange={this.handleDobChange} value={this.state.dob} placeholder="DOB" required type="date" name="date" id="date" className="form-control" />
                             <label htmlFor="date">DOB</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={this.handleLocationChange} value={this.state.location} placeholder="Location" required type="text" name="location" id="location" className="form-control" />
+                            <label htmlFor="location">Location</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" required type="password" name="password" id="password" className="form-control" />
@@ -89,9 +122,6 @@ class SignupForm extends React.Component{
                             <label htmlFor="verify-password">Verify Password</label>
                         </div>
                         <button disabled={!this.validForm()} className="btn btn-primary">Sign Up</button>
-                        <div>
-                            <Link to="/login">Login</Link>
-                        </div>
                         </form>
                     </div>
                 </div>
