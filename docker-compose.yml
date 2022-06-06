@@ -30,6 +30,7 @@ services: # Container that we want to run
       PGDATABASE: overrated
       PGUSER: overrated
       PGPASSWORD: overrated
+      SECRET_KEY: 89e0509c7553c4e5ebcb324b718fc8f37e9d02a41c2eb72967dd3c13bd67af15
   postgres:
     image: postgres:14-bullseye
     ports:
@@ -44,8 +45,8 @@ services: # Container that we want to run
       # See 01-create-databases.sql for the name/password
       #   for the user of the application database
       POSTGRES_PASSWORD: secret
-  # db: # not sure about db directories 
-  #   build: 
+  # db: # not sure about db directories
+  #   build:
   #     context: data
   #     dockerfile: Dockerfile.dev
   #   volumes:
@@ -54,11 +55,11 @@ services: # Container that we want to run
   #     POSTGRES_PASSWORD: overrated
   #     POSTGRES_USER: overrated
   #     POSTGRES_DB: overrated
-  #   ports: 
+  #   ports:
   #     - "15432:5432"
   pg-admin:
     image: dpage/pgadmin4 #I only have to docker-compose up
-    volumes: 
+    volumes:
       - pg-admin:/var/lib/pgadmin4
     ports:
       - 8082:80

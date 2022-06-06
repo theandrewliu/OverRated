@@ -1,26 +1,35 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import './index.css';
+import Logout from './Logout';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
 // import Users from './Profiles/Users';
 import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 import MainPage from './MainPage';
+import { useToken } from './authApi';
 
 function App() {
+  const [token, login, logout, signup] = useToken();
+  console.log('token:', token);
+
   return (
     <BrowserRouter>
     <div className="navColor">
-    <Nav />
+    <Nav token={token} />
     </div>
       <div className="container">
         <Routes>
         
         <Routes>
           <Route path="/" element={<MainPage />} />
+<<<<<<< HEAD
           <Route path="/chat" element={<Chat />} />
         </Routes>
+=======
+          <Route path="logout" element={<Logout logout={logout} />} />
+>>>>>>> d31d6776c0868cccfddd6028e5ac315b27778b45
 
           {/* <Route path="users">
           <Route index element={<UsersForm />} />
@@ -28,14 +37,14 @@ function App() {
           </Route> */}
 
           <Route path="login">
-            <Route index element={<LoginForm />} />
-            <Route path="new" element={<SignupForm />} />
-          </Route> 
+            <Route index element={<LoginForm token={token} login={login} />} />
+            <Route path="new" element={<SignupForm token={token} signup={signup} />} />
+          </Route>
 
           <Route path="matches">
             <Route index element={<MatchesList />} />
             <Route path="connections" element={<ConnectionList />} />
-          </Route> 
+          </Route>
 
         </Routes>
       </div>

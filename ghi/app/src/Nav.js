@@ -2,11 +2,12 @@ import { NavLink } from 'react-router-dom';
 import './nav.css';
 import logo from "./logo.png"
 
-function Nav() {
+function Nav(props) {
+  const {token} = props;
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-navColor" >
       <div className="container-fluid">
-        <NavLink to="/" className='home-button' ><a href="" className='logo'><img className="logo" src={logo} alt="" width="80px" height="50px" /></a></NavLink>
+        <NavLink to="/" className='home-button' ><img className="logo" src={logo} alt="" width="80px" height="50px" /></NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -26,9 +27,24 @@ function Nav() {
               </li>
           </ul>
           <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/my_profile">My Profile</NavLink>
-              </li>
+                { token ?
+                  <>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/my_profile">My Profile</NavLink>
+                    </li>
+                    <li className="nav-item">
+                    <NavLink className="nav-link" to="/logout">Logout</NavLink>
+                    </li>
+                  </> :
+                  <>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/login/new">Sign up</NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" end to="/login">Login</NavLink>
+                    </li>
+                  </>
+                }
           </ul>
         </div>
       </div>

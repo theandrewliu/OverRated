@@ -1,6 +1,6 @@
 from math import ceil
 from psycopg_pool import ConnectionPool
-from psycopg.errors import UniqueViolation 
+from psycopg.errors import UniqueViolation
 
 pool = ConnectionPool()
 
@@ -20,7 +20,7 @@ class ProfileQueries:
                         """,
                             [id],
                 )
-                interests = cursor.fetchall() # this is a tuple inside a list 
+                interests = cursor.fetchall() # this is a tuple inside a list
                 list_of_interests=[]
                 for interest in interests:
                     list_of_interests.append(interest[0])
@@ -55,7 +55,7 @@ class ProfileQueries:
                         , p.ethnicity
                         , p.pronouns
                     FROM profiles AS p
-                   
+
                     LIMIT 10 OFFSET %s
                 """,
                 # here
@@ -65,13 +65,29 @@ class ProfileQueries:
                 rows = cursor.fetchall()
                 return page_count, list(rows)
 
+    def get_profile_from_username(self, username: str):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT
+                        p.id,
+                        p.username,
+                        p.password
+                    FROM profiles AS p
+                    WHERE p.username = %s
+                    """,
+                        [username],
+                )
+                profile = cursor.fetchone()
+                return profile
 
     def get_profile(self, id: int):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT 
+                    SELECT
                         p.id,
                         p.username,
                         p.email,
@@ -104,7 +120,7 @@ class ProfileQueries:
                     """,
                         [id]
                 )
-                interests = cursor.fetchall() # this is a tuple inside a list 
+                interests = cursor.fetchall() # this is a tuple inside a list
                 list_of_interests=[]
                 for interest in interests:
                     list_of_interests.append(interest[0])
@@ -133,13 +149,13 @@ class ProfileQueries:
                             """,
                                 [profiles[0], pfence]
                         )
-                    profiles.append(pfences.interested) #yesenia is confused by this line - why do we append pfences.interested? ohh is that because we inserted new values into interested? 
+                    profiles.append(pfences.interested) #yesenia is confused by this line - why do we append pfences.interested? ohh is that because we inserted new values into interested?
                     return profiles
                 except UniqueViolation:
                     raise DuplicateUsername
 
 
-    # update personal info             
+    # update personal info
     def update_profile(self, id, location, photo, about, height, job, education, gender, sexual_orientation, religion, ethnicity, pronouns, pfences):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
@@ -193,8 +209,8 @@ class ProfileQueries:
                     return profile
                 except UniqueViolation:
                     raise DuplicateUsername
-    
-    
+
+
     # update login info
     def update_account(self, id, username, email, password, first_name, last_name):
         with pool.connection() as connection:

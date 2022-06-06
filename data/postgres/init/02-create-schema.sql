@@ -10,7 +10,7 @@ CREATE TABLE public.profiles (
     id serial NOT NULL PRIMARY KEY,
     username character varying(100) NOT NULL UNIQUE,
     email character varying(50) NOT NULL UNIQUE,
-    password character varying(50) NOT NULL,
+    password character varying(60) NOT NULL,
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
     location character varying(50) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE public.profiles (
 -- sexual orientation [0:Straight, 1:Gay, 2:Bi, 3:Pansexual]
 -- interested in [0:Male, 1:Female, 2:Other]
 -- [M4M, M4F, M4O, F4M, F4F, F4O, O4M, O4F, O4O]
--- Straight M looks for F | Straight F looks for M | Gay M looks for M | Gay F looks F | Bi M looks for both M and F | Bi F looks for both M and F | 
+-- Straight M looks for F | Straight F looks for M | Gay M looks for M | Gay F looks F | Bi M looks for both M and F | Bi F looks for both M and F |
 
 ---
 --- Create an interested table for gender each user is filtering for

@@ -14,6 +14,7 @@ from models.profiles import (
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername
+from routers.accounts import pwd_context
 
 router = APIRouter()
 
@@ -108,6 +109,8 @@ def row_to_account_update(row):
     }
     return profile
 
+
+
 @router.get(
     "/api/profiles",
     response_model=ProfileList,
@@ -150,13 +153,14 @@ def create_profile(
     query=Depends(ProfileQueries)
 ):
     try:
+        hashed_password = pwd_context.hash(profile.password)
         row = query.insert_profile(
-            profile.username, 
+            profile.username,
             profile.email,
-            profile.password, 
-            profile.first_name, 
-            profile.last_name, 
-            profile.location, 
+            hashed_password,
+            profile.first_name,
+            profile.last_name,
+            profile.location,
             profile.date_of_birth,
             profile.interested
         )
@@ -252,11 +256,12 @@ def update_account(
     query=Depends(ProfileQueries),
 ):
     try:
+        hashed_password = pwd_context.hash(profile.password)
         row = query.update_account(
             profile_id,
             profile.username,
             profile.email,
-            profile.password,
+            hashed_password,
             profile.first_name,
             profile.last_name
         )
@@ -273,3 +278,5 @@ def update_account(
     except DuplicateUsername:
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": "Duplicate username"}
+
+#patience 
