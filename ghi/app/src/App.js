@@ -24,12 +24,9 @@ function App() {
         
         <Routes>
           <Route path="/" element={<MainPage />} />
-<<<<<<< HEAD
           <Route path="/chat" element={<Chat />} />
         </Routes>
-=======
           <Route path="logout" element={<Logout logout={logout} />} />
->>>>>>> d31d6776c0868cccfddd6028e5ac315b27778b45
 
           {/* <Route path="users">
           <Route index element={<UsersForm />} />
