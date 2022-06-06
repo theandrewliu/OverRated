@@ -12,6 +12,7 @@ import { useToken } from './authApi';
 
 function App() {
   const [token, login, logout, signup] = useToken();
+  console.log('token:', token);
 
   return (
     <BrowserRouter>

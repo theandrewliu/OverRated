@@ -6,6 +6,7 @@ class LoginForm extends React.Component{
     state={
         username:'',
         password:'',
+        error: '',
     }
 
     handleChange = (e) =>{
@@ -13,9 +14,10 @@ class LoginForm extends React.Component{
         this.setState({[name]: value})
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
-        this.props.login(this.state.username, this.state.password);
+        const error = await this.props.login(this.state.username, this.state.password);
+        this.setState({ error: error })
     }
 
     render(){
@@ -25,6 +27,7 @@ class LoginForm extends React.Component{
         return(
             <div>
                 <div>
+                    <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                     <form onSubmit={this.handleSubmit}>
                         <input type='text' name='username' placeholder='username' required onChange={this.handleChange} />
                         <input type='password' name='password' placeholder='password' required onChange={this.handleChange} />

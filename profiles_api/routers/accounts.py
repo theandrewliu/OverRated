@@ -6,6 +6,7 @@ from jose import JWTError, jwt, jws, JWSError
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from typing import Optional
+from json.decoder import JSONDecodeError
 import json
 import os
 
@@ -96,14 +97,14 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
     token = bearer_token
-    if not token and cookie_token:
-        token = json.loads(cookie_token)
     try:
+        if not token and cookie_token:
+            token = json.loads(cookie_token)
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username = payload.get("sub")
         if username is None:
             raise credentials_exception
-    except (JWTError, AttributeError):
+    except (JWTError, AttributeError, JSONDecodeError):
         raise credentials_exception
     user = get_user(repo, username)
     if user is None:
@@ -112,8 +113,8 @@ async def get_current_user(
 
 
 async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
+    # if current_user.disabled:
+    #     raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 

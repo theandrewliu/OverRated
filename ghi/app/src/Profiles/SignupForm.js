@@ -11,6 +11,7 @@ class SignupForm extends React.Component{
             dob: '',
             password: '',
             verify_password: '',
+            error: '',
         };
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -23,7 +24,8 @@ class SignupForm extends React.Component{
     async handleSubmit(event) {
         event.preventDefault();
         const { email, username, dob, password } = this.state;
-        await this.props.signup(username, email, dob, password);
+        const error = await this.props.signup(username, email, dob, password);
+        this.setState({ error });
     }
 
     handleEmailChange(event) {
@@ -64,6 +66,7 @@ class SignupForm extends React.Component{
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
                         <h1>Overrated Sign Up Form</h1>
+                        <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                         <form onSubmit={this.handleSubmit} id="create-form">
                         <div className="form-floating mb-3">
                             <input onChange={this.handleEmailChange} value={this.state.email} placeholder="Email" required type="email" name="email" id="email" className="form-control" />
