@@ -4,6 +4,7 @@ import './index.css';
 import Logout from './Logout';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
+import Chat from './Profiles/Chat';
 // import Users from './Profiles/Users';
 import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';

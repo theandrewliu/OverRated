@@ -29,8 +29,14 @@ class LoginForm extends React.Component{
                 <div>
                     <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                     <form onSubmit={this.handleSubmit}>
+                    <div className="form-floating mb-3">
                         <input type='text' name='username' placeholder='username' required onChange={this.handleChange} />
+                        <label htmlFor="username">Username</label>
+                        </div>
+                    <div className="form-floating mb-3">
                         <input type='password' name='password' placeholder='password' required onChange={this.handleChange} />
+                        <label htmlFor="password">Password</label>
+                        </div>
                         <button onSubmit={this.handleSubmit}>Log In</button>
                         <div>
                             <Link to="/signup">Sign Up</Link>
