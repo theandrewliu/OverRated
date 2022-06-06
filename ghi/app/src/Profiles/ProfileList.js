@@ -1,4 +1,4 @@
-function UsersList(props) {
+function ProfileList(props) {
     return(
     <table className="table table-striped">
       <thead>
@@ -25,4 +25,4 @@ function UsersList(props) {
   );
 }
 
-export default UsersList
+export default ProfileList
