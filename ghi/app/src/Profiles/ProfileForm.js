@@ -32,7 +32,7 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
 
-        const user_Form_Url = "http://localhost:8090";
+        const user_Form_Url = "http://localhost:3000/api/my_profile/";
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),

@@ -32,6 +32,11 @@ function App() {
             <Route path="new" element={<SignupForm token={token} signup={signup} />} />
           </Route>
 
+          <Route path="update">
+            <Route index element={<ProfileForm />} />
+            <Route path="details" element={<ProfileDetail />} />
+          </Route>
+
           <Route path="matches">
             <Route index element={<MatchesList />} />
             <Route path="connections" element={<ConnectionList />} />
