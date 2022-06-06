@@ -1,4 +1,6 @@
-class MyProfile extends React.Component {
+import React from "react";
+
+class ProfileDetail extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -29,3 +31,4 @@ class MyProfile extends React.Component {
     }
   }
   
+  export default ProfileDetail;
