@@ -4,6 +4,7 @@ import os
 
 from routers import (
     profiles,
+    accounts,
 )
 
 app = FastAPI()
@@ -26,4 +27,4 @@ app.add_middleware(
 )
 
 app.include_router(profiles.router)
-
+app.include_router(accounts.router);

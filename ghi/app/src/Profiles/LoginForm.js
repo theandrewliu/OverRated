@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 
 class LoginForm extends React.Component{
     state={
         username:'',
         password:'',
+        error: '',
     }
 
     handleChange = (e) =>{
@@ -13,14 +14,20 @@ class LoginForm extends React.Component{
         this.setState({[name]: value})
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = async (e) => {
         e.preventDefault()
+        const error = await this.props.login(this.state.username, this.state.password);
+        this.setState({ error: error })
     }
 
     render(){
+        if (this.props.token) {
+            return <Navigate to="/my_profile" />;
+        }
         return(
             <div>
                 <div>
+                    <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                     <form onSubmit={this.handleSubmit}>
                         <input type='text' name='username' placeholder='username' required onChange={this.handleChange} />
                         <input type='password' name='password' placeholder='password' required onChange={this.handleChange} />

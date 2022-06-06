@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, Navigate } from 'react-router-dom';
 
 
 class SignupForm extends React.Component{
@@ -12,6 +11,7 @@ class SignupForm extends React.Component{
             dob: '',
             password: '',
             verify_password: '',
+            error: '',
         };
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -21,32 +21,12 @@ class SignupForm extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async handleSubmit(event){
+    async handleSubmit(event) {
         event.preventDefault();
-        const data = {...this.state};
-
-                    // need to find localhost
-        const signup_formUrl = "http://localhost:8090/api/signup/";
-        const fetchConfig = {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-        const response = await fetch(signup_formUrl, fetchConfig);
-        if(response.ok){
-            const signupform = await response.json();
-            console.log(signupform)
-            this.setState({
-                email: '',
-                username: '',
-                dob: '',
-                password: '',
-                verify_password: '',
-            });
+        const { email, username, dob, password } = this.state;
+        const error = await this.props.signup(username, email, dob, password);
+        this.setState({ error });
     }
-}
 
     handleEmailChange(event) {
         const value = event.target.value;
@@ -69,12 +49,24 @@ class SignupForm extends React.Component{
         this.setState({ verify_password: value });
     }
 
+    validForm() {
+        return this.state.password.length >= 8 &&
+               this.state.password === this.state.verify_password &&
+               this.state.email &&
+               this.state.username &&
+               this.state.dob;
+    }
+
     render() {
+        if (this.props.token) {
+            return <Navigate to="/my_profile" />;
+        }
         return (
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
                         <h1>Overrated Sign Up Form</h1>
+                        <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                         <form onSubmit={this.handleSubmit} id="create-form">
                         <div className="form-floating mb-3">
                             <input onChange={this.handleEmailChange} value={this.state.email} placeholder="Email" required type="email" name="email" id="email" className="form-control" />
@@ -96,7 +88,7 @@ class SignupForm extends React.Component{
                             <input onChange={this.handleVerify_PasswordChange} value={this.state.verify_password} placeholder="Verify Password" required type="password" name="verify-password" id="verify-password" className="form-control" />
                             <label htmlFor="verify-password">Verify Password</label>
                         </div>
-                        <button className="btn btn-primary">Sign Up</button>
+                        <button disabled={!this.validForm()} className="btn btn-primary">Sign Up</button>
                         <div>
                             <Link to="/login">Login</Link>
                         </div>

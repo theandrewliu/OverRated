@@ -7,10 +7,10 @@ class ProfileCreateIn(BaseModel):
     username: str
     email: str
     password: str
-    first_name: str
-    last_name: str
-    location: str
-    date_of_birth: date
+    first_name: str | None
+    last_name: str | None
+    location: str | None
+    date_of_birth: date | None
     interested: Interested
 
 
