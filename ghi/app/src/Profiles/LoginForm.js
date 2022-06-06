@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom';
 
 
 class LoginForm extends React.Component{
@@ -45,6 +45,7 @@ class LoginForm extends React.Component{
                         </div>
                         <button onSubmit={this.handleSubmit} disabled={!this.validForm()} className="btn btn-primary">Log In</button>
                         </form>
+                        <Link to="/signup">Be Toxic Today!</Link>
                     </div>
                 </div>
             </div>

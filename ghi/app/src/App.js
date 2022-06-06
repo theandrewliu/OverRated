@@ -9,6 +9,8 @@ import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 import MainPage from './MainPage';
 import { useToken } from './authApi';
+import ProfileForm from './Profiles/ProfileForm';
+import ProfileDetail from './Profiles/ProfileDetail';
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -30,6 +32,11 @@ function App() {
           <Route path="login">
             <Route index element={<LoginForm token={token} login={login} />} />
             <Route path="new" element={<SignupForm token={token} signup={signup} />} />
+          </Route>
+
+          <Route path="update">
+            <Route index element={<ProfileForm />} />
+            <Route path="details" element={<ProfileDetail />} />
           </Route>
 
           <Route path="matches">
