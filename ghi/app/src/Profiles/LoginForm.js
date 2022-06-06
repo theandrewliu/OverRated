@@ -20,25 +20,32 @@ class LoginForm extends React.Component{
         this.setState({ error: error })
     }
 
+    validForm() {
+        return this.state.password.length >= 8 &&
+               this.state.username
+    }
+
     render(){
         if (this.props.token) {
             return <Navigate to="/my_profile" />;
         }
         return(
-            <div>
-                <div>
+        <div className="row">
+            <div className="offset-3 col-6">
+                <div className="shadow p-4 mt-4">
                     <div dangerouslySetInnerHTML={{__html: this.state.error}} />
-                    <form onSubmit={this.handleSubmit}>
-                    <div className="form-floating mb-3">
-                        <input type='text' name='username' placeholder='username' required onChange={this.handleChange} />
-                        <label htmlFor="username">Username</label>
+                    <form onSubmit={this.handleSubmit} id="create-form">
+                        <div className="form-floating mb-3">
+                            <input type='text' name='username' placeholder='username' required onChange={this.handleChange}  className="form-control"/>
+                            <label htmlFor="username">Username</label>
                         </div>
-                    <div className="form-floating mb-3">
-                        <input type='password' name='password' placeholder='password' required onChange={this.handleChange} />
-                        <label htmlFor="password">Password</label>
+                        <div className="form-floating mb-3">
+                            <input type='password' name='password' placeholder='password' required onChange={this.handleChange}  className="form-control"/>
+                            <label htmlFor="password">Password</label>
                         </div>
-                        <button onSubmit={this.handleSubmit}>Log In</button>
-                    </form>
+                        <button onSubmit={this.handleSubmit} disabled={!this.validForm()} className="btn btn-primary">Sign Up</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         )
