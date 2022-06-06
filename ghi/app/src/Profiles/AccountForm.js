@@ -28,13 +28,25 @@ class AccountForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    async deleteAccount(account_id){
+        const deleteUrl =  `http://localhost:8000/api/profiles/$(account_id)`;
+        const fetchConfig = {method: "delete"}
+
+        const response = await fetch(deleteUrl, fetchConfig);
+        if(response.ok){
+            console.log(response);
+            window.location.reload();
+        }
+    };
+
+
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
 
         const account_Url = "http://localhost:8090";
         const fetchConfig = {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -104,22 +116,42 @@ class AccountForm extends React.Component {
                         <input onChange={this.handleEmailChange} value={this.state.email} placeholder="Email" required type="email" name="email" id="email" className="form-control" />
                         <label htmlFor="email">Email</label>
                     </div>
+                    <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                    </form>
+
+                    <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleLocationChange} value={this.state.location} placeholder="Location" required type="text" name="location" id="location" className="form-control" />
                         <label htmlFor="location">Location</label>
                     </div>
-                                        <div className="form-floating mb-3">
+                    <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                    </form>
+
+                    <form onSubmit={this.handleSubmit}>
+                    <div className="form-floating mb-3">
                         <input onChange={this.handleFirst_nameChange} value={this.state.first_name} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
                         <label htmlFor="first_name">First Name</label>
                     </div>
+                    <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                    </form>
+
+                    <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleLast_nameChange} value={this.state.last_name} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
                         <label htmlFor="last_name">Last Name</label> 
                     </div>
+                    <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                    </form>
+
+                    <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                             <input onChange={this.handleUsernameChange} value={this.state.username} placeholder="Username" required type="text" name="username" id="username" className="form-control" />
                             <label htmlFor="username">Username</label>
                         </div>
+                        <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                    </form>
+
+                        <form onSubmit={this.handleSubmit}>
                         <div className="form-floating mb-3">
                             <input onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" required type="password" name="password" id="password" className="form-control" />
                             <label htmlFor="password">Password</label>
@@ -131,6 +163,7 @@ class AccountForm extends React.Component {
                         <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
                     </form>
                 </div>
+                <button onClick={() => this.deleteAccount(account.id)} type="button" className='btn btn-danger'>Delete Account</button>
             </div>
             </div>
         )
