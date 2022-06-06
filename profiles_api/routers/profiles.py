@@ -108,6 +108,8 @@ def row_to_account_update(row):
     }
     return profile
 
+
+
 @router.get(
     "/api/profiles",
     response_model=ProfileList,
