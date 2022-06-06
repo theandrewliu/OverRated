@@ -23,10 +23,8 @@ function App() {
       <div className="container">
         <Routes>
         
-        <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/chat" element={<Chat />} />
-        </Routes>
           <Route path="logout" element={<Logout logout={logout} />} />
 
           {/* <Route path="users">
