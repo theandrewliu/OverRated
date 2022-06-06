@@ -45,7 +45,7 @@ class LoginForm extends React.Component{
                         </div>
                         <button onSubmit={this.handleSubmit} disabled={!this.validForm()} className="btn btn-primary">Log In</button>
                         </form>
-                        <Link to="/signup">Be Toxic Today!</Link>
+                        <Link to="/login/new">Be Toxic Today!</Link>
                     </div>
                 </div>
             </div>
