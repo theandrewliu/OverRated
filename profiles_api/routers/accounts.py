@@ -88,7 +88,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 async def get_current_user(
     bearer_token: Optional[str] = Depends(oauth2_scheme),
-    cookie_token: Optional[str] | None = Cookie(default=None, alias=COOKIE_NAME),
+    cookie_token: Optional[str] = Cookie(default=None, alias=COOKIE_NAME),
     repo: ProfileQueries = Depends(),
 ):
     credentials_exception = HTTPException(
@@ -99,7 +99,7 @@ async def get_current_user(
     token = bearer_token
     try:
         if not token and cookie_token:
-            token = json.loads(cookie_token)
+            token = cookie_token
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username = payload.get("sub")
         if username is None:

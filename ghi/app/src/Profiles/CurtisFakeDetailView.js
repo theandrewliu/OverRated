@@ -1,3 +1,5 @@
+import React from 'react';
+
 class MyProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -23,8 +25,14 @@ class MyProfile extends React.Component {
   }
 
   render() {
+    if (!this.state.user) {
+      return null;
+    }
     return (
       <div>{this.state.user.username}</div>
     );
   }
 }
+
+
+export default MyProfile;

@@ -8,6 +8,7 @@ import SignupForm from './Profiles/SignupForm';
 import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 import MainPage from './MainPage';
+import MyProfile  from './Profiles/CurtisFakeDetailView';
 import { useToken } from './authApi';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path="connections" element={<ConnectionList />} />
           </Route>
 
+          <Route path="/my_profile" element={<MyProfile token={token} />} />
         </Routes>
       </div>
     </BrowserRouter>
