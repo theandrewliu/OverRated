@@ -83,4 +83,6 @@ Today I learned that cursor.fetchall() returns a list with tuples inside. I am a
 Today, Curtis helped us implement user authorization into our front and back-end.
 
 * Table drafts
-Today, we drew out the liked, match, and chat tables so we can begin creating them 
+Today, we drew out the liked, matched, and chat tables so we can begin creating the functions for them. 
+
+Today, I learned about hashed_passwords! 

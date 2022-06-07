@@ -249,6 +249,9 @@ class ProfileQueries:
                 except UniqueViolation:
                     raise DuplicateUsername
 
+
+#id = current user id
+#target_user = detail profile_id (of random filtered profile)
     def swipe_profile(self, id, target_user, liked):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
