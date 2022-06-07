@@ -43,3 +43,26 @@ CREATE TABLE public.interested (
     profile_id int NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     interest character varying(50) NOT NULL
 );
+
+CREATE TABLE public.liked (
+    id serial NOT NULL PRIMARY KEY,
+    "current_user" int NOT NULL,
+    target_user int NOT NULL,
+    liked boolean
+);
+
+CREATE TABLE public.matches (
+    id serial NOT NULL PRIMARY KEY,
+    user1 int NOT NULL,
+    user2 int NOT NULL,
+    created_on TIMESTAMP NOT NULL
+);
+
+CREATE TABLE public.chats (
+    id serial NOT NULL PRIMARY KEY,
+    match_id int NOT NULL REFERENCES public.matches(id) ON DELETE CASCADE,
+    sender int NOT NULL,
+    recipient int NOT NULL,
+    sent TIMESTAMP NOT NULL,
+    message text NOT NULL
+);

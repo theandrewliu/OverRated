@@ -76,3 +76,13 @@ Today, Andrew and I implemented the interested table into the all of the profile
 In the update_profile function in db.py, we used a for loop and if statements to update our interested table. 
 
 Today I learned that cursor.fetchall() returns a list with tuples inside. I am also understanding more how to debug FastAPI with print statements. 
+
+
+## June 6, 2022
+* User authorization 
+Today, Curtis helped us implement user authorization into our front and back-end.
+
+* Table drafts
+Today, we drew out the liked, matched, and chat tables so we can begin creating the functions for them. 
+
+Today, I learned about hashed_passwords! 

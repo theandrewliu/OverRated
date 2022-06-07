@@ -14,7 +14,8 @@ from models.profiles import (
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername
-from routers.accounts import pwd_context
+from routers.accounts import pwd_context, User, get_current_user, HttpError
+
 
 router = APIRouter()
 
@@ -110,19 +111,26 @@ def row_to_account_update(row):
     return profile
 
 
-
+# not using this anywhere at the moment 
 @router.get(
     "/api/profiles",
     response_model=ProfileList,
 )
-def get_profiles(page: int=0, query=Depends(ProfileQueries)):
-    page_count, rows = query.get_all_profiles(page)
+async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    page_count, rows = query.get_all_profiles(current_user["id"], page)
     return {
         "page_count": page_count,
         "profiles": [row_to_profile_list(row) for row in rows],
     }
 
 
+# # user's profile (My Profile)
+# @router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
+# async def read_users_me(current_user: User = Depends(get_current_user)):
+#     return current_user
+
+
+# explore page - detail views of random filtered profiles 
 @router.get(
     "/api/profiles/{profile_id}",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -172,7 +180,7 @@ def create_profile(
 
 # update personal info
 @router.put(
-    "/api/profiles/{profile_id}",
+    "/api/profiles/myself",
     response_model=Union[ProfileUpdateOut, ErrorMessage],
     responses={
         200: {"model": ProfileUpdateOut},
@@ -180,15 +188,17 @@ def create_profile(
         409: {"model": ErrorMessage},
     },
 )
-def update_profile(
-    profile_id: int,
+async def update_profile(
+    # profile_id: int,
     profile: ProfileUpdateIn,
     response: Response,
     query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user),
+    # profile_id: current_user["id"],
 ):
     try:
         row = query.update_profile(
-            profile_id,
+            current_user["id"],
             profile.location,
             profile.photo,
             profile.about,
@@ -202,22 +212,7 @@ def update_profile(
             profile.pronouns,
             profile.interested
         )
-        # return ProfileUpdateOut(
-        #         id = row[0],
-        #         location = row[5],
-        #         photo = row[7],
-        #         about= row[8],
-        #         height= row[9],
-        #         job= row[10],
-        #         education= row[12],
-        #         gender= row[12],
-        #         sexual_orientation= row[13],
-        #         religion= row[14],
-        #         ethnicity= row[15],
-        #         pronouns= row[16],
-        #     )
-    # except:
-    #     return("this did not work")
+
         if row is None:
             response.status_code = status.HTTP_404_NOT_FOUND
             return {"message": "Profile not found"}
@@ -228,12 +223,12 @@ def update_profile(
 
 
 @router.delete(
-    "/api/profiles/{profile_id}",
+    "/api/profiles/myself",
     response_model=ProfileDeleteOperation,
 )
-def delete_profile(profile_id: int, query=Depends(ProfileQueries)):
+def delete_profile(current_user: User = Depends(get_current_user), query=Depends(ProfileQueries)):
     try:
-        query.delete_profile(profile_id)
+        query.delete_profile(current_user["id"])
         return {"result": True}
     except:
         return {"result": False}
@@ -241,7 +236,7 @@ def delete_profile(profile_id: int, query=Depends(ProfileQueries)):
 
 # update login info
 @router.put(
-    "/api/accounts/{profile_id}",
+    "/api/accounts/myself",
     response_model=Union[AccountUpdateOut, ErrorMessage],
     responses={
         200: {"model": AccountUpdateOut},
@@ -250,15 +245,15 @@ def delete_profile(profile_id: int, query=Depends(ProfileQueries)):
     },
 )
 def update_account(
-    profile_id: int,
     profile: AccountUpdateIn,
     response: Response,
     query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user)
 ):
     try:
         hashed_password = pwd_context.hash(profile.password)
         row = query.update_account(
-            profile_id,
+            current_user["id"],
             profile.username,
             profile.email,
             hashed_password,
@@ -279,4 +274,3 @@ def update_account(
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": "Duplicate username"}
 
-#patience 
