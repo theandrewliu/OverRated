@@ -101,7 +101,6 @@ class ProfileOut(BaseModel):
     pronouns: Union[str, None]
 
 
-
 class ProfileList(BaseModel):
     page_count: int
     profiles: list[ProfileOut]
@@ -109,3 +108,15 @@ class ProfileList(BaseModel):
 
 class ProfileDeleteOperation(BaseModel):
     result: bool
+
+
+class SwipedOut(BaseModel):
+    id: int
+    current_user_id: int
+    target_user_id: int
+    liked: bool
+
+class SwipedIn(BaseModel):
+    current_user_id: int
+    target_user_id: int
+    liked: bool

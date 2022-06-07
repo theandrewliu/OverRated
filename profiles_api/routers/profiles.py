@@ -10,10 +10,12 @@ from models.profiles import (
     AccountUpdateIn,
     ProfileUpdateOut,
     AccountUpdateOut,
-    ProfileOutWithInterested
+    ProfileOutWithInterested,
+    SwipedIn,
+    SwipedOut
 )
 from models.common import ErrorMessage
-from db import ProfileQueries, DuplicateUsername
+from db import ProfileQueries, DuplicateUsername, DuplicateTarget
 from routers.accounts import pwd_context, User, get_current_user, HttpError
 
 
@@ -110,6 +112,15 @@ def row_to_account_update(row):
     }
     return profile
 
+
+def row_to_profile_swiped(row):
+    profile = {
+        "id": row[0],
+        "current_user_id": row[1],
+        "target_user_id": row[2],
+        "liked": row[3]
+    }
+    return profile
 
 # not using this anywhere at the moment 
 @router.get(
@@ -274,3 +285,26 @@ def update_account(
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": "Duplicate username"}
 
+
+@router.post(
+    "/api/profiles/liked",
+    response_model=Union[SwipedOut, ErrorMessage],
+    responses={
+        200: {"model": SwipedOut},
+        409: {"model": ErrorMessage}
+    },
+)
+def liked(
+    profile: SwipedIn,
+    response: Response,
+    query=Depends(ProfileQueries)
+):
+    try:
+        row = query.like_profile(
+            profile.current_user_id,
+            profile.target_user_id,
+        )
+        return row_to_profile_swiped(row)
+    except DuplicateTarget:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": f"Target User {profile.target_user_id} was already swiped"}
