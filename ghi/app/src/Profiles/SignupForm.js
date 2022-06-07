@@ -123,7 +123,6 @@ class SignupForm extends React.Component{
                         </div>
                         <button disabled={!this.validForm()} className="btn btn-primary">Sign Up</button>
                         </form>
-                        <Link to="/login">Log In!</Link>
                     </div>
                 </div>
             </div>
