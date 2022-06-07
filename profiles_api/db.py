@@ -8,6 +8,10 @@ pool = ConnectionPool()
 class DuplicateUsername(RuntimeError):
     pass
 
+class DuplicateTarget(RuntimeError):
+    pass
+
+
 class ProfileQueries:
     def get_list_of_interests(self, id):
         with pool.connection() as connection:
@@ -59,11 +63,10 @@ class ProfileQueries:
                     WHERE p.id != %s
                     LIMIT 10 OFFSET %s
                 """,
-                # here
-#  LEFT JOIN interested AS i ON (i.profile_id = p.id)
                     [user_id, page * 10],
                 )
                 rows = cursor.fetchall()
+                print("rows:", rows)
                 return page_count, list(rows)
 
     def get_profile_from_username(self, username: str):
@@ -252,14 +255,59 @@ class ProfileQueries:
 
 #id = current user id
 #target_user = detail profile_id (of random filtered profile)
-    def swipe_profile(self, id, target_user, liked):
+    def like_profile(self, id, target_user):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                # try:
+                cursor.execute(
+                    """
+                    INSERT INTO liked(active_user, target_user, liked)
+                    VALUES (%s,%s,TRUE)
+                    RETURNING id, active_user, target_user, liked
+                    """,
+                        [id,target_user]
+                )
+                like = list(cursor.fetchone())
+
+                cursor.execute(
+                    """
+                    SELECT 
+                        active_user
+                        , target_user
+                        , liked
+                    FROM liked 
+                    WHERE active_user = %s
+                    """,
+                        [target_user]
+                )
+                list_of_likes = list(cursor.fetchall())
+                print("list of likes:", list_of_likes)
+                for likes in list_of_likes:
+                    print("likes", likes)
+                    if id == likes[1]: # if active user is swiped by target user
+                        if likes[2]:
+                            print("GO HAVE KIDS YOU TWO")
+                            # cursor.execute(
+                            #     """
+
+                            #     """
+                            # )
+                return like
+                # except:
+                #     print("idk what went wrong bro lol")
+
+    def dislike_profile(self, id, target_user):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 try:
                     cursor.execute(
                         """
-                        
-                        """
+                        INSERT INTO liked(active_user, target_user, liked)
+                        VALUES (%s,%s,FALSE)
+                        RETURNING id, active_user, target_user, liked
+                        """,
+                            [id,target_user]
                     )
+                    return cursor.fetchone()
                 except:
                     print("idk what went wrong bro lol")

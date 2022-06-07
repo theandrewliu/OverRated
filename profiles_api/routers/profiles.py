@@ -10,10 +10,12 @@ from models.profiles import (
     AccountUpdateIn,
     ProfileUpdateOut,
     AccountUpdateOut,
-    ProfileOutWithInterested
+    ProfileOutWithInterested,
+    SwipedIn,
+    SwipedOut
 )
 from models.common import ErrorMessage
-from db import ProfileQueries, DuplicateUsername
+from db import ProfileQueries, DuplicateUsername, DuplicateTarget
 from routers.accounts import pwd_context, User, get_current_user, HttpError
 
 
@@ -111,6 +113,15 @@ def row_to_account_update(row):
     return profile
 
 
+def row_to_profile_swiped(row):
+    profile = {
+        "id": row[0],
+        "active_user_id": row[1],
+        "target_user_id": row[2],
+        "liked": row[3]
+    }
+    return profile
+
 # not using this anywhere at the moment 
 @router.get(
     "/api/profiles",
@@ -128,6 +139,20 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
 # @router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
 # async def read_users_me(current_user: User = Depends(get_current_user)):
 #     return current_user
+@router.get(
+    "/api/profiles/mine",
+    response_model=Union[ProfileOutWithInterested, ErrorMessage],
+    responses = {
+        200: {"model": ProfileOutWithInterested},
+        404: {"model": ErrorMessage}
+    }
+)
+def get_profile(response: Response, query=Depends(ProfileQueries),  current_user: User = Depends(get_current_user)):
+    row = query.get_profile(current_user['id'])
+    if row is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile does not exist"}
+    return row_to_profile(row)
 
 
 # explore page - detail views of random filtered profiles 
@@ -274,3 +299,53 @@ def update_account(
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": "Duplicate username"}
 
+
+@router.post(
+    "/api/profiles/{target_user_id}/liked",
+    response_model=Union[SwipedOut, ErrorMessage],
+    responses={
+        200: {"model": SwipedOut},
+        409: {"model": ErrorMessage}
+    },
+)
+def liked(
+    profile: SwipedIn,
+    target_user_id: int,
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user)
+):
+    try:
+        row = query.like_profile(
+            current_user["id"],
+            target_user_id,
+        )
+        return row_to_profile_swiped(row)
+    except DuplicateTarget:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": f"Target User {target_user_id} was already swiped"}
+
+
+@router.post(
+    "/api/profiles/{target_user_id}/disliked",
+    response_model=Union[SwipedOut, ErrorMessage],
+    responses={
+        200: {"model": SwipedOut},
+        409: {"model": ErrorMessage}
+    },
+)
+def disliked(
+    target_user_id: int,
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user)
+):
+    try:
+        row = query.dislike_profile(
+            current_user["id"],
+            target_user_id,
+        )
+        return row_to_profile_swiped(row)
+    except DuplicateTarget:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": f"Target User {target_user_id} was already swiped"}

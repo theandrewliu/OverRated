@@ -36,13 +36,14 @@ function App() {
 
           <Route path="/update">
             <Route index element={<ProfileForm />} />
-            <Route path="/details" element={<ProfileDetail />} />
+            <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
           </Route>
 
           <Route path="/matches">
             <Route index element={<MatchesList />} />
             <Route path="/connections" element={<ConnectionList />} />
           </Route>
+
 
         </Routes>
       </div>
