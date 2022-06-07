@@ -26,7 +26,7 @@ class ProfileQueries:
                     list_of_interests.append(interest[0])
                 return list_of_interests
 
-    def get_all_profiles(self, page: int=0):
+    def get_all_profiles(self, user_id, page: int=0):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -35,6 +35,7 @@ class ProfileQueries:
                 """
                 )
                 page_count = ceil(cursor.fetchone()[0] / 10)
+                print("user here from db", user_id)
                 cursor.execute(
                     """
                     SELECT p.id
@@ -55,12 +56,12 @@ class ProfileQueries:
                         , p.ethnicity
                         , p.pronouns
                     FROM profiles AS p
-
+                    WHERE p.id != %s
                     LIMIT 10 OFFSET %s
                 """,
                 # here
 #  LEFT JOIN interested AS i ON (i.profile_id = p.id)
-                    [page * 10],
+                    [user_id, page * 10],
                 )
                 rows = cursor.fetchall()
                 return page_count, list(rows)
@@ -247,3 +248,15 @@ class ProfileQueries:
                     )
                 except UniqueViolation:
                     raise DuplicateUsername
+
+    def swipe_profile(self, id, target_user, liked):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        
+                        """
+                    )
+                except:
+                    print("idk what went wrong bro lol")

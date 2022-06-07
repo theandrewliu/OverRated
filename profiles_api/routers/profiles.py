@@ -14,7 +14,8 @@ from models.profiles import (
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername
-from routers.accounts import pwd_context
+from routers.accounts import pwd_context, User, get_current_user, HttpError
+
 
 router = APIRouter()
 
@@ -110,19 +111,26 @@ def row_to_account_update(row):
     return profile
 
 
-
+# not using this anywhere at the moment 
 @router.get(
     "/api/profiles",
     response_model=ProfileList,
 )
-def get_profiles(page: int=0, query=Depends(ProfileQueries)):
-    page_count, rows = query.get_all_profiles(page)
+async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    page_count, rows = query.get_all_profiles(current_user["id"], page)
     return {
         "page_count": page_count,
         "profiles": [row_to_profile_list(row) for row in rows],
     }
 
 
+# user's profile (My Profile)
+@router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    return current_user
+
+
+# explore page - detail views of random filtered profiles 
 @router.get(
     "/api/profiles/{profile_id}",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],

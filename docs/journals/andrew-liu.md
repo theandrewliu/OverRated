@@ -20,3 +20,6 @@ Today, we added a interested table that tracks a user's gender preference in a p
 We did this by creating a for loop after creating profile so we can have the profile id. Then in the for loop for every selection of gender preference, we would insert that into the interested table. We would return the profile with the appended preferences back to the router for the API response.
 
 We ended up using the typing import List suggested by Chris to create a list of strings that capture user preference. TIL that when using that variable, it's a class object so anything you want to call in has to be "object.name" format.
+
+## June 06, 2022
+Curtis helped with our accounts implementation so that the active user_id is applied to sql queries. Implemented it with our list all profiles view so user cannot see themselves when making that http request. Goal is to get that implemented to the other post requests and then create functions to manipulate the match tables.
