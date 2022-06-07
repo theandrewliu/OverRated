@@ -105,7 +105,7 @@ class ProfileForm extends React.Component {
                     <h1>Overrated Sign Up Form</h1>
                     <form onSubmit={this.handleSubmit} id="create-form">
                     <div className="form-floating mb-3">
-                        <input onChange={this.handlePhotoChange} value={this.state.photo} placeholder="Photo" required type="image" name="photo" id="photo" className="form-control" />
+                        <input onChange={this.handlePhotoChange} value={this.state.photo} placeholder="Photo" required type="text" name="photo" id="photo" className="form-control" />
                         <label htmlFor="photo">Photo</label>
                     </div>
                     <div className="form-floating mb-3">
