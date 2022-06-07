@@ -26,6 +26,7 @@ function App() {
         
           <Route path="/" element={<MainPage />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
           <Route path="logout" element={<Logout logout={logout} />} />
 
 
@@ -43,6 +44,7 @@ function App() {
             <Route index element={<MatchesList />} />
             <Route path="connections" element={<ConnectionList />} />
           </Route>
+
 
         </Routes>
       </div>

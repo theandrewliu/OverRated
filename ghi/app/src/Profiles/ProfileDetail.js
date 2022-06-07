@@ -6,19 +6,30 @@ import React from "react";
 class ProfileDetail extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {
-        user: null,
-      };
+      this.setState({
+        photo: "",
+        about: "",
+        height: "",
+        job: "",
+        education: "",
+        gender: "",
+        sexual_orientation: "",
+        religion: "",
+        pronouns: "",
+        interested_in: "",
+    });
     }
+    
   
     async getMyDetails() {
+      console.log("test", this.state)
       const url = `${process.env.REACT_APP_API_HOST}/users/me`;
       const response = await fetch(url, {
         credentials: 'include',
       });
       if (response.ok) {
         this.setState({
-          user: await response.json(),
+          about: await response.json(),
         });
       }
     }
@@ -29,7 +40,7 @@ class ProfileDetail extends React.Component {
   
     render() {
       return (
-        <div>{this.state.user.username}</div>
+        <div>{this.state}</div>
       );
     }
   }
