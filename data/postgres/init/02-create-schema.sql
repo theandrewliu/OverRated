@@ -46,7 +46,7 @@ CREATE TABLE public.interested (
 
 CREATE TABLE public.liked (
     id serial NOT NULL PRIMARY KEY,
-    "current_user" int NOT NULL,
+    active_user int NOT NULL,
     target_user int NOT NULL,
     liked boolean
 );

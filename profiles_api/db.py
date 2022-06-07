@@ -59,8 +59,8 @@ class ProfileQueries:
                         , p.religion
                         , p.ethnicity
                         , p.pronouns
-                    FROM profiles AS p,
-                    WHERE p.id != %s, 
+                    FROM profiles AS p
+                    WHERE p.id != %s
                     LIMIT 10 OFFSET %s
                 """,
                     [user_id, page * 10],
@@ -258,18 +258,43 @@ class ProfileQueries:
     def like_profile(self, id, target_user):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
-                try:
-                    cursor.execute(
-                        """
-                        INSERT INTO liked(current_user, target_user, liked)
-                        VALUES (%s,%s,TRUE)
-                        RETURNING id, current_user, target_user, liked
-                        """,
-                            [id,target_user]
-                    )
-                    return cursor.fetchone()
-                except:
-                    print("idk what went wrong bro lol")
+                # try:
+                cursor.execute(
+                    """
+                    INSERT INTO liked(active_user, target_user, liked)
+                    VALUES (%s,%s,TRUE)
+                    RETURNING id, active_user, target_user, liked
+                    """,
+                        [id,target_user]
+                )
+                like = list(cursor.fetchone())
+
+                cursor.execute(
+                    """
+                    SELECT 
+                        active_user
+                        , target_user
+                        , liked
+                    FROM liked 
+                    WHERE active_user = %s
+                    """,
+                        [target_user]
+                )
+                list_of_likes = list(cursor.fetchall())
+                print("list of likes:", list_of_likes)
+                for likes in list_of_likes:
+                    print("likes", likes)
+                    if id == likes[1]: # if active user is swiped by target user
+                        if likes[2]:
+                            print("GO HAVE KIDS YOU TWO")
+                            # cursor.execute(
+                            #     """
+
+                            #     """
+                            # )
+                return like
+                # except:
+                #     print("idk what went wrong bro lol")
 
     def dislike_profile(self, id, target_user):
         with pool.connection() as connection:
@@ -277,9 +302,9 @@ class ProfileQueries:
                 try:
                     cursor.execute(
                         """
-                        INSERT INTO liked(current_user, target_user, liked)
+                        INSERT INTO liked(active_user, target_user, liked)
                         VALUES (%s,%s,FALSE)
-                        RETURNING id, current_user, target_user, liked
+                        RETURNING id, active_user, target_user, liked
                         """,
                             [id,target_user]
                     )

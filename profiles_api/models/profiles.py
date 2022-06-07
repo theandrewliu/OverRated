@@ -117,6 +117,4 @@ class SwipedOut(BaseModel):
     liked: bool
 
 class SwipedIn(BaseModel):
-    current_user_id: int
     target_user_id: int
-    liked: bool

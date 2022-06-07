@@ -31,7 +31,7 @@ INSERT INTO public.interested (profile_id, interest)
     ('7', 'male'),
     ('7', 'female');
 
-INSERT INTO public.liked ("current_user", target_user, liked)
+INSERT INTO public.liked (active_user, target_user, liked)
     VALUES
     ('1', '2', True),
     ('2', '1', True),
