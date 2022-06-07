@@ -36,3 +36,9 @@ Today a large chunk of our day was spent regarding the processes and working in 
 * React
 
 There wasnt much time left at the end of the day but i cleaned up some unneccesary files and changed some names around but we are working on getting it ready for when we can finally build individual pages 
+
+## June 3, 2022
+I spent time troubleshooting and planning back end functionality with the team
+
+## June 6, 2022
+Today we did our meeting with curtis and he showed us what he was able to help us do with the project which i know the entire team is incredibly grateful for i was able to move some functionality around to help better match our tables also cleaned up the login page and troubleshooted it when thing inevitably went wrong 
