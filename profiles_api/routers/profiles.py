@@ -12,7 +12,7 @@ from models.profiles import (
     AccountUpdateOut,
     ProfileOutWithInterested,
     SwipedIn,
-    SwipedOut
+    SwipedOut,
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
@@ -121,6 +121,7 @@ def row_to_profile_swiped(row):
         "liked": row[3]
     }
     return profile
+
 
 # not using this anywhere at the moment 
 @router.get(
@@ -324,6 +325,7 @@ def liked(
     except DuplicateTarget:
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": f"Target User {target_user_id} was already swiped"}
+
 
 
 @router.post(

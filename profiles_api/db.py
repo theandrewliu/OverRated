@@ -258,43 +258,60 @@ class ProfileQueries:
     def like_profile(self, id, target_user):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
-                # try:
-                cursor.execute(
-                    """
-                    INSERT INTO liked(active_user, target_user, liked)
-                    VALUES (%s,%s,TRUE)
-                    RETURNING id, active_user, target_user, liked
-                    """,
-                        [id,target_user]
-                )
-                like = list(cursor.fetchone())
+                try:
+                    cursor.execute(
+                        """
+                        INSERT INTO liked(active_user, target_user, liked)
+                        VALUES (%s,%s,TRUE)
+                        RETURNING id, active_user, target_user, liked
+                        """,
+                            [id,target_user]
+                    )
+                    like = list(cursor.fetchone())
 
-                cursor.execute(
-                    """
-                    SELECT 
-                        active_user
-                        , target_user
-                        , liked
-                    FROM liked 
-                    WHERE active_user = %s
-                    """,
-                        [target_user]
-                )
-                list_of_likes = list(cursor.fetchall())
-                print("list of likes:", list_of_likes)
-                for likes in list_of_likes:
-                    print("likes", likes)
-                    if id == likes[1]: # if active user is swiped by target user
-                        if likes[2]:
-                            print("GO HAVE KIDS YOU TWO")
-                            # cursor.execute(
-                            #     """
+                    cursor.execute(
+                        """
+                        SELECT 
+                            active_user
+                            , target_user
+                            , liked
+                        FROM liked 
+                        WHERE active_user = %s
+                        """,
+                            [target_user]
+                    )
+                    list_of_likes = list(cursor.fetchall())
+                    for likes in list_of_likes:
+                        if id == likes[1]: # if active user is swiped by target user
+                            if likes[2]:
+                                cursor.execute(
+                                    """
+                                    INSERT INTO matches(user1, user2, created_on)
+                                    VALUES (%s, %s, CURRENT_TIMESTAMP)
+                                    RETURNING id, user1, user2, created_on
+                                    """,
+                                        [id, target_user]
+                                )
+                                blah = cursor.fetchone()
+                                cursor.execute(
+                                    """
+                                    DELETE FROM liked
+                                    WHERE active_user = %s AND target_user = %s
+                                    """,
+                                        [id, target_user]
+                                )
+                                cursor.execute(
+                                    """
+                                    DELETE FROM liked
+                                    WHERE active_user = %s AND target_user = %s
+                                    """,
+                                        [target_user, id]
+                                )
+                    return like
+                except:
+                    print("idk what went wrong bro lol")
+                
 
-                            #     """
-                            # )
-                return like
-                # except:
-                #     print("idk what went wrong bro lol")
 
     def dislike_profile(self, id, target_user):
         with pool.connection() as connection:
