@@ -8,6 +8,10 @@ pool = ConnectionPool()
 class DuplicateUsername(RuntimeError):
     pass
 
+class DuplicateTarget(RuntimeError):
+    pass
+
+
 class ProfileQueries:
     def get_list_of_interests(self, id):
         with pool.connection() as connection:
@@ -55,15 +59,14 @@ class ProfileQueries:
                         , p.religion
                         , p.ethnicity
                         , p.pronouns
-                    FROM profiles AS p
-                    WHERE p.id != %s
+                    FROM profiles AS p,
+                    WHERE p.id != %s, 
                     LIMIT 10 OFFSET %s
                 """,
-                # here
-#  LEFT JOIN interested AS i ON (i.profile_id = p.id)
                     [user_id, page * 10],
                 )
                 rows = cursor.fetchall()
+                print("rows:", rows)
                 return page_count, list(rows)
 
     def get_profile_from_username(self, username: str):
@@ -252,14 +255,34 @@ class ProfileQueries:
 
 #id = current user id
 #target_user = detail profile_id (of random filtered profile)
-    def swipe_profile(self, id, target_user, liked):
+    def like_profile(self, id, target_user):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 try:
                     cursor.execute(
                         """
-                        
-                        """
+                        INSERT INTO liked(current_user, target_user, liked)
+                        VALUES (%s,%s,TRUE)
+                        RETURNING id, current_user, target_user, liked
+                        """,
+                            [id,target_user]
                     )
+                    return cursor.fetchone()
+                except:
+                    print("idk what went wrong bro lol")
+
+    def dislike_profile(self, id, target_user):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        INSERT INTO liked(current_user, target_user, liked)
+                        VALUES (%s,%s,FALSE)
+                        RETURNING id, current_user, target_user, liked
+                        """,
+                            [id,target_user]
+                    )
+                    return cursor.fetchone()
                 except:
                     print("idk what went wrong bro lol")
