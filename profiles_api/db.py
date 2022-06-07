@@ -59,8 +59,8 @@ class ProfileQueries:
                         , p.religion
                         , p.ethnicity
                         , p.pronouns
-                    FROM profiles AS p,
-                    WHERE p.id != %s, 
+                    FROM profiles AS p
+                    WHERE p.id != %s
                     LIMIT 10 OFFSET %s
                 """,
                     [user_id, page * 10],

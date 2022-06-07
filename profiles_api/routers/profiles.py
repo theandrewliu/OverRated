@@ -139,6 +139,20 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
 # @router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
 # async def read_users_me(current_user: User = Depends(get_current_user)):
 #     return current_user
+@router.get(
+    "/api/profiles/mine",
+    response_model=Union[ProfileOutWithInterested, ErrorMessage],
+    responses = {
+        200: {"model": ProfileOutWithInterested},
+        404: {"model": ErrorMessage}
+    }
+)
+def get_profile(response: Response, query=Depends(ProfileQueries),  current_user: User = Depends(get_current_user)):
+    row = query.get_profile(current_user['id'])
+    if row is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile does not exist"}
+    return row_to_profile(row)
 
 
 # explore page - detail views of random filtered profiles 
