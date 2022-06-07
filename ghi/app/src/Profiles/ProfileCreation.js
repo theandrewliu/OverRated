@@ -121,7 +121,7 @@ class ProfileForm extends React.Component {
                         <label htmlFor="about">About Me</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleHeightChange} value={this.state.height} placeholder="Height" required type="number" name="height" id="height" className="form-control" />
+                    <input onChange={this.handleHeightChange} value={this.state.height} placeholder="Height" required type="range" name="height" id="height" min="4'0&quot" max="8'0&quot" className="form-control" />
                         <label htmlFor="height">Height</label>
                     </div>
                     <div className="form-floating mb-3">

@@ -2,13 +2,14 @@ import { Link } from 'react-router-dom';
 import './App.css';
 import React from 'react';
 
-function MainPage() {
 
+
+function MainPage() {
 
   return (
     <body>
     <div className="px-4 my-5 text-center" >
-    <div id="container">
+    <div id="container" style={{ backgroundImage: "url(/images/overratedlogo.png)" }}>
       <div class="col1">
       <h1 className="display-5 fw-bold">OverRated</h1>
       <div class="logo">

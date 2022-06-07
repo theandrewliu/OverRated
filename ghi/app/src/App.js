@@ -26,22 +26,22 @@ function App() {
         
           <Route path="/" element={<MainPage />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="logout" element={<Logout logout={logout} />} />
+          <Route path="/logout" element={<Logout logout={logout} />} />
 
 
-          <Route path="login">
+          <Route path="/login">
             <Route index element={<LoginForm token={token} login={login} />} />
-            <Route path="new" element={<SignupForm token={token} signup={signup} />} />
+            <Route path="/new" element={<SignupForm token={token} signup={signup} />} />
           </Route>
 
-          <Route path="update">
+          <Route path="/update">
             <Route index element={<ProfileForm />} />
-            <Route path="details" element={<ProfileDetail />} />
+            <Route path="/details" element={<ProfileDetail />} />
           </Route>
 
-          <Route path="matches">
+          <Route path="/matches">
             <Route index element={<MatchesList />} />
-            <Route path="connections" element={<ConnectionList />} />
+            <Route path="/connections" element={<ConnectionList />} />
           </Route>
 
         </Routes>

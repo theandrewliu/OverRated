@@ -22,3 +22,4 @@ I added the code to all the form js files. I was able to finish the Login, SignU
 I added all of the code from the websocket into the Chat.js.
 
 ## June 6, 2022
+Finished more of the form js files with getting operational. Added a few more js files for details and list. Tried to implement background image to the main page but having difficulty finding the right method. Updated the app.js files
