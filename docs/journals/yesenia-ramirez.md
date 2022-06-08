@@ -86,3 +86,14 @@ Today, Curtis helped us implement user authorization into our front and back-end
 Today, we drew out the liked, matched, and chat tables so we can begin creating the functions for them. 
 
 Today, I learned about hashed_passwords! 
+
+## June 7, 2022
+* Swiped functions
+Today, Andrew and I worked on the swiped functions, which runs when a user is liked or disliked. 
+
+If the active_user (Betty) likes the target_user (Troy), then liked=True will be inserted into the liked table. Then we will select to see if the target_user (Troy) is in the liked table as an active user and see if Troy (now active_user) liked Betty (now target_user) back. If Troy liked Betty back, then we will insert them into the matched table and delete them from the liked table. If Troy does not like Betty back (liked=False) OR if Troy has not swiped on Betty, then Betty's like will stay in the liked table. 
+
+If the active_user (Betty) disliked the target_user (Troy), then liked=False will be inserted into the table. 
+
+Today, I had more practice with SQL and debugging. 
+

@@ -4,7 +4,6 @@ from typing import Union
 from models.profiles import (
     ProfileList,
     ProfileDeleteOperation,
-    ProfileOut,
     ProfileCreateIn,
     ProfileUpdateIn,
     AccountUpdateIn,
@@ -13,6 +12,7 @@ from models.profiles import (
     ProfileOutWithInterested,
     SwipedIn,
     SwipedOut,
+    MatchedList
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
@@ -121,6 +121,18 @@ def row_to_profile_swiped(row):
         "liked": row[3]
     }
     return profile
+
+
+def row_to_matched_list(row):
+    match = {
+        "id": row[0],
+        "photo": row[1],
+        "first_name": row[2],
+        "last_name": row[3],
+        "location": row[4],
+        "date_of_birth": row[5]
+    }
+    return match
 
 
 # not using this anywhere at the moment 
@@ -327,7 +339,6 @@ def liked(
         return {"message": f"Target User {target_user_id} was already swiped"}
 
 
-
 @router.post(
     "/api/profiles/{target_user_id}/disliked",
     response_model=Union[SwipedOut, ErrorMessage],
@@ -337,6 +348,7 @@ def liked(
     },
 )
 def disliked(
+    profile: SwipedIn,
     target_user_id: int,
     response: Response,
     query=Depends(ProfileQueries),
@@ -351,3 +363,16 @@ def disliked(
     except DuplicateTarget:
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": f"Target User {target_user_id} was already swiped"}
+
+
+@router.get(
+    "/api/my-matches",
+    response_model=MatchedList,
+)
+
+async def get_matches(page: int=0, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    page_count, rows = query.list_matches(current_user["id"], page)
+    return {
+        "page_count": page_count,
+        "matches": [row_to_matched_list(row) for row in rows],
+    }
