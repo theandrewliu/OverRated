@@ -42,3 +42,7 @@ I spent time troubleshooting and planning back end functionality with the team
 
 ## June 6, 2022
 Today we did our meeting with curtis and he showed us what he was able to help us do with the project which i know the entire team is incredibly grateful for i was able to move some functionality around to help better match our tables also cleaned up the login page and troubleshooted it when thing inevitably went wrong 
+
+
+## June 7, 2022
+Quite the busy day if i do say so myself So we did a bit of troubleshooting all day because it wouldnt be code if i didnt have to put out fires every ten seconds. Thanks to curtis we were able to get the data push for a specific profile onto the my profile by creating a new api route through the back end.with the i was able to css it into submission which truly is a huge load off of my shoulders cause now that means the template is also done for the explore page which is a great two birds for one stone.
