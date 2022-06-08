@@ -37,34 +37,37 @@ class ProfileDetail extends React.Component {
         return <Navigate to = '/login' />;
       }
       return (
-        <div>
+        <div className="profileContainer">
           <div className = 'container pic-name' >
               <h1>
                 {this.state.profile.first_name + " " + this.state.profile.last_name}
               </h1>            
             {this.state.profile.photo}
           </div>
-          <div>
+          <div className="details">
               <h1>
                 Details
               </h1>
-            {this.state.profile.pronouns}
-            {this.state.profile.date_of_birth}
-            {this.state.profile.location}
-            {this.state.profile.height}
-            {this.state.profile.job}
-            {this.state.profile.education}
-            {this.state.profile.gender}
-            {this.state.profile.sexual_orientation}
-            {this.state.profile.religion}
-            {this.state.profile.ethnicity}
+              <div className>Pronouns: {this.state.profile.pronouns}</div>
+              <div className>Birthday: {this.state.profile.date_of_birth}</div>
+              <div className>Location: {this.state.profile.location}</div>
+              <div className>Height: {this.state.profile.height}</div>
+              <div className>Job: {this.state.profile.job}</div>
+              <div className>Education: {this.state.profile.education}</div>
+              <div className>Gender: {this.state.profile.gender}</div>
+              <div className>Sexual Orientation: {this.state.profile.sexual_orientation}</div>
+              <div className>Religion: {this.state.profile.religion}</div>
+              <div className>Ethnicity: {this.state.profile.ethnicity}</div>
           </div>
-          <div>
+          <div className="mySummary">
+               <h1>
+                About Me
+              </h1>
             {this.state.profile.about}
           </div>
-          <div>
+          <div className="reviews">
               <h1>
-                About Me
+                Review Score
               </h1>
             {this.state.profile.reviews}
           </div>
