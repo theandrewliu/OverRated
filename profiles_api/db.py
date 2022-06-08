@@ -136,7 +136,16 @@ class ProfileQueries:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT interest
+                    SELECT gender
+                    FROM profiles
+                    WHERE id = %s
+                    """,
+                        [active_id]
+                )
+                active_gender = (cursor.fetchone())
+                cursor.execute(
+                    """
+                    SELECT interest,
                     FROM interested
                     WHERE profile_id = %s
                     """,
@@ -164,7 +173,7 @@ class ProfileQueries:
                         p.ethnicity,
                         p.pronouns
                     FROM profiles as p
-                    WHERE p.id != %s
+                    WHERE p.id != %s 
                     ORDER BY RANDOM()
                     LIMIT 1
                     """,
