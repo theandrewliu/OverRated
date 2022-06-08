@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import './profile.css';
 
 
@@ -27,6 +27,7 @@ class ProfileDetail extends React.Component {
     }
   }
 
+
   componentDidMount() {
     this.getMyDetails();
   }
@@ -37,6 +38,9 @@ class ProfileDetail extends React.Component {
         return <Navigate to = '/login' />;
       }
       return (
+        <>
+        <Link className = 'buttonA' to='/api/profiles/myself'>Profile Settings</Link>
+        <Link className = 'buttonB' to='/api/accounts/myself'>Account Settings</Link>
         <div className="profileContainer">
           <div className = 'container pic-name' >
               <h1>
@@ -72,6 +76,7 @@ class ProfileDetail extends React.Component {
             {this.state.profile.reviews}
           </div>
         </div>
+        </>
       );
     }
   }

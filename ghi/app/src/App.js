@@ -35,9 +35,9 @@ function App() {
             <Route path="/login/new" element={<SignupForm token={token} signup={signup} />} />
           </Route>
 
-          <Route path="/update">
+          <Route path="/api/profiles/">
             <Route index element={<ProfileForm />} />
-            <Route path="/update/my_profile" element={<ProfileDetail token={token}/>} />
+            <Route path="/api/profiles/myself" element={<ProfileForm token={token}/>} />
           </Route>
 
           <Route path="/matches">
