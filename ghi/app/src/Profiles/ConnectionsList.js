@@ -1,4 +1,9 @@
 function ConnectionList(props) {
+  if(props.length < 1) {
+    return(
+      <h1>Put yourself out there!</h1>
+    )  
+  }
     return(
     <table className="table table-striped">
       <thead>

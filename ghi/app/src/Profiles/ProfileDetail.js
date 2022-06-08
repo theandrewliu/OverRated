@@ -1,12 +1,13 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import './profile.css';
 
 
 class ProfileDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      about: "",
+      profile: "",
       redirect: false,
   };
   }
@@ -19,7 +20,7 @@ class ProfileDetail extends React.Component {
     });
     if (response.ok) {
       this.setState({
-        about: await response.json(),
+        profile: await response.json(),
       });
     }else if (response.status === 401){
       this.setState({redirect: true})
@@ -29,50 +30,6 @@ class ProfileDetail extends React.Component {
   componentDidMount() {
     this.getMyDetails();
   }
-    // constructor(props) {
-    //   super(props);
-    //   this.setState({
-    //     photo: "",
-    //     about: "",
-    //     height: "",
-    //     job: "",
-    //     education: "",
-    //     gender: "",
-    //     sexual_orientation: "",
-    //     religion: "",
-    //     pronouns: "",
-    //     user: "",
-    // });
-    // }
-    
-  //   async getMyDetails() {
-  //     const url = `${process.env.REACT_APP_API_HOST}/users/me`;
-  //     const response = await fetch(url, {
-  //       credentials: 'include',
-  //     });
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log(data)
-  //       this.setState({
-  //         about: data.about
-          
-  //       });
-
-  //     }
-  //   }
-  
-  //   async componentDidMount() {
-  //     const url = "http://localhost:3000/api/my_profile/";
-  //     const response = await fetch(url);
-  //     console.log(response)
-  
-  //     if (response.ok) {
-  //         const data = await response.json();
-  //         console.log(data)
-  //         this.setState({ about: data.about})
-  //     }
-  // }
-    
   
     render() {
       console.log(this.state)
@@ -80,7 +37,38 @@ class ProfileDetail extends React.Component {
         return <Navigate to = '/login' />;
       }
       return (
-        <div>{this.state.about.id}</div>
+        <div>
+          <div className = 'container pic-name' >
+              <h1>
+                {this.state.profile.first_name + " " + this.state.profile.last_name}
+              </h1>            
+            {this.state.profile.photo}
+          </div>
+          <div>
+              <h1>
+                Details
+              </h1>
+            {this.state.profile.pronouns}
+            {this.state.profile.date_of_birth}
+            {this.state.profile.location}
+            {this.state.profile.height}
+            {this.state.profile.job}
+            {this.state.profile.education}
+            {this.state.profile.gender}
+            {this.state.profile.sexual_orientation}
+            {this.state.profile.religion}
+            {this.state.profile.ethnicity}
+          </div>
+          <div>
+            {this.state.profile.about}
+          </div>
+          <div>
+              <h1>
+                About Me
+              </h1>
+            {this.state.profile.reviews}
+          </div>
+        </div>
       );
     }
   }
