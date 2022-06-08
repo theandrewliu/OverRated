@@ -14,7 +14,7 @@ function Nav(props) {
         <div className="collapse navbar-collapse font-face-na sizer" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item" >
-                <NavLink className="nav-link" aria-current="page" to="/api/profiles/0/" >Explore</NavLink>
+                <NavLink className="nav-link" aria-current="page" to="/api/random" >Explore</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/connections">Connections</NavLink>

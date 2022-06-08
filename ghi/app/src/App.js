@@ -11,6 +11,7 @@ import MainPage from './MainPage';
 import { useToken } from './authApi';
 import ProfileForm from './Profiles/ProfileForm';
 import ProfileDetail from './Profiles/ProfileDetail';
+import Explore from './Profiles/Explorepg';
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -28,6 +29,8 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/logout" element={<Logout logout={logout} />} />
           <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
+          <Route path="/api/random" element={<Explore token={token} />} />
+          
 
 
           <Route path="/login">

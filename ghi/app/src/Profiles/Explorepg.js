@@ -13,7 +13,7 @@ class ProfileDetail extends React.Component {
   }
 
   async getMyDetails() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/{pk}`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/random`;
     const response = await fetch(url, {
       credentials: 'include',
       
@@ -39,8 +39,6 @@ class ProfileDetail extends React.Component {
       }
       return (
         <>
-        <Link className = 'buttonA' to='/api/profiles/myself'>Profile Settings</Link>
-        <Link className = 'buttonB' to='/api/accounts/myself'>Account Settings</Link>
         <div className="profileContainer">
           <div className = 'container pic-name' >
               <h1>
@@ -75,7 +73,8 @@ class ProfileDetail extends React.Component {
               </h1>
             {this.state.profile.reviews}
           </div>
-          <button className = 'testbutton'>TEST</button>
+          <button className = 'dislikebutton'>Dislike</button>
+          <button className = 'likebutton'>Like</button>
         </div>
         </>
       );

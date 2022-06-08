@@ -75,8 +75,6 @@ class ProfileDetail extends React.Component {
               </h1>
             {this.state.profile.reviews}
           </div>
-          <button className = 'dislikebutton'>Dislike</button>
-          <button className = 'likebutton'>Like</button>
         </div>
         </>
       );
