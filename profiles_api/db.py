@@ -377,4 +377,3 @@ class ProfileQueries:
                 return page_count, list(profile_list)
 
                 
-# return photo, first_name, last_name, location, date_of_birth, rating
