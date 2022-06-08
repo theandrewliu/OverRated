@@ -1,4 +1,5 @@
 from math import ceil
+import random
 from psycopg_pool import ConnectionPool
 from psycopg.errors import UniqueViolation
 
@@ -39,7 +40,6 @@ class ProfileQueries:
                 """
                 )
                 page_count = ceil(cursor.fetchone()[0] / 10)
-                print("user here from db", user_id)
                 cursor.execute(
                     """
                     SELECT p.id
@@ -131,6 +131,74 @@ class ProfileQueries:
                 profile.append(list_of_interests)
                 return profile
 
+    def get_random_profile(self, active_id):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT gender
+                    FROM profiles
+                    WHERE id = %s
+                    """,
+                        [active_id]
+                )
+                active_gender = (cursor.fetchone())
+                cursor.execute(
+                    """
+                    SELECT interest,
+                    FROM interested
+                    WHERE profile_id = %s
+                    """,
+                        [active_id]
+                )
+                user_interests = list(cursor.fetchone())
+                print("interests", user_interests)
+                cursor.execute(
+                    """
+                    SELECT p.id,
+                        p.username,
+                        p.email,
+                        p.first_name,
+                        p.last_name,
+                        p.location,
+                        p.date_of_birth,
+                        p.photo,
+                        p.about,
+                        p.height,
+                        p.job,
+                        p.education,
+                        p.gender,
+                        p.sexual_orientation,
+                        p.religion,
+                        p.ethnicity,
+                        p.pronouns
+                    FROM profiles as p
+                    WHERE p.id != %s 
+                    ORDER BY RANDOM()
+                    LIMIT 1
+                    """,
+                        [active_id]
+                )
+                profile = list(cursor.fetchone())
+                
+                rand_profile_id = profile[0]
+                
+                cursor.execute(
+                    """
+                    SELECT
+                        i.interest
+                    FROM interested AS i
+                    WHERE i.profile_id = %s
+                    """,
+                        [rand_profile_id],
+                )
+                interests = cursor.fetchall() # this is a tuple inside a list
+                list_of_interests=[]
+                for interest in interests:
+                    list_of_interests.append(interest[0])
+                profile.append(list_of_interests)
+                
+                return profile
 
     def insert_profile(self, username, email, password, first_name, last_name, location, dob, pfences):
         with pool.connection() as connection:
@@ -328,3 +396,52 @@ class ProfileQueries:
                     return cursor.fetchone()
                 except:
                     print("idk what went wrong bro lol")
+
+    def list_matches(self, user_id, page: int=0):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT COUNT(*) FROM matches;
+                    """
+                )
+                page_count = ceil(cursor.fetchone()[0] / 10)
+                cursor.execute(
+                    """
+                    SELECT user1
+                        , user2
+                    FROM matches
+                    WHERE user1 = %s OR user2 = %s
+                    LIMIT 10 OFFSET %s
+                    """,
+                        [user_id, user_id, page * 10],
+                )
+                matches = list(cursor.fetchall())
+                target_matches =[]
+                for match in matches:
+                    if match[0] == user_id:
+                        target_matches.append(match[1])
+                    elif match[1] == user_id:
+                        target_matches.append(match[0])
+                
+                profile_list=[]
+                for target in target_matches:
+                    cursor.execute(
+                        """
+                        SELECT id 
+                            , photo
+                            , first_name
+                            , last_name
+                            , location
+                            , date_of_birth
+                        FROM profiles
+                        WHERE id = %s
+                        """,
+                            [target]
+                    )
+                    row = cursor.fetchone()
+                    profile_list.append(list(row))
+                print("my profile list", profile_list)
+                return page_count, list(profile_list)
+
+                

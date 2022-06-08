@@ -33,8 +33,6 @@ INSERT INTO public.interested (profile_id, interest)
 
 INSERT INTO public.liked (active_user, target_user, liked)
     VALUES
-    ('1', '2', True),
-    ('2', '1', True),
     ('1', '6', True),
     ('6', '1', False),
     ('7', '5', False);
@@ -42,6 +40,9 @@ INSERT INTO public.liked (active_user, target_user, liked)
 INSERT INTO public.matches (user1, user2, created_on)
     VALUES
     ('1', '2', '2022-06-06 12:20:00');
+    ('3', '2', '2022-06-06 12:20:00');
+    ('5', '2', '2022-06-06 12:20:00');
+
 
 INSERT INTO public.chats (match_id, sender, recipient, sent, message)
     VALUES

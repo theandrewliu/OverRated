@@ -4,7 +4,6 @@ from typing import Union
 from models.profiles import (
     ProfileList,
     ProfileDeleteOperation,
-    ProfileOut,
     ProfileCreateIn,
     ProfileUpdateIn,
     AccountUpdateIn,
@@ -13,6 +12,7 @@ from models.profiles import (
     ProfileOutWithInterested,
     SwipedIn,
     SwipedOut,
+    MatchedList
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
@@ -123,6 +123,18 @@ def row_to_profile_swiped(row):
     return profile
 
 
+def row_to_matched_list(row):
+    match = {
+        "id": row[0],
+        "photo": row[1],
+        "first_name": row[2],
+        "last_name": row[3],
+        "location": row[4],
+        "date_of_birth": row[5]
+    }
+    return match
+
+
 # not using this anywhere at the moment 
 @router.get(
     "/api/profiles",
@@ -136,10 +148,7 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
     }
 
 
-# # user's profile (My Profile)
-# @router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
-# async def read_users_me(current_user: User = Depends(get_current_user)):
-#     return current_user
+
 @router.get(
     "/api/profiles/mine",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -148,7 +157,8 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
         404: {"model": ErrorMessage}
     }
 )
-def get_profile(response: Response, query=Depends(ProfileQueries),  current_user: User = Depends(get_current_user)):
+def get_my_profile(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    print("current user", current_user)
     row = query.get_profile(current_user['id'])
     if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
@@ -156,7 +166,8 @@ def get_profile(response: Response, query=Depends(ProfileQueries),  current_user
     return row_to_profile(row)
 
 
-# explore page - detail views of random filtered profiles 
+
+# detail view of a specific profile
 @router.get(
     "/api/profiles/{profile_id}",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -171,6 +182,27 @@ def get_profile(profile_id: int, response: Response, query=Depends(ProfileQuerie
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
     return row_to_profile(row)
+
+
+
+#to get a random profile 
+@router.get(
+    "/api/random",
+    response_model=Union[ProfileOutWithInterested, ErrorMessage],
+    responses = {
+        200: {"model": ProfileOutWithInterested},
+        404: {"model": ErrorMessage}
+    }
+)
+def get_random_profile(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    row = query.get_random_profile(current_user['id'])
+    if row is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile does not exist"}
+    return row_to_profile(row)
+
+
+
 
 
 @router.post(
@@ -327,7 +359,6 @@ def liked(
         return {"message": f"Target User {target_user_id} was already swiped"}
 
 
-
 @router.post(
     "/api/profiles/{target_user_id}/disliked",
     response_model=Union[SwipedOut, ErrorMessage],
@@ -337,6 +368,7 @@ def liked(
     },
 )
 def disliked(
+    profile: SwipedIn,
     target_user_id: int,
     response: Response,
     query=Depends(ProfileQueries),
@@ -351,3 +383,16 @@ def disliked(
     except DuplicateTarget:
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": f"Target User {target_user_id} was already swiped"}
+
+
+@router.get(
+    "/api/my-matches",
+    response_model=MatchedList,
+)
+
+async def get_matches(page: int=0, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    page_count, rows = query.list_matches(current_user["id"], page)
+    return {
+        "page_count": page_count,
+        "matches": [row_to_matched_list(row) for row in rows],
+    }
