@@ -261,15 +261,57 @@ class ProfileQueries:
                 try:
                     cursor.execute(
                         """
-                        INSERT INTO liked(current_user, target_user, liked)
+                        INSERT INTO liked(active_user, target_user, liked)
                         VALUES (%s,%s,TRUE)
-                        RETURNING id, current_user, target_user, liked
+                        RETURNING id, active_user, target_user, liked
                         """,
                             [id,target_user]
                     )
-                    return cursor.fetchone()
+                    like = list(cursor.fetchone())
+
+                    cursor.execute(
+                        """
+                        SELECT 
+                            active_user
+                            , target_user
+                            , liked
+                        FROM liked 
+                        WHERE active_user = %s
+                        """,
+                            [target_user]
+                    )
+                    list_of_likes = list(cursor.fetchall())
+                    for likes in list_of_likes:
+                        if id == likes[1]: # if active user is swiped by target user
+                            if likes[2]:
+                                cursor.execute(
+                                    """
+                                    INSERT INTO matches(user1, user2, created_on)
+                                    VALUES (%s, %s, CURRENT_TIMESTAMP)
+                                    RETURNING id, user1, user2, created_on
+                                    """,
+                                        [id, target_user]
+                                )
+                                blah = cursor.fetchone()
+                                cursor.execute(
+                                    """
+                                    DELETE FROM liked
+                                    WHERE active_user = %s AND target_user = %s
+                                    """,
+                                        [id, target_user]
+                                )
+                                cursor.execute(
+                                    """
+                                    DELETE FROM liked
+                                    WHERE active_user = %s AND target_user = %s
+                                    """,
+                                        [target_user, id]
+                                )
+                    return like
                 except:
                     print("idk what went wrong bro lol")
+                
+
 
     def dislike_profile(self, id, target_user):
         with pool.connection() as connection:
@@ -277,9 +319,9 @@ class ProfileQueries:
                 try:
                     cursor.execute(
                         """
-                        INSERT INTO liked(current_user, target_user, liked)
+                        INSERT INTO liked(active_user, target_user, liked)
                         VALUES (%s,%s,FALSE)
-                        RETURNING id, current_user, target_user, liked
+                        RETURNING id, active_user, target_user, liked
                         """,
                             [id,target_user]
                     )

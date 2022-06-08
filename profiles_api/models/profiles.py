@@ -1,4 +1,5 @@
 from datetime import date
+from sqlite3 import Timestamp
 from pydantic import BaseModel
 from typing import Union
 from .interested import Interested
@@ -112,11 +113,10 @@ class ProfileDeleteOperation(BaseModel):
 
 class SwipedOut(BaseModel):
     id: int
-    current_user_id: int
+    active_user_id: int
     target_user_id: int
     liked: bool
 
+
 class SwipedIn(BaseModel):
-    current_user_id: int
     target_user_id: int
-    liked: bool

@@ -12,7 +12,7 @@ from models.profiles import (
     AccountUpdateOut,
     ProfileOutWithInterested,
     SwipedIn,
-    SwipedOut
+    SwipedOut,
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
@@ -116,11 +116,12 @@ def row_to_account_update(row):
 def row_to_profile_swiped(row):
     profile = {
         "id": row[0],
-        "current_user_id": row[1],
+        "active_user_id": row[1],
         "target_user_id": row[2],
         "liked": row[3]
     }
     return profile
+
 
 # not using this anywhere at the moment 
 @router.get(
@@ -301,7 +302,7 @@ def update_account(
 
 
 @router.post(
-    "/api/profiles/liked",
+    "/api/profiles/{target_user_id}/liked",
     response_model=Union[SwipedOut, ErrorMessage],
     responses={
         200: {"model": SwipedOut},
@@ -310,15 +311,43 @@ def update_account(
 )
 def liked(
     profile: SwipedIn,
+    target_user_id: int,
     response: Response,
-    query=Depends(ProfileQueries)
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user)
 ):
     try:
         row = query.like_profile(
-            profile.current_user_id,
-            profile.target_user_id,
+            current_user["id"],
+            target_user_id,
         )
         return row_to_profile_swiped(row)
     except DuplicateTarget:
         response.status_code = status.HTTP_409_CONFLICT
-        return {"message": f"Target User {profile.target_user_id} was already swiped"}
+        return {"message": f"Target User {target_user_id} was already swiped"}
+
+
+
+@router.post(
+    "/api/profiles/{target_user_id}/disliked",
+    response_model=Union[SwipedOut, ErrorMessage],
+    responses={
+        200: {"model": SwipedOut},
+        409: {"model": ErrorMessage}
+    },
+)
+def disliked(
+    target_user_id: int,
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user)
+):
+    try:
+        row = query.dislike_profile(
+            current_user["id"],
+            target_user_id,
+        )
+        return row_to_profile_swiped(row)
+    except DuplicateTarget:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": f"Target User {target_user_id} was already swiped"}
