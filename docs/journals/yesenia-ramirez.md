@@ -95,5 +95,8 @@ If the active_user (Betty) likes the target_user (Troy), then liked=True will be
 
 If the active_user (Betty) disliked the target_user (Troy), then liked=False will be inserted into the table. 
 
-Today, I had more practice with SQL and debugging. 
+* Matched list
+Today, Andrew and I worked on the function to show a list of matches for the Connections page. Andrew worked on the db.py while I worked on profiles.py in routers/models. 
+
+Today, I had more practice with SQL and debugging. I am getting a better understanding and feeling more comfortable with FastAPI and able to debug with a lot of print statements! 
 
