@@ -23,3 +23,8 @@ We ended up using the typing import List suggested by Chris to create a list of 
 
 ## June 06, 2022
 Curtis helped with our accounts implementation so that the active user_id is applied to sql queries. Implemented it with our list all profiles view so user cannot see themselves when making that http request. Goal is to get that implemented to the other post requests and then create functions to manipulate the match tables.
+
+## June 07, 2022
+Today we finally implemented the like/dislike functionality on the backend. When a user selects like, it will set the like to TRUE and check if the person they like also likes them back. If they do, it will insert into the match table the both of them and then delete them from the liked table.
+
+The dislike does the same except only add FALSE to the like. it does not check

@@ -120,3 +120,17 @@ class SwipedOut(BaseModel):
 
 class SwipedIn(BaseModel):
     target_user_id: int
+
+
+class MatchedProfile(BaseModel):
+    id: int
+    photo: Union[str, None]
+    first_name: str
+    last_name: str
+    location: str
+    date_of_birth: date
+
+
+class MatchedList(BaseModel):
+    page_count: int
+    matches: list[MatchedProfile]

@@ -39,7 +39,6 @@ class ProfileQueries:
                 """
                 )
                 page_count = ceil(cursor.fetchone()[0] / 10)
-                print("user here from db", user_id)
                 cursor.execute(
                     """
                     SELECT p.id
@@ -129,6 +128,7 @@ class ProfileQueries:
                 for interest in interests:
                     list_of_interests.append(interest[0])
                 profile.append(list_of_interests)
+                print("profile", profile)
                 return profile
 
 
@@ -328,3 +328,53 @@ class ProfileQueries:
                     return cursor.fetchone()
                 except:
                     print("idk what went wrong bro lol")
+
+    def list_matches(self, user_id, page: int=0):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT COUNT(*) FROM matches;
+                    """
+                )
+                page_count = ceil(cursor.fetchone()[0] / 10)
+                cursor.execute(
+                    """
+                    SELECT user1
+                        , user2
+                    FROM matches
+                    WHERE user1 = %s OR user2 = %s
+                    LIMIT 10 OFFSET %s
+                    """,
+                        [user_id, user_id, page * 10],
+                )
+                matches = list(cursor.fetchall())
+                target_matches =[]
+                for match in matches:
+                    if match[0] == user_id:
+                        target_matches.append(match[1])
+                    elif match[1] == user_id:
+                        target_matches.append(match[0])
+                
+                profile_list=[]
+                for target in target_matches:
+                    cursor.execute(
+                        """
+                        SELECT id 
+                            , photo
+                            , first_name
+                            , last_name
+                            , location
+                            , date_of_birth
+                        FROM profiles
+                        WHERE id = %s
+                        """,
+                            [target]
+                    )
+                    row = cursor.fetchone()
+                    profile_list.append(list(row))
+                print("my profile list", profile_list)
+                return page_count, list(profile_list)
+
+                
+# return photo, first_name, last_name, location, date_of_birth, rating
