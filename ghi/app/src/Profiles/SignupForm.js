@@ -80,7 +80,7 @@ class SignupForm extends React.Component{
 
     render() {
         if (this.props.token) {
-            return <Navigate to="/my_profile" />;
+            return <Navigate to="/api/profiles/myself" />;
         }
         return (
             <div className="row">
