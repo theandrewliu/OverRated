@@ -1,4 +1,5 @@
 from math import ceil
+import random
 from psycopg_pool import ConnectionPool
 from psycopg.errors import UniqueViolation
 
@@ -128,9 +129,67 @@ class ProfileQueries:
                 for interest in interests:
                     list_of_interests.append(interest[0])
                 profile.append(list_of_interests)
-                print("profile", profile)
                 return profile
 
+    def get_random_profile(self, active_id):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    SELECT interest
+                    FROM interested
+                    WHERE profile_id = %s
+                    """,
+                        [active_id]
+                )
+                user_interests = list(cursor.fetchone())
+                print("interests", user_interests)
+                cursor.execute(
+                    """
+                    SELECT p.id,
+                        p.username,
+                        p.email,
+                        p.first_name,
+                        p.last_name,
+                        p.location,
+                        p.date_of_birth,
+                        p.photo,
+                        p.about,
+                        p.height,
+                        p.job,
+                        p.education,
+                        p.gender,
+                        p.sexual_orientation,
+                        p.religion,
+                        p.ethnicity,
+                        p.pronouns
+                    FROM profiles as p
+                    WHERE p.id != %s
+                    ORDER BY RANDOM()
+                    LIMIT 1
+                    """,
+                        [active_id]
+                )
+                profile = list(cursor.fetchone())
+                
+                rand_profile_id = profile[0]
+                
+                cursor.execute(
+                    """
+                    SELECT
+                        i.interest
+                    FROM interested AS i
+                    WHERE i.profile_id = %s
+                    """,
+                        [rand_profile_id],
+                )
+                interests = cursor.fetchall() # this is a tuple inside a list
+                list_of_interests=[]
+                for interest in interests:
+                    list_of_interests.append(interest[0])
+                profile.append(list_of_interests)
+                
+                return profile
 
     def insert_profile(self, username, email, password, first_name, last_name, location, dob, pfences):
         with pool.connection() as connection:
