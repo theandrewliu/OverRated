@@ -147,7 +147,6 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
         "profiles": [row_to_profile_list(row) for row in rows],
     }
 
-
 # # user's profile (My Profile)
 # @router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
 # async def read_users_me(current_user: User = Depends(get_current_user)):
@@ -160,15 +159,15 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
         404: {"model": ErrorMessage}
     }
 )
-def get_profile(response: Response, query=Depends(ProfileQueries),  current_user: User = Depends(get_current_user)):
+def get_my_profile(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    print("current user", current_user)
     row = query.get_profile(current_user['id'])
     if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
     return row_to_profile(row)
 
-
-# explore page - detail views of random filtered profiles 
+# detail view of a specific profile
 @router.get(
     "/api/profiles/{profile_id}",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -183,6 +182,46 @@ def get_profile(profile_id: int, response: Response, query=Depends(ProfileQuerie
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
     return row_to_profile(row)
+
+
+# explore page - detail views of random filtered profiles 
+# @router.get(
+#     "/api/profiles/random",
+#     response_model=Union[ProfileOutWithInterested, ErrorMessage],
+#     responses = {
+#         200: {"model": ProfileOutWithInterested},
+#         404: {"model": ErrorMessage}
+#     }
+# )
+# def get_random_profile(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+#     print("Is this running?")
+#     row = query.get_random_profile(current_user['id'])
+#     if row is None:
+#         response.status_code = status.HTTP_404_NOT_FOUND
+#         return {"message": "Profile does not exist"}
+#     return row_to_profile(row)
+
+
+
+#####
+@router.get(
+    "/api/random",
+    response_model=Union[ProfileOutWithInterested, ErrorMessage],
+    responses = {
+        200: {"model": ProfileOutWithInterested},
+        404: {"model": ErrorMessage}
+    }
+)
+def get_random_profile(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    row = query.get_random_profile(current_user['id'])
+    if row is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile does not exist"}
+    return row_to_profile(row)
+
+
+
+#######
 
 
 @router.post(
