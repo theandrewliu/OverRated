@@ -145,7 +145,7 @@ class ProfileQueries:
                 active_gender = (cursor.fetchone())
                 cursor.execute(
                     """
-                    SELECT interest,
+                    SELECT interest
                     FROM interested
                     WHERE profile_id = %s
                     """,
