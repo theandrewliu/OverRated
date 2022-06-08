@@ -11,6 +11,9 @@ import MainPage from './MainPage';
 import { useToken } from './authApi';
 import ProfileForm from './Profiles/ProfileForm';
 import ProfileDetail from './Profiles/ProfileDetail';
+import AccountForm from './Profiles/AccountForm';
+import ReviewForm from './Profiles/ReviewForm';
+import ReviewList from './Profiles/ReviewList';
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -27,8 +30,13 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/logout" element={<Logout logout={logout} />} />
-          <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
+          <Route path="/reviews" element={<ReviewForm />} />
 
+        <Route path="/my_profile"> 
+          <Route index element={<ProfileDetail token={token}/>} />
+          <Route path="/my_profile/account" element={<AccountForm token={token} />} />
+          <Route path="/my_profile/reviews" element={<ReviewList />} />
+        </Route>
 
           <Route path="/login">
             <Route index element={<LoginForm token={token} login={login} />} />
@@ -37,7 +45,7 @@ function App() {
 
           <Route path="/update">
             <Route index element={<ProfileForm />} />
-            <Route path="/update/my_profile" element={<ProfileDetail token={token}/>} />
+            <Route path="/update/my_profile" element={<ProfileForm token={token}/>} />
           </Route>
 
           <Route path="/matches">

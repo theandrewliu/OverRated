@@ -34,7 +34,7 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
 
-        const user_Form_Url = "http://localhost:3000/api/my_profile/";
+        const user_Form_Url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -133,20 +133,40 @@ class ProfileForm extends React.Component {
                         <label htmlFor="education">Education</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleGenderChange} value={this.state.gender} placeholder="Gender" required type="text" name="gender" id="gender" className="form-control" />
-                        <label htmlFor="gender">Gender</label>
+                        <input onChange={this.handleGenderChange} value={this.state.gender} required type="radio" name="gender" id="gender" className="form-control" />
+                        <label htmlFor="gender">Male</label>
+                        <input onChange={this.handleGenderChange} value={this.state.gender} required type="radio" name="gender" id="gender" className="form-control" />
+                        <label htmlFor="gender">Female</label>
+                        <input onChange={this.handleGenderChange} value={this.state.gender} required type="radio" name="gender" id="gender" className="form-control" />
+                        <label htmlFor="gender">Transgender</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
-                        <label htmlFor="sexual_orientation">Sexual Orientation</label>
-                    </div>
+                        <label htmlFor="sexual_orientation">Straight</label>
+                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
+                        <label htmlFor="sexual_orientation">Gay</label>
+                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
+                        <label htmlFor="sexual_orientation">Lesbian</label>
+                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
+                        <label htmlFor="sexual_orientation">Pan-Sexual</label>
+                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
+                        <label htmlFor="sexual_orientation">Demi-Sexual</label>
+                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
+                        <label htmlFor="sexual_orientation">A-Sexual</label>                    
+                        </div>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleReligionChange} value={this.state.religion} placeholder="Religion" required type="text" name="religion" id="religion" className="form-control" />
                         <label htmlFor="religion">Religion</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handlePronounsChange} value={this.state.pronouns} placeholder="Pronouns" required type="text" name="pronouns" id="pronouns" className="form-control" />
-                        <label htmlFor="pronouns">Pronouns</label>
+                        <input onChange={this.handlePronounsChange} value={this.state.pronouns} required type="radio" name="he/him" id="pronouns" className="form-control" />
+                        <label htmlFor="pronouns">He/Him</label>
+                        <input onChange={this.handlePronounsChange} value={this.state.pronouns}  required type="radio" name="pronouns" id="pronouns" className="form-control" />
+                        <label htmlFor="pronouns">She/Her</label>
+                        <input onChange={this.handlePronounsChange} value={this.state.pronouns} required type="radio" name="pronouns" id="pronouns" className="form-control" />
+                        <label htmlFor="pronouns">Them/They</label>
+                        <input onChange={this.handlePronounsChange} value={this.state.pronouns} required type="radio" name="pronouns" id="pronouns" className="form-control" />
+                        <label htmlFor="pronouns">Xe/Xem/Xir</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleInterested_InChange} value={this.state.interested_in} placeholder="Interested In" required type="text" name="interested_in" id="interested_in" className="form-control" />
