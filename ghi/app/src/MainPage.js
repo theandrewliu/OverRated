@@ -7,19 +7,18 @@ import React from 'react';
 function MainPage() {
 
   return (
-    <body>
     <div className="px-4 my-5 text-center" >
     <div id="container" style={{ backgroundImage: "url(/images/overratedlogo.png)" }}>
-      <div class="col1">
+      <div className="col1">
       <h1 className="display-5 fw-bold">OverRated</h1>
-      <div class="logo">
-      <img src="/images/overratedlogo.png" alt="" class="picture" />
+      <div className="logo">
+      <img src="/images/overratedlogo.png" alt="" className="picture" />
       </div>
       <div>
       <p className="lead mb-4">
           The premiere solution for loneliness!
         </p>
-        <p class="termsandconditions">
+        <p className="termsandconditions">
         By clicking Join, you agree to our Terms. 
         Learn how we process your data in our Privacy Policy and Cookies Policy.
         </p>
@@ -28,14 +27,13 @@ function MainPage() {
             </div>
           </div>
         </div>
-        <div class="col2">
-        <div class="logo">
-      <img src="/images/toxic_couple.jpg" alt="" class="pictures" />
+        <div className="col2">
+        <div className="logo">
+      <img src="/images/toxic_couple.jpg" alt="" className="pictures" />
       </div>
         </div>
       </div>
     </div>
-    </body>
   );
 }
 
