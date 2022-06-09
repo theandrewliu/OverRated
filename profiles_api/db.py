@@ -191,9 +191,15 @@ class ProfileQueries:
 
                 cursor.execute(
                     """
+<<<<<<< HEAD
+                    SELECT interest
+                    FROM interested
+                    WHERE profile_id = %s
+=======
                     SELECT id
                     FROM profiles
                     WHERE id != any(%s) AND gender = any(%s)
+>>>>>>> da45254b6a914b3a720dea4e99bcf0f6437f3e96
                     """,
                         [exclusions, user_preferences]
                 )
