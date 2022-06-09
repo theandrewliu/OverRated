@@ -12,12 +12,14 @@ function MainPage() {
       <div className="col1">
       <h1 className="display-5 fw-bold">OverRated</h1>
       <div className="logo">
-      <img src="/images/overratedlogo.png" alt="" className="picture" />
-      </div>
-      <div>
       <p className="lead mb-4">
           The premiere solution for loneliness!
         </p>
+      <br></br>
+      <img src="/images/overratedlogo.png" alt="" className="picture" />
+      </div>
+      <div>
+
         <p className="termsandconditions">
         By clicking Join, you agree to our Terms. 
         Learn how we process your data in our Privacy Policy and Cookies Policy.
