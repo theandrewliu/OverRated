@@ -34,7 +34,7 @@ function App() {
           <Route path="/reviews" element={<ReviewForm />} />
           <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
           <Route path="/api/random" element={<Explore token={token} />} />
-          
+          <Route path="/api/accounts/myself" element={<AccountForm token={token} />} />
 
         <Route path="/my_profile"> 
           <Route index element={<ProfileDetail token={token}/>} />
