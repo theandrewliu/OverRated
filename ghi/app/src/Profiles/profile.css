@@ -140,3 +140,9 @@ label {
     min-width: 150px;
     min-height: 150px;
   }
+
+.Link {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
