@@ -14,6 +14,7 @@ import AccountForm from './Profiles/AccountForm';
 import ReviewForm from './Profiles/ReviewForm';
 import ReviewList from './Profiles/ReviewList';
 import Explore from './Profiles/Explorepg';
+import ProfileCreation from './Profiles/ProfileCreation';
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -48,8 +49,8 @@ function App() {
             <Route path="/login/new" element={<SignupForm token={token} signup={signup} />} />
           </Route>
 
-          <Route path="/api/profiles/">
-            <Route index element={<ProfileForm />} />
+          <Route path="/api/profiles">
+            <Route index element={<ProfileCreation />} />
             <Route path="/api/profiles/myself" element={<ProfileForm token={token}/>} />
           </Route>
 

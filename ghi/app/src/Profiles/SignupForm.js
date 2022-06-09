@@ -80,7 +80,7 @@ class SignupForm extends React.Component{
 
     render() {
         if (this.props.token) {
-            return <Navigate to="/api/profiles/myself" />;
+            return <Navigate to="/api/profiles/profiles" />;
         }
         return (
             <div className="row">
@@ -88,9 +88,10 @@ class SignupForm extends React.Component{
                     <div className="shadow p-4 mt-4">
                         <h1>Overrated Sign Up Form</h1>
                         <br></br>
+
                         <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                         <form onSubmit={this.handleSubmit} id="create-form">
-                        
+
                         <div className="form-floating mb-3">
                             <input onChange={this.handleEmailChange} value={this.state.email} 
                             placeholder="Email" required type="email" name="email" 
