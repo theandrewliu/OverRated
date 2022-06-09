@@ -66,3 +66,11 @@ CREATE TABLE public.chats (
     sent TIMESTAMP NOT NULL,
     message text NOT NULL
 );
+
+CREATE TABLE public.ratings (
+    id serial NOT NULL PRIMARY KEY,
+    rating int NOT NULL,
+    rating_of int NOT NULL,
+    rating_by int NOT NULL,
+    review text 
+)

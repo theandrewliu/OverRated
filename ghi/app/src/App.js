@@ -35,6 +35,7 @@ function App() {
           <Route path="/api/random" element={<Explore token={token} />} />
           <Route path="/api/my-matches" element={<ConnectionList token={token} />} />
           
+          <Route path="/api/accounts/myself" element={<AccountForm token={token} />} />
 
         <Route path="/my_profile"> 
           <Route index element={<ProfileDetail token={token}/>} />
