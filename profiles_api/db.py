@@ -135,9 +135,10 @@ class ProfileQueries:
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 exclusions = []
+                
                 exclusions.append(active_id)
                 
-                
+                # get the profiles we've already matched with
                 cursor.execute(
                     """
                     SELECT user1, user2
@@ -148,13 +149,14 @@ class ProfileQueries:
                 )
                 user_matches = list(cursor.fetchall())
 
-                # [(1,2),(3,1),(4,1)]
+                # appending the id of the person we matched with and not our own id
                 for match in user_matches:
                     if active_id == match[0]:
                         exclusions.append(match[1])
                     else:
                         exclusions.append(match[0])
 
+                # get the profiles we've already liked/disliked
                 cursor.execute(
                     """
                     SELECT active_user, target_user
@@ -165,10 +167,13 @@ class ProfileQueries:
                 )
                 user_liked = list(cursor.fetchall())
 
+                # appending the id of person we liked/disliked and not our own id
                 for liked in user_liked:
                     if active_id == liked[0] and liked[1] not in exclusions:
                         exclusions.append(liked[1])
-                
+                exclusions.sort()
+
+                # getting the list of genders we are interested in
                 cursor.execute(
                     """
                     SELECT interest
@@ -177,8 +182,14 @@ class ProfileQueries:
                     """,
                         [active_id]
                 )
-                user_preferences = list(cursor.fetchone())
-
+                user_preferences = list(cursor.fetchall())
+                
+                # appending the gender(s) we are interested in
+                new_preferences=[]
+                for user_preference in user_preferences:
+                    new_preferences.append(user_preference[0])
+                
+                # getting our declared gender
                 cursor.execute(
                     """
                     SELECT gender
@@ -188,27 +199,25 @@ class ProfileQueries:
                         [active_id]
                 )
                 user_gender = list(cursor.fetchone())[0]
-
+                # getting a list of id's of accounts that are not excluded and also fit our preferences
                 cursor.execute(
                     """
-<<<<<<< HEAD
-                    SELECT interest
-                    FROM interested
-                    WHERE profile_id = %s
-=======
                     SELECT id
                     FROM profiles
-                    WHERE id != any(%s) AND gender = any(%s)
->>>>>>> da45254b6a914b3a720dea4e99bcf0f6437f3e96
+                    WHERE NOT id = ANY(%s) AND gender = ANY(%s)
                     """,
-                        [exclusions, user_preferences]
+                        [exclusions, new_preferences]
                 )
+                
                 potential_ids = list(cursor.fetchall())
 
+                # potential_ids is returned as a list of tuples so cleaning it up
                 new_potential_ids = []
                 for potential_id in potential_ids:
                     new_potential_ids.append(potential_id[0])
 
+                # getting a list of id's of accounts that prefer our gender
+                # should also be excluding id's found in exclusion list
                 cursor.execute(
                     """
                     SELECT profile_id
@@ -219,12 +228,12 @@ class ProfileQueries:
                 )
                 actual_interest_ids = list(cursor.fetchall())
 
+                # actual_interest_ids is returned as a list of tuples so cleaning it up
                 new_actual_interest_ids = []
                 for actual_interest in actual_interest_ids:
                     new_actual_interest_ids.append(actual_interest[0])
 
-                print("LIST OF IDS OF PEOPLE WHO CAN MATCH", new_actual_interest_ids)
-
+                # getting a list of profiles from the ids of filtered results
                 cursor.execute(
                     """
                     SELECT
@@ -252,7 +261,7 @@ class ProfileQueries:
                         [new_actual_interest_ids],
                 )
                 profile = list(cursor.fetchone())
-                print("did you get fucked up?", profile)
+                
                 cursor.execute(
                     """
                     SELECT
