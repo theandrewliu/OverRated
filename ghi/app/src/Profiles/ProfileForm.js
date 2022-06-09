@@ -17,6 +17,9 @@ class ProfileForm extends React.Component {
             sexual_orientation: "",
             religion: "",
             pronouns: "",
+            interested: "",
+            ethnicity: "",
+            location: "",
         };
         
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
@@ -28,6 +31,9 @@ class ProfileForm extends React.Component {
         this.handleSexual_orientationChange = this.handleSexual_orientationChange.bind(this);
         this.handleReligionChange = this.handleReligionChange.bind(this);
         this.handlePronounsChange = this.handlePronounsChange.bind(this);
+        this.handleLocationChange = this.handleLocationChange.bind(this);
+        this.handleEthnicityChange = this.handleEthnicityChange.bind(this);
+        this.handleInterestedChange = this.handleInterestedChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -58,6 +64,9 @@ class ProfileForm extends React.Component {
                 sexual_orientation: "",
                 religion: "",
                 pronouns: "",
+                interested: "",
+                ethnicity: "",
+                location: "",
             });
         }
     }
@@ -69,23 +78,23 @@ class ProfileForm extends React.Component {
     }
     handleAboutChange(event) {
         const value = event.target.value;
-        this.setState({ About: value });
+        this.setState({ about: value });
     }
     handleHeightChange(event) {
         const value = event.target.value;
-        this.setState({ Height: value });
+        this.setState({ height: value });
     }
     handleJobChange(event) {
         const value = event.target.value;
-        this.setState({ Job: value });
+        this.setState({ job: value });
     }
     handleEducationChange(event) {
         const value = event.target.value;
-        this.setState({ Education: value });
+        this.setState({ education: value });
     }
     handleGenderChange(event) {
         const value = event.target.value;
-        this.setState({ Gender: value });
+        this.setState({ gender: value });
     }
     handleSexual_orientationChange(event) {
         const value = event.target.value;
@@ -98,6 +107,18 @@ class ProfileForm extends React.Component {
     handlePronounsChange(event) {
         const value = event.target.value;
         this.setState({ pronouns: value });
+    }
+    handleLocationChange(event) {
+        const value = event.target.value;
+        this.setState({ location: value });
+    }
+    handleEthnicityChange(event) {
+        const value = event.target.value;
+        this.setState({ ethnicity: value });
+    }
+    handleInterestedChange(event) {
+        const value = event.target.value;
+        this.setState({ interested: value });
     }
 
     render(){
@@ -119,18 +140,16 @@ class ProfileForm extends React.Component {
                     </div>
                     </form>
 
-                    <form onSubmit={this.handleSubmit} id="create-form">
+                    <form onSubmit={this.handleSubmit} id="textarea">
                     <label htmlFor="height">About Me:</label>
                     <div className="form-floating mb-3">
-
-                        <input onChange={this.handleAboutChange} value={this.state.about} 
-                        placeholder="About" type="textarea" name="textValue" 
+                        <textarea onChange={this.handleAboutChange} value={this.state.about} 
+                        type="textarea" name="textValue" 
                         id="about" className="form-control" />
                     </div>
 
                     <label htmlFor="height">Height:</label>
                     <div className="form-floating mb-3">
-
                         <input onChange={this.handleHeightChange} value={this.state.height} 
                         placeholder="Height" type="range" name="height" 
                         id="height" min="4'0" max="8'0" className="slider" />
@@ -150,6 +169,13 @@ class ProfileForm extends React.Component {
                         placeholder="Education" type="text" name="education" 
                         id="education" className="form-control" />
                     </div>
+
+                    <label htmlFor="location">Location</label>
+                    <div className="form-floating mb-3">
+                            <input onChange={this.handleLocationChange} value={this.state.location} 
+                            placeholder="Location" required type="text" name="location" 
+                            id="location" className="form-control" />
+                        </div>
 
                     <label htmlFor="religion">Religion:</label>
                     <div className="form-floating mb-3" id="form_input">
@@ -171,7 +197,22 @@ class ProfileForm extends React.Component {
                         value={this.state.gender==="Female"}>Female</option>
 
                         <option onChange={this.handleGenderChange} 
-                        value={this.state.gender==="Other"}>Other</option>
+                        value={this.state.gender==="Inter-Sex"}>Inter-Sex</option>
+                        </select>
+                    </div>
+
+                    <label htmlFor="interested">Interested In:</label>
+                    <div className="form-floating mb-3">
+                        <select>
+                        <option value=''>--Select Interest--</option>
+                        <option onChange={this.handleInterestedChange} 
+                        value={this.state.interested==="male"}>Male</option>
+
+                        <option onChange={this.handleInterestedChange} 
+                        value={this.state.interested==="female"}>Female</option>
+
+                        <option onChange={this.handleInterestedChange} 
+                        value={this.state.interested==="everyone"}>Everyone</option>
                         </select>
                     </div>
 
@@ -199,9 +240,32 @@ class ProfileForm extends React.Component {
                     </select>
                     </div>
 
+                    <label htmlFor="ethnicity">Ethnicity:</label>
+                    <div className="form-floating mb-3">
+                    <select>
+                        <option value=''>--Select Sexual Orientation--</option>
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="caucasian"}>Caucasian</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="african_decent"}>African Decent</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="native_american"}>Native American</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="asian"}>Asian</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="pacific_islander"}>Hawaiian or Pacific Islander</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="mixed"}>Mixed</option>
+                    </select>
+                    </div>
+
                     <label htmlFor="pronouns">Pronouns:</label>
                     <div className="form-floating mb-3">
-
                     <select>
                         <option value=''>--Select Pronouns--</option>
                         <option onChange={this.handlePronounsChange} 
