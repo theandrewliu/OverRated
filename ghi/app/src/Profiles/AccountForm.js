@@ -30,7 +30,7 @@ class AccountForm extends React.Component {
 
     async deleteAccount(account_id){
         const deleteUrl =  `http://localhost:8000/api/profiles/$(account_id)`;
-        const fetchConfig = {method: "delete"}
+        const fetchConfig = {method: "DELETE"}
 
         const response = await fetch(deleteUrl, fetchConfig);
         if(response.ok){
@@ -100,6 +100,15 @@ class AccountForm extends React.Component {
         this.setState({ verify_password: value });
     }
 
+    validForm() {
+        return this.state.password.length >= 8 &&
+               this.state.password === this.state.verify_password &&
+               this.state.email &&
+               this.state.username &&
+               this.state.first_name &&
+               this.state.last_name &&
+               this.state.location;
+    }
 
     render(){
         if (this.props.token) {
@@ -134,7 +143,6 @@ class AccountForm extends React.Component {
                     </div>
                     <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
                     </form>
-
                     <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleLast_nameChange} value={this.state.last_name} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
@@ -163,7 +171,7 @@ class AccountForm extends React.Component {
                         <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
                     </form>
                 </div>
-                <button onClick={() => this.deleteAccount(account.id)} type="button" className='btn btn-danger'>Delete Account</button>
+                {/* <button onClick={() => this.deleteAccount(account_id)} type="button" className='btn btn-danger'>Delete Account</button> */}
             </div>
             </div>
         )

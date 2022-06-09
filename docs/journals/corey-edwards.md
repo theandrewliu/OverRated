@@ -46,3 +46,6 @@ Today we did our meeting with curtis and he showed us what he was able to help u
 
 ## June 7, 2022
 Quite the busy day if i do say so myself So we did a bit of troubleshooting all day because it wouldnt be code if i didnt have to put out fires every ten seconds. Thanks to curtis we were able to get the data push for a specific profile onto the my profile by creating a new api route through the back end.with the i was able to css it into submission which truly is a huge load off of my shoulders cause now that means the template is also done for the explore page which is a great two birds for one stone.
+
+## June 8, 2022
+Alright so im gonna go over this one very briefly so i implemented the profile settings, account settings, and the like button. The functionality on the like button took much longer than expected so ill have to do the dislike tomorrow but at least for the explore page the buttons are nice and circular and color coordinated. 

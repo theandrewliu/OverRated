@@ -87,42 +87,69 @@ class SignupForm extends React.Component{
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
                         <h1>Overrated Sign Up Form</h1>
+                        <br></br>
                         <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                         <form onSubmit={this.handleSubmit} id="create-form">
+                        
                         <div className="form-floating mb-3">
-                            <input onChange={this.handleEmailChange} value={this.state.email} placeholder="Email" required type="email" name="email" id="email" className="form-control" />
+                            <input onChange={this.handleEmailChange} value={this.state.email} 
+                            placeholder="Email" required type="email" name="email" 
+                            id="email" className="form-control" />
                             <label htmlFor="email">Email</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input onChange={this.handleUsernameChange} value={this.state.username} placeholder="Username" required type="text" name="username" id="username" className="form-control" />
+                            <input onChange={this.handleUsernameChange} value={this.state.username} 
+                            placeholder="Username" required type="text" name="username" 
+                            id="username" className="form-control" />
                             <label htmlFor="username">Username</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input onChange={this.handleFirstNameChange} value={this.state.first_name} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
+                            <input onChange={this.handleFirstNameChange} value={this.state.first_name} 
+                            placeholder="First Name" required type="text" name="first_name" 
+                            id="first_name" className="form-control" />
                             <label htmlFor="first_name">First Name</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input onChange={this.handleLastNameChange} value={this.state.last_name} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
+                            <input onChange={this.handleLastNameChange} value={this.state.last_name} 
+                            placeholder="Last Name" required type="text" name="last_name" 
+                            id="last_name" className="form-control" />
                             <label htmlFor="last_name">Last name</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input onChange={this.handleDobChange} value={this.state.dob} placeholder="DOB" required type="date" name="date" id="date" className="form-control" />
+                            <input onChange={this.handleDobChange} value={this.state.dob} 
+                            placeholder="DOB" required type="date" name="date" 
+                            id="date" className="form-control" />
                             <label htmlFor="date">DOB</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input onChange={this.handleLocationChange} value={this.state.location} placeholder="Location" required type="text" name="location" id="location" className="form-control" />
+                            <input onChange={this.handleLocationChange} value={this.state.location} 
+                            placeholder="Location" required type="text" name="location" 
+                            id="location" className="form-control" />
                             <label htmlFor="location">Location</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" required type="password" name="password" id="password" className="form-control" />
+                            <input onChange={this.handlePasswordChange} value={this.state.password} 
+                            placeholder="Password" required type="password" name="password" 
+                            id="password" className="form-control" />
                             <label htmlFor="password">Password</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input onChange={this.handleVerify_PasswordChange} value={this.state.verify_password} placeholder="Verify Password" required type="password" name="verify-password" id="verify-password" className="form-control" />
+                            <input onChange={this.handleVerify_PasswordChange} value={this.state.verify_password} 
+                            placeholder="Verify Password" required type="password" name="verify-password" 
+                            id="verify-password" className="form-control" />
                             <label htmlFor="verify-password">Verify Password</label>
                         </div>
-                        <button disabled={!this.validForm()} className="btn btn-primary">Sign Up</button>
+
+                        <button disabled={!this.validForm()} type="submit" value="Submit" form="create-form" className="btn btn-primary">Sign Up</button>
                         </form>
+                        <Link to="/login">LogIn</Link>
                     </div>
                 </div>
             </div>

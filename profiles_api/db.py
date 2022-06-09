@@ -134,15 +134,41 @@ class ProfileQueries:
     def get_random_profile(self, active_id):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
+                exclusions = []
+                exclusions.append(active_id)
+                
+                
                 cursor.execute(
                     """
-                    SELECT gender
-                    FROM profiles
-                    WHERE id = %s
+                    SELECT user1, user2
+                    FROM matches
+                    WHERE %s = user1 OR %s = user2
+                    """,
+                        [active_id, active_id]
+                )
+                user_matches = list(cursor.fetchall())
+
+                # [(1,2),(3,1),(4,1)]
+                for match in user_matches:
+                    if active_id == match[0]:
+                        exclusions.append(match[1])
+                    else:
+                        exclusions.append(match[0])
+
+                cursor.execute(
+                    """
+                    SELECT active_user, target_user
+                    FROM liked
+                    WHERE %s = active_user
                     """,
                         [active_id]
                 )
-                active_gender = (cursor.fetchone())
+                user_liked = list(cursor.fetchall())
+
+                for liked in user_liked:
+                    if active_id == liked[0] and liked[1] not in exclusions:
+                        exclusions.append(liked[1])
+                
                 cursor.execute(
                     """
                     SELECT interest
@@ -151,11 +177,58 @@ class ProfileQueries:
                     """,
                         [active_id]
                 )
-                user_interests = list(cursor.fetchone())
-                print("interests", user_interests)
+                user_preferences = list(cursor.fetchone())
+
                 cursor.execute(
                     """
-                    SELECT p.id,
+                    SELECT gender
+                    FROM profiles
+                    WHERE id = %s
+                    """,
+                        [active_id]
+                )
+                user_gender = list(cursor.fetchone())[0]
+
+                cursor.execute(
+                    """
+<<<<<<< HEAD
+                    SELECT interest
+                    FROM interested
+                    WHERE profile_id = %s
+=======
+                    SELECT id
+                    FROM profiles
+                    WHERE id != any(%s) AND gender = any(%s)
+>>>>>>> da45254b6a914b3a720dea4e99bcf0f6437f3e96
+                    """,
+                        [exclusions, user_preferences]
+                )
+                potential_ids = list(cursor.fetchall())
+
+                new_potential_ids = []
+                for potential_id in potential_ids:
+                    new_potential_ids.append(potential_id[0])
+
+                cursor.execute(
+                    """
+                    SELECT profile_id
+                    FROM interested
+                    WHERE profile_id = any(%s) AND interest = %s
+                    """,
+                        [new_potential_ids, user_gender]
+                )
+                actual_interest_ids = list(cursor.fetchall())
+
+                new_actual_interest_ids = []
+                for actual_interest in actual_interest_ids:
+                    new_actual_interest_ids.append(actual_interest[0])
+
+                print("LIST OF IDS OF PEOPLE WHO CAN MATCH", new_actual_interest_ids)
+
+                cursor.execute(
+                    """
+                    SELECT
+                        p.id,
                         p.username,
                         p.email,
                         p.first_name,
@@ -172,17 +245,14 @@ class ProfileQueries:
                         p.religion,
                         p.ethnicity,
                         p.pronouns
-                    FROM profiles as p
-                    WHERE p.id != %s 
+                    FROM profiles AS p
+                    WHERE p.id = any(%s)
                     ORDER BY RANDOM()
-                    LIMIT 1
                     """,
-                        [active_id]
+                        [new_actual_interest_ids],
                 )
                 profile = list(cursor.fetchone())
-                
-                rand_profile_id = profile[0]
-                
+                print("did you get fucked up?", profile)
                 cursor.execute(
                     """
                     SELECT
@@ -190,14 +260,14 @@ class ProfileQueries:
                     FROM interested AS i
                     WHERE i.profile_id = %s
                     """,
-                        [rand_profile_id],
+                        [profile[0]]
                 )
                 interests = cursor.fetchall() # this is a tuple inside a list
                 list_of_interests=[]
                 for interest in interests:
                     list_of_interests.append(interest[0])
                 profile.append(list_of_interests)
-                
+
                 return profile
 
     def insert_profile(self, username, email, password, first_name, last_name, location, dob, pfences):
