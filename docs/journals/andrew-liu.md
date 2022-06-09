@@ -28,3 +28,7 @@ Curtis helped with our accounts implementation so that the active user_id is app
 Today we finally implemented the like/dislike functionality on the backend. When a user selects like, it will set the like to TRUE and check if the person they like also likes them back. If they do, it will insert into the match table the both of them and then delete them from the liked table.
 
 The dislike does the same except only add FALSE to the like. it does not check
+
+## Jun 08, 2022
+Today, we created a random profile function that's similar to profile detail view but also includes the logic to filter based on if the profile is not in a match, in a liked table, and both users are within each other preferences. 
+

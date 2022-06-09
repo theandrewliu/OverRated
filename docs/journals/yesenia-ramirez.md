@@ -100,3 +100,27 @@ Today, Andrew and I worked on the function to show a list of matches for the Con
 
 Today, I had more practice with SQL and debugging. I am getting a better understanding and feeling more comfortable with FastAPI and able to debug with a lot of print statements! 
 
+## June 8, 2022
+* Random filtered profile for the Connections page
+Today, Andrew and I worked on the random profile function, which will show a random profile to the user that fits its preferences and the preferences of the targeted user match the current user. 
+We began by pseudocoding our thoughts and then implemented each cursor.execute one by one.
+We were not able to figure out how to do this while joining tables since we needed every table in our database. We needed to access the Matches, Liked, Profile, and Interested table to be able to filter for our connections page. 
+
+We accomplished this by:
+1. Creating an Exclusion list, which contains the ids of profiles that we do not want to see in our Connections page. 
+    - our id
+    - profiles we have matched with 
+    - profiles we have already liked or disliked 
+
+2. Creating a Possible Connections list, which contains the ids of profiles that we might possibly want to see in our Connections page. With each cursor execute, this list will get smaller and smaller as we continue to filter. 
+    - We created a list of the current user's gender preferences 
+    - We filtered the profile ids where the targeted user's gender had to be in the current user's gender preferences AND if they are not in the exclusion list 
+    - We filtered the profile ids where the current user's gender had to be in the targeted user's gender preferences.
+
+After all this filtering, it returned a list of profile ids, where the current user and targeted user could form a possible connection. 
+
+3. We then returned a detail page of a profile that is in the list we created and it would be randomized. 
+
+Today, I learned about how to use a list as the placeholder for %s in the WHERE clause. I'm not exactly sure how it works, since %s only takes in strings and I can't seem to find any documentation about it. But when we added any(%s), then it was able to accept the list to be entered as the %s. 
+
+"It is a formatted string, where %s is a placeholder."
