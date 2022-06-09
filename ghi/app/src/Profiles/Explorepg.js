@@ -44,11 +44,26 @@ class ProfileDetail extends React.Component {
     }
   }
 
+
+
   async likes() {
-    //   this.state.theirprofile.id
-    //   this.state.ourprofile.id
-      console.log(this.state.theirprofile.id)
-      console.log(this.state.ourprofile.id)
+    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.state.theirprofile.id}/liked`;
+    // const form = new FormData();
+    // form.append('active_id', this.state.ourprofile.id);
+    const form = {'target_user_id': this.state.theirprofile.id};
+    const response = await fetch(url, {
+      method: 'post',
+      credentials: 'include',
+      body: JSON.stringify(form),
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+        window.location.reload(false);
+    }
+    let error = await response.json();
+    return error.detail;
   }
 
 
@@ -99,7 +114,7 @@ class ProfileDetail extends React.Component {
             {this.state.theirprofile.reviews}
           </div>
           <button className = 'dislikebutton'>Dislike</button>
-          <button className = 'likebutton' onClick={ this.likes } >Like</button>
+          <button className = 'likebutton' onClick={ this.likes}>Like</button>
         </div>
         </>
       );
