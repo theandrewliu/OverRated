@@ -17,7 +17,7 @@ function Nav(props) {
                 <NavLink className="nav-link" aria-current="page" to="/api/random" >Explore</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/connections">Connections</NavLink>
+                <NavLink className="nav-link" to="/api/my-matches">Connections</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/messages">Messages</NavLink>

@@ -46,7 +46,6 @@ class ProfileDetail extends React.Component {
               <h1>
                 {this.state.profile.first_name + " " + this.state.profile.last_name}
               </h1>            
-            {this.state.profile.photo}
           </div>
           <div className="details">
               <h1>
