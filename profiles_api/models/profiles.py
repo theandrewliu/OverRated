@@ -82,6 +82,7 @@ class ProfileOutWithInterested(BaseModel):
     ethnicity: Union[str, None]
     pronouns: Union[str, None]
     interested: list[str]
+    average_rating: Union[float, None]
 
 class ProfileOut(BaseModel):
     id: int
@@ -130,6 +131,8 @@ class MatchedProfile(BaseModel):
     last_name: str
     location: str
     date_of_birth: date
+    average_rating: Union[float, None]
+
 
 
 class MatchedList(BaseModel):

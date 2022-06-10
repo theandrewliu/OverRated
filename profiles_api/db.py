@@ -129,6 +129,19 @@ class ProfileQueries:
                 for interest in interests:
                     list_of_interests.append(interest[0])
                 profile.append(list_of_interests)
+
+                cursor.execute(
+                    """
+                    SELECT AVG(rating)::numeric(10,2) AS average_rating
+                    FROM ratings
+                    WHERE rating_of = %s
+                    """,
+                        [profile[0]]
+                )
+                average = cursor.fetchone()
+                profile.append(average[0])
+
+                print("whole profile", profile)
                 return profile
 
     def get_random_profile(self, active_id):
@@ -276,6 +289,20 @@ class ProfileQueries:
                 for interest in interests:
                     list_of_interests.append(interest[0])
                 profile.append(list_of_interests)
+
+                cursor.execute(
+                    """
+                    SELECT AVG(rating)::numeric(10,2) AS average_rating
+                    FROM ratings
+                    WHERE rating_of = %s
+                    """,
+                        [profile[0]]
+                )
+                average = cursor.fetchone()
+                print("profile_id", profile[0])
+                print("AVERAGE", average)
+                profile.append(average[0])
+                print("whole profile", profile)
 
                 return profile
 
@@ -518,8 +545,25 @@ class ProfileQueries:
                         """,
                             [target]
                     )
-                    row = cursor.fetchone()
-                    profile_list.append(list(row))
+                    specific_match = list(cursor.fetchone())
+
+                    cursor.execute(
+                    """
+                    SELECT AVG(rating)::numeric(10,2) AS average_rating
+                    FROM ratings
+                    WHERE rating_of = %s
+                    """,
+                        [specific_match[0]]
+                    )
+                    average = cursor.fetchone()
+                    print("average",average)
+
+                    
+                    specific_match.append(average[0])
+
+
+                    profile_list.append(specific_match)
+
                 print("my profile list", profile_list)
                 return page_count, list(profile_list)
 
