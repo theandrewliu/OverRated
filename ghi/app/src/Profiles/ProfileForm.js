@@ -205,13 +205,16 @@ class ProfileForm extends React.Component {
                     <label htmlFor="gender">Gender:</label>
                     <div onChange={this.handleGenderChange} >
                     <img src="/images/Male.png" alt="gender" width="60" height="80"></img>
-                        <input type="radio" value={this.state.gender==="Male"} name="gender" />: Male
+                        <input type="radio" checked={this.state.selectedOption === "male"} onChange={this.handleGenderChange} 
+                            value="male"/>: Male
 
                         <img src="/images/Female.png" alt="gender" width="60" height="80"></img>
-                        <input type="radio" value={this.state.gender==="Female"} name="gender" />: Female
+                        <input type="radio" checked={this.state.selectedOption === "female"} onChange={this.handleGenderChange} 
+                            value="female"/>: Female
 
                         <img src="/images/Intersex.png" alt="gender" width="60" height="80"></img>
-                        <input type="radio" value={this.state.gender==="Inter-Sex"} name="gender" />: Inter-Sex
+                        <input type="radio" checked={this.state.selectedOption === "other"} onChange={this.handleGenderChange} 
+                            value="other"/>: Inter-Sex
                     </div>
 
                     <label htmlFor="interested">Interested In:</label>
