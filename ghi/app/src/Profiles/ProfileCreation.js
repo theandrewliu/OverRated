@@ -123,43 +123,43 @@ class ProfileForm extends React.Component {
                     <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handlePhotoChange} value={this.state.photo} 
-                        type="text" name="photo" 
-                        id="photo" className="form-control" />
+                            type="text" name="photo" 
+                            id="photo" className="form-control" />
                     </div>
 
                     <label htmlFor="height">About Me:</label>
                     <div className="form-floating mb-3">
                         <textarea onChange={this.handleAboutChange} value={this.state.about} 
-                        type="textarea" name="textValue" 
-                        id="about" className="form-control" />
+                            type="textarea" name="textValue" 
+                            id="about" className="form-control" />
                     </div>
 
                     <label htmlFor="height">Height:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleHeightChange} value={this.state.height} 
-                        placeholder="Height" type="range" name="height" 
-                        id="height" min="4'0" max="8'0" className="slider" />
+                            placeholder="Height" type="range" name="height" 
+                            id="height" min="4'0" max="8'0" className="slider" />
                     </div>
 
                     <div className="form-floating mb-3">
                     <label htmlFor="job">Job</label>
                         <input onChange={this.handleJobChange} value={this.state.job} 
-                        placeholder="Job" required type="text" name="job" 
-                        id="job" className="form-control" />
+                            placeholder="Job" required type="text" name="job" 
+                            id="job" className="form-control" />
                     </div>
 
                     <div className="form-floating mb-3">
                     <label htmlFor="education">Education</label>
                         <input onChange={this.handleEducationChange} value={this.state.education} 
-                        placeholder="Education" required type="text" name="education" 
-                        id="education" className="form-control" />
+                            placeholder="Education" required type="text" name="education" 
+                            id="education" className="form-control" />
                     </div>
 
                     <div className="form-floating mb-3">
                     <label htmlFor="religion">Religion</label>
                         <input onChange={this.handleReligionChange} value={this.state.religion} 
-                        placeholder="Religion" required type="text" name="religion" 
-                        id="religion" className="form-control" />
+                            placeholder="Religion" required type="text" name="religion" 
+                            id="religion" className="form-control" />
                     </div>
 
                     <label htmlFor="gender">Gender:</label>
@@ -167,13 +167,12 @@ class ProfileForm extends React.Component {
                         <select>
                         <option value=''>--Select Gender--</option>
                         <option onChange={this.handleGenderChange} 
-                        value={this.state.gender==="Male"}>Male</option>
+                            value={this.state.gender==="Male"}>Male</option>
 
                         <option onChange={this.handleGenderChange} 
-                        value={this.state.gender==="Female"}>Female</option>
-
+                            value={this.state.gender==="Female"}>Female</option>
                         <option onChange={this.handleGenderChange} 
-                        value={this.state.gender==="Inter-Sex"}>Inter-Sex</option>
+                            value={this.state.gender==="Inter-Sex"}>Inter-Sex</option>
                         </select>
                     </div>
 
@@ -182,13 +181,12 @@ class ProfileForm extends React.Component {
                         <select>
                         <option value=''>--Select Interest--</option>
                         <option onChange={this.handleInterestedChange} 
-                        value={this.state.interested==="male"}>Male</option>
+                            value={this.state.interested==="male"}>Male</option>
 
                         <option onChange={this.handleInterestedChange} 
-                        value={this.state.interested==="female"}>Female</option>
-
+                            value={this.state.interested==="female"}>Female</option>
                         <option onChange={this.handleInterestedChange} 
-                        value={this.state.interested==="everyone"}>Everyone</option>
+                            value={this.state.interested==="everyone"}>Everyone</option>
                         </select>
                     </div>
 
@@ -197,22 +195,18 @@ class ProfileForm extends React.Component {
                     <select>
                         <option value=''>--Select Sexual Orientation--</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                        value={this.state.sexual_orientation==="Straight"}>Straight</option>
+                            value={this.state.sexual_orientation==="Straight"}>Straight</option>
+                        <option onChange={this.handleSexual_orientationChange} 
+                            value={this.state.sexual_orientation==="Gay"}>Gay</option>
+                        <option onChange={this.handleSexual_orientationChange} 
+                            value={this.state.sexual_orientation==="Lesbian"}>Lesbian</option>
 
                         <option onChange={this.handleSexual_orientationChange} 
-                        value={this.state.sexual_orientation==="Gay"}>Gay</option>
-
+                            value={this.state.sexual_orientation==="Pan-Sexual"}>Pan-Sexual</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                        value={this.state.sexual_orientation==="Lesbian"}>Lesbian</option>
-
+                            value={this.state.sexual_orientation==="Demi-Sexual"}>Demi-Sexual</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                        value={this.state.sexual_orientation==="Pan-Sexual"}>Pan-Sexual</option>
-
-                        <option onChange={this.handleSexual_orientationChange} 
-                        value={this.state.sexual_orientation==="Demi-Sexual"}>Demi-Sexual</option>
-
-                        <option onChange={this.handleSexual_orientationChange} 
-                        value={this.state.sexual_orientation==="A-Sexual"}>A-Sexual</option>
+                            value={this.state.sexual_orientation==="A-Sexual"}>A-Sexual</option>
                     </select>
                     </div>
 
@@ -221,22 +215,18 @@ class ProfileForm extends React.Component {
                     <select>
                         <option value=''>--Select Sexual Orientation--</option>
                         <option onChange={this.handleEthnicityChange} 
-                        value={this.state.ethnicity==="caucasian"}>Caucasian</option>
+                            value={this.state.ethnicity==="caucasian"}>Caucasian</option>
+                        <option onChange={this.handleEthnicityChange} 
+                            value={this.state.ethnicity==="african_decent"}>African Decent</option>
+                        <option onChange={this.handleEthnicityChange} 
+                            value={this.state.ethnicity==="native_american"}>Native American</option>
 
                         <option onChange={this.handleEthnicityChange} 
-                        value={this.state.ethnicity==="african_decent"}>African Decent</option>
-
+                            value={this.state.ethnicity==="asian"}>Asian</option>
                         <option onChange={this.handleEthnicityChange} 
-                        value={this.state.ethnicity==="native_american"}>Native American</option>
-
+                            value={this.state.ethnicity==="pacific_islander"}>Hawaiian or Pacific Islander</option>
                         <option onChange={this.handleEthnicityChange} 
-                        value={this.state.ethnicity==="asian"}>Asian</option>
-
-                        <option onChange={this.handleEthnicityChange} 
-                        value={this.state.ethnicity==="pacific_islander"}>Hawaiian or Pacific Islander</option>
-
-                        <option onChange={this.handleEthnicityChange} 
-                        value={this.state.ethnicity==="mixed"}>Mixed</option>
+                            value={this.state.ethnicity==="mixed"}>Mixed</option>
                     </select>
                     </div>
 
@@ -245,21 +235,18 @@ class ProfileForm extends React.Component {
                     <select>
                         <option value=''>--Select Pronouns--</option>
                         <option onChange={this.handlePronounsChange} 
-                        value={this.state.pronouns==="He/Him"} >He/Him</option>
+                            value={this.state.pronouns==="He/Him"} >He/Him</option>
+                        <option onChange={this.handlePronounsChange} 
+                            value={this.state.pronouns==="She/Her"} >She/Her</option>
 
                         <option onChange={this.handlePronounsChange} 
-                        value={this.state.pronouns==="She/Her"} >She/Her</option>
-
+                            value={this.state.pronouns==="They/Them"}>They/Them</option>
                         <option onChange={this.handlePronounsChange} 
-                        value={this.state.pronouns==="They/Them"}>They/Them</option>
-
-                        <option onChange={this.handlePronounsChange} 
-                        value={this.state.pronouns==="Xe/Xem/Xir"}>Xe/Xem/Xir</option>
+                            value={this.state.pronouns==="Xe/Xem/Xir"}>Xe/Xem/Xir</option>
                         </select>    
                     </div>
 
                     <button className="btn btn-primary">Edit</button>
-
                     </form>
                 </div>
             </div>

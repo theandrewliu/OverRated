@@ -29,7 +29,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={<MainPage />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/messages" element={<Chat />} />
           <Route path="/logout" element={<Logout logout={logout} />} />
           <Route path="/reviews" element={<ReviewForm />} />
           <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
