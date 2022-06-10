@@ -150,3 +150,8 @@ label {
     bottom: 0;
     right: 0;
   }
+
+
+input[type="radio"] {
+    padding: 10px 50px 20px;
+  }
