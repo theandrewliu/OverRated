@@ -12,7 +12,10 @@ from models.profiles import (
     ProfileOutWithInterested,
     SwipedIn,
     SwipedOut,
-    MatchedList
+    MatchedList, 
+    RatingIn, 
+    RatingOut,
+    RatingAvgOut
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
@@ -133,6 +136,18 @@ def row_to_matched_list(row):
         "date_of_birth": row[5]
     }
     return match
+
+
+def row_to_rating(row):
+    rating = {
+        "id": row[0],
+        "rating": row[1],
+        "rating_of": row[2],
+        "rating_by": row[3]
+    }
+    return rating
+
+
 
 
 # not using this anywhere at the moment 
@@ -398,3 +413,49 @@ async def get_matches(page: int=0, query=Depends(ProfileQueries), current_user: 
         "page_count": page_count,
         "matches": [row_to_matched_list(row) for row in rows],
     }
+
+@router.post(
+    "/api/profiles/{target_user_id}/rating",
+    response_model=Union[RatingOut, ErrorMessage],
+    responses={
+        200: {"model": RatingOut},
+        409: {"model": ErrorMessage}
+    },
+)
+def create_rating(
+    profile: RatingIn,
+    target_user_id: int,
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user)
+):
+    try: 
+        row = query.create_rating(
+            profile.rating, 
+            target_user_id,
+            current_user["id"],
+        )
+        return row_to_rating(row)
+    except DuplicateTarget:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": "Target user does not exist"}
+
+
+@router.get(
+    "/api/profiles/{target_user_id}/average-rating",
+    response_model=Union[RatingAvgOut, ErrorMessage],
+    responses = {
+        200: {"model": RatingAvgOut},
+        409: {"model": ErrorMessage}
+    },
+)
+def get_rating_avg(
+    target_user_id: int,
+    response: Response,
+    query = Depends(ProfileQueries)
+):
+    row = query.get_average_rating(target_user_id)
+    if row is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile does not exist"}
+    return {"average_rating": row}

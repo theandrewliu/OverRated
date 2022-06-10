@@ -29,6 +29,8 @@ Today we finally implemented the like/dislike functionality on the backend. When
 
 The dislike does the same except only add FALSE to the like. it does not check
 
-## Jun 08, 2022
+## June 08, 2022
 Today, we created a random profile function that's similar to profile detail view but also includes the logic to filter based on if the profile is not in a match, in a liked table, and both users are within each other preferences. 
 
+## June 09, 2022
+Today, we fixed an error in the random profile function so now it works 100% and returns what is expected. Also started on the ratings. Can now post a rating and created a function that returns the average rating that can be implemented to the views that we have already. May need to create the chat function depending on the outcome of chat hook.

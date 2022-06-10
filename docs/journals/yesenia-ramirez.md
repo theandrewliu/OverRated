@@ -124,3 +124,12 @@ After all this filtering, it returned a list of profile ids, where the current u
 Today, I learned about how to use a list as the placeholder for %s in the WHERE clause. I'm not exactly sure how it works, since %s only takes in strings and I can't seem to find any documentation about it. But when we added any(%s), then it was able to accept the list to be entered as the %s. 
 
 "It is a formatted string, where %s is a placeholder."
+
+## June 9, 2022
+* Random filtered profile fixed
+Today, Andrew and I realized that the function we worked on yesterday was no longer working. Our exclusion list was not filtering out of our potential connections list. We realized that the id != ANY(%s) we used yesterday was no longer working. So we debugged with the help of Chris, Mitch and Jeff and figured out that we had to use NOT id = ANY(%s) instead. 
+
+* Rating functions
+Andrew and I worked on the creating a rating and getting the average of someone's ratings. 
+
+Today, I learned that what you google is important in the results that you get. I was quickly able to find a solution to our problem when I googled the correct search terms. Also, Andrew taught me how to get the average in sql. 

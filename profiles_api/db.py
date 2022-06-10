@@ -523,4 +523,38 @@ class ProfileQueries:
                 print("my profile list", profile_list)
                 return page_count, list(profile_list)
 
-                
+    def create_rating(self, rating, user_id, target_id):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        INSERT INTO ratings(rating, rating_of, rating_by)
+                        VALUES (%s, %s, %s)
+                        RETURNING id, rating, rating_of, rating_by
+                        """,
+                            [rating, user_id, target_id]
+                    )
+                    return cursor.fetchone()
+                except:
+                    print("DID NOT RUN THE SQL INJECTION")
+
+
+    def get_average_rating(self, target_id):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        SELECT AVG(rating)::numeric(10,2) AS average_rating
+                        FROM ratings
+                        WHERE rating_of = %s
+                        """,
+                            [target_id]
+                    )
+                    average = cursor.fetchone()
+                    print("average_rating:", float(average[0]))
+                    print("type", type(float(average[0])))
+                    return float(average[0])
+                except:
+                    print("DID NOT RUN THE SQL STUFF")
