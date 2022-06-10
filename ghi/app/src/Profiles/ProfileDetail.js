@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Link } from "react-router-dom";
 import './profile.css';
+import { calculateAge } from "./ConnectionsList";
 
 
 class ProfileDetail extends React.Component {
@@ -53,7 +54,7 @@ class ProfileDetail extends React.Component {
                 Details
               </h1>
               <div className><b>Pronouns:</b> {this.state.profile.pronouns}</div>
-              <div className><b>Birthday:</b> {this.state.profile.date_of_birth}</div>
+              <div className><b>Age:</b> {calculateAge(this.state.profile.date_of_birth)}</div>
               <div className><b>Location:</b> {this.state.profile.location}</div>
               <div className><b>Height:</b> {this.state.profile.height}</div>
               <div className><b>Job:</b> {this.state.profile.job}</div>

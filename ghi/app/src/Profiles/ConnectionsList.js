@@ -2,6 +2,17 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import './connections.css';
 
+export function calculateAge(date_of_birth) {
+  var bday = new Date(date_of_birth);
+  let today = new Date();
+
+  var distance = today.valueOf() - bday.valueOf();
+  var daysOld = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var yearsOld = Number((daysOld/365).toFixed(0));
+
+    return yearsOld
+}
+
 
 class ConnectionList extends React.Component {
   constructor(props) {
@@ -13,16 +24,7 @@ class ConnectionList extends React.Component {
   };
   }
   
-  async calculateAge() {
-    var bday = Date(this.state.theirprofile.date_of_birth);
-    let today = new Date();
-
-    var distance = today.getTime() - bday.getTime();
-    var daysOld = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var yearsOld = Number((daysOld/365).toFixed(0));
-
-      return yearsOld
-  }
+  
 
   async getProfileMatches() {
     const url = `${process.env.REACT_APP_API_HOST}/api/my-matches`;
@@ -57,9 +59,9 @@ class ConnectionList extends React.Component {
                             <div className = "connect-card">
                             <img key={match.photo} src={ match.photo } alt="pic" width="70%" height="70%" />
                             <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
-                            <div key={match.date_of_birth}><b>{ match.date_of_birth }  </b> </div>
+                            <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
                             <div key={match.review}><b>Review Score:</b> {match.average_rating}  </div>
-                            <div key={match.location}><b>Location</b> {match.location}  </div>
+                            <div key={match.location}><b>Location:</b> {match.location}  </div>
                             </div>
                           )
                         })}</div>
