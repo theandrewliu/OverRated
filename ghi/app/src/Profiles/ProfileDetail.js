@@ -37,6 +37,10 @@ class ProfileDetail extends React.Component {
       if(this.state.redirect === true){
         return <Navigate to = '/login' />;
       }
+      
+      let feet = Math.floor(this.state.profile.height/12)
+      let inch = this.state.profile.height%12
+
       return (
         <>
         <Link className = 'buttonA' to='/api/profiles/myself'>Profile Settings</Link>
@@ -49,13 +53,14 @@ class ProfileDetail extends React.Component {
               <img src={ this.state.profile.photo } alt="pic" width="70%" height="70%" />        
           </div>
           <div className="details">
+
               <h1>
                 Details
               </h1>
               <div className><b>Pronouns:</b> {this.state.profile.pronouns}</div>
               <div className><b>Birthday:</b> {this.state.profile.date_of_birth}</div>
               <div className><b>Location:</b> {this.state.profile.location}</div>
-              <div className><b>Height:</b> {this.state.profile.height}</div>
+              <div className><b>Height:</b> { feet } ft { inch } inch</div>
               <div className><b>Job:</b> {this.state.profile.job}</div>
               <div className><b>Education:</b> {this.state.profile.education}</div>
               <div className><b>About Me:</b> {this.state.profile.about}</div>
