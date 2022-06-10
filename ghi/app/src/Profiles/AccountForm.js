@@ -1,5 +1,4 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom'
 
 
 
@@ -28,7 +27,8 @@ class AccountForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async deleteAccount(account_id){
+    async deleteAccount(event){
+        event.preventDefault();
         const deleteUrl =  `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
         const fetchConfig = {method: "DELETE"}
 
@@ -111,9 +111,9 @@ class AccountForm extends React.Component {
     }
 
     render(){
-        if (this.props.token) {
-            return <Navigate to="/my_profile" />;
-        }
+        // if (this.props.token) {
+        //     return <Navigate to="/my_profile" />;
+        // }
         return(
             <div className="row">
             <div className="offset-3 col-6">

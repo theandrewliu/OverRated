@@ -18,18 +18,19 @@ I created a profile folder to hold all my Js files. I worked on the main page by
 I was able to work on the form js files and work on the bulk of the code. I was able to finish the Login, SignUp, and ReviewForm. I created the chat js file and added some code into the file. The login and signup form was not pretty in any sense.
 
 ## June 3, 2022
-I added all of the code from the websocket code from Learn into the Chat.js and chat.py files. 
+I added all of the code from the websocket code from Learn into the Chat.js and chat.py files. I was suprised with how much I was able to read but not completely understand. 
 
 ## June 6, 2022
 Finished more of the form js files with getting operational. Added a few more js files for details and list. Tried to implement background image to the main page but having difficulty finding the right method. Updated the app.js files.
 
 ## June 7, 2022
-Added a few photos. Cleaned up some of the forms. Added the code for Reviewlist.
+Added a few photos into the images folder in public. Looking to place a few photos to make the app more photogenic. Worked on the forms js files. Added the code for Reviewlist.
 
 ## June 8, 2022
-Worked on the Profile form. Fixed height where it's now a sliding scale. Changed Pronouns, Sexual Ori and Gender into a select option.
+Worked on the Profile form. Fixed height where it's now a sliding scale but isn't displaying values. Changed Pronouns, Sexual Ori and Gender into a select option.
 
 ## June 9, 2022
 Connected and fixed the profilecreation.js. Added interested in, ethnicity and location to the profile form and creation. I was able to get the Chat.js to start working and showing messages.
 
 ## June 10, 2022
+I was able to get websockets to display username and connect with profile usernames. I fixed the radio button and cleaned up the code.
