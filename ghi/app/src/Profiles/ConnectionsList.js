@@ -12,13 +12,16 @@ class ConnectionList extends React.Component {
       redirect: false,
   };
   }
+  
+  async calculateAge() {
+    var bday = Date(this.state.theirprofile.date_of_birth);
+    let today = new Date();
 
+    var distance = today.getTime() - bday.getTime();
+    var daysOld = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var yearsOld = Number((daysOld/365).toFixed(0));
 
-
-  calculateAge = (birthday) => {
-    const ageDifMs = Date.now() - new Date(birthday).getTime();
-    const ageDate = new Date(ageDifMs);
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+      return yearsOld
   }
 
   async getProfileMatches() {
@@ -49,13 +52,13 @@ class ConnectionList extends React.Component {
     return (
       <>
       <h1>Your Connections</h1>
-      <div>{this.state.theirprofile.matches.map(match => {
+      <div className = 'card-layout'>{this.state.theirprofile.matches.map(match => {
                           return (
                             <div className = "connect-card">
                             <img key={match.photo} src={ match.photo } alt="pic" width="70%" height="70%" />
                             <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
-                            <div key={match.date_of_birth}><b>calculateAge({match.date_of_birth})  </b> </div>
-                            <div key={match.review}><b>Review Score:</b> {match.review}  </div>
+                            <div key={match.date_of_birth}><b>{ match.date_of_birth }  </b> </div>
+                            <div key={match.review}><b>Review Score:</b> {match.average_rating}  </div>
                             <div key={match.location}><b>Location</b> {match.location}  </div>
                             </div>
                           )

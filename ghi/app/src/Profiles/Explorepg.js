@@ -132,7 +132,7 @@ class ProfileDetail extends React.Component {
               <h1>
                 Review Score
               </h1>
-            {this.state.theirprofile.reviews}
+            {this.state.theirprofile.average_rating}
           </div>
           <button className = 'dislikebutton' onClick={ this.dislikes}>Dislike</button>
           <button className = 'likebutton' onClick={ this.likes}>Like</button>

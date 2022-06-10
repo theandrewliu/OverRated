@@ -235,18 +235,18 @@ class ProfileForm extends React.Component {
                     <select>
                         <option value=''>--Select Sexual Orientation--</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Straight"}>Straight</option>
+                            value={this.state.sexual_orientation==="straight"}>Straight</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Gay"}>Gay</option>
+                            value={this.state.sexual_orientation==="gay"}>Gay</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Lesbian"}>Lesbian</option>
+                            value={this.state.sexual_orientation==="lesbian"}>Lesbian</option>
 
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Pan-Sexual"}>Pan-Sexual</option>
+                            value={this.state.sexual_orientation==="pan_sexual"}>Pan-Sexual</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Demi-Sexual"}>Demi-Sexual</option>
+                            value={this.state.sexual_orientation==="demi_sexual"}>Demi-Sexual</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="A-Sexual"}>A-Sexual</option>
+                            value={this.state.sexual_orientation==="a_sexual"}>A-Sexual</option>
                     </select>
                     </div>
 
