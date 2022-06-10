@@ -49,3 +49,7 @@ Quite the busy day if i do say so myself So we did a bit of troubleshooting all 
 
 ## June 8, 2022
 Alright so im gonna go over this one very briefly so i implemented the profile settings, account settings, and the like button. The functionality on the like button took much longer than expected so ill have to do the dislike tomorrow but at least for the explore page the buttons are nice and circular and color coordinated. 
+
+## June 9, 2022
+
+Okay so today was kinda hectic one we were out to work i immediately got to work on the dislike button and my achilles heel was that i didnt bind the button at the top of the page but once i did it was smooth sailing. Also i was able to fix it so when a user uploaded a photo it actually used their photo on their profile... most of the time haha. Ill have to go back through and make sure it works for everyone but its a good start. The the last thing i did today was i figured out the way i have to import data into my connections page so i can show a list of matches so tomorrow morning ill be able to hit the ground running with getting our connections page taken care of.
