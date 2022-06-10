@@ -73,9 +73,9 @@ class ProfileDetail extends React.Component {
           </div>
           <div className="reviews">
               <h1>
-                Review Score
+                Rating Average
               </h1>
-            {this.state.profile.reviews}
+              {this.state.profile.average_rating}
           </div>
         </div>
         </>
