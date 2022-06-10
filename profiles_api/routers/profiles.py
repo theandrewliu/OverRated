@@ -66,7 +66,8 @@ def row_to_profile(row):
         "religion":row[14],
         "ethnicity":row[15],
         "pronouns":row[16],
-        "interested":row[17]
+        "interested":row[17],
+        "average_rating": row[18]
     }
     return profile
 
@@ -133,7 +134,8 @@ def row_to_matched_list(row):
         "first_name": row[2],
         "last_name": row[3],
         "location": row[4],
-        "date_of_birth": row[5]
+        "date_of_birth": row[5],
+        "average_rating": row[6]
     }
     return match
 
