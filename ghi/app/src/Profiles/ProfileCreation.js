@@ -137,8 +137,8 @@ class ProfileForm extends React.Component {
                     <label htmlFor="height">Height:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleHeightChange} value={this.state.height} 
-                            placeholder="Height" type="range" name="height" 
-                            id="height" min="4'0" max="8'0" className="slider" />
+                            type="number" name="height" 
+                            id="height" min="4.0" max="8.0" className="form-control" />
                     </div>
 
                     <div className="form-floating mb-3">
@@ -155,25 +155,41 @@ class ProfileForm extends React.Component {
                             id="education" className="form-control" />
                     </div>
 
-                    <div className="form-floating mb-3">
-                    <label htmlFor="religion">Religion</label>
-                        <input onChange={this.handleReligionChange} value={this.state.religion} 
-                            placeholder="Religion" required type="text" name="religion" 
-                            id="religion" className="form-control" />
-                    </div>
+                    <label htmlFor="religion">Religion:</label>
+                    <div>
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Christian"} name="religion" />: Christian
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Judaism"} name="religion" />: Judaism
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Islam"} name="religion" />: Islam
+
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Hinduism"} name="religion" />: Hinduism<br></br>
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Buddhism"} name="religion" />: Buddhism
+                            
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Pagan"} name="religion" />: Pagan
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Agnostic"} name="religion" />: Agnostic
+                        <input type="radio" onChange={this.handleReligionChange} 
+                            value={this.state.religion==="Atheist"} name="religion" />: Atheist
+                    </div>   
 
                     <label htmlFor="gender">Gender:</label>
-                    <div className="form-floating mb-3">
-                        <select>
-                        <option value=''>--Select Gender--</option>
-                        <option onChange={this.handleGenderChange} 
-                            value={this.state.gender==="Male"}>Male</option>
+                    <div>
+                    <img src="/images/Male.png" alt="gender" width="60" height="80"></img>
+                        <input type="radio" onChange={this.handleGenderChange} 
+                            value={this.state.gender==="Male"}/>: Male
 
-                        <option onChange={this.handleGenderChange} 
-                            value={this.state.gender==="Female"}>Female</option>
-                        <option onChange={this.handleGenderChange} 
-                            value={this.state.gender==="Inter-Sex"}>Inter-Sex</option>
-                        </select>
+                        <img src="/images/Female.png" alt="gender" width="60" height="80"></img>
+                        <input type="radio" onChange={this.handleGenderChange} 
+                            value={this.state.gender==="Female"}/>: Female
+
+                        <img src="/images/Intersex.png" alt="gender" width="60" height="80"></img>
+                        <input type="radio" onChange={this.handleGenderChange} 
+                            value={this.state.gender==="Inter-Sex"}/>: Inter-Sex
                     </div>
 
                     <label htmlFor="interested">Interested In:</label>
@@ -182,7 +198,6 @@ class ProfileForm extends React.Component {
                         <option value=''>--Select Interest--</option>
                         <option onChange={this.handleInterestedChange} 
                             value={this.state.interested==="male"}>Male</option>
-
                         <option onChange={this.handleInterestedChange} 
                             value={this.state.interested==="female"}>Female</option>
                         <option onChange={this.handleInterestedChange} 
