@@ -14,7 +14,8 @@ class ProfileForm extends React.Component {
             sexual_orientation: "",
             religion: "",
             pronouns: "",
-            interested_in: "",
+            interested: "",
+            ethnicity: "",
         };
         
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
@@ -26,7 +27,8 @@ class ProfileForm extends React.Component {
         this.handleSexual_orientationChange = this.handleSexual_orientationChange.bind(this);
         this.handleReligionChange = this.handleReligionChange.bind(this);
         this.handlePronounsChange = this.handlePronounsChange.bind(this);
-        this.handleInterested_InChange = this.handleInterested_InChange.bind(this);
+        this.handleInterestedChange = this.handleInterestedChange.bind(this);
+        this.handleEthnicityChange = this.handleEthnicityChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -34,7 +36,7 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
 
-        const user_Form_Url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
+        const user_Form_Url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -57,7 +59,7 @@ class ProfileForm extends React.Component {
                 sexual_orientation: "",
                 religion: "",
                 pronouns: "",
-                interested_in: "",
+                interested: "",
             });
         }
     }
@@ -99,9 +101,13 @@ class ProfileForm extends React.Component {
         const value = event.target.value;
         this.setState({ pronouns: value });
     }
-    handleInterested_InChange(event) {
+    handleInterestedChange(event) {
         const value = event.target.value;
         this.setState({ interested_in: value });
+    }
+    handleEthnicityChange(event) {
+        const value = event.target.value;
+        this.setState({ ethnicity: value });
     }
 
 
@@ -110,69 +116,150 @@ class ProfileForm extends React.Component {
             <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Overrated Sign Up Form</h1>
+                    <h1>Overrated Profile Creation</h1>
+                    <br></br>
                     <form onSubmit={this.handleSubmit} id="create-form">
+
+                    <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handlePhotoChange} value={this.state.photo} placeholder="Photo" required type="image" name="photo" id="photo" className="form-control" />
-                        <label htmlFor="photo">Photo</label>
+                        <input onChange={this.handlePhotoChange} value={this.state.photo} 
+                        type="text" name="photo" 
+                        id="photo" className="form-control" />
                     </div>
+
+                    <label htmlFor="height">About Me:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleAboutChange} value={this.state.about} placeholder="About" required type="text" name="about" id="about" className="form-control" />
-                        <label htmlFor="about">About Me</label>
+                        <textarea onChange={this.handleAboutChange} value={this.state.about} 
+                        type="textarea" name="textValue" 
+                        id="about" className="form-control" />
                     </div>
+
+                    <label htmlFor="height">Height:</label>
                     <div className="form-floating mb-3">
-                    <input onChange={this.handleHeightChange} value={this.state.height} placeholder="Height" required type="range" name="height" id="height" min="4'0&quot" max="8'0&quot" className="form-control" />
-                        <label htmlFor="height">Height</label>
+                        <input onChange={this.handleHeightChange} value={this.state.height} 
+                        placeholder="Height" type="range" name="height" 
+                        id="height" min="4'0" max="8'0" className="slider" />
                     </div>
+
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleJobChange} value={this.state.job} placeholder="Job" required type="text" name="job" id="job" className="form-control" />
-                        <label htmlFor="job">Job</label>
+                    <label htmlFor="job">Job</label>
+                        <input onChange={this.handleJobChange} value={this.state.job} 
+                        placeholder="Job" required type="text" name="job" 
+                        id="job" className="form-control" />
                     </div>
+
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleEducationChange} value={this.state.education} placeholder="Education" required type="text" name="education" id="education" className="form-control" />
-                        <label htmlFor="education">Education</label>
+                    <label htmlFor="education">Education</label>
+                        <input onChange={this.handleEducationChange} value={this.state.education} 
+                        placeholder="Education" required type="text" name="education" 
+                        id="education" className="form-control" />
                     </div>
+
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleGenderChange} value={this.state.gender} required type="radio" name="gender" id="gender" className="form-control" />
-                        <label htmlFor="gender">Male</label>
-                        <input onChange={this.handleGenderChange} value={this.state.gender} required type="radio" name="gender" id="gender" className="form-control" />
-                        <label htmlFor="gender">Female</label>
-                        <input onChange={this.handleGenderChange} value={this.state.gender} required type="radio" name="gender" id="gender" className="form-control" />
-                        <label htmlFor="gender">Transgender</label>
+                    <label htmlFor="religion">Religion</label>
+                        <input onChange={this.handleReligionChange} value={this.state.religion} 
+                        placeholder="Religion" required type="text" name="religion" 
+                        id="religion" className="form-control" />
                     </div>
+
+                    <label htmlFor="gender">Gender:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
-                        <label htmlFor="sexual_orientation">Straight</label>
-                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
-                        <label htmlFor="sexual_orientation">Gay</label>
-                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
-                        <label htmlFor="sexual_orientation">Lesbian</label>
-                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
-                        <label htmlFor="sexual_orientation">Pan-Sexual</label>
-                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
-                        <label htmlFor="sexual_orientation">Demi-Sexual</label>
-                        <input onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation} placeholder="Sexual Orientation" required type="text" name="sexual_orientation" id="sexual_orientation" className="form-control" />
-                        <label htmlFor="sexual_orientation">A-Sexual</label>                    
-                        </div>
-                    <div className="form-floating mb-3">
-                        <input onChange={this.handleReligionChange} value={this.state.religion} placeholder="Religion" required type="text" name="religion" id="religion" className="form-control" />
-                        <label htmlFor="religion">Religion</label>
+                        <select>
+                        <option value=''>--Select Gender--</option>
+                        <option onChange={this.handleGenderChange} 
+                        value={this.state.gender==="Male"}>Male</option>
+
+                        <option onChange={this.handleGenderChange} 
+                        value={this.state.gender==="Female"}>Female</option>
+
+                        <option onChange={this.handleGenderChange} 
+                        value={this.state.gender==="Inter-Sex"}>Inter-Sex</option>
+                        </select>
                     </div>
+
+                    <label htmlFor="interested">Interested In:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handlePronounsChange} value={this.state.pronouns} required type="radio" name="he/him" id="pronouns" className="form-control" />
-                        <label htmlFor="pronouns">He/Him</label>
-                        <input onChange={this.handlePronounsChange} value={this.state.pronouns}  required type="radio" name="pronouns" id="pronouns" className="form-control" />
-                        <label htmlFor="pronouns">She/Her</label>
-                        <input onChange={this.handlePronounsChange} value={this.state.pronouns} required type="radio" name="pronouns" id="pronouns" className="form-control" />
-                        <label htmlFor="pronouns">Them/They</label>
-                        <input onChange={this.handlePronounsChange} value={this.state.pronouns} required type="radio" name="pronouns" id="pronouns" className="form-control" />
-                        <label htmlFor="pronouns">Xe/Xem/Xir</label>
+                        <select>
+                        <option value=''>--Select Interest--</option>
+                        <option onChange={this.handleInterestedChange} 
+                        value={this.state.interested==="male"}>Male</option>
+
+                        <option onChange={this.handleInterestedChange} 
+                        value={this.state.interested==="female"}>Female</option>
+
+                        <option onChange={this.handleInterestedChange} 
+                        value={this.state.interested==="everyone"}>Everyone</option>
+                        </select>
                     </div>
+
+                    <label htmlFor="sexual_orientation">Sexual Orientation:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleInterested_InChange} value={this.state.interested_in} placeholder="Interested In" required type="text" name="interested_in" id="interested_in" className="form-control" />
-                        <label htmlFor="interested_in">Interested In</label>
+                    <select>
+                        <option value=''>--Select Sexual Orientation--</option>
+                        <option onChange={this.handleSexual_orientationChange} 
+                        value={this.state.sexual_orientation==="Straight"}>Straight</option>
+
+                        <option onChange={this.handleSexual_orientationChange} 
+                        value={this.state.sexual_orientation==="Gay"}>Gay</option>
+
+                        <option onChange={this.handleSexual_orientationChange} 
+                        value={this.state.sexual_orientation==="Lesbian"}>Lesbian</option>
+
+                        <option onChange={this.handleSexual_orientationChange} 
+                        value={this.state.sexual_orientation==="Pan-Sexual"}>Pan-Sexual</option>
+
+                        <option onChange={this.handleSexual_orientationChange} 
+                        value={this.state.sexual_orientation==="Demi-Sexual"}>Demi-Sexual</option>
+
+                        <option onChange={this.handleSexual_orientationChange} 
+                        value={this.state.sexual_orientation==="A-Sexual"}>A-Sexual</option>
+                    </select>
                     </div>
+
+                    <label htmlFor="ethnicity">Ethnicity:</label>
+                    <div className="form-floating mb-3">
+                    <select>
+                        <option value=''>--Select Sexual Orientation--</option>
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="caucasian"}>Caucasian</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="african_decent"}>African Decent</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="native_american"}>Native American</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="asian"}>Asian</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="pacific_islander"}>Hawaiian or Pacific Islander</option>
+
+                        <option onChange={this.handleEthnicityChange} 
+                        value={this.state.ethnicity==="mixed"}>Mixed</option>
+                    </select>
+                    </div>
+
+                    <label htmlFor="pronouns">Pronouns:</label>
+                    <div className="form-floating mb-3">
+                    <select>
+                        <option value=''>--Select Pronouns--</option>
+                        <option onChange={this.handlePronounsChange} 
+                        value={this.state.pronouns==="He/Him"} >He/Him</option>
+
+                        <option onChange={this.handlePronounsChange} 
+                        value={this.state.pronouns==="She/Her"} >She/Her</option>
+
+                        <option onChange={this.handlePronounsChange} 
+                        value={this.state.pronouns==="They/Them"}>They/Them</option>
+
+                        <option onChange={this.handlePronounsChange} 
+                        value={this.state.pronouns==="Xe/Xem/Xir"}>Xe/Xem/Xir</option>
+                        </select>    
+                    </div>
+
                     <button className="btn btn-primary">Edit</button>
+
                     </form>
                 </div>
             </div>

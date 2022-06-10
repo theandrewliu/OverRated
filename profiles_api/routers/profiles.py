@@ -388,6 +388,8 @@ def disliked(
     response: Response,
     query=Depends(ProfileQueries),
     current_user: User = Depends(get_current_user)
+
+
 ):
     try:
         row = query.dislike_profile(

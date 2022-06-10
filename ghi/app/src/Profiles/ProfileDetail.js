@@ -45,8 +45,8 @@ class ProfileDetail extends React.Component {
           <div className = 'container pic-name' >
               <h1>
                 {this.state.profile.first_name + " " + this.state.profile.last_name}
-              </h1>            
-            {this.state.profile.photo}
+              </h1>   
+              <img src={ this.state.profile.photo } alt="pic" width="70%" height="70%" />        
           </div>
           <div className="details">
               <h1>
@@ -58,6 +58,8 @@ class ProfileDetail extends React.Component {
               <div className><b>Height:</b> {this.state.profile.height}</div>
               <div className><b>Job:</b> {this.state.profile.job}</div>
               <div className><b>Education:</b> {this.state.profile.education}</div>
+              <div className><b>About Me:</b> {this.state.profile.about}</div>
+              <div className><b>Interested In:</b> {this.state.profile.interested}</div>
               <div className><b>Gender:</b> {this.state.profile.gender}</div>
               <div className><b>Sexual Orientation:</b> {this.state.profile.sexual_orientation}</div>
               <div className><b>Religion:</b> {this.state.profile.religion}</div>

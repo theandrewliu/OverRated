@@ -5,7 +5,6 @@ import Logout from './Logout';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
 import Chat from './Profiles/Chat';
-import MatchesList from './Profiles/MatchesList';
 import ConnectionList from './Profiles/ConnectionsList';
 import MainPage from './MainPage';
 import { useToken } from './authApi';
@@ -15,6 +14,7 @@ import AccountForm from './Profiles/AccountForm';
 import ReviewForm from './Profiles/ReviewForm';
 import ReviewList from './Profiles/ReviewList';
 import Explore from './Profiles/Explorepg';
+import ProfileCreation from './Profiles/ProfileCreation';
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -34,6 +34,8 @@ function App() {
           <Route path="/reviews" element={<ReviewForm />} />
           <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
           <Route path="/api/random" element={<Explore token={token} />} />
+          <Route path="/api/my-matches" element={<ConnectionList token={token} />} />
+          
           <Route path="/api/accounts/myself" element={<AccountForm token={token} />} />
 
         <Route path="/my_profile"> 
@@ -47,15 +49,11 @@ function App() {
             <Route path="/login/new" element={<SignupForm token={token} signup={signup} />} />
           </Route>
 
-          <Route path="/api/profiles/">
-            <Route index element={<ProfileForm />} />
+          <Route path="/api/profiles">
+            <Route index element={<ProfileCreation />} />
             <Route path="/api/profiles/myself" element={<ProfileForm token={token}/>} />
           </Route>
 
-          <Route path="/matches">
-            <Route index element={<MatchesList />} />
-            <Route path="/matches/connections" element={<ConnectionList />} />
-          </Route>
 
 
         </Routes>

@@ -7,6 +7,7 @@ class ProfileDetail extends React.Component {
   constructor(props) {
     super(props);
     this.likes = this.likes.bind(this)
+    this.dislikes = this.dislikes.bind(this)
     this.state = {
       theirprofile: "",
       ourprofile: "",
@@ -66,6 +67,27 @@ class ProfileDetail extends React.Component {
     return error.detail;
   }
 
+  async dislikes() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.state.theirprofile.id}/disliked`;
+    // const form = new FormData();
+    // form.append('active_id', this.state.ourprofile.id);
+    const form = {'target_user_id': this.state.theirprofile.id};
+    const response = await fetch(url, {
+      method: 'post',
+      credentials: 'include',
+      body: JSON.stringify(form),
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    });
+    console.log("test", response)
+    if (response.ok) {
+        window.location.reload(false);
+    }
+    let error = await response.json();
+    return error.detail;
+  }
+
 
   componentDidMount() {
     this.getMyDetails();
@@ -73,7 +95,6 @@ class ProfileDetail extends React.Component {
   }
   
     render() {
-      console.log(this.state)
       if(this.state.redirect === true){
         return <Navigate to = '/login' />;
       }
@@ -84,7 +105,7 @@ class ProfileDetail extends React.Component {
               <h1>
                 {this.state.theirprofile.first_name + " " + this.state.theirprofile.last_name}
               </h1>            
-            {this.state.theirprofile.photo}
+              <img src={ this.state.theirprofile.photo } alt="pic" width="70%" height="70%" />
           </div>
           <div className="details">
               <h1>
@@ -113,7 +134,7 @@ class ProfileDetail extends React.Component {
               </h1>
             {this.state.theirprofile.reviews}
           </div>
-          <button className = 'dislikebutton'>Dislike</button>
+          <button className = 'dislikebutton' onClick={ this.dislikes}>Dislike</button>
           <button className = 'likebutton' onClick={ this.likes}>Like</button>
         </div>
         </>

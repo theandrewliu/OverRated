@@ -79,7 +79,7 @@ class Chat extends React.Component {
   render() {
     return (
       <>
-        <h1>WebSocket Chat</h1>
+        <h1>Poison Room</h1>
         <h2>Your ID: {this.state.clientId}</h2>
         <form onSubmit={this.sendMessage}>
             <input value={this.state.message}
