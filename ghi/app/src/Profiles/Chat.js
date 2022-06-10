@@ -79,20 +79,10 @@ class Chat extends React.Component {
   render() {
     return (
       <>
+      <div className="chat-window">
+      <div className="chat-header">
         <h1>Poison Room</h1>
         <h2>Your ID: {this.state.clientId}</h2>
-        <form onSubmit={this.sendMessage}>
-            <input value={this.state.message}
-                   className="form-control"
-                   type="text"
-                   id="messageText"
-                   autoComplete="off"
-                   onChange={this.updateMessage}/>
-            <button disabled={!this.state.connected}
-                    className="btn btn-primary">
-              Send
-            </button>
-        </form>
         <h2>Messages</h2>
         <table className="table">
           <thead>
@@ -109,6 +99,20 @@ class Chat extends React.Component {
             ))}
           </tbody>
         </table>
+        <form onSubmit={this.sendMessage}>
+            <input value={this.state.message}
+                   className="form-control"
+                   type="text"
+                   id="messageText"
+                   autoComplete="off"
+                   onChange={this.updateMessage}/>
+            <button disabled={!this.state.connected}
+                    className="btn btn-primary">
+              &#9658;
+            </button>
+        </form>
+        </div>
+      </div>
       </>
     )
   }

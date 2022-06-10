@@ -7,7 +7,7 @@ class ConnectionList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      theirprofile: "",
+      theirprofile: {'matches': []},
       ourprofile: "",
       redirect: false,
   };
@@ -34,13 +34,18 @@ class ConnectionList extends React.Component {
 
 
   render() {
-    console.log(this.state)
+    console.log("says", this.state.theirprofile.matches)
     if(this.state.redirect === true){
       return <Navigate to = '/login' />;
     }
     return (
       <>
       <h1>this is a tests</h1>
+      <div>{this.state.theirprofile.matches.map(match => {
+                          return (
+                            <p key={match.first_name}> {match.first_name}  </p>
+                          )
+                        })}</div>
       </>
     );
   }
