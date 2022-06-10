@@ -6,20 +6,19 @@ In the journals, every day that you work on the project, you must make an entry 
 - At least one ah-ha! moment that you had during your coding, however small
 
 # May 27 2020
-I added the gitattributes and gitignore files. I copied them from the trivia-game testables. I worked on orservice.sql where I also took from the testable project. Worked on app name and logo. 
+I added the gitattributes and gitignore files. I copied them from the trivia-game testables. I worked on orservice.sql where I also took from the testable project. Worked on app name and logo. I had an Ah Ha moment when we jumped into this project and not feeling completely lost. 
 
 ## May 31, 2022
-I help with the back end on how our connections will work. We asked with Jeff some questions. I added common.py.
+The team worked on the backend using excelidarw. We were able to get some help from Jeff and map out on how to work the backend. I added common.py and added the code into it.
 
 ## June 1, 2022
-I created a profile folder to hold all my Js files. I worked on the main page by adding a signup button. I thought about what Js files I needed to create for the app. I added the Js files to the Profile folder. I threw in some skeleton code. 
+I created a profile folder to hold all my Js files. I worked on the main page by adding a signup button. I thought about what Js files I needed to create for the app. I created some js files and threw in some skeleton code. 
 
 ## June 2, 2022
-I added the code to all the form js files. I was able to finish the Login, SignUp, and ReviewForm. I created the chat js file and added some code into the file. 
-
+I was able to work on the form js files and work on the bulk of the code. I was able to finish the Login, SignUp, and ReviewForm. I created the chat js file and added some code into the file. The login and signup form was not pretty in any sense.
 
 ## June 3, 2022
-I added all of the code from the websocket into the Chat.js.
+I added all of the code from the websocket code from Learn into the Chat.js and chat.py files. 
 
 ## June 6, 2022
 Finished more of the form js files with getting operational. Added a few more js files for details and list. Tried to implement background image to the main page but having difficulty finding the right method. Updated the app.js files.
@@ -30,5 +29,7 @@ Added a few photos. Cleaned up some of the forms. Added the code for Reviewlist.
 ## June 8, 2022
 Worked on the Profile form. Fixed height where it's now a sliding scale. Changed Pronouns, Sexual Ori and Gender into a select option.
 
-## June 8, 2022
+## June 9, 2022
 Connected and fixed the profilecreation.js. Added interested in, ethnicity and location to the profile form and creation. I was able to get the Chat.js to start working and showing messages.
+
+## June 10, 2022

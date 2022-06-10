@@ -205,16 +205,16 @@ class ProfileForm extends React.Component {
                     <label htmlFor="gender">Gender:</label>
                     <div>
                     <img src="/images/Male.png" alt="gender" width="60" height="80"></img>
-                        <input type="radio" onChange={this.handleGenderChange} 
-                            value={this.state.gender==="Male"}/>: Male
+                        <input type="radio" checked={this.state.selectedOption === "male"} onChange={this.handleGenderChange} 
+                            value="male"/>: Male
 
                         <img src="/images/Female.png" alt="gender" width="60" height="80"></img>
-                        <input type="radio" onChange={this.handleGenderChange} 
-                            value={this.state.gender==="Female"}/>: Female
+                        <input type="radio" checked={this.state.selectedOption === "female"} onChange={this.handleGenderChange} 
+                            value="female"/>: Female
 
                         <img src="/images/Intersex.png" alt="gender" width="60" height="80"></img>
-                        <input type="radio" onChange={this.handleGenderChange} 
-                            value={this.state.gender==="Inter-Sex"}/>: Inter-Sex
+                        <input type="radio" checked={this.state.selectedOption === "other"} onChange={this.handleGenderChange} 
+                            value="other"/>: Inter-Sex
                     </div>
 
                     <label htmlFor="interested">Interested In:</label>
@@ -235,18 +235,18 @@ class ProfileForm extends React.Component {
                     <select>
                         <option value=''>--Select Sexual Orientation--</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Straight"}>Straight</option>
+                            value={this.state.sexual_orientation==="straight"}>Straight</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Gay"}>Gay</option>
+                            value={this.state.sexual_orientation==="gay"}>Gay</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Lesbian"}>Lesbian</option>
+                            value={this.state.sexual_orientation==="lesbian"}>Lesbian</option>
 
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Pan-Sexual"}>Pan-Sexual</option>
+                            value={this.state.sexual_orientation==="pan_sexual"}>Pan-Sexual</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="Demi-Sexual"}>Demi-Sexual</option>
+                            value={this.state.sexual_orientation==="demi_sexual"}>Demi-Sexual</option>
                         <option onChange={this.handleSexual_orientationChange} 
-                            value={this.state.sexual_orientation==="A-Sexual"}>A-Sexual</option>
+                            value={this.state.sexual_orientation==="a_sexual"}>A-Sexual</option>
                     </select>
                     </div>
 
