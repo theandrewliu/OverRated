@@ -5,20 +5,20 @@ function MessageRow(props) {
   const when = new Date(props.message.timestamp);
   return (
     <tr>
-      <td>{props.message.client_id}</td>
+      <td>{props.message.username}</td>
       <td>{when.toLocaleString()}</td>
       <td>{props.message.content}</td>
     </tr>
   )
 }
-
+// Front End
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
-      clientId: Number.parseInt(Math.random() * 10000000),
+      profile: null,
       connected: false,
       message: '',
     };
@@ -26,13 +26,30 @@ class Chat extends React.Component {
     this.updateMessage = this.updateMessage.bind(this);
   }
 
-  connect() {
+  async getMyDetails() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
+    const response = await fetch(url, {
+      credentials: 'include',
+      
+    });
+    if (response.ok) {
+      const profile = await response.json();
+      this.setState({
+        profile: profile,
+      });
+      this.connect(profile);
+    }else if (response.status === 401){
+      this.setState({redirect: true})
+    }
+  }
+
+  connect(profile) {
     if (this.loading && !this.state.connected) {
       return;
     }
     this.loading = true;
     // Should be an environment variable in the future
-    const url = `ws://localhost:8000/chat/${this.state.clientId}`;
+    const url = `ws://localhost:8000/chat/${profile.username}`;
     this.socket = new WebSocket(url);
     this.socket.addEventListener('open', () => {
       this.setState({ connected: true });
@@ -63,8 +80,8 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    this.connect();
-  }
+    this.getMyDetails();
+  }    
 
   sendMessage(e) {
     e.preventDefault();
@@ -77,24 +94,29 @@ class Chat extends React.Component {
   }
 
   render() {
+
+    if (this.state.profile == null){
+      return "Loading..."
+    }
+
     return (
       <>
       <div className="chat-window">
       <div className="chat-header">
-        <h1>Poison Room</h1>
-        <h2>Your ID: {this.state.clientId}</h2>
+        <p>Poison Room</p>
+        <h2>Your ID: {this.state.profile.username}</h2>
         <h2>Messages</h2>
         <table className="table">
           <thead>
             <tr>
-              <th>Client</th>
+              <th>Username</th>
               <th>Date/Time</th>
               <th>Message</th>
             </tr>
           </thead>
           <tbody>
             {this.state.messages.map(message => (
-              <MessageRow key={message.clientId + message.timestamp}
+              <MessageRow key={message.profile.username + message.timestamp}
                           message={message} />
             ))}
           </tbody>

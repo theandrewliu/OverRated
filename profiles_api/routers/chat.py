@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 
 
 router = APIRouter()
-
+# Back End
 
 def timestamp():
     return datetime.now(timezone.utc).isoformat()
@@ -23,13 +23,13 @@ class ConnectionManager:
     async def connect(
         self,
         websocket: WebSocket,
-        client_id: int,
+        profile: str,
     ):
         await websocket.accept()
         self.active_connections.append(websocket)
         await self.send_personal_message(
             "Welcome!",
-            client_id,
+            profile,
             websocket,
         )
 
@@ -39,20 +39,20 @@ class ConnectionManager:
     async def send_personal_message(
         self,
         message: str,
-        client_id: int,
+        profile: str,
         websocket: WebSocket,
     ):
         payload = json.dumps({
-            "client_id": client_id,
+            "profile": profile,
             "content": message,
             "timestamp": timestamp(),
             "message_id": self.next_message_id(),
         })
         await websocket.send_text(payload)
 
-    async def broadcast(self, message: str, client_id: int):
+    async def broadcast(self, message: str, profile: str):
         payload = json.dumps({
-            "client_id": client_id,
+            "profile": profile,
             "content": message,
             "timestamp": timestamp(),
             "message_id": self.next_message_id(),
@@ -69,16 +69,16 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 
-@router.websocket("/chat/{client_id}")
+@router.websocket("/chat/{profile}")
 async def websocket_endpoint(
     websocket: WebSocket,
-    client_id: int,
+    profile: str,
 ):
-    await manager.connect(websocket, client_id)
+    await manager.connect(websocket, profile)
     try:
         while True:
             message = await websocket.receive_text()
-            await manager.broadcast(message, client_id)
+            await manager.broadcast(message, profile)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        await manager.broadcast("Disconnected", client_id)
+        await manager.broadcast("Disconnected", profile)
