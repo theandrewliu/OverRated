@@ -124,3 +124,6 @@ After all this filtering, it returned a list of profile ids, where the current u
 Today, I learned about how to use a list as the placeholder for %s in the WHERE clause. I'm not exactly sure how it works, since %s only takes in strings and I can't seem to find any documentation about it. But when we added any(%s), then it was able to accept the list to be entered as the %s. 
 
 "It is a formatted string, where %s is a placeholder."
+
+## June 9, 2022
+* 

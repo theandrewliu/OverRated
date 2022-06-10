@@ -1,3 +1,4 @@
+from cgitb import text
 from datetime import date
 from sqlite3 import Timestamp
 from pydantic import BaseModel
@@ -134,3 +135,20 @@ class MatchedProfile(BaseModel):
 class MatchedList(BaseModel):
     page_count: int
     matches: list[MatchedProfile]
+
+
+class RatingIn(BaseModel):
+    rating: int
+    rating_of: int
+
+
+class RatingOut(BaseModel):
+    id: int
+    rating: int
+    rating_of: int
+    rating_by: int
+
+
+
+class RatingAvgOut(BaseModel):
+    average_rating: float
