@@ -13,6 +13,14 @@ class ConnectionList extends React.Component {
   };
   }
 
+
+
+  calculateAge = (birthday) => {
+    const ageDifMs = Date.now() - new Date(birthday).getTime();
+    const ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+
   async getProfileMatches() {
     const url = `${process.env.REACT_APP_API_HOST}/api/my-matches`;
     const response = await fetch(url, {
@@ -40,10 +48,16 @@ class ConnectionList extends React.Component {
     }
     return (
       <>
-      <h1>this is a tests</h1>
+      <h1>Your Connections</h1>
       <div>{this.state.theirprofile.matches.map(match => {
                           return (
-                            <p key={match.first_name}> {match.first_name}  </p>
+                            <div className = "connect-card">
+                            <img key={match.photo} src={ match.photo } alt="pic" width="70%" height="70%" />
+                            <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
+                            <div key={match.date_of_birth}><b>calculateAge({match.date_of_birth})  </b> </div>
+                            <div key={match.review}><b>Review Score:</b> {match.review}  </div>
+                            <div key={match.location}><b>Location</b> {match.location}  </div>
+                            </div>
                           )
                         })}</div>
       </>

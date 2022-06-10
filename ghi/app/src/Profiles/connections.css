@@ -1,0 +1,11 @@
+.connect-card{
+min-width: 30vw;
+max-width: 30vw;
+min-height: 30vh;
+flex-direction: column;
+padding: 2px 16px;
+display: flex;
+border-radius: 5px;
+border: 2px solid #f1976b;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
