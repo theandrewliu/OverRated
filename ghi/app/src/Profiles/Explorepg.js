@@ -99,6 +99,8 @@ class ProfileDetail extends React.Component {
       if(this.state.redirect === true){
         return <Navigate to = '/login' />;
       }
+      let feet = Math.floor(this.state.theirprofile.height/12)
+      let inch = this.state.theirprofile.height%12
       return (
         <>
         <div className="profileContainer">
@@ -115,7 +117,7 @@ class ProfileDetail extends React.Component {
               <div className><b>Pronouns:</b> {this.state.theirprofile.pronouns}</div>
               <div className><b>Age:</b> {calculateAge(this.state.theirprofile.date_of_birth)}</div>
               <div className><b>Location:</b> {this.state.theirprofile.location}</div>
-              <div className><b>Height:</b> {this.state.theirprofile.height}</div>
+              <div className><b>Height:</b> { feet } ft { inch } inch</div>
               <div className><b>Job:</b> {this.state.theirprofile.job}</div>
               <div className><b>Education:</b> {this.state.theirprofile.education}</div>
               <div className><b>Gender:</b> {this.state.theirprofile.gender}</div>
