@@ -66,7 +66,7 @@ class SignupForm extends React.Component{
         const value = event.target.value;
         this.setState({ verify_password: value });
     }
-
+    
     validForm() {
         return this.state.password.length >= 8 &&
                this.state.password === this.state.verify_password &&
@@ -146,6 +146,11 @@ class SignupForm extends React.Component{
                             placeholder="Verify Password" required type="password" name="verify-password" 
                             id="verify-password" className="form-control" />
                             <label htmlFor="verify-password">Verify Password</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="terms_condition" required value="terms_condition" />
+                            <label for="terms_condition"><a href="https://www.youtube.com/watch?v=oHg5SJYRHA0&ab_channel=cotter548">Terms and Conditions</a></label>
                         </div>
 
                         <button disabled={!this.validForm()} type="submit" value="Submit" form="create-form" className="btn btn-primary">Sign Up</button>

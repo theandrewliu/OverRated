@@ -25,7 +25,10 @@ I added all of the code from the websocket into the Chat.js.
 Finished more of the form js files with getting operational. Added a few more js files for details and list. Tried to implement background image to the main page but having difficulty finding the right method. Updated the app.js files.
 
 ## June 7, 2022
-Added a few photos. Cleaned up some of the forms. Added the code for Reviewlist. 
+Added a few photos. Cleaned up some of the forms. Added the code for Reviewlist.
 
 ## June 8, 2022
-Worked on the Profile form. Fixed height where it's now a sliding scale. Changed Pronouns, Sexual Ori and Gender into a select option. 
+Worked on the Profile form. Fixed height where it's now a sliding scale. Changed Pronouns, Sexual Ori and Gender into a select option.
+
+## June 8, 2022
+Connected and fixed the profilecreation.js. Added interested in, ethnicity and location to the profile form and creation. I was able to get the Chat.js to start working and showing messages.
