@@ -203,7 +203,7 @@ class ProfileForm extends React.Component {
                     </div>                    
 
                     <label htmlFor="gender">Gender:</label>
-                    <div>
+                    <div onChange={this.handleGenderChange} >
                     <img src="/images/Male.png" alt="gender" width="60" height="80"></img>
                         <input type="radio" checked={this.state.selectedOption === "male"} onChange={this.handleGenderChange} 
                             value="male"/>: Male
