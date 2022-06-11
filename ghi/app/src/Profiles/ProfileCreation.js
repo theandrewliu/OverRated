@@ -138,14 +138,13 @@ class ProfileForm extends React.Component {
                     <div className="form-floating mb-3">
                         <input onChange={this.handleHeightChange} value={this.state.height} 
                             type="number" name="height" 
-                            id="height" min="4.0" max="8.0" className="form-control" />
+                            min="4.0" max="8.0" className="form-control" />
                     </div>
 {/* ------------------------Job */}
                     <label htmlFor="job">Job:</label>
                     <div className="form-floating mb-3" id="form_input">
                         <input onChange={this.handleJobChange} value={this.state.job} 
-                            placeholder="Job" type="text" name="job" 
-                            id="job" className="form-control" />
+                            type="text" name="job" className="form-control" />
                     </div>
  {/* ------------------------Education */}
                     <label htmlFor="education">Education:</label>
@@ -158,7 +157,7 @@ class ProfileForm extends React.Component {
                     <label htmlFor="location">Location</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleLocationChange} value={this.state.location} 
-                            placeholder="Location" type="text" name="location" 
+                            type="text" name="location" 
                             id="location" className="form-control" />
                         </div>
  {/* --------------------Religion */}
@@ -238,7 +237,7 @@ class ProfileForm extends React.Component {
                         </select>    
                     </div>
                     <button className="btn btn-primary">
-                    <a href="http://localhost:3000/api/profiles/myself" 
+                    <a href="http://localhost:3000/api/my_profile" 
                     style={{ color: "white" }}>Create Your Profile</a></button>
                     </form>
                 </div>

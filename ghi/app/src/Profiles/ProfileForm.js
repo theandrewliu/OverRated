@@ -224,22 +224,22 @@ class ProfileForm extends React.Component {
                     </div>
 {/* ------------------------Ethnicity */}
                     <label htmlFor="ethnicity">Ethnicity:</label>
-                    <div className="form-floating mb-3">
-                    <select onChange={this.handleEthnicityChange} value={this.state.ethnicity==="caucasian"}>
+                    <div className="form-floating mb-3" onChange={this.handleEthnicityChange}>
+                    <select>
                         <option value=''>--Select Sexual Orientation--</option>
-                        <option value="caucasian">Caucasian</option>
-                        <option value="african_decent">African Decent</option>
-                        <option value="native_american">Native American</option>
+                        <option value={this.state.ethnicity==="caucasian"}>Caucasian</option>
+                        <option value={this.state.ethnicity==="african_decent"}>African Decent</option>
+                        <option value={this.state.ethnicity==="native_american"}>Native American</option>
 
-                        <option value="asian">Asian</option>
-                        <option value="pacific_islander">Hawaiian or Pacific Islander</option>
-                        <option value="mixed">Mixed</option>
+                        <option value={this.state.ethnicity==="asian"}>Asian</option>
+                        <option value={this.state.ethnicity==="pacific_islander"}>Hawaiian or Pacific Islander</option>
+                        <option value={this.state.ethnicity==="mixed"}>Mixed</option>
                     </select>
                     </div>
 {/* ------------------------Pronouns */}
                     <label htmlFor="pronouns">Pronouns:</label>
                     <div className="form-floating mb-3" >
-                    <select value={this.state.pronouns==="He/Him"} onChange={this.handlePronounsChange} >
+                    <select value={this.state.pronouns} onChange={this.handlePronounsChange} >
                         <option value=''>--Select Pronouns--</option>
                         <option value="He/Him" >He/Him</option>
                         <option value="She/Her" >She/Her</option>

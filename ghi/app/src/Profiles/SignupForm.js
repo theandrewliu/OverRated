@@ -153,15 +153,13 @@ class SignupForm extends React.Component{
                             <label for="terms_condition"><a href="https://www.youtube.com/watch?v=oHg5SJYRHA0&ab_channel=cotter548">
                                 Terms and Conditions</a></label>
                         </div>
-                        <div>
+                        <br></br>
                         <button disabled={!this.validForm()} 
-                            type="submit" form="create-form" 
                             className="btn btn-primary ">
                         <a href="http://localhost:3000/api/profiles" 
                             style={{ color: "white" }}>Sign Up</a>
                         </button>
                         <Link to="/login">LogIn</Link>
-                            </div>
                         </form>
                     </div>
                 </div>
