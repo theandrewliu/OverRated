@@ -40,16 +40,18 @@ class ProfileForm extends React.Component {
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
-
+        console.log(data);
         const user_Form_Url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
+             
             },
+            credentials: "include",
         };
-
+    
         const response = await fetch(user_Form_Url, fetchConfig);
         if(response.ok){
             const userform = await response.json();
@@ -81,7 +83,7 @@ class ProfileForm extends React.Component {
     }
     handleHeightChange(event) {
         const value = event.target.value;
-        this.setState({ height: value });
+        this.setState({ height: parseInt(value) });
     }
     handleJobChange(event) {
         const value = event.target.value;
@@ -134,11 +136,11 @@ class ProfileForm extends React.Component {
                         <input onChange={this.handlePhotoChange} value={this.state.photo} 
                             placeholder="Photo" type="text" name="photo" 
                             id="photo" className="form-control" />
-                    <button onSubmit={this.handleSubmit} className="btn btn-primary" value="Submit" form="create-form" type="submit">Upload</button>
+                        <button onSubmit={this.handleSubmit} className="btn btn-primary" value="Submit" form="create-form" type="submit">Upload</button>
                     </div>
                     </form>
 {/* ------------------------About */}
-                    <form onSubmit={this.handleSubmit} id="textarea">
+                    <form onSubmit={this.handleSubmit} >
                     <label htmlFor="about">About Me:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleAboutChange} type="textarea" name="textValue" 
@@ -250,8 +252,9 @@ class ProfileForm extends React.Component {
                     </div>
 
                     <button className="btn btn-primary">
-                    <a href="http://localhost:3000/my_profile" 
-                    style={{ color: "white" }}>Apply Changes</a></button>
+                    {/* <a href="http://localhost:3000/my_profile" 
+                    style={{ color: "white" }}> */}
+                    Apply Changes</button>
                     </form>
                 </div>
             </div>

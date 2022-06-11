@@ -71,11 +71,11 @@ class ProfileForm extends React.Component {
     }
     handleAboutChange(event) {
         const value = event.target.value;
-        this.setState({ About: value });
+        this.setState({ about: value });
     }
     handleHeightChange(event) {
         const value = event.target.value;
-        this.setState({ Height: value });
+        this.setState({ height: Number(value) });
     }
     handleJobChange(event) {
         const value = event.target.value;
@@ -83,11 +83,11 @@ class ProfileForm extends React.Component {
     }
     handleEducationChange(event) {
         const value = event.target.value;
-        this.setState({ Education: value });
+        this.setState({ education: value });
     }
     handleGenderChange(event) {
         const value = event.target.value;
-        this.setState({ Gender: value });
+        this.setState({ gender: value });
     }
     handleSexual_orientationChange(event) {
         const value = event.target.value;
@@ -237,8 +237,9 @@ class ProfileForm extends React.Component {
                         </select>    
                     </div>
                     <button className="btn btn-primary">
-                    <a href="http://localhost:3000/api/my_profile" 
-                    style={{ color: "white" }}>Create Your Profile</a></button>
+                    {/* <a href="http://localhost:3000/api/my_profile" 
+                    style={{ color: "white" }}>Create Your Profile</a> */}
+                    </button>
                     </form>
                 </div>
             </div>

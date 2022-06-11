@@ -253,7 +253,7 @@ def create_profile(
         return {"message": f"{profile.username} username already exists"}
 
 
-# update personal info
+# ------------------- update personal info
 @router.put(
     "/api/profiles/myself",
     response_model=Union[ProfileUpdateOut, ErrorMessage],
@@ -271,6 +271,7 @@ async def update_profile(
     current_user: User = Depends(get_current_user),
     # profile_id: current_user["id"],
 ):
+    print(profile)
     try:
         row = query.update_profile(
             current_user["id"],

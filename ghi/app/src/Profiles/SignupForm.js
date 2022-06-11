@@ -156,8 +156,9 @@ class SignupForm extends React.Component{
                         <br></br>
                         <button disabled={!this.validForm()} 
                             className="btn btn-primary ">
-                        <a href="http://localhost:3000/api/profiles" 
-                            style={{ color: "white" }}>Sign Up</a>
+                        {/* <a href="http://localhost:3000/api/profiles" 
+                            style={{ color: "white" }}> */}
+                            Sign Up
                         </button>
                         <Link to="/login">LogIn</Link>
                         </form>
@@ -169,4 +170,4 @@ class SignupForm extends React.Component{
 
 }
 
-export default SignupForm
+export default SignupForm;
