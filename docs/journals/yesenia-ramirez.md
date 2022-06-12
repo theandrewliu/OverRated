@@ -133,3 +133,13 @@ Today, Andrew and I realized that the function we worked on yesterday was no lon
 Andrew and I worked on the creating a rating and getting the average of someone's ratings. 
 
 Today, I learned that what you google is important in the results that you get. I was quickly able to find a solution to our problem when I googled the correct search terms. Also, Andrew taught me how to get the average in sql. 
+
+## June 10, 2022
+* Rating implemented into random filtered profile
+Today, Andrew and I included our rating feature into our profile detail and connections page. This will show the profile's average rating. 
+
+* Front end help
+Andrew and I helped with the front end today. Jeremy was working on our websockets for the chat and he wanted to mess with it more before we were able to start on the back end. 
+I added the rating average to the connections page and started working on a bug in our update profile for when someone chooses their gender preferences.  
+
+Today, I learned how to create a function outside of the React component so it can exported and be implemented in different components. Thanks to Curtis. I also saw how Curtis guided us on how to have the profile details fetched before our chat started connecting. 
