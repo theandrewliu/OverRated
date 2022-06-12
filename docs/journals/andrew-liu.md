@@ -34,3 +34,6 @@ Today, we created a random profile function that's similar to profile detail vie
 
 ## June 09, 2022
 Today, we fixed an error in the random profile function so now it works 100% and returns what is expected. Also started on the ratings. Can now post a rating and created a function that returns the average rating that can be implemented to the views that we have already. May need to create the chat function depending on the outcome of chat hook.
+
+# June 10, 2022
+Today, we added the rest of the ratings for the match list display as well as on on profile detail view. We still need to figure out where a user can rate another user.
