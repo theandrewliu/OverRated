@@ -51,7 +51,7 @@ class ProfileDetail extends React.Component {
               <h1>
                 {this.state.profile.first_name + " " + this.state.profile.last_name}
               </h1>            
-            {this.state.profile.photo}
+              <img src={ this.state.profile.photo } alt="pic" width="70%" height="70%" />
           </div>
           <div className="details">
 

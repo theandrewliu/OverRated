@@ -32,7 +32,7 @@ function App() {
           <Route path="/messages" element={<Chat />} />
           <Route path="/logout" element={<Logout logout={logout} />} />
           <Route path="/reviews" element={<ReviewForm />} />
-          <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
+          <Route path="/api/my_profile" element={<ProfileDetail token={token}/>} />
           <Route path="/api/random" element={<Explore token={token} />} />
           <Route path="/api/my-matches" element={<ConnectionList token={token} />} />
           

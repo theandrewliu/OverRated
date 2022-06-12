@@ -153,9 +153,15 @@ class SignupForm extends React.Component{
                             <label for="terms_condition"><a href="https://www.youtube.com/watch?v=oHg5SJYRHA0&ab_channel=cotter548">
                                 Terms and Conditions</a></label>
                         </div>
-                        <button disabled={!this.validForm()} type="submit" value="Submit" form="create-form" className="btn btn-primary ">Sign Up</button>
-                        </form>
+                        <br></br>
+                        <button disabled={!this.validForm()} 
+                            className="btn btn-primary ">
+                        {/* <a href="http://localhost:3000/api/profiles" 
+                            style={{ color: "white" }}> */}
+                            Sign Up
+                        </button>
                         <Link to="/login">LogIn</Link>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -164,4 +170,4 @@ class SignupForm extends React.Component{
 
 }
 
-export default SignupForm
+export default SignupForm;
