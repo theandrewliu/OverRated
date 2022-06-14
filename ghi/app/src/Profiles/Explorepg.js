@@ -101,14 +101,19 @@ class ProfileDetail extends React.Component {
       }
       let feet = Math.floor(this.state.theirprofile.height/12)
       let inch = this.state.theirprofile.height%12
+
+      let photo = this.state.theirprofile.photo 
+      if (this.state.theirprofile.photo === null) {
+          photo = "/images/blank-profile-pic.png"
+      }    
       return (
         <>
         <div className="profileContainer">
           <div className = 'container pic-name' >
               <h1>
                 {this.state.theirprofile.first_name + " " + this.state.theirprofile.last_name}
-              </h1>            
-              <img src={ this.state.theirprofile.photo } alt="pic" width="70%" height="70%" />
+              </h1>       
+              <img src={photo} alt="pic" width="70%" height="70%" />
           </div>
           <div className="details">
               <h1>

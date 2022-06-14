@@ -42,6 +42,10 @@ class ProfileDetail extends React.Component {
       let feet = Math.floor(this.state.profile.height/12)
       let inch = this.state.profile.height%12
 
+      let photo = this.state.profile.photo 
+      if (this.state.profile.photo === null) {
+          photo = "/images/blank-profile-pic.png"
+      }    
       return (
         <>
         <Link className = 'buttonA' to='/api/profiles/myself'>Profile Settings</Link>
@@ -51,7 +55,7 @@ class ProfileDetail extends React.Component {
               <h1>
                 {this.state.profile.first_name + " " + this.state.profile.last_name}
               </h1>            
-              <img src={ this.state.profile.photo } alt="pic" width="70%" height="70%" />
+              <img src={ photo } alt="pic" width="70%" height="70%" />
           </div>
           <div className="details">
 

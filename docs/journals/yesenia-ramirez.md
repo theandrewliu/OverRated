@@ -143,3 +143,10 @@ Andrew and I helped with the front end today. Jeremy was working on our websocke
 I added the rating average to the connections page and started working on a bug in our update profile for when someone chooses their gender preferences.  
 
 Today, I learned how to create a function outside of the React component so it can exported and be implemented in different components. Thanks to Curtis. I also saw how Curtis guided us on how to have the profile details fetched before our chat started connecting. 
+
+## June 13, 2022
+* Websockets back end
+Today, we were not able to accomplish much in the two hours. We are having bugs and issues trying to think of how to use websockets. But it is a work in progress. Hopefully better luck tomorrow.
+
+* Null photo
+I added a gray person outline photo when a person does not have a photo uploaded so the broken link will not show to the front end. This will be on the connections page, explore and profile page. 

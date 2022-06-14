@@ -2,6 +2,7 @@ from fastapi import (
     APIRouter,
     WebSocket,
     WebSocketDisconnect,
+    Depends
 )
 from typing import List
 import json
@@ -75,7 +76,7 @@ manager = ConnectionManager()
 async def websocket_endpoint(
     websocket: WebSocket,
     profile: str,
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
     query=Depends(ProfileQueries)
 ):
     await manager.connect(websocket, profile)

@@ -13,8 +13,8 @@ export function calculateAge(date_of_birth) {
     return yearsOld
 }
 
-export function profileDetail(id) {
-  return <Navigate to = '/api/profile/${id}' />;
+export function profileDetail(user_id) {
+  return <Navigate to="" />;
 }
 
 
@@ -50,7 +50,7 @@ class ConnectionList extends React.Component {
 
 
   render() {
-    console.log("says", this.state.theirprofile.matches)
+    console.log("says helloooooo", this.state.theirprofile.matches)
     if(this.state.redirect === true){
       return <Navigate to = '/login' />;
     }
@@ -58,10 +58,18 @@ class ConnectionList extends React.Component {
       <>
       <h1>Your Connections</h1>
       <div className = 'card-layout'>{this.state.theirprofile.matches.map(match => {
+                            let photoNull = 'profile-pic d-none'
+                            let photoAvailable = 'profile-pic'
+
+                            if (match.photo === null) {
+                              photoNull = 'profile-pic'
+                              photoAvailable = 'profile-pic d-none'
+                            }
                           return (
                             <div className = "connect-card" key = {match.id}>
                             <div className = "profileDetail" onClick = {()=>profileDetail(match.id)}>
-                              <img className = "profile-pic" key={match.photo} src={ match.photo } alt="pic" width="auto" height="500" />
+                              <img className ={photoAvailable} src={ match.photo } alt="pic" width="auto" height="500" />
+                              <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="500" />
                             </div>
                             <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
                             <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
