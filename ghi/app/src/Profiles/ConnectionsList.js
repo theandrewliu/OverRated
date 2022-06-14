@@ -13,6 +13,10 @@ export function calculateAge(date_of_birth) {
     return yearsOld
 }
 
+export function profileDetail(id) {
+  return <Navigate to = '/api/profile/${id}' />;
+}
+
 
 class ConnectionList extends React.Component {
   constructor(props) {
@@ -23,7 +27,6 @@ class ConnectionList extends React.Component {
       redirect: false,
   };
   }
-  
   
 
   async getProfileMatches() {
@@ -56,8 +59,10 @@ class ConnectionList extends React.Component {
       <h1>Your Connections</h1>
       <div className = 'card-layout'>{this.state.theirprofile.matches.map(match => {
                           return (
-                            <div className = "connect-card">
-                            <img key={match.photo} src={ match.photo } alt="pic" width="70%" height="70%" />
+                            <div className = "connect-card" key = {match.id}>
+                            <div className = "profileDetail" onClick = {()=>profileDetail(match.id)}>
+                              <img className = "profile-pic" key={match.photo} src={ match.photo } alt="pic" width="auto" height="500" />
+                            </div>
                             <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
                             <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
                             <div key={match.review}><b>Review Score:</b> {match.average_rating}  </div>
@@ -65,6 +70,7 @@ class ConnectionList extends React.Component {
                             </div>
                           )
                         })}</div>
+      {/* </button> */}
       </>
     );
   }
