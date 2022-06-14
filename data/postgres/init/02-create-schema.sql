@@ -73,4 +73,4 @@ CREATE TABLE public.ratings (
     rating_of int NOT NULL,
     rating_by int NOT NULL,
     review text 
-)
+);

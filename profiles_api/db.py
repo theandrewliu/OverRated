@@ -602,3 +602,27 @@ class ProfileQueries:
                     return float(average[0])
                 except:
                     print("DID NOT RUN THE SQL STUFF")
+
+    def create_message(self, sender, recipient, sent, message):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        SELECT id
+                        FROM matches
+                        WHERE sender = %s AND recipient = %s
+                        """,
+                            [sender, recipient]
+                    )
+                    match_id = cursor.fetchone()[0]
+                    cursor.execute(
+                        """
+                        INSERT INTO chats(match_id, sender, recipient, sent, message)
+                        VALUES (%s, %s, %s, %s, %s)
+                        RETURNING id, match_id, sender, recipient, sent, message
+                        """,
+                            [match_id, sender, recipient, sent, message]
+                    )
+                except:
+                    print("didn't do the job")
