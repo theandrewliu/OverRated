@@ -57,3 +57,7 @@ Okay so today was kinda hectic one we were out to work i immediately got to work
 ## June 10, 2022
 
 so today we had some reformating to do so i was able to create the connections page because of the data i was incredibly lucky to have gotten yesterday and with the my team and i all together went and changed the way the hight is displayed along with the age and we got the review score implemented so it was an incredibly productive day for us. Once we did that we didnt have enough time before mandatory fun so we came up with a list of stuff that we want to get accomplished before deployment so now we have goals in mind and are ready to tackle them the next time we meet.
+
+## June 13, 2022
+
+okay so we didnt get ot do much today but with curtis's help we were able to to figure out how to set out image in the connections list as button so now when i get to ill have it act as a way to see the details page for the profile that we click it... it honestly confuses me as to how to create a page as a template for multiple profiles to use but ill do my research and figure it out

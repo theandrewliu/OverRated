@@ -1,6 +1,8 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Redirect } from "react-router-dom";
 import './connections.css';
+
+
 
 export function calculateAge(date_of_birth) {
   var bday = new Date(date_of_birth);
@@ -13,9 +15,12 @@ export function calculateAge(date_of_birth) {
     return yearsOld
 }
 
-export function profileDetail(user_id) {
-  return <Navigate to="" />;
+export function profileDetail(id) {
+  let path = `${process.env.REACT_APP_API_HOST}/api/profile/${id}`; 
+  console.log(path)
+  return <Redirect to = {path} />;
 }
+
 
 
 class ConnectionList extends React.Component {
