@@ -37,3 +37,6 @@ Today, we fixed an error in the random profile function so now it works 100% and
 
 # June 10, 2022
 Today, we added the rest of the ratings for the match list display as well as on on profile detail view. We still need to figure out where a user can rate another user.
+
+# June 13, 2022
+Started working on combining the websocket chat function that Jeremy worked on together with our database so that we can store the messages being sent. I didn't get an opportunity to test it out yet but I'll be able to debug it more tomorrow.
