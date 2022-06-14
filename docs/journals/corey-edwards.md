@@ -53,3 +53,7 @@ Alright so im gonna go over this one very briefly so i implemented the profile s
 ## June 9, 2022
 
 Okay so today was kinda hectic one we were out to work i immediately got to work on the dislike button and my achilles heel was that i didnt bind the button at the top of the page but once i did it was smooth sailing. Also i was able to fix it so when a user uploaded a photo it actually used their photo on their profile... most of the time haha. Ill have to go back through and make sure it works for everyone but its a good start. The the last thing i did today was i figured out the way i have to import data into my connections page so i can show a list of matches so tomorrow morning ill be able to hit the ground running with getting our connections page taken care of.
+
+## June 10, 2022
+
+so today we had some reformating to do so i was able to create the connections page because of the data i was incredibly lucky to have gotten yesterday and with the my team and i all together went and changed the way the hight is displayed along with the age and we got the review score implemented so it was an incredibly productive day for us. Once we did that we didnt have enough time before mandatory fun so we came up with a list of stuff that we want to get accomplished before deployment so now we have goals in mind and are ready to tackle them the next time we meet.
