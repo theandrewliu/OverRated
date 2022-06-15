@@ -652,7 +652,6 @@ class ProfileQueries:
                             continue
                         profile.append(list(target))
                         chats.append(profile)
-                    print("chats", chats)
                     return chats
                 except:
                     print("I dun goofed")
@@ -684,3 +683,21 @@ class ProfileQueries:
                     return list(output)
                 except:
                     print("didn't do the job")
+
+    def get_messages(self, user, target):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        """
+                        SELECT id, sender, recipient, sent, message
+                        FROM chats
+                        WHERE (sender = %s AND recipient = %s) OR (sender = %s AND recipient = %s)
+                        ORDER BY id
+                        """,
+                            [user, target, target, user]
+                    )
+                    chats = cursor.fetchall()
+                    return chats
+                except:
+                    print("not working")

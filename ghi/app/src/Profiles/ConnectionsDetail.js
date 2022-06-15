@@ -1,22 +1,28 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import './profile.css';
 import { calculateAge } from "./ConnectionsList";
+
+
+function ConnectionsDetailGrabber(){
+  const params = useParams();
+  const profile_id = params.id;
+  return <ConnectionsDetail profile_id = {profile_id}></ConnectionsDetail>
+}
 
 
 class ConnectionsDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.likes = this.likes.bind(this)
-    this.dislikes = this.dislikes.bind(this)
+    // this.review = this.review.bind(this)
     this.state = {
       theirprofile: "",
       redirect: false,
   };
   }
 
-  async getTheirDetails(profile_id) {
-    const url = `${process.env.REACT_APP_API_HOST}"/api/profiles/${profile_id}"`;
+  async getTheirDetails() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}`;
     const response = await fetch(url, {
       credentials: 'include',
       
@@ -76,12 +82,13 @@ class ConnectionsDetail extends React.Component {
               </h1>
             {this.state.theirprofile.average_rating}
           </div>
+          <button>Review {this.state.theirprofile.first_name}</button>
         </div>
         </>
       );
     }
   }
   
-  export default ConnectionsDetail;
+  export default ConnectionsDetailGrabber;
 
 
