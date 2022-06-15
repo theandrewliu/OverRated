@@ -6,6 +6,7 @@ from routers import (
     profiles,
     accounts,
     chat,
+    messages
 )
 
 app = FastAPI()
@@ -30,3 +31,4 @@ app.add_middleware(
 app.include_router(profiles.router);
 app.include_router(accounts.router);
 app.include_router(chat.router);
+app.include_router(messages.router);

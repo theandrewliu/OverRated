@@ -15,7 +15,7 @@ from models.profiles import (
     MatchedList, 
     RatingIn, 
     RatingOut,
-    RatingAvgOut
+    RatingAvgOut,
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget

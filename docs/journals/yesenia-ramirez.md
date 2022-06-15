@@ -150,3 +150,12 @@ Today, we were not able to accomplish much in the two hours. We are having bugs 
 
 * Null photo
 I added a gray person outline photo when a person does not have a photo uploaded so the broken link will not show to the front end. This will be on the connections page, explore and profile page. 
+
+## June 14, 2022
+* Message list and create 
+Today, Andrew and I created the get function to get a list of the top 3 most recent messages for the user and a post function to have a user send a message. Given the time we have left to work on the project and our knowledge of websockets being so small, we have decided to go use FastAPI to implement our messaging feature. 
+
+Today I learned how to ORDER BY id DESC in PostgreSQL and was reminded that I needed to include my messages router into main.py! I had forgotten about that. 
+
+## June 15, 2022
+* Day off

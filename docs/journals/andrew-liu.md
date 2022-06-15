@@ -40,3 +40,6 @@ Today, we added the rest of the ratings for the match list display as well as on
 
 # June 13, 2022
 Started working on combining the websocket chat function that Jeremy worked on together with our database so that we can store the messages being sent. I didn't get an opportunity to test it out yet but I'll be able to debug it more tomorrow.
+
+# June 14, 2022
+Today we decided to scrap the websocket for the chat function and instead go a safer route that we were more familiar with. Given the time crunch we decided this was the best path moving forward. With that decided, we were able to use the Post request that we created yesterday as well as create the get response for a list of chats. On the SQL side, we got not only a list but also the user's profile image and first and last name along with the chat information. The chat's displayed only the most recent message and that was done by sorting the list of ID's by descending order and only showing one.

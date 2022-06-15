@@ -22,7 +22,6 @@ export function profileDetail(id) {
 }
 
 
-
 class ConnectionList extends React.Component {
   constructor(props) {
     super(props);
