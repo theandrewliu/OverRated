@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Redirect } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import './connections.css';
 
 
@@ -14,21 +14,6 @@ export function calculateAge(date_of_birth) {
 
     return yearsOld
 }
-
-async function profileDetail(id) {
-  const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${id}`;
-    const response = await fetch(url, {
-      credentials: 'include',
-    });
-    if (response.ok) {
-      let jresponse = await response.json()
-      this.setState({
-        theirprofile: jresponse
-      });
-    }else if (response.status === 401){
-      this.setState({redirect: true})
-    }
-  }
 
 
 
@@ -80,15 +65,16 @@ class ConnectionList extends React.Component {
                             }
                           return (
                             <div className = "connect-card" key = {match.id}>
-                            <div className= "profileDetail" onClick = {()=>profileDetail(match.id)}>
+                              <Link to ={`/api/profiles/${match.id}/`}>
+                            <div className= "profileDetail" >
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="auto" height="500" />
                               <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="500" />
                             </div>
+                            </Link>
                             <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
                             <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
                             <div key={match.review}><b>Review Score:</b> {match.average_rating}  </div>
                             <div key={match.location}><b>Location:</b> {match.location}  </div>
-                            <link to ={'/api/profiles/${match.id}/'}>Go to {match.first_name}'s Profile</link>
                             </div>
                           )
                         })}</div>
