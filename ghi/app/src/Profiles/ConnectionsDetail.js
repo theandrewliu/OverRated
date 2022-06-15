@@ -11,13 +11,12 @@ class ConnectionsDetail extends React.Component {
     this.dislikes = this.dislikes.bind(this)
     this.state = {
       theirprofile: "",
-      ourprofile: "",
       redirect: false,
   };
   }
 
   async getTheirDetails() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/random`;
+    const url = `${process.env.REACT_APP_API_HOST}"/api/profiles/${profile_id}"`;
     const response = await fetch(url, {
       credentials: 'include',
       
@@ -31,67 +30,7 @@ class ConnectionsDetail extends React.Component {
     }
   }
 
-  async getMyDetails() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
-    const response = await fetch(url, {
-      credentials: 'include',
-      
-    });
-    if (response.ok) {
-      this.setState({
-        ourprofile: await response.json(),
-      });
-    }else if (response.status === 401){
-      this.setState({redirect: true})
-    }
-  }
-
-
-
-  async likes() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.state.theirprofile.id}/liked`;
-    // const form = new FormData();
-    // form.append('active_id', this.state.ourprofile.id);
-    const form = {'target_user_id': this.state.theirprofile.id};
-    const response = await fetch(url, {
-      method: 'post',
-      credentials: 'include',
-      body: JSON.stringify(form),
-      headers: {
-          'Content-Type': 'application/json',
-      },
-    });
-    if (response.ok) {
-        window.location.reload(false);
-    }
-    let error = await response.json();
-    return error.detail;
-  }
-
-  async dislikes() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.state.theirprofile.id}/disliked`;
-    // const form = new FormData();
-    // form.append('active_id', this.state.ourprofile.id);
-    const form = {'target_user_id': this.state.theirprofile.id};
-    const response = await fetch(url, {
-      method: 'post',
-      credentials: 'include',
-      body: JSON.stringify(form),
-      headers: {
-          'Content-Type': 'application/json',
-      },
-    });
-    console.log("test", response)
-    if (response.ok) {
-        window.location.reload(false);
-    }
-    let error = await response.json();
-    return error.detail;
-  }
-
-
   componentDidMount() {
-    this.getMyDetails();
     this.getTheirDetails();
   }
   
@@ -137,8 +76,6 @@ class ConnectionsDetail extends React.Component {
               </h1>
             {this.state.theirprofile.average_rating}
           </div>
-          <button className = 'dislikebutton' onClick={ this.dislikes}>Dislike</button>
-          <button className = 'likebutton' onClick={ this.likes}>Like</button>
         </div>
         </>
       );

@@ -16,9 +16,8 @@ export function calculateAge(date_of_birth) {
 }
 
 export function profileDetail(id) {
-  let path = `${process.env.REACT_APP_API_HOST}/api/profile/${id}`; 
-  console.log(path)
-  return <Redirect to = {path} />;
+  console.log(id)
+  return <Navigate to = {`/api/profiles/${id}`} />;
 }
 
 
@@ -39,7 +38,6 @@ class ConnectionList extends React.Component {
     const response = await fetch(url, {
       credentials: 'include',
     });
-    console.log(this.state)
     if (response.ok) {
       this.setState({
         theirprofile: await response.json(),
@@ -55,7 +53,6 @@ class ConnectionList extends React.Component {
 
 
   render() {
-    console.log("says helloooooo", this.state.theirprofile.matches)
     if(this.state.redirect === true){
       return <Navigate to = '/login' />;
     }
@@ -83,7 +80,6 @@ class ConnectionList extends React.Component {
                             </div>
                           )
                         })}</div>
-      {/* </button> */}
       </>
     );
   }
