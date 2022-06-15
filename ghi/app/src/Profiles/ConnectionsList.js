@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import './connections.css';
 
 
@@ -87,7 +87,7 @@ class ConnectionList extends React.Component {
                             <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
                             <div key={match.review}><b>Review Score:</b> {match.average_rating}  </div>
                             <div key={match.location}><b>Location:</b> {match.location}  </div>
-                            <link to ={'/api/profiles/${match.id}/'}>Go to {match.first_name}'s Profile</link>
+                            {/* <link to ={'/api/profiles/${match.id}/'}>Go to {match.first_name}'s Profile</link> */}
                             </div>
                           )
                         })}</div>
