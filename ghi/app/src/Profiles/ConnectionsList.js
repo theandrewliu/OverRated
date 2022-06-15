@@ -15,11 +15,20 @@ export function calculateAge(date_of_birth) {
     return yearsOld
 }
 
-export function profileDetail(id) {
-  let path = `${process.env.REACT_APP_API_HOST}/api/profile/${id}`; 
-  console.log(path)
-  return <Redirect to = {path} />;
-}
+async function profileDetail(id) {
+  const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${id}`;
+    const response = await fetch(url, {
+      credentials: 'include',
+    });
+    if (response.ok) {
+      let jresponse = await response.json()
+      this.setState({
+        theirprofile: jresponse
+      });
+    }else if (response.status === 401){
+      this.setState({redirect: true})
+    }
+  }
 
 
 class ConnectionList extends React.Component {
@@ -29,6 +38,7 @@ class ConnectionList extends React.Component {
       theirprofile: {'matches': []},
       ourprofile: "",
       redirect: false,
+      id:[]
   };
   }
   
@@ -38,7 +48,6 @@ class ConnectionList extends React.Component {
     const response = await fetch(url, {
       credentials: 'include',
     });
-    console.log(this.state)
     if (response.ok) {
       this.setState({
         theirprofile: await response.json(),
@@ -54,7 +63,6 @@ class ConnectionList extends React.Component {
 
 
   render() {
-    console.log("says helloooooo", this.state.theirprofile.matches)
     if(this.state.redirect === true){
       return <Navigate to = '/login' />;
     }
@@ -71,7 +79,7 @@ class ConnectionList extends React.Component {
                             }
                           return (
                             <div className = "connect-card" key = {match.id}>
-                            <div className = "profileDetail" onClick = {()=>profileDetail(match.id)}>
+                            <div className= "profileDetail" onClick = {()=>profileDetail(match.id)}>
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="auto" height="500" />
                               <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="500" />
                             </div>
@@ -79,10 +87,10 @@ class ConnectionList extends React.Component {
                             <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
                             <div key={match.review}><b>Review Score:</b> {match.average_rating}  </div>
                             <div key={match.location}><b>Location:</b> {match.location}  </div>
+                            <link to ={'/api/profiles/${match.id}/'}>Go to {match.first_name}'s Profile</link>
                             </div>
                           )
                         })}</div>
-      {/* </button> */}
       </>
     );
   }

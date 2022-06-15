@@ -6,6 +6,7 @@ import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
 import Chat from './Profiles/Chat';
 import ConnectionList from './Profiles/ConnectionsList';
+import ConnectionsDetail from './Profiles/ConnectionsDetail';
 import MainPage from './MainPage';
 import { useToken } from './authApi';
 import ProfileForm from './Profiles/ProfileForm';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/api/my_profile" element={<ProfileDetail token={token}/>} />
           <Route path="/api/random" element={<Explore token={token} />} />
           <Route path="/api/my-matches" element={<ConnectionList token={token} />} />
+          <Route path="/api/profiles/:id" element={<ConnectionsDetail token={token} />} />
           
           <Route path="/api/accounts/myself" element={<AccountForm token={token} />} />
 
