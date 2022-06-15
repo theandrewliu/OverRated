@@ -16,7 +16,6 @@ export function calculateAge(date_of_birth) {
 }
 
 
-
 class ConnectionList extends React.Component {
   constructor(props) {
     super(props);

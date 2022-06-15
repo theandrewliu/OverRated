@@ -155,3 +155,4 @@ class RatingOut(BaseModel):
 
 class RatingAvgOut(BaseModel):
     average_rating: float
+
