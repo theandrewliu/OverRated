@@ -15,7 +15,7 @@ class ConnectionsDetail extends React.Component {
   };
   }
 
-  async getTheirDetails() {
+  async getTheirDetails(profile_id) {
     const url = `${process.env.REACT_APP_API_HOST}"/api/profiles/${profile_id}"`;
     const response = await fetch(url, {
       credentials: 'include',
