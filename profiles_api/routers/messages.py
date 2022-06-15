@@ -1,10 +1,12 @@
+from cProfile import Profile
 from datetime import date
 from fastapi import APIRouter, Depends, Response, status
 from typing import Union
 from models.messages import (
     MessageList,
     MessageOut,
-    MessageIn
+    MessageIn,
+    MessageDetailListOut
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
@@ -40,7 +42,15 @@ def row_to_message(row):
     }
     return message
 
-
+def row_to_message_detail(row):
+    message = {
+        "id": row[0],
+        "sender": row[1],
+        "recipient": row[2],
+        "sent": row[3],
+        "message": row[4]
+    }
+    return message
 
 @router.get(
     "/api/messages",
@@ -78,3 +88,22 @@ def create_message(
     except DuplicateUsername:
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": "error message"}
+
+
+@router.get(
+    "/api/messages/{target_id}",
+    response_model=Union[MessageDetailListOut, ErrorMessage],
+    responses = {
+        200: {"model": MessageDetailListOut},
+        404: {"model": ErrorMessage}
+    }
+)
+def get_message(target_id: int, response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    rows = query.get_messages(current_user["id"], target_id)
+    print("row1", rows[0])
+    if rows is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile does not exist"}
+    return {
+        "messages": [row_to_message_detail(row) for row in rows],
+    }
