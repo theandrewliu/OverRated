@@ -59,21 +59,51 @@ class ProfileDetail extends React.Component {
                 <img src={ photo } className="img-fluid" alt="pic" width="70%" height="70%" />
             </div>
             <div className="col-sm">
-                <h1>
-                  Details
-                </h1>
-                <div className><b>Pronouns:</b> {this.state.profile.pronouns}</div>
-                <div className><b>Age:</b> {calculateAge(this.state.profile.date_of_birth)}</div>
-                <div className><b>Location:</b> {this.state.profile.location}</div>
-                <div className><b>Height:</b> { feet } ft { inch } inch</div>
-                <div className><b>Job:</b> {this.state.profile.job}</div>
-                <div className><b>Education:</b> {this.state.profile.education}</div>
-                <div className><b>About Me:</b> {this.state.profile.about}</div>
-                <div className><b>Interested In:</b> {this.state.profile.interested}</div>
-                <div className><b>Gender:</b> {this.state.profile.gender}</div>
-                <div className><b>Sexual Orientation:</b> {this.state.profile.sexual_orientation}</div>
-                <div className><b>Religion:</b> {this.state.profile.religion}</div>
-                <div className><b>Ethnicity:</b> {this.state.profile.ethnicity}</div>
+              <table className="table table-condensed table-sm table-hover">
+                  <h1>
+                    Details
+                  </h1>
+                  <tbody>
+                    <tr>
+                    </tr>
+                    <tr>
+                      <td><b>Pronouns:</b> {this.state.profile.pronouns}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Age:</b> {calculateAge(this.state.profile.date_of_birth)}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Location:</b> {this.state.profile.location}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Height:</b> { feet } ft { inch } inch</td>
+                    </tr>
+                    <tr>
+                      <td><b>Job:</b> {this.state.profile.job}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Education:</b> {this.state.profile.education}</td>
+                    </tr>
+                    <tr>
+                      <td><b>About Me:</b> {this.state.profile.about}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Interested In:</b> {this.state.profile.interested}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Gender:</b> {this.state.profile.gender}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Sexual Orientation:</b> {this.state.profile.sexual_orientation}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Religion:</b> {this.state.profile.religion}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Ethnicity:</b> {this.state.profile.ethnicity}</td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
           </div>
           <div className="row">
