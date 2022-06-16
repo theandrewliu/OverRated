@@ -93,7 +93,7 @@ class ConnectionList extends React.Component {
                             }
                           return (
                             <div className = "connect-card" key = {match.id}>
-                              <Link to ={`/api/profiles/${match.id}/`}>
+                              <Link to ={`/profiles/${match.id}/`}>
                             <div className= "profileDetail" >
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="auto" height="500" />
                               <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="500" />
