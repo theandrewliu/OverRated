@@ -52,11 +52,11 @@ class ProfileDetail extends React.Component {
         <Link className = 'buttonB' to='/accounts/myself'>Account Settings</Link>
         <div className="container">
           <div className="row">
-            <div className = "col-sm" >
+            <div className = "col-sm border border-light rounded-3">
                 <h1>
                   {this.state.profile.first_name + " " + this.state.profile.last_name}
                 </h1>            
-                <img src={ photo } className="img-fluid" alt="pic" width="70%" height="70%" />
+                <img src={ photo } className="img-fluid rounded-4" alt="pic" width="70%" height="70%" />
             </div>
             <div className="col-sm">
               <table className="table table-condensed table-sm table-hover">
