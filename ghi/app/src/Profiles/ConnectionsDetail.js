@@ -46,6 +46,11 @@ class ConnectionsDetail extends React.Component {
       }
       let feet = Math.floor(this.state.theirprofile.height/12)
       let inch = this.state.theirprofile.height%12
+
+      let photo = this.state.theirprofile.photo 
+      if (this.state.theirprofile.photo === null) {
+          photo = "/images/blank-profile-pic.png"
+      }  
       return (
         <>
         <div className="profileContainer">
@@ -53,7 +58,7 @@ class ConnectionsDetail extends React.Component {
               <h1>
                 {this.state.theirprofile.first_name + " " + this.state.theirprofile.last_name}
               </h1>            
-              <img src={ this.state.theirprofile.photo } alt="pic" width="70%" height="70%" />
+              <img src={ photo } alt="pic" width="70%" height="70%" />
           </div>
           <div className="details">
               <h1>
@@ -81,8 +86,9 @@ class ConnectionsDetail extends React.Component {
                 Review Score
               </h1>
             {this.state.theirprofile.average_rating}
+            <div ><button className = 'review-button'>Review {this.state.theirprofile.first_name}</button></div>
           </div>
-          <button>Review {this.state.theirprofile.first_name}</button>
+          
         </div>
         </>
       );

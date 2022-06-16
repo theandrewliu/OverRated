@@ -155,3 +155,7 @@ label {
 input[type="radio"] {
     padding: 10px 50px 20px;
   }
+
+  .review-button {
+    margin-top: 20px;
+  }
