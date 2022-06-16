@@ -16,6 +16,7 @@ import ReviewList from './Profiles/ReviewList';
 import Explore from './Profiles/Explorepg';
 import ProfileCreation from './Profiles/ProfileCreation';
 import MessageList from './Profiles/MessageList';
+import MessageDetail from './Profiles/MessageDetail'
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -31,14 +32,15 @@ function App() {
 
           <Route path="/" element={<MainPage />} />
           <Route path="/messages" element={<MessageList />} />
+          <Route path="/messages/:id" element={<MessageDetail />} />
           <Route path="/logout" element={<Logout logout={logout} />} />
           <Route path="/reviews" element={<ReviewForm />} />
-          <Route path="/api/my_profile" element={<ProfileDetail token={token}/>} />
-          <Route path="/api/random" element={<Explore token={token} />} />
-          <Route path="/api/my-matches" element={<ConnectionList token={token} />} />
-          <Route path="/api/profiles/:id" element={<ConnectionsDetail token={token} />} />
+          <Route path="/my_profile" element={<ProfileDetail token={token}/>} />
+          <Route path="/random" element={<Explore token={token} />} />
+          <Route path="/my-matches" element={<ConnectionList token={token} />} />
+          <Route path="/profiles/:id" element={<ConnectionsDetail token={token} />} />
           
-          <Route path="/api/accounts/myself" element={<AccountForm token={token} />} />
+          <Route path="/accounts/myself" element={<AccountForm token={token} />} />
 
         <Route path="/my_profile"> 
           <Route index element={<ProfileDetail token={token}/>} />
@@ -51,12 +53,10 @@ function App() {
             <Route path="/login/new" element={<SignupForm token={token} signup={signup} />} />
           </Route>
 
-          <Route path="/api/profiles">
+          <Route path="/profiles">
             <Route index element={<ProfileCreation />} />
-            <Route path="/api/profiles/myself" element={<ProfileForm token={token}/>} />
+            <Route path="/profiles/myself" element={<ProfileForm token={token}/>} />
           </Route>
-
-
 
         </Routes>
       </div>

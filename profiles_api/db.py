@@ -697,7 +697,8 @@ class ProfileQueries:
                         """,
                             [user, target, target, user]
                     )
-                    chats = cursor.fetchall()
+                    chats = list(cursor.fetchall())
+                
                     return chats
                 except:
                     print("not working")
