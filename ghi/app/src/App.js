@@ -4,7 +4,6 @@ import './index.css';
 import Logout from './Logout';
 import LoginForm from './Profiles/LoginForm';
 import SignupForm from './Profiles/SignupForm';
-import Chat from './Profiles/Chat';
 import ConnectionList from './Profiles/ConnectionsList';
 import ConnectionsDetail from './Profiles/ConnectionsDetail';
 import MainPage from './MainPage';
@@ -16,6 +15,7 @@ import ReviewForm from './Profiles/ReviewForm';
 import ReviewList from './Profiles/ReviewList';
 import Explore from './Profiles/Explorepg';
 import ProfileCreation from './Profiles/ProfileCreation';
+import MessageList from './Profiles/MessageList';
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -30,7 +30,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={<MainPage />} />
-          <Route path="/messages" element={<Chat />} />
+          <Route path="/messages" element={<MessageList />} />
           <Route path="/logout" element={<Logout logout={logout} />} />
           <Route path="/reviews" element={<ReviewForm />} />
           <Route path="/api/my_profile" element={<ProfileDetail token={token}/>} />
