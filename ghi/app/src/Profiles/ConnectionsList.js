@@ -45,31 +45,6 @@ export function scoreToStar(score) {
     }
 
 
-// export function scoreToStar(score) {
-//    let rating = score
-//    if (score == null){
-//     return(`<i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= .5 && score < 1) {
-//     return(`<i className="bi bi-heart-half"></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= 1 && score < 1.5) {
-//     return(`<i className="bi bi-heart-fill"></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= 1.5 && score < 2) {
-//     return(`<i className="bi bi-heart-fill"></i><i className="bi bi-heart-half"></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= 2 && score < 2.5) {
-//     return(`<i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= 2.5 && score < 3) {
-//     return(`<i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-half"></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= 3 && score < 3.5) {
-//     return(`<i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className={"bi bi-heart"}></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= 3.5 && score < 4) {
-//     return(`<i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-half"></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >= 4 && score < 4.5) {
-//     return(`<i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className={"bi bi-heart"}></i>`)
-//    } else if (score >=4.5){
-//     return(`<i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i><i className="bi bi-heart-fill"></i>`)
-//    }
-// }
-
 class ConnectionList extends React.Component {
   constructor(props) {
     super(props);
