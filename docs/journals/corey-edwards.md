@@ -61,3 +61,12 @@ so today we had some reformating to do so i was able to create the connections p
 ## June 13, 2022
 
 okay so we didnt get ot do much today but with curtis's help we were able to to figure out how to set out image in the connections list as button so now when i get to ill have it act as a way to see the details page for the profile that we click it... it honestly confuses me as to how to create a page as a template for multiple profiles to use but ill do my research and figure it out
+
+
+## June 14, 2022
+
+today wasnt nearly as productive as i wanted it to be i was having so many issues doing my onclick handler trying to get my connections page take me to a user profile and even with jeff helping me trying to figure out how i can redirect to the page of the user we want and i never got to actually implement anything useful but i have several leads 
+
+## June 15, 2022
+
+today was an excellent today piggybacking off of the ground work jeff and i laid out yesterday so we got extraordinarily close to cracking it wide open and so thanks to some help from curtis we had to move a line of code somewhere else than it was change link to Link and use some "magic" to have a hook use our class so we can pull the match id so i can access it inside my class components and go to the correct page so that is a big win for the team. Now we need to implement some chat functionality for the connections page and add the review form for the connectionsdetail and we are getting closer and closer everyday towards breaking this thing wide open
