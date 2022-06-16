@@ -58,7 +58,6 @@ class ProfileDetail extends React.Component {
               <img src={ photo } alt="pic" width="70%" height="70%" />
           </div>
           <div className="details">
-
               <h1>
                 Details
               </h1>

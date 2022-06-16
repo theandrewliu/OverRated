@@ -198,7 +198,7 @@ class ProfileForm extends React.Component {
                         <input type="radio" value="female" name="gender" />: Female
 
                         <img src="/images/Intersex.png" alt="gender" width="60" height="80"></img>
-                        <input type="radio" value="other" name="gender" />: Inter-Sex
+                        <input type="radio" value="other" name="gender" />: Other
                     </div>
 {/* ------------------------Interested */}
                     <label htmlFor="interested">Interested In:</label>
@@ -207,7 +207,7 @@ class ProfileForm extends React.Component {
                         <option value=''>--Select Interest--</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                        <option value="everyone">Everyone</option>
+                        <option value="other">Other</option>
                         </select>
                     </div>
 {/* ------------------------Sexual */}
