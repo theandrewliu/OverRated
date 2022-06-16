@@ -13,18 +13,24 @@ function Nav(props) {
         </button>
         <div className="collapse navbar-collapse font-face-na sizer" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item" >
-                <NavLink className="nav-link" aria-current="page" to="/api/random" >Explore</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/api/my-matches">Connections</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/messages">Messages</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/meetups">Meet Ups</NavLink>
-              </li>
+              { token ?
+                <>
+                  <li className="nav-item" >
+                    <NavLink className="nav-link" aria-current="page" to="/api/random" >Explore</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/api/my-matches">Connections</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/messages">Messages</NavLink>
+                  </li>
+                  {/* <li className="nav-item">
+                    <NavLink className="nav-link" to="/meetups">Meet Ups</NavLink>
+                  </li> */}
+                </> :
+                <>
+                </>
+              }
           </ul>
           <ul className="navbar-nav ml-auto">
                 { token ?

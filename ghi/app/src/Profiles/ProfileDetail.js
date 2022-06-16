@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Link } from "react-router-dom";
 import './profile.css';
-import { calculateAge } from "./ConnectionsList";
+import { calculateAge, scoreToStar } from "./ConnectionsList";
 
 
 class ProfileDetail extends React.Component {
@@ -83,9 +83,9 @@ class ProfileDetail extends React.Component {
           </div>
           <div className="reviews">
               <h1>
-                Rating Average
+                Rating Average:
               </h1>
-              {this.state.profile.average_rating}
+              {scoreToStar(this.state.profile.average_rating)}
           </div>
         </div>
         </>
