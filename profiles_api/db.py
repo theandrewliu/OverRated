@@ -516,6 +516,7 @@ class ProfileQueries:
                     """
                     SELECT user1
                         , user2
+                        , id
                     FROM matches
                     WHERE user1 = %s OR user2 = %s
                     LIMIT 10 OFFSET %s
@@ -526,9 +527,9 @@ class ProfileQueries:
                 target_matches =[]
                 for match in matches:
                     if match[0] == user_id:
-                        target_matches.append(match[1])
+                        target_matches.append([match[1], match[2]])
                     elif match[1] == user_id:
-                        target_matches.append(match[0])
+                        target_matches.append([match[0], match[2]])
                 
                 profile_list=[]
                 for target in target_matches:
@@ -543,7 +544,7 @@ class ProfileQueries:
                         FROM profiles
                         WHERE id = %s
                         """,
-                            [target]
+                            [target[0]]
                     )
                     specific_match = list(cursor.fetchone())
 
@@ -560,6 +561,7 @@ class ProfileQueries:
 
                     
                     specific_match.append(average[0])
+                    specific_match.append(target[1])
 
 
                     profile_list.append(specific_match)

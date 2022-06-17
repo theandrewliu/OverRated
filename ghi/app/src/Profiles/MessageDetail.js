@@ -83,19 +83,26 @@ class MessageDetail extends React.Component {
                 {this.state.messages.messages.map(message => {
                     let photoNull = 'profile-pic d-none'
                     let photoAvailable = 'profile-pic'
-                    let senderName = ''
 
-                    if (this.state.target.photo === null) {
-                        photoNull = 'profile-pic'
-                        photoAvailable = 'profile-pic d-none'
-                    }
+                    let photoSRC = ''
+                    let senderName = ''
+                    
                 
                     if (message.sender === this.state.target.id) {
                         senderName = this.state.target.first_name
+                        photoSRC = this.state.target.photo
                     }
                     if (message.sender === this.state.user.id) {
                         senderName = this.state.user.first_name
+                        photoSRC = this.state.user.photo
                     }
+                    if (message.sender === this.state.target.id && this.state.target.photo === null) {
+                        photoSRC = "/images/blank-profile-pic.png"
+                    } 
+
+                    if (message.sender === this.state.user.id && this.state.user.photo === null) {
+                        photoSRC = "/images/blank-profile-pic.png"
+                    } 
                 
                     return (<>
                         {console.log(message)}
@@ -107,8 +114,9 @@ class MessageDetail extends React.Component {
                         </div>
                         <div>
                             Photo:
-                            <img className ={photoAvailable} src={ this.state.target.photo } alt="pic" width="auto" height="100" />
-                            <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="100" />
+                            <img className='profile-pic' src={photoSRC} alt="pic" width="auto" height="100" />
+                            {/* <img className ={photoAvailable} src={ this.state.target.photo } alt="pic" width="auto" height="100" />
+                            <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="100" /> */}
                         </div>
                         <div>
                             Name: {senderName}

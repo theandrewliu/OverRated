@@ -135,7 +135,8 @@ def row_to_matched_list(row):
         "last_name": row[3],
         "location": row[4],
         "date_of_birth": row[5],
-        "average_rating": row[6]
+        "average_rating": row[6],
+        "match_id": row[7]
     }
     return match
 
@@ -416,6 +417,7 @@ async def get_matches(page: int=0, query=Depends(ProfileQueries), current_user: 
         "page_count": page_count,
         "matches": [row_to_matched_list(row) for row in rows],
     }
+
 
 @router.post(
     "/api/profiles/{target_user_id}/rating",
