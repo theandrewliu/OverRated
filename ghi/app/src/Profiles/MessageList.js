@@ -67,7 +67,7 @@ class MessageList extends React.Component {
 
           let identifier = message.recipient 
           {this.state.theirprofile.matches.map(match => {
-            console.log("fuck", identifier)
+            console.log("iteration", identifier)
             console.log("Hopefully", message)
             console.log("this works", match)
             if (identifier != match.id){
