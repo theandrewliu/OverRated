@@ -132,6 +132,7 @@ class MatchedProfile(BaseModel):
     location: str
     date_of_birth: date
     average_rating: Union[float, None]
+    match_id: int
 
 
 
