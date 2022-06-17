@@ -30,39 +30,70 @@ class MessageList extends React.Component {
     }
   }
 
+  async getProfileMatches() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/my-matches`;
+    const response = await fetch(url, {
+      credentials: 'include',
+    });
+    if (response.ok) {
+      this.setState({
+        theirprofile: await response.json(),
+      });
+    }else if (response.status === 401){
+      this.setState({redirect: true})
+    }
+  }
+
 
   componentDidMount() {
     this.getMyMessages();
+    this.getProfileMatches();
 
   }
 
 
   render() {
-    console.log(this.state.messages)
     if(this.state.redirect === true){
       return <Navigate to = '/login' />;
     }
     return (
       <>
-      <h1>Your Connections</h1>
+      <h1>Your Messages</h1>
       <div className = 'message-layout'>{this.state.messages.messages.map(message => {
-        let photoNull = 'profile-pic d-none'
-        let photoAvailable = 'profile-pic'
+        let photo = message.photo
 
         if (message.photo === null) {
-          photoNull = 'profile-pic'
-          photoAvailable = 'profile-pic d-none'
+          photo = "/images/blank-profile-pic.png"
+
+          let identifier = message.recipient 
+          {this.state.theirprofile.matches.map(match => {
+            console.log("fuck", identifier)
+            console.log("Hopefully", message)
+            console.log("this works", match)
+            if (identifier != match.id){
+              identifier = match.id
+            }
+          })}
+          console.log("Post iteration", identifier)
         }
         return (
+
         <div className = "message-card" key = {message.id}>
             <Link to ={`/messages/${message.recipient}/`}>
-          <div className= "profileDetail" >
-            <img className ={photoAvailable} src={ message.photo } alt="pic" width="auto" height="200" />
-            <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="200" />
+          <div className= "img-fluid rounded-4" >
+            <img className="rounded float-left" src={ photo } alt="pic" width="auto" height="200" />
         </div>
           </Link>
-        <div><b> {message.first_name + " " + message.last_name} </b> </div>
-        <div>{message.message}</div>
+          <table className ='container' scope='row'>
+          <div class="row">
+            <h1 scope="col-sm">
+            <b> {message.first_name + " " + message.last_name} </b>
+            </h1>
+            <tr scope="col-sm">
+              <td>{message.message}</td>
+            </tr>
+          </div>
+          </table>
         </div>
         )
       })}</div>
