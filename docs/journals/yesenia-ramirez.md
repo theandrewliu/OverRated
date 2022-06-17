@@ -193,3 +193,12 @@
 
 * What did I learn: 
     - Today, I had more practice with making a function and exporting in React to another file. 
+
+
+## June 16, 2022
+* Front end message detail 
+    - Today, worked on the front end, which was a nice break from the back end. I am in charge of doing the page for the conversation with a specific person. I was in the zone and about to do some if statements in my render to get the correct name to show next to the person who sent it, but I lost power. Sad.
+
+* What did I learn: 
+    - I had practice today fetching from multiple API endpoints today! I was able to keep it all in the componentDidMount instead of having 3 different functions.
+    - I learned about using a grabber function to grab our target_id from the params and use that in component. 

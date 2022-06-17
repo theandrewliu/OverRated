@@ -83,7 +83,6 @@ def create_message(
             profile.sent,
             profile.message
         )
-        print("row", row)
         return row_to_message(row)
     except DuplicateUsername:
         response.status_code = status.HTTP_409_CONFLICT
@@ -100,7 +99,6 @@ def create_message(
 )
 def get_message(target_id: int, response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
     rows = query.get_messages(current_user["id"], target_id)
-    print("row1", rows[0])
     if rows is None:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
