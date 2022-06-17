@@ -1,7 +1,8 @@
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 import './profile.css';
-import { calculateAge } from "./ConnectionsList";
+import { calculateAge, scoreToStar } from "./ConnectionsList";
+import { capitalize } from "./ProfileDetail";
 
 
 function ConnectionsDetailGrabber(){
@@ -70,8 +71,8 @@ class ConnectionsDetail extends React.Component {
               <div className><b>Height:</b> { feet } ft { inch } inch</div>
               <div className><b>Job:</b> {this.state.theirprofile.job}</div>
               <div className><b>Education:</b> {this.state.theirprofile.education}</div>
-              <div className><b>Gender:</b> {this.state.theirprofile.gender}</div>
-              <div className><b>Sexual Orientation:</b> {this.state.theirprofile.sexual_orientation}</div>
+              <div className><b>Gender:</b> {capitalize(this.state.theirprofile.gender)}</div>
+              <div className><b>Sexual Orientation:</b> {capitalize(this.state.theirprofile.sexual_orientation)}</div>
               <div className><b>Religion:</b> {this.state.theirprofile.religion}</div>
               <div className><b>Ethnicity:</b> {this.state.theirprofile.ethnicity}</div>
           </div>
@@ -85,7 +86,7 @@ class ConnectionsDetail extends React.Component {
               <h1>
                 Review Score
               </h1>
-            {this.state.theirprofile.average_rating}
+            {scoreToStar(this.state.theirprofile.average_rating)}
             <div ><button className = 'review-button'>Review {this.state.theirprofile.first_name}</button></div>
           </div>
           
