@@ -53,7 +53,7 @@ class MessageList extends React.Component {
         }
         return (
         <div className = "message-card" key = {message.id}>
-            <Link to ={`/messages/${message.recipient}/`}>
+            <Link to ={`/messages/${message.sender}/`}>
           <div className= "img-fluid rounded-4" >
             <img className="rounded float-left" src={ photo } alt="pic" width="auto" height="200" />
         </div>
