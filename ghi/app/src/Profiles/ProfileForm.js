@@ -10,14 +10,14 @@ class ProfileForm extends React.Component {
         this.state = {
             photo: "",
             about: "",
-            height: "",
+            height: 0,
             job: "",
             education: "",
             gender: "",
             sexual_orientation: "",
             religion: "",
             pronouns: "",
-            interested: "",
+            interested: [],
             ethnicity: "",
             location: "",
         };
@@ -59,14 +59,14 @@ class ProfileForm extends React.Component {
             this.setState({
                 photo: "",
                 about: "",
-                height: "",
+                height: 0,
                 job: "",
                 education: "",
                 gender: "",
                 sexual_orientation: "",
                 religion: "",
                 pronouns: "",
-                interested: "",
+                interested: [],
                 ethnicity: "",
                 location: "",
             });
@@ -119,7 +119,16 @@ class ProfileForm extends React.Component {
     }
     handleInterestedChange(event) {
         const value = event.target.value;
-        this.setState({ interested: value });
+        console.log(event.target.name, "clicked");
+        let listed = this.state.interested;
+        let in_array = this.state.interested.includes(event.target.name);
+        console.log(in_array, "in_array");
+        // list have value in 
+        // list does not have value in
+        listed.push(value);
+        
+        this.setState({ interested: listed });
+        console.log("tacos", this.state, event.target.name);
     }
 
     render(){
@@ -202,13 +211,16 @@ class ProfileForm extends React.Component {
                     </div>
 {/* ------------------------Interested */}
                     <label htmlFor="interested">Interested In:</label>
-                    <div className="form-check m-3"  >
+                    <div className="form-check m-3" onChange={this.handleInterestedChange} >
+
                         <input type="checkbox" id={this.state.interested}
-                            value="male" name="male" onChange={this.handleInterestedChange}/>&nbsp;Men &nbsp;&nbsp;
+                            value="male" name="male" />&nbsp;Men &nbsp;&nbsp;
+
                         <input type="checkbox" id={this.state.interested}
-                            value="female"  name="female" onChange={this.handleInterestedChange}/>&nbsp;Women &nbsp;&nbsp;
+                            value="female"  name="female" />&nbsp;Women &nbsp;&nbsp;
+
                         <input type="checkbox" id={this.state.interested}
-                            value="other" name="other" onChange={this.handleInterestedChange}/>&nbsp;LGBTQ+ &nbsp;&nbsp;
+                            value="other" name="other" />&nbsp;LGBTQ+ &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
                     <label htmlFor="sexual_orientation">Sexual Orientation:</label>
