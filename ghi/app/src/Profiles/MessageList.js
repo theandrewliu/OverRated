@@ -7,100 +7,91 @@ class MessageList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      theirprofile: {'messages': []},
+      theirprofile: { 'messages': [] },
       ourprofile: "",
       redirect: false,
-      id:[],
-      messages: {'messages': []}
-  };
+      id: [],
+      messages: { 'messages': [] }
+    };
   }
 
-  async getMyMessages() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/messages`;
-    const response = await fetch(url, {
+  async getMyData() {
+    let url = `${process.env.REACT_APP_API_HOST}/api/messages`;
+    let messages = null 
+    let matches = null
+    let response = await fetch(url, {
       credentials: 'include',
-      
+
     });
     if (response.ok) {
-      this.setState({
-        messages: await response.json(),
-      });
-    }else if (response.status === 401){
-      this.setState({redirect: true})
+        messages = await response.json();
+    } else if (response.status === 401) {
+      this.setState({ redirect: true })
     }
-  }
 
-  async getProfileMatches() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/my-matches`;
-    const response = await fetch(url, {
+    url = `${process.env.REACT_APP_API_HOST}/api/my-matches`;
+    response = await fetch(url, {
       credentials: 'include',
     });
     if (response.ok) {
-      this.setState({
-        theirprofile: await response.json(),
-      });
-    }else if (response.status === 401){
-      this.setState({redirect: true})
+        matches = await response.json();
+    } else if (response.status === 401) {
+      this.setState({ redirect: true })
+    }
+    if(messages && matches){
+      for(let message of messages){
+        message.match = matches.find(match => match.match_id === message.match_id)
+      }
+      this.setState({ messages })
     }
   }
 
 
   componentDidMount() {
-    this.getMyMessages();
-    this.getProfileMatches();
+    this.getMyData();
 
   }
 
 
   render() {
-    if(this.state.redirect === true){
-      return <Navigate to = '/login' />;
+    if (this.state.redirect === true) {
+      return <Navigate to='/login' />;
     }
     return (
       <>
-      <h1><b>Your Messages</b></h1>
-      <div className = 'message-layout'>{this.state.messages.messages.map(message => {
+        <h1><b>Your Messages</b></h1>
+        <div className='message-layout'>{this.state.messages.map(message => {
 
-        let photo = message.photo
-        if (message.photo === null) {
-          photo = "/images/blank-profile-pic.png"
+          let photo = message.photo
+          if (message.photo === null) {
+            photo = "/images/blank-profile-pic.png"
 
-          let identifier = message.recipient 
-          {this.state.theirprofile.matches.map(match => {
-            console.log("pre iteration", identifier)
-            console.log("Hopefully", message)
-            console.log("this works", match)
-            if (identifier != match.id){
-              identifier = match.id
-              console.log("iterated", identifier)
-            }
-          })}
-          console.log("Post iteration", identifier)
-        }
-        
-        return (
+            
+          }
+          
+          return (
 
-        <div className = "message-card" key = {message.id}>
-          <div></div>
-            <Link to ={`/messages/${message.sender}/`}>
-          <div className= "img-fluid rounded-4" >
-            <img className="rounded float-left" src={ photo } alt="pic" width="auto" height="150" />
-          </div>
-          </Link>
-          <table className ='container' scope='row'>
-          <div class="row">
-            <h1 scope="col-sm">
-            <b> {message.first_name + " " + message.last_name} </b>
-            </h1>
-            <tr scope="col-sm">
-              <td>{message.message}</td>
-            </tr>
-          </div>
-          </table>
+            <div className="message-card" key={message.id}>
+              <div></div>
+              <Link to={`/messages/${message.id}/`}>
+                <div className="img-fluid rounded-4" >
+                  <img className="rounded float-left" src={photo} alt="pic" width="auto" height="150" />
+                </div>
+              </Link>
+              <table className='container' scope='row'>
+                <div class="row">
+                  <h1 scope="col-sm">
+                    <b> {message.first_name + " " + message.last_name} </b>
+                  </h1>
+                  <tr scope="col-sm">
+                    <td>{message.message}</td>
+                  </tr>
+                </div>
+              </table>
+            </div>
+          )
+        })}
         </div>
-        )
-      })}
-      </div>
       </>
     );
   }
