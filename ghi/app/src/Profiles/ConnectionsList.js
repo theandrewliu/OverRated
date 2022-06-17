@@ -15,6 +15,35 @@ export function calculateAge(date_of_birth) {
     return yearsOld
 }
 
+export function scoreToStar(score) {
+    let emptyHeart = "bi bi-heart"
+    let halfHeart = "bi bi-heart-half"
+    let fullHeart = "bi bi-heart-fill"
+    let rating = score
+
+    if (rating === null){
+      return(<><span><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= .5 && score < 1) {
+      return(<><span><i className={halfHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= 1 && score < 1.5) {
+      return(<><span><i className={fullHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= 1.5 && score < 2) {
+      return(<><span><i className={fullHeart}></i><i className={halfHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= 2 && score < 2.5) {
+      return(<><span><i className={fullHeart}></i><i className={fullHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= 2.5 && score < 3) {
+      return(<><span><i className={fullHeart}></i><i className={fullHeart}></i><i className={halfHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= 3 && score < 3.5) {
+      return(<><span><i className={fullHeart}></i><i className={fullHeart}></i><i className={fullHeart}></i><i className={emptyHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= 3.5 && score < 4) {
+      return(<><span><i className={fullHeart}></i><i className={fullHeart}></i><i className={fullHeart}></i><i className={halfHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >= 4 && score < 4.5) {
+      return(<><span><i className={fullHeart}></i><i className={fullHeart}></i><i className={fullHeart}></i><i className={fullHeart}></i><i className={emptyHeart}></i></span></>)
+     } else if (score >=4.5){
+      return(<><span><i className={fullHeart}></i><i className={fullHeart}></i><i className={fullHeart}></i><i className={fullHeart}></i><i className={fullHeart}></i></span></>)
+     }
+    }
+
 
 class ConnectionList extends React.Component {
   constructor(props) {
@@ -64,7 +93,7 @@ class ConnectionList extends React.Component {
                             }
                           return (
                             <div className = "connect-card" key = {match.id}>
-                              <Link to ={`/api/profiles/${match.id}/`}>
+                              <Link to ={`/profiles/${match.id}/`}>
                             <div className= "profileDetail" >
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="auto" height="500" />
                               <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="500" />
@@ -72,9 +101,9 @@ class ConnectionList extends React.Component {
                             </Link>
                             <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
                             <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
-                            <div key={match.review}><b>Review Score:</b> {match.average_rating}  </div>
+                            <div key={match.review}><b>Rating Average:</b> {scoreToStar(match.average_rating)} </div>
                             <div key={match.location}><b>Location:</b> {match.location}  </div>
-                            {/* <link to ={'/api/profiles/${match.id}/'}>Go to {match.first_name}'s Profile</link> */}
+                            {/* <i className="bi bi-heart"></i> */}
                             </div>
                           )
                         })}</div>

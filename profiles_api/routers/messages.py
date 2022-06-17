@@ -48,7 +48,7 @@ def row_to_message_detail(row):
         "sender": row[1],
         "recipient": row[2],
         "sent": row[3],
-        "message": row[4]
+        "message": row[4],
     }
     return message
 
@@ -105,5 +105,5 @@ def get_message(target_id: int, response: Response, query=Depends(ProfileQueries
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
     return {
-        "messages": [row_to_message_detail(row) for row in rows],
+        "messages": [row_to_message_detail(row) for row in rows]
     }

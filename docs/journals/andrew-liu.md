@@ -43,3 +43,9 @@ Started working on combining the websocket chat function that Jeremy worked on t
 
 # June 14, 2022
 Today we decided to scrap the websocket for the chat function and instead go a safer route that we were more familiar with. Given the time crunch we decided this was the best path moving forward. With that decided, we were able to use the Post request that we created yesterday as well as create the get response for a list of chats. On the SQL side, we got not only a list but also the user's profile image and first and last name along with the chat information. The chat's displayed only the most recent message and that was done by sorting the list of ID's by descending order and only showing one.
+
+# June 15, 2022
+Today created detail view of chats so a user will be able to see all the messages sent and received between them and an individual. Also began work on the frontend. Today, given the limited amount of time, I started working on the connection list ratings so that instead of displaying a float, it will instead show icons based on the average rating. Any number between two whole numbers, if above .5 will be displayed as a half filled heart. It's not fully implemented at the time of writing this journal but I hope to accomplish it by the end of tomorrow.
+
+June 16, 2022
+For today, I started using bootstrap to add aesthetics to the my profile page. Once that's done I can re-use the code and apply it to the explore page and profile detail page. It's weird getting back to the front-end after spending the last few weeks exclusively in the back-end but it's getting better. I just need to rely on documentation to get things as I want.
