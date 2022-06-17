@@ -17,8 +17,8 @@ class ProfileDetail extends React.Component {
     const url = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
     const response = await fetch(url, {
       credentials: 'include',
-      
     });
+    
     if (response.ok) {
       this.setState({
         profile: await response.json(),

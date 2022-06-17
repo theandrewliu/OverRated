@@ -108,7 +108,7 @@ class ProfileForm extends React.Component {
     }
     handleEthnicityChange(event) {
         const value = event.target.value;
-        this.setState({ ethnicity: value });
+        this.setState({ ethnicity: value[0] });
     }
 
 
@@ -127,8 +127,7 @@ class ProfileForm extends React.Component {
                     <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handlePhotoChange} value={this.state.photo} 
-                            type="text" name="photo" 
-                            id="photo" className="form-control" />
+                            type="file" name="photo" id="photo" className="form-control" />
                     </div>
 {/* ------------------------About */}
                     <label htmlFor="about">About Me:</label>

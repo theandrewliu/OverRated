@@ -43,7 +43,7 @@ class AccountForm extends React.Component {
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
-
+        console.log(data);
         const account_Url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
         const fetchConfig = {
             method: "PUT",
@@ -119,56 +119,55 @@ class AccountForm extends React.Component {
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
                     <div dangerouslySetInnerHTML={{__html: this.state.error}} />
-                    <h1>CatFish Editor</h1>
+                    <h1>Account Settings</h1>
+                    <hr/>
                     <br></br>
                     <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleEmailChange} value={this.state.email} placeholder="Email" required type="email" name="email" id="email" className="form-control" />
-                        <label htmlFor="email">Email</label>
-                        <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                            <label htmlFor="email">Email</label>
+                        <button className="btn btn-primary">Edit</button>
                     </div>
                     </form>
 
                     <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleLocationChange} value={this.state.location} placeholder="Location" required type="text" name="location" id="location" className="form-control" />
-                        <label htmlFor="location">Location</label>
-                        <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                            <label htmlFor="location">Location</label>
+                        <button className="btn btn-primary">Edit</button>
                     </div>
                     </form>
 
                     <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleFirst_nameChange} value={this.state.first_name} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
-                        <label htmlFor="first_name">First Name</label>
-                    <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                            <label htmlFor="first_name">First Name</label>
+                        <button className="btn btn-primary">Edit</button>
                     </div>
                     </form>
                     <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleLast_nameChange} value={this.state.last_name} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
-                        <label htmlFor="last_name">Last Name</label> 
-                    <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                            <label htmlFor="last_name">Last Name</label> 
+                        <button className="btn btn-primary">Edit</button>
                     </div>
                     </form>
 
                     <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                             <input onChange={this.handleUsernameChange} value={this.state.username} placeholder="Username" required type="text" name="username" id="username" className="form-control" />
-                            <label htmlFor="username">Username</label>
-                        <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                                <label htmlFor="username">Username</label>
+                            <button className="btn btn-primary">Edit</button>
                         </div>
                     </form>
 
                         <form onSubmit={this.handleSubmit}>
-                        <div className="form-floating mb-3">
-                            <input onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" required type="password" name="password" id="password" className="form-control" />
-                            <label htmlFor="password">Password</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input onChange={this.handleVerify_PasswordChange} value={this.state.verify_password} placeholder="Verify Password" required type="password" name="verify-password" id="verify-password" className="form-control" />
-                            <label htmlFor="verify-password">Verify Password</label>
-                        <button disabled={!this.validForm()} className="btn btn-primary">Apply Changes</button>
+                        <div className="form-floating mb-3" >
+                            <input onChange={this.handlePasswordChange} value={this.state.password} 
+                                placeholder="Password" required type="password" name="password" id="password" />
+                            <input onChange={this.handleVerify_PasswordChange} value={this.state.verify_password} 
+                                placeholder="Verify Password" required type="password" name="verify-password" id="verify-password" />
+                            <button disabled={!this.validForm()} className="btn btn-primary">Edit</button>
                         </div>
                     </form>
                 </div>

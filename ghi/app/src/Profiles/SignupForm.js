@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import './profile.css';
 
 
 class SignupForm extends React.Component{

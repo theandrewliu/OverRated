@@ -8,7 +8,7 @@ function MainPage() {
 
   return (
     <div className="px-4 my-5 text-center" >
-    <div id="container" style={{ backgroundImage: "url(/images/overratedlogo.png)" }}>
+    <div id="container">
       <div className="col1">
       <h1 className="display-5 fw-bold">OverRated</h1>
       <div className="logo">
