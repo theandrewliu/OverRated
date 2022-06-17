@@ -3,6 +3,17 @@ import { Navigate, Link } from "react-router-dom";
 import './profile.css';
 import { calculateAge, scoreToStar } from "./ConnectionsList";
 
+export function capitalize(s) {
+  return String(s).charAt(0).toUpperCase() + String(s).slice(1);
+}
+
+export function list_separate(list) {
+  let output = ""
+  for (let i = 0; i < list?.length; i++){
+    output += (capitalize(list[i]) + "s ")
+  }
+  return output
+}
 
 class ProfileDetail extends React.Component {
   constructor(props) {
@@ -34,7 +45,7 @@ class ProfileDetail extends React.Component {
   }
   
     render() {
-      console.log(this.state)
+      console.log("LOOK HERE", this.state)
       if(this.state.redirect === true){
         return <Navigate to = '/login' />;
       }
@@ -45,7 +56,10 @@ class ProfileDetail extends React.Component {
       let photo = this.state.profile.photo 
       if (this.state.profile.photo === null) {
           photo = "/images/blank-profile-pic.png"
-      }    
+      }
+      
+      
+
       return (
         <>
         <Link className = 'buttonA' to='/profiles/myself'>Profile Settings</Link>
@@ -85,16 +99,13 @@ class ProfileDetail extends React.Component {
                       <td><b>Education:</b> {this.state.profile.education}</td>
                     </tr>
                     <tr>
-                      <td><b>About Me:</b> {this.state.profile.about}</td>
+                      <td><b>Interested In:</b> {list_separate(this.state.profile.interested)}</td>
                     </tr>
                     <tr>
-                      <td><b>Interested In:</b> {this.state.profile.interested}</td>
+                      <td><text><b>Gender:</b> {capitalize(this.state.profile.gender)}</text></td>
                     </tr>
                     <tr>
-                      <td><b>Gender:</b> {this.state.profile.gender}</td>
-                    </tr>
-                    <tr>
-                      <td><b>Sexual Orientation:</b> {this.state.profile.sexual_orientation}</td>
+                      <td><b>Sexual Orientation:</b> {capitalize(this.state.profile.sexual_orientation)}</td>
                     </tr>
                     <tr>
                       <td><b>Religion:</b> {this.state.profile.religion}</td>

@@ -30,15 +30,29 @@ class MessageList extends React.Component {
     }
   }
 
+  async getProfileMatches() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/my-matches`;
+    const response = await fetch(url, {
+      credentials: 'include',
+    });
+    if (response.ok) {
+      this.setState({
+        theirprofile: await response.json(),
+      });
+    }else if (response.status === 401){
+      this.setState({redirect: true})
+    }
+  }
+
 
   componentDidMount() {
     this.getMyMessages();
+    this.getProfileMatches();
 
   }
 
 
   render() {
-    console.log(this.state.messages)
     if(this.state.redirect === true){
       return <Navigate to = '/login' />;
     }
@@ -50,21 +64,35 @@ class MessageList extends React.Component {
 
         if (message.photo === null) {
           photo = "/images/blank-profile-pic.png"
+
+          let identifier = message.recipient 
+          {this.state.theirprofile.matches.map(match => {
+            console.log("fuck", identifier)
+            console.log("Hopefully", message)
+            console.log("this works", match)
+            if (identifier != match.id){
+              identifier = match.id
+            }
+          })}
+          console.log("Post iteration", identifier)
         }
         return (
+
         <div className = "message-card" key = {message.id}>
             <Link to ={`/messages/${message.sender}/`}>
           <div className= "img-fluid rounded-4" >
             <img className="rounded float-left" src={ photo } alt="pic" width="auto" height="200" />
         </div>
           </Link>
-          <table className ='table-responsive' scope='row'>
-            <h1 scope='col'>
+          <table className ='container' scope='row'>
+          <div class="row">
+            <h1 scope="col-sm">
             <b> {message.first_name + " " + message.last_name} </b>
             </h1>
-            <tr scope='col'>
+            <tr scope="col-sm">
               <td>{message.message}</td>
             </tr>
+          </div>
           </table>
         </div>
         )
