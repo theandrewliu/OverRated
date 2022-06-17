@@ -64,7 +64,6 @@ class MessageDetail extends React.Component {
                 message: "",
             })
         }
-
     }
     
 
@@ -77,19 +76,27 @@ class MessageDetail extends React.Component {
         return(
             <>
             <h1>Chat with {this.state.target.first_name}</h1>
-            {/* {console.log("inside return statement")} */}
-            {console.log("first", this.state.messages.messages)}
+            {/* {console.log("first", this.state.messages.messages)}
             {console.log("target", this.state.target)}
-            {console.log("user", this.state.user)}
+            {console.log("user", this.state.user)} */}
             <div>
                 {this.state.messages.messages.map(message => {
                     let photoNull = 'profile-pic d-none'
                     let photoAvailable = 'profile-pic'
+                    let senderName = ''
 
                     if (this.state.target.photo === null) {
                         photoNull = 'profile-pic'
                         photoAvailable = 'profile-pic d-none'
                     }
+                
+                    if (message.sender === this.state.target.id) {
+                        senderName = this.state.target.first_name
+                    }
+                    if (message.sender === this.state.user.id) {
+                        senderName = this.state.user.first_name
+                    }
+                
                     return (<>
                         {console.log(message)}
                         <div>
@@ -104,7 +111,7 @@ class MessageDetail extends React.Component {
                             <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="100" />
                         </div>
                         <div>
-                            Name: {this.state.target.first_name} {this.state.target.last_name}
+                            Name: {senderName}
                         </div>
                         </>
                     )
