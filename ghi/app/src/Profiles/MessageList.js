@@ -58,10 +58,10 @@ class MessageList extends React.Component {
     }
     return (
       <>
-      <h1>Your Messages</h1>
+      <h1><b>Your Messages</b></h1>
       <div className = 'message-layout'>{this.state.messages.messages.map(message => {
-        let photo = message.photo
 
+        let photo = message.photo
         if (message.photo === null) {
           photo = "/images/blank-profile-pic.png"
 
@@ -76,13 +76,14 @@ class MessageList extends React.Component {
           })}
           console.log("Post iteration", identifier)
         }
+        
         return (
 
         <div className = "message-card" key = {message.id}>
             <Link to ={`/messages/${message.sender}/`}>
           <div className= "img-fluid rounded-4" >
-            <img className="rounded float-left" src={ photo } alt="pic" width="auto" height="200" />
-        </div>
+            <img className="rounded float-left" src={ photo } alt="pic" width="auto" height="150" />
+          </div>
           </Link>
           <table className ='container' scope='row'>
           <div class="row">
@@ -96,7 +97,8 @@ class MessageList extends React.Component {
           </table>
         </div>
         )
-      })}</div>
+      })}
+      </div>
       </>
     );
   }
