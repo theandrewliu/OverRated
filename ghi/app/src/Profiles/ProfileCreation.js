@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 
 class ProfileForm extends React.Component {
@@ -112,6 +113,9 @@ class ProfileForm extends React.Component {
 
 
     render(){
+        if (this.props.token) {
+            return <Navigate to="/api/profiles/mine" />;
+        }
         return (
             <div className="row">
             <div className="offset-3 col-6">
