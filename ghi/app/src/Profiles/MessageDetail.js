@@ -14,6 +14,7 @@ class MessageDetail extends React.Component {
         this.state = {
             messages: {'messages': []},
             profiles: "",
+            input: "",
             redirect: false,
         };
     }
@@ -21,6 +22,13 @@ class MessageDetail extends React.Component {
     componentDidMount() {
         this.getMyMessages();
         this.getTargetInfo();
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+
+        const url = ''
+
     }
 
     async getTargetInfo() {
@@ -54,7 +62,7 @@ class MessageDetail extends React.Component {
     render() {
         return(
             <>
-            <h1>Chat with -Name Here-</h1>
+            <h1>Chat with {this.state.profiles.first_name}</h1>
             {/* {console.log("inside return statement")} */}
             {console.log("first", this.state.messages.messages)}
             {console.log("did this work", this.state.profiles)}
