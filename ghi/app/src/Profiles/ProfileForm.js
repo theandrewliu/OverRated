@@ -66,7 +66,7 @@ class ProfileForm extends React.Component {
                 sexual_orientation: "",
                 religion: "",
                 pronouns: "",
-                interested: "",
+                interested: {},
                 ethnicity: "",
                 location: "",
             });
