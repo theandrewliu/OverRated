@@ -81,9 +81,6 @@ class MessageDetail extends React.Component {
             {console.log("user", this.state.user)} */}
             <div>
                 {this.state.messages.messages.map(message => {
-                    let photoNull = 'profile-pic d-none'
-                    let photoAvailable = 'profile-pic'
-
                     let photoSRC = ''
                     let senderName = ''
                     
@@ -106,26 +103,24 @@ class MessageDetail extends React.Component {
                 
                     return (<>
                         {console.log(message)}
-                        <div>
+                        <div key={senderName}>
+                            Name: {senderName}
+                        </div>
+                        <div key={message.sent}>
                             Time: {message.sent}
                         </div>
-                        <div>
+                        <div key={message.message}>
                             Message: {message.message}
                         </div>
-                        <div>
+                        <div key={photoSRC}>
                             Photo:
                             <img className='profile-pic' src={photoSRC} alt="pic" width="auto" height="100" />
-                            {/* <img className ={photoAvailable} src={ this.state.target.photo } alt="pic" width="auto" height="100" />
-                            <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="100" /> */}
-                        </div>
-                        <div>
-                            Name: {senderName}
                         </div>
                         </>
                     )
                 })}
                 <form onSubmit={this.handleSubmit} id="create-message">
-                    <input onChange={this.handleMessageChange} value ={this.state.message} placeholder="Chat Here" type="text"/><button className="btn btn-primary">Send</button>
+                    <input onChange={this.handleMessageChange} value ={this.state.message} placeholder="Chat Here" type="text" key={this.state.message}/><button className="btn btn-primary">Send</button>
                 </form>
             </div> 
             </>
