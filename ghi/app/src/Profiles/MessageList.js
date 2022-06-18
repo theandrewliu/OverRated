@@ -78,23 +78,24 @@ class MessageList extends React.Component {
         }
         
         return (
-
-        <div className = "message-card" key = {message.id}>
-            <Link to ={`/messages/${message.sender}/`}>
-          <div className= "img-fluid rounded-4" >
-            <img className="rounded float-left" src={ photo } alt="pic" width="auto" height="150" />
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-3" key = {message.id}>
+              <Link to ={`/messages/${message.sender}/`}>
+                <div>
+                  <img className="rounded-4 float-left" src={ photo } alt="pic" width="auto" height="150" />
+                </div>
+              </Link>
+              <div className="col-sm-9">
+                <div className="row">
+                  <h2>{message.first_name + " " + message.last_name}</h2>
+                </div>
+                <div className="row">
+                  {message.message}
+                </div>
+              </div>
+            </div>
           </div>
-          </Link>
-          <table className ='container' scope='row'>
-          <div class="row">
-            <h1 scope="col-sm">
-            <b> {message.first_name + " " + message.last_name} </b>
-            </h1>
-            <tr scope="col-sm">
-              <td>{message.message}</td>
-            </tr>
-          </div>
-          </table>
         </div>
         )
       })}
