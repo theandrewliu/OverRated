@@ -49,14 +49,12 @@ class MessageList extends React.Component {
 
           }
         // target = matches.find(match => match.match_id === message.match_id)
-        
         }
       }
       console.log("target", target)
       this.setState({ messages })
       
     }
-    
   }
 
 
