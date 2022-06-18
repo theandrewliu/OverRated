@@ -54,6 +54,11 @@ class MessageList extends React.Component {
           if (message.photo === null) {
             photo = "/images/blank-profile-pic.png"
           }
+
+          let targetID = message.recipient
+          if(targetID === this.state.user.id){
+            targetID = message.sender
+          }
           return (
 
             <div className="message-card" key={message.match_id}>
