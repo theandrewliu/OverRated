@@ -76,9 +76,9 @@ class MessageDetail extends React.Component {
         return(
             <>
             <h1>Chat with {this.state.target.first_name}</h1>
-            {/* {console.log("first", this.state.messages.messages)}
+            {console.log("messages", this.state.messages.messages)}
             {console.log("target", this.state.target)}
-            {console.log("user", this.state.user)} */}
+            {console.log("user", this.state.user)}
             <div>
                 {this.state.messages.messages.map(message => {
                     let photoSRC = ''
