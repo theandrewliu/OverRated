@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import './MessageDetail.css';
 
 
 function MessagesDetailGrabber(){
@@ -17,11 +18,16 @@ class MessageDetail extends React.Component {
             user: "",
             message: "",
             redirect: false,
+            // updated: false,
         };
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "auto" });
+      }
 
     async componentDidMount() {
         const targetURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.target_id}`;
@@ -41,6 +47,9 @@ class MessageDetail extends React.Component {
         } else if (targetResponse.status === 401 || messageResponse.status === 401 || userResponse.status === 401) {
             this.setState({redirect: true})
         }
+
+        this.scrollToBottom();
+
     }
 
     
@@ -73,59 +82,151 @@ class MessageDetail extends React.Component {
     }
 
     render() {
+        let photoSRC = this.state.target.photo
+        if (this.state.target.photo === null) {
+            photoSRC = "/images/blank-profile-pic.png"
+        }
         return(
             <>
-            <h1>Chat with {this.state.target.first_name}</h1>
-            {console.log("messages", this.state.messages.messages)}
-            {console.log("target", this.state.target)}
-            {console.log("user", this.state.user)}
-            <div>
-                {this.state.messages.messages.map(message => {
-                    let photoSRC = ''
-                    let senderName = ''
-                    
+                <h1>Chat with {this.state.target.first_name}</h1>
+                <div className="container mt-4">
                 
-                    if (message.sender === this.state.target.id) {
-                        senderName = this.state.target.first_name
-                        photoSRC = this.state.target.photo
-                    }
-                    if (message.sender === this.state.user.id) {
-                        senderName = this.state.user.first_name
-                        photoSRC = this.state.user.photo
-                    }
-                    if (message.sender === this.state.target.id && this.state.target.photo === null) {
-                        photoSRC = "/images/blank-profile-pic.png"
-                    } 
+                        <div className="card mx-auto" style={{maxWidth: 500}}>
+                            <div className="card-header bg-transparent">
+                                <div className="navbar navbar-expand p-0">
+                                    <ul className="navbar-nav me-auto align-items-center">
+                                        <li className="nav-item">
+                                            <a href="#!" className="nav-link chat-link">
+                                                <div className="avatar">
+                                                    <img src={photoSRC} class="img-fluid rounded-circle" />
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a href="#!" className="nav-link chat-link">{this.state.target.first_name} {this.state.target.last_name}</a>
+                                        </li>
+                                    </ul>
+                                    <ul className="navbar-nav ms-auto">
+                                        <li className="nav-item">
+                                            <a href="#!" className="nav-link chat-link">
+                                                <i className="fas fa-phone-alt"></i>
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a href="#!" className="nav-link chat-link">
+                                                <i className="fas fa-video"></i>
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a href="#!" className="nav-link chat-link">
+                                                <i className="fas fa-times"></i>
+                                            </a>
+                                        </li>
+                                    </ul>                            
+                                </div>
+                            </div>
+                            <div className="card p-4 chat-box pb-4 mb-4">
 
-                    if (message.sender === this.state.user.id && this.state.user.photo === null) {
-                        photoSRC = "/images/blank-profile-pic.png"
-                    } 
-                
-                    return (<>
-                        {console.log(message)}
-                        <div key={senderName}>
-                            Name: {senderName}
+
+                            {console.log("messages", this.state.messages.messages)}
+                            {console.log("target", this.state.target)}
+                            {console.log("user", this.state.user)}
+
+                            {this.state.messages.messages.map(message => {
+                                let photoSRC = ''
+                                let senderName = ''
+                                let textAlign = ''
+                                let targetAvatar = ''
+                                let userAvatar = ''
+                            
+                                if (message.sender === this.state.target.id) {
+                                    senderName = this.state.target.first_name
+                                    photoSRC = this.state.target.photo
+                                    textAlign = "d-flex align-items-baseline mb-4"
+                                    targetAvatar = "position-relative avatar"
+                                    userAvatar = "position-relative avatar d-none"
+
+                                }
+                                if (message.sender === this.state.user.id) {
+                                    senderName = this.state.user.first_name
+                                    photoSRC = this.state.user.photo
+                                    textAlign = "d-flex align-items-baseline text-end justify-content-end mb-4"
+                                    userAvatar = "position-relative avatar"
+                                    targetAvatar = "position-relative avatar d-none"
+                                
+                                }
+                                if (message.sender === this.state.target.id && this.state.target.photo === null) {
+                                    photoSRC = "/images/blank-profile-pic.png"
+                                } 
+
+                                if (message.sender === this.state.user.id && this.state.user.photo === null) {
+                                    photoSRC = "/images/blank-profile-pic.png"
+                                } 
+
+
+                            
+                            return (<>
+                                <div className={textAlign}>
+                                    <div className={targetAvatar}>
+                                        <img src={photoSRC} class="img-fluid rounded-circle" />
+                                    </div>
+                                    <div className="pe-2">
+                                        <div>
+                                            <div className="card card-text d-inline-block p-2 px-3 m-1">
+                                                {message.message}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="small">
+                                                {message.sent}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={userAvatar}>
+                                        <img src={this.state.user.photo} class="img-fluid rounded-circle" />
+                                    </div>
+                                </div>
+                            </>
+                            )
+                            })}
+                                <div>
+                            <div className="MessageContainer" >
+                                <div className="MessagesList">
+                                {/* {this.renderMessages()} */}
+                                </div>
+                                <div style={{ float:"left", clear: "both" }}
+                                    ref={(el) => { this.messagesEnd = el; }}>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                            <div className="card-footer bg-white position-absolute w-100 bottom-0 m-0 p-1">
+                                <div className="input-group">
+                                    <div className="input-group-text bg-transparent border-0">
+                                        <button className="btn btn-light text-secondary">
+                                            <i className="fas fa-paperclip"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" className="form-control border-0" placeholder="Write a message..." />
+                                    <div className="input-group-text bg-transparent border-0">
+                                        <button className="btn btn-light text-secondary">
+                                            <i className="fas fa-smile"></i>
+                                        </button>
+                                    </div> 
+                                    <div className="input-group-text bg-transparent border-0">
+                                        <button className="btn btn-light text-secondary">
+                                            <i className="fas fa-microphone"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div key={message.sent}>
-                            Time: {message.sent}
-                        </div>
-                        <div key={message.message}>
-                            Message: {message.message}
-                        </div>
-                        <div key={photoSRC}>
-                            Photo:
-                            <img className='profile-pic' src={photoSRC} alt="pic" width="auto" height="100" />
-                        </div>
-                        </>
-                    )
-                })}
-                <form onSubmit={this.handleSubmit} id="create-message">
-                    <input onChange={this.handleMessageChange} value ={this.state.message} placeholder="Chat Here" type="text" key={this.state.message}/><button className="btn btn-primary">Send</button>
-                </form>
-            </div> 
+                    </div>
             </>
         );
     }
 }
 
 export default MessagesDetailGrabber;
+
+

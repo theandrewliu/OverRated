@@ -1,0 +1,32 @@
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #e84118;
+    padding: 2px;
+}
+
+.chat-link {
+    color: rgba(31, 30, 30, 0.988);
+    font-size: 18px;
+    padding: 0;
+}
+
+.chat-box {
+    height: 500px;
+    overflow: auto;
+}
+
+input:focus {
+    outline: 0px !important;
+    box-shadow: none !important;
+}
+
+.card-text {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+.main-card {
+    max-width: 500px;
+}

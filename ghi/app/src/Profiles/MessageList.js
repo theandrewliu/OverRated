@@ -47,19 +47,18 @@ class MessageList extends React.Component {
         {console.log("messages", this.state.messages.messages)}
         {console.log("user", this.state.user)}
 
-        <div className='message-layout'>{this.state.messages.messages.map(message => {
-          console.log("message map", message)
+        <div className='message-layout'>
+          {this.state.messages.messages.map(message => {
 
-          let photo = message.photo
-          if (message.photo === null) {
-            photo = "/images/blank-profile-pic.png"
-          }
-          
-          let targetID = message.recipient
-          if (message.recipient === this.state.user.id) {
-              targetID = message.sender
-          } 
-        
+            let photo = message.photo
+            if (message.photo === null) {
+              photo = "/images/blank-profile-pic.png"
+            }
+            
+            let targetID = message.recipient
+            if (targetID === this.state.user.id) {
+                targetID = message.sender
+            } 
 
           return (
             <div className="message-card" key={message.match_id}>
