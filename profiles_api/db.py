@@ -704,3 +704,24 @@ class ProfileQueries:
                     return chats
                 except:
                     print("not working")
+
+
+    def list_ratings(self, user_id):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+
+                cursor.execute(
+                    """
+                    SELECT id
+                        , rating
+                        , rating_of
+                        , rating_by
+                    FROM ratings
+                    WHERE rating_by = %s
+                    """,
+                        [user_id],
+                )
+                ratings = list(cursor.fetchall())
+
+
+                return ratings

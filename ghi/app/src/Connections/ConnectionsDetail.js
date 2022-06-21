@@ -19,8 +19,11 @@ class ConnectionsDetail extends React.Component {
     // this.review = this.review.bind(this)
     this.state = {
       targetUser: "",
-      rating: '',
+      rating: "",
       redirect: false,
+      ratings: "",
+      user: "",
+      rating_of: "",
     };
     this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,62 +36,79 @@ class ConnectionsDetail extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const data = {...this.state};
+    
+    const data = { 
+      rating: parseInt(this.state.rating),
+      rating_of: this.state.targetUser.id
+    };
 
-    const rating_url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.target_id}/rating/`;
+    console.log("the state", data)
+
+    const rating_url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}/rating/`;
     const fetchConfig = {
       method: "POST",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-            credentials: "include",
-            },
+              },
+              credentials: 'include',
     };
     const response = await fetch(rating_url, fetchConfig);
     if(response.ok) {
       const new_rating =await response.json();
       console.log(new_rating)
+      this.setState({
+        rating: "",
+        rating_of: ""
+      })
     }
   }
 
-  async getTheirDetails() {
-    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}`;
-    const response = await fetch(url, {
-      credentials: 'include',
-      
-    });
-    if (response.ok) {
+  async componentDidMount() {
+    const targetURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}`;
+    const ratingsURL = `${process.env.REACT_APP_API_HOST}/api/my-ratings`;
+    const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine/`;
+    
+    const targetResponse = await fetch(targetURL, {credentials: 'include'});
+    const ratingsResponse = await fetch(ratingsURL, {credentials: 'include'});
+    const userResponse = await fetch(userURL, {credentials: 'include'});
+
+    if (targetResponse.ok && ratingsResponse.ok && userResponse.ok) {
       this.setState({
-        targetUser: await response.json(),
+        targetUser: await targetResponse.json(),
+        ratings: await ratingsResponse.json(),
+        user: await userResponse.json(),
     });
 
-    }else if (response.status === 401){
+    }else if (targetResponse.status === 401 || ratingsResponse.status === 401 || userResponse.status ===401 ){
       this.setState({redirect: true})
     }
   }
-  
-  componentDidMount() {
-    this.getTheirDetails();
-  }
-  
-  heart1Click(){
-    // let fullHeart = "bi bi-heart-fill" 
-    // let emptyHeart = "bi bi-heart"
-    // return(fullHeart)
-    return <i className="bi bi-heart"></i>
-  }
+
   
   render() {
     if(this.state.redirect === true){
       return <Navigate to = '/login' />;
     }
-      let feet = Math.floor(this.state.targetUser.height/12)
-      let inch = this.state.targetUser.height%12
 
-      let photo = this.state.targetUser.photo 
-      if (this.state.targetUser.photo === null) {
-          photo = "/images/blank-profile-pic.png"
-      }  
+    let feet = Math.floor(this.state.targetUser.height/12)
+    let inch = this.state.targetUser.height%12
+
+    let photo = this.state.targetUser.photo 
+    if (this.state.targetUser.photo === null) {
+        photo = "/images/blank-profile-pic.png"
+    }  
+    
+    
+    let ratingConfirmationMessage = 'd-none'
+    let ratingButton = 'btn btn-primary'
+    for (let rating in this.state.ratings.ratings) {
+      if (this.state.targetUser.id === this.state.ratings.ratings[rating]["rating_of"]) {
+        ratingConfirmationMessage = ''
+        ratingButton = 'btn btn-primary d-none'
+      }
+    }
+
       return (
         <>
         <div className="profileContainer">
@@ -125,7 +145,8 @@ class ConnectionsDetail extends React.Component {
               </h1>
             {scoreToStar(this.state.targetUser.average_rating)}
             <div>
-              <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#RatingModalCenter">Rate {this.state.targetUser.first_name}</button>
+              <h3 className={ratingConfirmationMessage}>Thanks for rating {this.state.targetUser.first_name}!</h3>
+              <button className={ratingButton} data-bs-toggle="modal" data-bs-target="#RatingModalCenter">Rate {this.state.targetUser.first_name}</button>
             </div>
           </div>
         </div>
@@ -138,24 +159,24 @@ class ConnectionsDetail extends React.Component {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLongTitle">Rate {this.state.targetUser.first_name} from 1-5 hearts!</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
             <div className="modal-body">
               <form onSubmit={this.handleSubmit} id="create-rating">
-              <span>
-                <i className="bi bi-heart" id="heart1" onClick={(this.heart1Click())} value = "1"></i>
-                <i className="bi bi-heart" id="heart2" value = "2"></i>
-                <i className="bi bi-heart" id="heart3" value = "3"></i>
-                <i className="bi bi-heart" id="heart4" value = "4"></i>
-                <i className="bi bi-heart" id="heart5" value = "5"></i>
-              </span>
-              <button type="submit" className="btn btn-primary" value="Submit" form="create-rating">Submit</button>
+              <div className="">
+                <select onChange={this.handleRatingChange} value={this.state.rating}>
+                  <option value="">Select a Rating</option>
+                  <option value="1">1 Heart</option>
+                  <option value="2">2 Hearts</option>
+                  <option value="3">3 Hearts</option>
+                  <option value="4">4 Hearts</option>
+                  <option value="5">5 Hearts</option>
+                </select>
+              </div>
+              <button type="submit" className="btn btn-primary justify-content-end" value="Submit" form="create-rating">Submit</button>
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
