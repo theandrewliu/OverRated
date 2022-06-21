@@ -68,7 +68,7 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         console.log(data);
-        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself/${this.props.profile_id}`;
+        const url = `${process.env.REACT_APP_API_HOST}/profiles/edit/`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
@@ -96,8 +96,7 @@ class ProfileForm extends React.Component {
                 interested: [],
                 ethnicity: "",
                 location: "",
-            });
-            console.log("games", response);
+            });        
         } else if (!response.ok){
             const message = `An error: ${response.status} - ${response.statusText}`;
             throw new Error(message);
@@ -272,12 +271,12 @@ class ProfileForm extends React.Component {
                     <div className="form-check m-3" onChange={this.handleInterestedChange} >
 
                         <input type="checkbox" id={this.state.interested}
-                            value="male" name="interestedin" />&nbsp;Men &nbsp;&nbsp;&nbsp;
+                            value="male" name="interestedM" />&nbsp;Men &nbsp;&nbsp;&nbsp;
 
                         <input type="checkbox" id={this.state.interested}
-                            value="female"  name="interestedin" />&nbsp;Women &nbsp;&nbsp;
+                            value="female"  name="interestedF" />&nbsp;Women &nbsp;&nbsp;
                         <input type="checkbox" id={this.state.interested}
-                            value="other" name="interestedin" />&nbsp;Everyone! &nbsp;&nbsp;
+                            value="other" name="interestedO" />&nbsp;Everyone! &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
 

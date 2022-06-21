@@ -1,15 +1,6 @@
 import React, { Navigate } from 'react';
-import { useParams } from "react-router-dom";
 
 
-
-
-function AccountGetter(){
-    const params = useParams();
-    const account_id = params.id;
-    console.log("Taco Bell", account_id)
-    return <AccountForm account_id = {account_id}></AccountForm>
-  }
 
 class AccountForm extends React.Component {
     constructor(props){
@@ -32,18 +23,30 @@ class AccountForm extends React.Component {
         this.handleVerify_PasswordChange = this.handleVerify_PasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    async componentDidMount() {
+        const accountUrl = `${process.env.REACT_APP_API_HOST}/api/settings/`;
+        const accountResponse = await fetch(accountUrl, { credentials: "include"});
 
-    // async deleteAccount(event){
-    //     event.preventDefault();
-    //     const deleteUrl = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
-    //     const fetchConfig = {method: "DELETE"}
+        if (accountResponse.ok){
+            this.setState({
+                accounts: await accountResponse.json(),
+            });
+        }else if(accountResponse.ok===401){
+            this.setState({ redirect: true });
+        }
+    }
 
-    //     const response = await fetch(deleteUrl, fetchConfig);
-    //     if(response.ok){
-    //         console.log(response);
-    //         window.location.reload();
-    //     }
-    // };
+    async deleteAccount(event){
+        event.preventDefault();
+        const deleteUrl = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
+        const fetchConfig = {method: "DELETE"}
+
+        const response = await fetch(deleteUrl, fetchConfig);
+        if(response.ok){
+            console.log(response);
+            window.location.reload();
+        }
+    };
 
 
     async handleSubmit(event) {
@@ -170,8 +173,9 @@ class AccountForm extends React.Component {
                         <div className="form-floating mb-3" >
                             <input onChange={this.handlePasswordChange} value={this.state.password} 
                                 placeholder="Password" required type="password" name="password" id="password" />
+
                             <input onChange={this.handleVerify_PasswordChange} value={this.state.verify_password} 
-                                placeholder="Verify Password" required type="password" name="verify-password" id="verify-password" />
+                                placeholder="Verify Password" required type="password" name="verify_password" id="verify-password" />
                             <button disabled={!this.validForm()} className="btn btn-primary">Edit</button>
                         </div>
                     </form>
@@ -184,4 +188,4 @@ class AccountForm extends React.Component {
     }
 
 
-export default AccountGetter;
+export default AccountForm;
