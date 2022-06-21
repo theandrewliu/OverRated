@@ -54,16 +54,18 @@ class MessageList extends React.Component {
           if (message.photo === null) {
             photo = "/images/blank-profile-pic.png"
           }
-
+          
           let targetID = message.recipient
-          if(targetID === this.state.user.id){
-            targetID = message.sender
-          }
-          return (
+          if (message.recipient === this.state.user.id) {
+              targetID = message.sender
+          } 
+        
 
+          return (
             <div className="message-card" key={message.match_id}>
+              {console.log("user id:", this.state.user.id)}
               <div></div>
-              <Link to={`/messages/${message.match_id}/`}>
+              <Link to={`/messages/${targetID}/`}>
                 <div className="img-fluid rounded-4" >
                   <img className="rounded float-left" src={photo} alt="pic" width="auto" height="150" />
                 </div>
