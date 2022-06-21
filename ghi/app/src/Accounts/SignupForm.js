@@ -102,31 +102,31 @@ class SignupForm extends React.Component{
     }
     handleInterestedChange(event) {
         const { value, checked } = event.target;
-        console.log(event.target.name, "clicked");
+        // console.log("the event.target.name", event.target.name);
+        // console.log("the value", value)
+        // console.log("the checked", checked)
 
         let listed = this.state.interested;
-        let in_array = this.state.interested.includes(event.target.name);
-        console.log(in_array, "in_array");
-        console.log("CoCoBeansOnaMonday", `${value} is ${checked}`);
+        // console.log("listed:", listed)
+        // console.log("in_array:", in_array);
+        // console.log("is value checked?", `${value} is ${checked}`);
 
         if(checked) {
             listed.push(value);
-            listed = listed.map(listed => ({interested: listed}));
-            console.log("Rabbit", listed);
-            
-            this.setState({
-                in_array: [ ...listed],
-            });
-            console.log("Jesus", in_array, listed)
+            // console.log("This is listed", listed);
+        } else {      
+            let index = listed.indexOf(value)
 
-        } else {
-            listed.pop(value);
-            this.setState({
-                in_array: listed.filter((event) => event !== listed),
-            });
-            console.log("Throw Away", this.state, event.target.name);
+            if (index > -1 ){
+                listed.splice(index, 1);
+            }
         }
+        this.setState({
+            interested: [ ...listed],
+        });
+        // console.log("this is the state", this.state.interested)
     }
+    
     validForm() {
         return this.state.password.length >= 8 &&
                this.state.password === this.state.verify_password &&

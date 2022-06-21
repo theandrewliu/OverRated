@@ -22,8 +22,6 @@ class LoginForm extends React.Component{
     }
 
     validForm() {
-        console.log(this.state.password);
-
         return this.state.password.length >= 8 &&
                this.state.username
     }
