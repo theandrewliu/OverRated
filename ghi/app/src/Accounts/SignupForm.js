@@ -62,8 +62,10 @@ class SignupForm extends React.Component{
                 verify_password: '',
                 error: '',
             });
-        }
-    }
+        } else if (!response.ok){
+            const message = ` An error: ${response.status} - ${response.statusText}`;
+            throw new Error(message);
+        }}
     
     handleEmailChange(event) {
         const value = event.target.value;

@@ -36,7 +36,7 @@ class AccountForm extends React.Component {
 
     async deleteAccount(event){
         event.preventDefault();
-        const deleteUrl =  `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
+        const deleteUrl = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
         const fetchConfig = {method: "DELETE"}
 
         const response = await fetch(deleteUrl, fetchConfig);
@@ -51,7 +51,7 @@ class AccountForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         console.log(data);
-        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself/${this.props.acc}`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself/${this.props.account_id}`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),

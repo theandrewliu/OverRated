@@ -62,9 +62,15 @@ class ProfileForm extends React.Component {
                 pronouns: "",
                 interested: [],
             });
+        } else if (!response.ok){
+            const message = ` An error: ${response.status} - ${response.statusText}`;
+            throw new Error(message);
         }
-    }
-
+      } 
+    
+    // const clearPostOutput = () => {
+    //   setPostResult(null);
+    // }
 
     handlePhotoChange(event) {
         const value = event.target.value;
