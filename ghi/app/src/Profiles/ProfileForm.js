@@ -1,13 +1,15 @@
-import React, {} from "react";
+import React from "react";
 import './profile.css';
+import { useParams } from "react-router-dom";
+
 // need to fix the height scale
 // Fix the input box. imo they're too big
 
-// function grabid(){
-//     const params = useParams();
-//     const profile_id = params.id;
-//     return <ProfileForm profile_id = {profile_id}></ProfileForm>
-//   }
+function GrabId(){
+    const params = useParams();
+    const profile_id = params.id;
+    return <ProfileForm profile_id = {profile_id}></ProfileForm>
+  }
 
 
 class ProfileForm extends React.Component {
@@ -67,7 +69,7 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         console.log(data);
-        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself/${this.props.profile_id}`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
@@ -184,20 +186,23 @@ class ProfileForm extends React.Component {
                     <hr/>
                     <br></br>
                     <form onSubmit={this.handleSubmit} id="create-form">
+
 {/* ------------------------Photos */}
                     <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handlePhotoChange} value={this.state.photo} 
-                            type="file" name="photo" id="photo" />
+                            type="file"  id="photo" multiple="" />
+
                         <button onSubmit={this.handleSubmit} className="btn btn-primary" 
                             value="Submit" form="create-form" type="submit">Upload</button>
                     </div>
                     </form>
+
 {/* ------------------------About */}
                     <form onSubmit={this.handleSubmit} >
                     <label htmlFor="about">About Me:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleAboutChange} type="textarea" name="textValue" 
+                        <text onChange={this.handleAboutChange} type="textarea" name="textValue" 
                             value={this.state.about} className="form-control" />
                     </div>
 {/* ------------------------Height */}
@@ -262,7 +267,6 @@ class ProfileForm extends React.Component {
 
                         <input type="checkbox" id={this.state.interested}
                             value="female"  name="interestedin" />&nbsp;Women &nbsp;&nbsp;
-
                         <input type="checkbox" id={this.state.interested}
                             value="other" name="interestedin" />&nbsp;Everyone! &nbsp;&nbsp;
                     </div>
@@ -308,8 +312,6 @@ class ProfileForm extends React.Component {
                     </div>
                     <hr/>
                     <button className="btn btn-primary">
-                    {/* <a href="http://localhost:3000/my_profile" 
-                    style={{ color: "white" }}> */}
                     Apply Changes</button>
                     </form>
                 </div>
@@ -319,4 +321,4 @@ class ProfileForm extends React.Component {
     }
 }
 
-export default ProfileForm;
+export default GrabId;

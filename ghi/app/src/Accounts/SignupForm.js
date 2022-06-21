@@ -1,10 +1,6 @@
 import React from 'react';
-import { Link, Navigate } from 'react-router-dom';
-<<<<<<< HEAD:ghi/app/src/Profiles/SignupForm.js
-import './login.css';
-=======
+import { Navigate } from 'react-router-dom';
 import '../Profiles/profile.css';
->>>>>>> 2b94643a60a6170d22b3d86829bea47e1d982d5c:ghi/app/src/Accounts/SignupForm.js
 
 
 class SignupForm extends React.Component{
@@ -20,6 +16,7 @@ class SignupForm extends React.Component{
             password: '',
             verify_password: '',
             interested: [],
+            showPassword: false,
             error: '',
         };
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -94,7 +91,8 @@ class SignupForm extends React.Component{
     }
     handlePasswordChange(event) {
         const value = event.target.value;
-        this.setState({ password: value.stringify() });
+        this.setState({ password: value });
+
     }
     handleVerify_PasswordChange(event) {
         const value = event.target.value;
@@ -140,6 +138,7 @@ class SignupForm extends React.Component{
     }
     
     render() {
+        console.warn("Oops", this.state.showPassword);
         if (this.props.token) {
             return <Navigate to="/api/profiles/profiles" />;
         }
@@ -149,6 +148,7 @@ class SignupForm extends React.Component{
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
                         <h1>Create an Account</h1>
+                        <hr/>
                         <br></br>
 
                         <div dangerouslySetInnerHTML={{__html: this.state.error}} />
@@ -218,17 +218,27 @@ class SignupForm extends React.Component{
 {/* ------------------------Password */}
 
                         <div className="form-floating mb-3" onChange={this.handlePasswordChange}>
+                            <div className='passwords'>
                             <input  value={this.state.password} 
-                            placeholder="Password" required type="password" name="password" 
-                            id="password" className="form-control" />
+                                placeholder="Password" required type={this.state.showPassword ? "text" : "password"} name="password" 
+                                id="password" className="form-control" /> 
+                            <button className='input-group-text bg-dark text-light'
+                                    onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show
+                            </button>
+                            </div>
                             <label htmlFor="password">Password</label>
                         </div>
 {/* ------------------------Password */}
 
                         <div className="form-floating mb-3"  onChange={this.handleVerify_PasswordChange}>
+                        <div className='passwords'>
                             <input value={this.state.verify_password} 
-                                placeholder="Verify Password" required type="password" name="verify-password" 
+                                placeholder="Verify Password" required type={this.state.showPassword ? "text" : "password"} name="verify-password" 
                                 id="verify-password" className="form-control" />
+                            <button className='input-group-text bg-dark text-light'
+                                    onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show
+                            </button>
+                        </div>
                             <label htmlFor="verify-password">Verify Password</label>
                         </div>
 
@@ -238,10 +248,7 @@ class SignupForm extends React.Component{
                                 Terms and Conditions</a></label>
                         </div>
                         <br></br>
-                        <button disabled={!this.validForm()} 
-                            className="btn btn-primary ">Sign Up</button>
-
-                        <Link to="/login">LogIn</Link>
+                        <button disabled={!this.validForm()} className="btn btn-primary">Sign Up</button>
                         </form>
                     </div>
                 </div>

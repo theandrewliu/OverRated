@@ -129,7 +129,7 @@ class MessageDetail extends React.Component {
                                         <li className="nav-item">
                                             <a href="#!" className="nav-link chat-link">
                                                 <div className="avatar">
-                                                    <img src={photoSRC} class="img-fluid rounded-circle" />
+                                                    <img src={photoSRC} class="img-fluid rounded-circle" alt='photoSRC' />
                                                 </div>
                                             </a>
                                         </li>
@@ -180,6 +180,7 @@ class MessageDetail extends React.Component {
                                 }
                                 if (message.sender === this.state.user.id) {
                                     senderName = this.state.user.first_name
+                                    console.log("senderName:", senderName);
                                     photoSRC = this.state.user.photo
                                     textAlign = "d-flex align-items-baseline text-end justify-content-end mb-4"
                                     userAvatar = "position-relative avatar"
@@ -199,7 +200,7 @@ class MessageDetail extends React.Component {
                             return (<>
                                 <div className={textAlign} key={message.id}>
                                     <div className={targetAvatar}>
-                                        <img src={photoSRC} class="img-fluid rounded-circle" />
+                                        <img src={photoSRC} class="img-fluid rounded-circle" alt="photoSRC"/>
                                     </div>
                                     <div className="pe-2">
                                         <div>
@@ -214,7 +215,7 @@ class MessageDetail extends React.Component {
                                         </div>
                                     </div>
                                     <div className={userAvatar}>
-                                        <img src={photoSRC} class="img-fluid rounded-circle" />
+                                        <img src={photoSRC} class="img-fluid rounded-circle" alt="photoSRC"/>
                                     </div>
                                 </div>
                             </>

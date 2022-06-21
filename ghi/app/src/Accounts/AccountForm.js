@@ -1,6 +1,15 @@
 import React, { Navigate } from 'react';
+import { useParams } from "react-router-dom";
 
 
+
+
+
+function AccountGetter(){
+    const params = useParams();
+    const account_id = params.id;
+    return <AccountForm account_id = {account_id}></AccountForm>
+  }
 
 class AccountForm extends React.Component {
     constructor(props){
@@ -10,7 +19,6 @@ class AccountForm extends React.Component {
             username: "",
             first_name: "",
             last_name: "",
-            location: "",
             password: "",
             verify_password: "",
             error: "",
@@ -20,7 +28,6 @@ class AccountForm extends React.Component {
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleFirst_nameChange = this.handleFirst_nameChange.bind(this);
         this.handleLast_nameChange = this.handleLast_nameChange.bind(this);
-        this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleVerify_PasswordChange = this.handleVerify_PasswordChange.bind(this);
@@ -44,7 +51,7 @@ class AccountForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         console.log(data);
-        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself/${this.props.acc}`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
@@ -59,11 +66,10 @@ class AccountForm extends React.Component {
             const accountform = await response.json();
             console.log(accountform);
             this.setState({
-                email: "",
+                email: '',
                 username: '',
-                first_name: "",
-                last_name: "",
-                location: "",
+                first_name: '',
+                last_name: '',
                 password: '',
                 verify_password: '',
                 error: '',
@@ -79,10 +85,6 @@ class AccountForm extends React.Component {
     handleUsernameChange(event) {
         const value = event.target.value;
         this.setState({ username: value });
-    }
-    handleLocationChange(event) {
-        const value = event.target.value;
-        this.setState({ location: value });
     }
     handleFirst_nameChange(event) {
         const value = event.target.value;
@@ -180,4 +182,4 @@ class AccountForm extends React.Component {
     }
 
 
-export default AccountForm;
+export default AccountGetter;

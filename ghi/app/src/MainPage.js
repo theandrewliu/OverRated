@@ -31,7 +31,7 @@ function MainPage() {
         </div>
         <div className="col2">
         <div className="logo">
-      <img src="/images/toxic_couple.jpg" alt="" className="pictures" />
+      <img src="/images/Cute.png" alt="" className="pictures" />
       </div>
         </div>
       </div>
