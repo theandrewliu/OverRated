@@ -22,12 +22,12 @@ class LoginForm extends React.Component{
     }
 
     validForm() {
+        console.log(this.state.password);
+
         return this.state.password.length >= 8 &&
                this.state.username
     }
-
     render(){
-        console.warn("Oops", this.state.showPassword);
         if (this.props.token) {
             return <Navigate to="/my_profile" />;
         }
@@ -38,7 +38,7 @@ class LoginForm extends React.Component{
                 <div className="shadow p-4 mt-4" id="outbox" >
                     <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                     <form onSubmit={this.handleSubmit} id="create-form" >
-                        <h1>Sign In</h1>
+                        <h1>Log In</h1>
                         <hr/>
                     
                         <div className="form-floating mb-3">
@@ -47,7 +47,7 @@ class LoginForm extends React.Component{
                         </div>
                         <div className="form-floating mb-3" >
                             <div className='loginpass'>
-                            <input type='password' id="loginpage" name='password' placeholder='Password' 
+                            <input type='password' id="loginpagepass" name='password' placeholder='Password' 
                                 required onChange={this.handleChange} />
                             <button className='input-group-text bg-dark text-light'
                                     onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show

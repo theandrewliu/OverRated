@@ -153,7 +153,9 @@ class RatingOut(BaseModel):
     rating_by: int
 
 
-
 class RatingAvgOut(BaseModel):
     average_rating: float
 
+
+class RatingsList(BaseModel):
+    ratings: list[RatingOut]

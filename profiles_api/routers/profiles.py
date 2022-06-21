@@ -16,6 +16,7 @@ from models.profiles import (
     RatingIn, 
     RatingOut,
     RatingAvgOut,
+    RatingsList
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
@@ -150,7 +151,14 @@ def row_to_rating(row):
     }
     return rating
 
-
+def row_to_ratings_list(row):
+    rating = {
+        "id": row[0],
+        "rating": row[1],
+        "rating_of": row[2],
+        "rating_by": row[3],
+    }
+    return rating
 
 
 # not using this anywhere at the moment 
@@ -461,3 +469,22 @@ def get_rating_avg(
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
     return {"average_rating": row}
+
+
+@router.get(
+    "/api/my-ratings",
+    response_model=RatingsList,
+    responses = {
+        200: {"model": RatingsList},
+        404: {"model": ErrorMessage}
+    }
+)
+
+async def get_ratings(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+    rows = query.list_ratings(current_user["id"])
+    if rows is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile does not exist"}
+    return {
+        "ratings": [row_to_ratings_list(row) for row in rows],
+    }

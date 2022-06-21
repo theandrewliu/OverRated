@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 
 
 
-
 function AccountGetter(){
     const params = useParams();
     const account_id = params.id;
+    console.log("Taco Bell", account_id)
     return <AccountForm account_id = {account_id}></AccountForm>
   }
 
@@ -22,7 +22,6 @@ class AccountForm extends React.Component {
             password: "",
             verify_password: "",
             error: "",
-
     };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -34,37 +33,38 @@ class AccountForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async deleteAccount(event){
-        event.preventDefault();
-        const deleteUrl = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
-        const fetchConfig = {method: "DELETE"}
+    // async deleteAccount(event){
+    //     event.preventDefault();
+    //     const deleteUrl = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
+    //     const fetchConfig = {method: "DELETE"}
 
-        const response = await fetch(deleteUrl, fetchConfig);
-        if(response.ok){
-            console.log(response);
-            window.location.reload();
-        }
-    };
+    //     const response = await fetch(deleteUrl, fetchConfig);
+    //     if(response.ok){
+    //         console.log(response);
+    //         window.location.reload();
+    //     }
+    // };
 
 
-    async handleSubmit(event){
+    async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
-        console.log(data);
-        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself/${this.props.account_id}`;
+        console.log("Taco Taco", data);
+        const url = `${process.env.REACT_APP_API_HOST}/accounts/${this.props.account_id}`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
+                credentials: "include",
             },
-            credentials: "include",
         };
 
-        const response = await fetch(`${url}`, fetchConfig);
+        const response = await fetch(url, fetchConfig);
+        console.log("talking", response)
         if(response.ok){
             const accountform = await response.json();
-            console.log(accountform);
+            console.log("Taco Bueno", accountform);
             this.setState({
                 email: '',
                 username: '',
@@ -73,10 +73,12 @@ class AccountForm extends React.Component {
                 password: '',
                 verify_password: '',
                 error: '',
-            });
-        }
+            })
+        } else if (!response.ok){
+            const message = ` An error: ${response.status} - ${response.statusText}`;
+            throw new Error(message);
     }
-
+    }
 
     handleEmailChange(event) {
         const value = event.target.value;
