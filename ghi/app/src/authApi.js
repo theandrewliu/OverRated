@@ -61,7 +61,7 @@ export function useToken() {
   }
 
   async function signup(username, email, dob, password) {
-    const url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/login/new`;
     const response = await fetch(url, {
       credentials: 'include',
       method: 'post',

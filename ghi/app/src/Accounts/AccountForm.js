@@ -1,75 +1,84 @@
-import React from 'react';
+import React, { Navigate } from 'react';
+import { useParams } from "react-router-dom";
 
 
+
+
+function AccountGetter(){
+    const params = useParams();
+    const account_id = params.id;
+    console.log("Taco Bell", account_id)
+    return <AccountForm account_id = {account_id}></AccountForm>
+  }
 
 class AccountForm extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             email: "",
-            username: '',
+            username: "",
             first_name: "",
             last_name: "",
-            location: "",
-            password: '',
-            verify_password: '',
-            error: '',
-
+            password: "",
+            verify_password: "",
+            error: "",
     };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleFirst_nameChange = this.handleFirst_nameChange.bind(this);
         this.handleLast_nameChange = this.handleLast_nameChange.bind(this);
-        this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleVerify_PasswordChange = this.handleVerify_PasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async deleteAccount(event){
-        event.preventDefault();
-        const deleteUrl =  `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
-        const fetchConfig = {method: "DELETE"}
+    // async deleteAccount(event){
+    //     event.preventDefault();
+    //     const deleteUrl = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
+    //     const fetchConfig = {method: "DELETE"}
 
-        const response = await fetch(deleteUrl, fetchConfig);
-        if(response.ok){
-            console.log(response);
-            window.location.reload();
-        }
-    };
+    //     const response = await fetch(deleteUrl, fetchConfig);
+    //     if(response.ok){
+    //         console.log(response);
+    //         window.location.reload();
+    //     }
+    // };
 
 
-    async handleSubmit(event){
+    async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
-        console.log(data);
-        const account_Url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
+        console.log("Taco Taco", data);
+        const url = `${process.env.REACT_APP_API_HOST}/accounts/${this.props.account_id}`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
+                credentials: "include",
             },
         };
 
-        const response = await fetch(account_Url, fetchConfig);
+        const response = await fetch(url, fetchConfig);
+        console.log("talking", response)
         if(response.ok){
             const accountform = await response.json();
-            console.log(accountform);
+            console.log("Taco Bueno", accountform);
             this.setState({
-                email: "",
+                email: '',
                 username: '',
-                first_name: "",
-                last_name: "",
-                location: "",
+                first_name: '',
+                last_name: '',
                 password: '',
                 verify_password: '',
                 error: '',
-            });
-        }
+            })
+        } else if (!response.ok){
+            const message = ` An error: ${response.status} - ${response.statusText}`;
+            throw new Error(message);
     }
-
+    }
 
     handleEmailChange(event) {
         const value = event.target.value;
@@ -78,10 +87,6 @@ class AccountForm extends React.Component {
     handleUsernameChange(event) {
         const value = event.target.value;
         this.setState({ username: value });
-    }
-    handleLocationChange(event) {
-        const value = event.target.value;
-        this.setState({ location: value });
     }
     handleFirst_nameChange(event) {
         const value = event.target.value;
@@ -111,9 +116,9 @@ class AccountForm extends React.Component {
     }
 
     render(){
-        // if (this.props.token) {
-        //     return <Navigate to="/my_profile" />;
-        // }
+        if (this.props.token) {
+            return <Navigate to="/my_profile" />;
+        }
         return(
             <div className="row">
             <div className="offset-3 col-6">
@@ -179,4 +184,4 @@ class AccountForm extends React.Component {
     }
 
 
-export default AccountForm;
+export default AccountGetter;

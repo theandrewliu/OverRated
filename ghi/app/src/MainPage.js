@@ -25,13 +25,13 @@ function MainPage() {
         Learn how we process your data in our Privacy Policy and Cookies Policy.
         </p>
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <Link to="/login/new" className="btn btn-primary btn-lg px-4 gap-3">Be Toxic Today!</Link>
+            <Link to="/login/new" className="btn btn-primary btn-lg px-4 gap-3">Find your Love Today!</Link>
             </div>
           </div>
         </div>
         <div className="col2">
         <div className="logo">
-      <img src="/images/toxic_couple.jpg" alt="" className="pictures" />
+      <img src="/images/Cute.png" alt="" className="pictures" />
       </div>
         </div>
       </div>
