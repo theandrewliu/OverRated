@@ -37,14 +37,14 @@ class SignupForm extends React.Component{
         const error = await this.props.signup(username, email, date_of_birth, interested, password);
         this.setState({ error });
         
-        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify({ email, username, first_name, last_name, date_of_birth, interested, password }),
             headers: {
                 'Content-Type': 'application/json',
+                credentials: "include",
             },
-            credentials: "include",
         };
 
         const response = await fetch(url, fetchConfig);
@@ -209,13 +209,13 @@ class SignupForm extends React.Component{
                             <div className="form-check m-3" require onChange={this.handleInterestedChange} >
 
                                 <input type="checkbox" id={this.state.interested}
-                                    value="male" name="interested" />&nbsp;Men &nbsp;&nbsp;&nbsp;
+                                    value="male" name="male" />&nbsp;Men &nbsp;&nbsp;&nbsp;
 
                                 <input type="checkbox" id={this.state.interested}
-                                    value="female"  name="interested" />&nbsp;Women &nbsp;&nbsp;
+                                    value="female"  name="female" />&nbsp;Women &nbsp;&nbsp;
 
                                 <input type="checkbox" id={this.state.interested}
-                                    value="other" name="interested" />&nbsp;Everyone! &nbsp;&nbsp;
+                                    value="other" name="other" />&nbsp;Everyone! &nbsp;&nbsp;
                             </div>
 {/* ------------------------Password */}
 
@@ -228,7 +228,6 @@ class SignupForm extends React.Component{
                                     onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show
                             </button>
                             </div>
-                            <label htmlFor="password">Password</label>
                         </div>
 {/* ------------------------Password */}
 
@@ -241,7 +240,6 @@ class SignupForm extends React.Component{
                                     onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show
                             </button>
                         </div>
-                            <label htmlFor="verify-password">Verify Password</label>
                         </div>
 
                         <div>

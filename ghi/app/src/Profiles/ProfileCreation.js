@@ -37,7 +37,7 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
 
-        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
+        const url = `${process.env.REACT_APP_API_HOST}/profiles`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
