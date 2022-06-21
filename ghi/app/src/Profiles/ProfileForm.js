@@ -1,8 +1,15 @@
 import React from "react";
 import './profile.css';
+import { useParams } from "react-router-dom";
 
 // need to fix the height scale
 // Fix the input box. imo they're too big
+
+function GrabId(){
+    const params = useParams();
+    const profile_id = params.id;
+    return <ProfileForm profile_id = {profile_id}></ProfileForm>
+  }
 
 class ProfileForm extends React.Component {
     constructor(props){
@@ -36,23 +43,43 @@ class ProfileForm extends React.Component {
         this.handleInterestedChange = this.handleInterestedChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+        
+    async getMyDetails() {
+        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
+        const response = await fetch(url, {
+        credentials: 'include',
+        });
+        
+        if (response.ok) {
+        this.setState({
+            profile: await response.json(),
+        });
+        }else if (response.status === 401){
+        this.setState({redirect: true})
+        }
+    }
+
+
+  componentDidMount() {
+    this.getMyDetails();
+  }
 
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
         console.log(data);
-        const user_Form_Url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself/${this.props.profile_id}`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json',
-             
+                "Content-Type": "application/json"
             },
             credentials: "include",
         };
     
-        const response = await fetch(user_Form_Url, fetchConfig,);
+        const response = await fetch(url, fetchConfig,);
+        console.log("HinataWifu", response, `${url}`);
         if(response.ok){
             const userform = await response.json();
             console.log(userform);
@@ -70,12 +97,18 @@ class ProfileForm extends React.Component {
                 ethnicity: "",
                 location: "",
             });
-        }
+            console.log("games", response);
+        } else if (!response.ok){
+            const message = `An error: ${response.status} - ${response.statusText}`;
+            throw new Error(message);
+        } else{
+        console.log("Not Good");
     }
-
+    }
     handlePhotoChange(event) {
         const value = event.target.value;
         this.setState({ photo: value });
+        console.log("LadyGaGa", this.setState(), value);
     }
     handleAboutChange(event) {
         const value = event.target.value;
@@ -118,17 +151,31 @@ class ProfileForm extends React.Component {
         this.setState({ ethnicity: value });
     }
     handleInterestedChange(event) {
-        const value = event.target.value;
+        const { value, checked } = event.target;
         console.log(event.target.name, "clicked");
+
         let listed = this.state.interested;
         let in_array = this.state.interested.includes(event.target.name);
         console.log(in_array, "in_array");
-        // list have value in 
-        // list does not have value in
-        listed.push(value);
-        
-        this.setState({ interested: listed });
-        console.log("tacos", this.state, event.target.name);
+        console.log("CoCoBeansOnaMonday", `${value} is ${checked}`);
+
+        if(checked) {
+            listed.push(value);
+            listed = listed.map(listed => ({interested: listed}));
+            console.log("Rabbit", listed);
+            
+            this.setState({
+                in_array: [ ...listed],
+            });
+            console.log("Tacos", this.state, event.target.name);
+            
+        } else {
+            listed.pop(value);
+            this.setState({
+                in_array: listed.filter((event) => event !== listed),
+            });
+            console.log("Throw Away", this.state, event.target.name);
+        }
     }
 
     render(){
@@ -140,29 +187,35 @@ class ProfileForm extends React.Component {
                     <hr/>
                     <br></br>
                     <form onSubmit={this.handleSubmit} id="create-form">
+
 {/* ------------------------Photos */}
+
                     <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handlePhotoChange} value={this.state.photo} 
-                            type="file" name="photo" id="photo" />
+                            type="file"  id="photo" multiple="" />
+
                         <button onSubmit={this.handleSubmit} className="btn btn-primary" 
                             value="Submit" form="create-form" type="submit">Upload</button>
                     </div>
                     </form>
 {/* ------------------------About */}
+
                     <form onSubmit={this.handleSubmit} >
                     <label htmlFor="about">About Me:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handleAboutChange} type="textarea" name="textValue" 
+                        <text onChange={this.handleAboutChange} type="textarea" name="textValue" 
                             value={this.state.about} className="form-control" />
                     </div>
 {/* ------------------------Height */}
+
                     <label htmlFor="height">Height:</label>
                     <div className="" onChange={this.handleHeightChange} value={this.state.height} >
-                        <input type="number" name="height" min="3" max="8" />&nbsp;ft&nbsp;&nbsp;
-                        <input type="number" name="height" min="0" max="12" />&nbsp;in
+                        <input type="number" name="height" min="50" max="300"
+                          className="form-control"/>&nbsp;Inches&nbsp;
                     </div>
 {/* ------------------------Job */}
+
                     <label htmlFor="job">Job Title:</label>
                     <div className="form-floating mb-3" id="form_input">
                         <input onChange={this.handleJobChange} value={this.state.job} 
@@ -170,6 +223,7 @@ class ProfileForm extends React.Component {
                             id="job" className="form-control" />
                     </div>
  {/* ------------------------Education */}
+
                     <label htmlFor="education">Education:</label>
                     <div className="form-floating mb-3" id="form_input">
                         <input onChange={this.handleEducationChange} value={this.state.education} 
@@ -177,6 +231,7 @@ class ProfileForm extends React.Component {
                             id="education" className="form-control" />
                     </div>
 {/* ------------------------Location */}
+
                     <label htmlFor="location">Living In:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleLocationChange} value={this.state.location} 
@@ -184,6 +239,7 @@ class ProfileForm extends React.Component {
                             id="location" className="form-control" />
                         </div>
  {/* --------------------Religion */}
+
                     <label htmlFor="religion">Religion:</label>
                     <div onChange={this.handleReligionChange} value={this.state.religion}>
                         <input type="radio" value="Christian" name="religion" />&nbsp; Christian &nbsp;&nbsp;
@@ -198,6 +254,7 @@ class ProfileForm extends React.Component {
                         <input type="radio" value="Atheist" name="religion" />&nbsp; Atheist &nbsp;&nbsp;
                     </div>                    
 {/* --------------------Gender */}
+
                     <label htmlFor="gender">Gender:</label>
                     <div onChange={this.handleGenderChange}  value={this.state.gender} >
                         <img src="/images/Male.png" alt="gender" width="60" height="80"></img>
@@ -210,19 +267,20 @@ class ProfileForm extends React.Component {
                         <input type="radio" value="other" name="gender" />&nbsp; Other
                     </div>
 {/* ------------------------Interested */}
+
                     <label htmlFor="interested">Interested In:</label>
                     <div className="form-check m-3" onChange={this.handleInterestedChange} >
 
                         <input type="checkbox" id={this.state.interested}
-                            value="male" name="male" />&nbsp;Men &nbsp;&nbsp;
+                            value="male" name="interestedin" />&nbsp;Men &nbsp;&nbsp;&nbsp;
 
                         <input type="checkbox" id={this.state.interested}
-                            value="female"  name="female" />&nbsp;Women &nbsp;&nbsp;
-
+                            value="female"  name="interestedin" />&nbsp;Women &nbsp;&nbsp;
                         <input type="checkbox" id={this.state.interested}
-                            value="other" name="other" />&nbsp;LGBTQ+ &nbsp;&nbsp;
+                            value="other" name="interestedin" />&nbsp;Everyone! &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
+
                     <label htmlFor="sexual_orientation">Sexual Orientation:</label>
                     <div className="form-floating mb-3">
                         <select onChange={this.handleSexual_orientationChange} value={this.state.sexual_orientation}>
@@ -237,6 +295,7 @@ class ProfileForm extends React.Component {
                         </select>
                     </div>
 {/* ------------------------Ethnicity */}
+
                     <label htmlFor="ethnicity">Ethnicity:</label>
                     <div className="form-floating mb-3" >
                         <select onChange={this.handleEthnicityChange} value={this.state.ethnicity}>
@@ -251,6 +310,7 @@ class ProfileForm extends React.Component {
                         </select>
                     </div>
 {/* ------------------------Pronouns */}
+
                     <label htmlFor="pronouns">Pronouns:</label>
                     <div className="form-floating mb-3" >
                         <select value={this.state.pronouns} onChange={this.handlePronounsChange} >
@@ -264,8 +324,6 @@ class ProfileForm extends React.Component {
                     </div>
                     <hr/>
                     <button className="btn btn-primary">
-                    {/* <a href="http://localhost:3000/my_profile" 
-                    style={{ color: "white" }}> */}
                     Apply Changes</button>
                     </form>
                 </div>
@@ -275,4 +333,4 @@ class ProfileForm extends React.Component {
     }
 }
 
-export default ProfileForm;
+export default GrabId;

@@ -1,22 +1,22 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './Nav';
 import './index.css';
-import Logout from './Logout';
-import LoginForm from './Profiles/LoginForm';
-import SignupForm from './Profiles/SignupForm';
-import ConnectionList from './Profiles/ConnectionsList';
-import ConnectionsDetail from './Profiles/ConnectionsDetail';
+import Logout from './Accounts/Logout';
+import LoginForm from './Accounts/LoginForm';
+import SignupForm from './Accounts/SignupForm';
+import ConnectionList from './Connections/ConnectionsList';
+import ConnectionsDetail from './Connections/ConnectionsDetail';
 import MainPage from './MainPage';
 import { useToken } from './authApi';
 import ProfileForm from './Profiles/ProfileForm';
 import ProfileDetail from './Profiles/ProfileDetail';
-import AccountForm from './Profiles/AccountForm';
-import ReviewForm from './Profiles/ReviewForm';
-import ReviewList from './Profiles/ReviewList';
-import Explore from './Profiles/Explorepg';
+import AccountForm from './Accounts/AccountForm';
+import ReviewForm from './Ratings/RatingForm';
+import ReviewList from './Ratings/ReviewList';
+import Explore from './Connections/Explorepg';
 import ProfileCreation from './Profiles/ProfileCreation';
-import MessageList from './Profiles/MessageList';
-import MessageDetail from './Profiles/MessageDetail'
+import MessageList from './Chat/MessageList';
+import MessageDetail from './Chat/MessageDetail'
 
 function App() {
   const [token, login, logout, signup] = useToken();

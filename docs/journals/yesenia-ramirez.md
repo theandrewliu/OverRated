@@ -3,7 +3,7 @@
 ---
 
 ## May 27, 2022
-* **App name and logos**
+* App name and logos
 
     - We came up with our app name and designed some logos as options for our website.
 
@@ -194,6 +194,7 @@
 * What did I learn: 
     - Today, I had more practice with making a function and exporting in React to another file. 
 
+---
 
 ## June 16, 2022
 * Front end message detail 
@@ -202,3 +203,35 @@
 * What did I learn: 
     - I had practice today fetching from multiple API endpoints today! I was able to keep it all in the componentDidMount instead of having 3 different functions.
     - I learned about using a grabber function to grab our target_id from the params and use that in component. 
+
+---
+
+## June 17, 2022
+* Front end message list debugging
+    - I helped Corey debug his message list as his photo link was not redirecting to the target user. It was redirecting to the last person who sent the message, which was not always the target user. We had to clean up his code and we eventually got it at the end by adding an if statement! 3 lines of code! 
+
+* Front end message detail
+    - I was able to get the right photo and name to pop up with the message that was sent with some if conditions. 
+    - **<u>CHAT BOX DESIGN</u>**: I am super excited about this! I did some research and found how to design a chat box for my messages using bootstrap. I was able to figure out how to do the for loop inside the right div and needed to add some more if conditions to have the message designed the way it needed to be depending on who sent the message. I still need to do touch ups for the sizing and also get the form to work, but I am so happy with what I have right now! 
+
+* What did I learn:
+    - Today, I learned more about bootstrap since I had a lot of practice with my chat box. Also, where to place my if statements in react! 
+
+---
+
+## June 20, 2022
+* Chat box form 
+    - I was able to figure out how do a POST request for our chat! I had to add fix the date and time, add the recipient and the credentials for it to submit properly. 
+    - I had problems with it refreshing after it was submitted and Andrew came and helped me with that and also getting the date and time to show up correctly on the chat. 
+    - We are not able to get it to refresh when another user sends a message, but this will be a stretch goal. 
+
+* Message list display
+    - Andrew and I formatted the message list with bootstrap so it can be displayed nicely. 
+
+* Rating form 
+    - Andrew and I started working on the connections detail page to get the rating form to work. We want to implement the rating to be done with hearts so we were having trouble with that. We decided to come to a stopping point since it was getting late and will work on this tomorrow. 
+
+* What did I learn: 
+    - Today, I learned how to refresh the page without having to do a reload window function. When the post was successfully submitted, we fetched the data again so it would update. 
+
+---

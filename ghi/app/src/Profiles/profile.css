@@ -143,11 +143,6 @@ label {
     min-height: 150px;
   }
 
-.Link {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
 
 
 input[type="radio"] {
@@ -158,4 +153,25 @@ input[type="radio"] {
     margin-top: 20px;
   }
 
+
+
+/* #heart1:hover {
+    color:red !important;
+}
+
+#heart2:hover {
+    color:red !important;
+}
+
+#heart3:hover {
+    color:red !important;
+}
+
+#heart4:hover {
+    color:red !important;
+}
+
+#heart5:hover {
+    color:red !important;
+} */
 
