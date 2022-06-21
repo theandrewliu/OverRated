@@ -8,17 +8,17 @@ class ProfileForm extends React.Component {
         this.state = {
             photo: "",
             about: "",
-            height: "",
+            height: 0,
             job: "",
             education: "",
             gender: "",
             sexual_orientation: "",
             religion: "",
             pronouns: "",
-            interested: "",
+            interested: [],
             ethnicity: "",
         };
-        
+
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
         this.handleAboutChange = this.handleAboutChange.bind(this);
         this.handleHeightChange = this.handleHeightChange.bind(this);
@@ -37,7 +37,7 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
 
-        const user_Form_Url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -46,21 +46,21 @@ class ProfileForm extends React.Component {
             },
         };
 
-        const response = await fetch(user_Form_Url, fetchConfig);
+        const response = await fetch(`${url}`, fetchConfig);
         if(response.ok){
             const userform = await response.json();
             console.log(userform);
             this.setState({
                 photo: "",
                 about: "",
-                height: "",
+                height: 0,
                 job: "",
                 education: "",
                 gender: "",
                 sexual_orientation: "",
                 religion: "",
                 pronouns: "",
-                interested: "",
+                interested: [],
             });
         }
     }
@@ -104,7 +104,7 @@ class ProfileForm extends React.Component {
     }
     handleInterestedChange(event) {
         const value = event.target.value;
-        this.setState({ interested_in: value });
+        this.setState({ interested: value });
     }
     handleEthnicityChange(event) {
         const value = event.target.value;
@@ -239,7 +239,7 @@ class ProfileForm extends React.Component {
                         <option value={this.state.pronouns==="Xe/Xem/Xir"}>Xe/Xem/Xir</option>
                         </select>    
                     </div>
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary">Create my Profile
                     {/* <a href="http://localhost:3000/api/my_profile" 
                     style={{ color: "white" }}>Create Your Profile</a> */}
                     </button>

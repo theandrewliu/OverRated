@@ -143,11 +143,6 @@ label {
     min-height: 150px;
   }
 
-.Link {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
 
 
 input[type="radio"] {
@@ -157,5 +152,4 @@ input[type="radio"] {
   .review-button {
     margin-top: 20px;
   }
-
 

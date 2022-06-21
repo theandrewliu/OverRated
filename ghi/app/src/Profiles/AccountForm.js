@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Navigate } from 'react';
 
 
 
@@ -7,13 +7,13 @@ class AccountForm extends React.Component {
         super(props)
         this.state = {
             email: "",
-            username: '',
+            username: "",
             first_name: "",
             last_name: "",
             location: "",
-            password: '',
-            verify_password: '',
-            error: '',
+            password: "",
+            verify_password: "",
+            error: "",
 
     };
 
@@ -44,16 +44,17 @@ class AccountForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         console.log(data);
-        const account_Url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: "include",
         };
 
-        const response = await fetch(account_Url, fetchConfig);
+        const response = await fetch(`${url}`, fetchConfig);
         if(response.ok){
             const accountform = await response.json();
             console.log(accountform);
@@ -111,9 +112,9 @@ class AccountForm extends React.Component {
     }
 
     render(){
-        // if (this.props.token) {
-        //     return <Navigate to="/my_profile" />;
-        // }
+        if (this.props.token) {
+            return <Navigate to="/my_profile" />;
+        }
         return(
             <div className="row">
             <div className="offset-3 col-6">

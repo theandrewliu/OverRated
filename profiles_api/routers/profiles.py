@@ -220,9 +220,6 @@ def get_random_profile(response: Response, query=Depends(ProfileQueries), curren
     return row_to_profile(row)
 
 
-
-
-
 @router.post(
     "/api/profiles/profiles",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
