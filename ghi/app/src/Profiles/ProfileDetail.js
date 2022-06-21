@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Link } from "react-router-dom";
 import './profile.css';
-import { calculateAge, scoreToStar } from "./ConnectionsList";
+import { calculateAge, scoreToStar } from "../Connections/ConnectionsList";
 
 export function capitalize(s) {
   return String(s).charAt(0).toUpperCase() + String(s).slice(1);
