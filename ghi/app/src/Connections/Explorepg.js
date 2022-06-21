@@ -109,41 +109,71 @@ class ProfileDetail extends React.Component {
       }    
       return (
         <>
-        <div className="profileContainer">
-          <div className = 'container pic-name' >
-              <h1>
-                {this.state.theirprofile.first_name + " " + this.state.theirprofile.last_name}
-              </h1>       
-              <img src={photo} alt="pic" width="70%" height="70%" />
+        <div className="container">
+          <div className="row">
+            <div className = "col-sm border border-light rounded-3">
+                <h1>
+                  {this.state.theirprofile.first_name + " " + this.state.theirprofile.last_name}
+                </h1>            
+                <img src={ photo } className="img-fluid rounded-4" alt="pic" width="70%" height="70%" />
+            </div>
+            <div className="col-sm">
+              <table className="table table-condensed table-sm table-hover">
+                  <h1>
+                    Details
+                  </h1>
+                  <tbody>
+                    <tr>
+                    </tr>
+                    <tr>
+                      <td><b>Pronouns:</b> {this.state.theirprofile.pronouns}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Age:</b> {calculateAge(this.state.theirprofile.date_of_birth)}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Location:</b> {this.state.theirprofile.location}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Height:</b> { feet } ft { inch } inch</td>
+                    </tr>
+                    <tr>
+                      <td><b>Job:</b> {this.state.theirprofile.job}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Education:</b> {this.state.theirprofile.education}</td>
+                    </tr>
+                    <tr>
+                      <td><text><b>Gender:</b> {capitalize(this.state.theirprofile.gender)}</text></td>
+                    </tr>
+                    <tr>
+                      <td><b>Sexual Orientation:</b> {capitalize(this.state.theirprofile.sexual_orientation)}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Religion:</b> {this.state.theirprofile.religion}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Ethnicity:</b> {this.state.theirprofile.ethnicity}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
           </div>
-          <div className="details">
-              <h1>
-                Details
-              </h1>
-              <div className><b>Pronouns:</b> {this.state.theirprofile.pronouns}</div>
-              <div className><b>Age:</b> {calculateAge(this.state.theirprofile.date_of_birth)}</div>
-              <div className><b>Location:</b> {this.state.theirprofile.location}</div>
-              <div className><b>Height:</b> { feet } ft { inch } inch</div>
-              <div className><b>Job:</b> {this.state.theirprofile.job}</div>
-              <div className><b>Education:</b> {this.state.theirprofile.education}</div>
-              <div className><b>Gender:</b> {capitalize(this.state.theirprofile.gender)}</div>
-              <div className><b>Sexual Orientation:</b> {capitalize(this.state.theirprofile.sexual_orientation)}</div>
-              <div className><b>Religion:</b> {this.state.theirprofile.religion}</div>
-              <div className><b>Ethnicity:</b> {this.state.theirprofile.ethnicity}</div>
-          </div>
-          <div className="mySummary">
-               <h1>
-                About Me
-              </h1>
-            {this.state.theirprofile.about}
-          </div>
-          <div className="reviews">
-              <h1>
-                Rating Average:
-              </h1>
-            {scoreToStar(this.state.theirprofile.average_rating)}
-          </div>
-          <button className = 'dislikebutton' onClick={ this.dislikes}>Dislike</button>
+          <div className="row">
+            <div className="col-sm">
+                  <h1>
+                    About Me
+                  </h1>
+                {this.state.theirprofile.about}
+              </div>
+              <div className="col-sm">
+                  <h1>
+                    Rating Average
+                  </h1>
+                  {scoreToStar(this.state.theirprofile.average_rating)}
+              </div>
+        </div>
+        <button className = 'dislikebutton' onClick={ this.dislikes}>Dislike</button>
           <button className = 'likebutton' onClick={ this.likes}>Like</button>
         </div>
         </>
