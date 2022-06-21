@@ -53,7 +53,7 @@ class AccountForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         console.log("Taco Taco", data);
-        const url = `${process.env.REACT_APP_API_HOST}/accounts/${this.props.account_id}`;
+        const url = `${process.env.REACT_APP_API_HOST}/accounts/${this.state.user.id}`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),

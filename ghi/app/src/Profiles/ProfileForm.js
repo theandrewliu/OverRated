@@ -17,7 +17,8 @@ class ProfileForm extends React.Component {
         this.state = {
             photo: "",
             about: "",
-            height: 0,
+            height_ft: 0,
+            height_in: 0,
             job: "",
             education: "",
             gender: "",
@@ -31,7 +32,8 @@ class ProfileForm extends React.Component {
         
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
         this.handleAboutChange = this.handleAboutChange.bind(this);
-        this.handleHeightChange = this.handleHeightChange.bind(this);
+        this.handleHeightFtChange = this.handleHeightFtChange.bind(this);
+        this.handleHeightInChange = this.handleHeightInChange.bind(this);
         this.handleJobChange = this.handleJobChange.bind(this);
         this.handleEducationChange = this.handleEducationChange.bind(this);
         this.handleGenderChange = this.handleGenderChange.bind(this);
@@ -67,8 +69,12 @@ class ProfileForm extends React.Component {
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
-        console.log(data);
-        const url = `${process.env.REACT_APP_API_HOST}/profiles/edit/`;
+        console.log("we're sending this data to the post", data);
+        data.height = data.height_ft*12 + data.height_in
+        delete data.height_ft;
+        delete data.height_in;
+
+        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
@@ -79,14 +85,14 @@ class ProfileForm extends React.Component {
         };
     
         const response = await fetch(url, fetchConfig,);
-        console.log("HinataWifu", response, `${url}`);
         if(response.ok){
             const userform = await response.json();
             console.log(userform);
             this.setState({
                 photo: "",
                 about: "",
-                height: 0,
+                height_ft: 0,
+                height_in: 0,
                 job: "",
                 education: "",
                 gender: "",
@@ -96,7 +102,7 @@ class ProfileForm extends React.Component {
                 interested: [],
                 ethnicity: "",
                 location: "",
-            });        
+            });
         } else if (!response.ok){
             const message = `An error: ${response.status} - ${response.statusText}`;
             throw new Error(message);
@@ -107,15 +113,18 @@ class ProfileForm extends React.Component {
     handlePhotoChange(event) {
         const value = event.target.value;
         this.setState({ photo: value });
-        console.log("LadyGaGa", this.setState(), value);
     }
     handleAboutChange(event) {
         const value = event.target.value;
         this.setState({ about: value });
     }
-    handleHeightChange(event) {
+    handleHeightFtChange(event) {
         const value = event.target.value;
-        this.setState({ height: parseInt(value) });
+        this.setState({ height_ft: parseInt(value) });
+    }
+    handleHeightInChange(event) {
+        const value = event.target.value;
+        this.setState({ height_in: parseInt(value)});
     }
     handleJobChange(event) {
         const value = event.target.value;
@@ -151,30 +160,29 @@ class ProfileForm extends React.Component {
     }
     handleInterestedChange(event) {
         const { value, checked } = event.target;
-        console.log(event.target.name, "clicked");
+        // console.log("the event.target.name", event.target.name);
+        // console.log("the value", value)
+        // console.log("the checked", checked)
 
         let listed = this.state.interested;
-        let in_array = this.state.interested.includes(event.target.name);
-        console.log(in_array, "in_array");
-        console.log("CoCoBeansOnaMonday", `${value} is ${checked}`);
+        // console.log("listed:", listed)
+        // console.log("in_array:", in_array);
+        // console.log("is value checked?", `${value} is ${checked}`);
 
         if(checked) {
             listed.push(value);
-            listed = listed.map(listed => ({interested: listed}));
-            console.log("Rabbit", listed);
-            
-            this.setState({
-                in_array: [ ...listed],
-            });
-            console.log("Tacos", this.state, event.target.name);
-            
-        } else {
-            listed.pop(value);
-            this.setState({
-                in_array: listed.filter((event) => event !== listed),
-            });
-            console.log("Throw Away", this.state, event.target.name);
+            // console.log("This is listed", listed);
+        } else {      
+            let index = listed.indexOf(value)
+
+            if (index > -1 ){
+                listed.splice(index, 1);
+            }
         }
+        this.setState({
+            interested: [ ...listed],
+        });
+        // console.log("this is the state", this.state.interested)
     }
 
     render(){
@@ -209,9 +217,13 @@ class ProfileForm extends React.Component {
 {/* ------------------------Height */}
 
                     <label htmlFor="height">Height:</label>
-                    <div className="" onChange={this.handleHeightChange} value={this.state.height} >
-                        <input type="number" name="height" min="50" max="300"
-                          className="form-control"/>&nbsp;Inches&nbsp;
+                    <div className="form-floating mb-3">
+                        <input onChange={this.handleHeightFtChange} type="number" placeholder="Feet" name="height_ft" min="1" max="8" value={this.state.height_ft} className="form-control"/>
+                        <label htmlFor="feet">Feet</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input onChange={this.handleHeightInChange} type="number" placeholder="Inches" name="height_in" min="1" max="12" value ={this.state.height_in} className="form-control"/>
+                        <label htmlFor="inches">Inches</label>
                     </div>
 {/* ------------------------Job */}
 
@@ -271,12 +283,12 @@ class ProfileForm extends React.Component {
                     <div className="form-check m-3" onChange={this.handleInterestedChange} >
 
                         <input type="checkbox" id={this.state.interested}
-                            value="male" name="interestedM" />&nbsp;Men &nbsp;&nbsp;&nbsp;
+                            value="male" name="interestedinmen" />&nbsp;Men &nbsp;&nbsp;&nbsp;
 
                         <input type="checkbox" id={this.state.interested}
-                            value="female"  name="interestedF" />&nbsp;Women &nbsp;&nbsp;
+                            value="female"  name="interestedinwomen" />&nbsp;Women &nbsp;&nbsp;
                         <input type="checkbox" id={this.state.interested}
-                            value="other" name="interestedO" />&nbsp;Everyone! &nbsp;&nbsp;
+                            value="other" name="interestedineveryone" />&nbsp;Everyone! &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
 
