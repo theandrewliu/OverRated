@@ -89,6 +89,7 @@ class ConnectionsDetail extends React.Component {
       if (this.state.targetUser.photo === null) {
           photo = "/images/blank-profile-pic.png"
       }  
+
       return (
         <>
         <div className="profileContainer">

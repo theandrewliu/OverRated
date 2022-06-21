@@ -24,3 +24,7 @@
     margin:auto;
     display: block;
 }
+
+.test-button {
+    float: right;
+}

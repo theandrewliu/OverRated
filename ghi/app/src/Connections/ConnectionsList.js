@@ -92,21 +92,41 @@ class ConnectionList extends React.Component {
                               photoAvailable = 'profile-pic d-none'
                             }
                           return (
+                            <table>
                             <div className = "connect-card" key = {match.id}>
+                            <thead>
                               <Link to ={`/profiles/${match.id}/`}>
                             <div className= "profileDetail" >
-                              <img className ={photoAvailable} src={ match.photo } alt="pic" width="auto" height="500" />
-                              <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="auto" height="500" />
+                              <img className ={photoAvailable} src={ match.photo } alt="pic" width="70%" height="70%" />
+                              <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="70%" height="70%" />
                             </div>
                             </Link>
-                            <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
-                            <div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div>
-                            <div key={match.review}><b>Rating Average:</b> {scoreToStar(match.average_rating)} </div>
-                            <div key={match.location}><b>Location:</b> {match.location}  </div>
-                            {/* <i className="bi bi-heart"></i> */}
+                            </thead>
+                            <tr>
+                              <td><div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div></td>
+                            </tr>
+                            <tr>
+                            <td><div key={match.date_of_birth}><b>Age:</b> { calculateAge(match.date_of_birth) } </div></td>
+                            
+                            </tr>
+                            <tr>
+                              <td><div key={match.review}><b>Rating Average:</b> {scoreToStar(match.average_rating)} </div></td>
+                            </tr>
+                            <tr>
+                                <td><div key={match.location}><b>Location:</b> {match.location}  </div></td>
+                                <div className ="test-button">
+                                <a href={`/messages/${match.id}`} className ="btn btn-primary">Message Me</a></div>
+                            </tr>
+
+
+
+
                             </div>
+                            </table>
+                            
                           )
                         })}</div>
+                        
       </>
     );
   }
