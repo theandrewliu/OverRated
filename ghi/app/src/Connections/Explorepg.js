@@ -1,8 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import './profile.css';
+import '../Profiles/profile.css';
 import { calculateAge, scoreToStar } from "./ConnectionsList";
-import { capitalize } from "./ProfileDetail";
+import { capitalize } from "../Profiles/ProfileDetail";
 
 
 class ProfileDetail extends React.Component {

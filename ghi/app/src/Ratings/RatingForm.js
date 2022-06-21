@@ -1,4 +1,11 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+
+function ReviewIDGrabber(){
+    const params = useParams();
+    const target_id = params.id;
+    return <ReviewForm target_id = {target_id}></ReviewForm>
+  }
 
 class ReviewForm extends React.Component{
     constructor(props){
@@ -17,12 +24,13 @@ class ReviewForm extends React.Component{
         event.preventDefault();
         const data = {...this.state};
 
-        const review_formURL = 'http://localhost:8090/api/salesperson/';
+        const review_formURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.target_id}/rating/`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
+            credentials: "include",
             },
         };
         const response = await fetch(review_formURL, fetchConfig);
@@ -73,4 +81,4 @@ class ReviewForm extends React.Component{
 }
 
 
-export default ReviewForm
+export default ReviewIDGrabber

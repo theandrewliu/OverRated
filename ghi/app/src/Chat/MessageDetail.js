@@ -9,6 +9,12 @@ function MessagesDetailGrabber(){
     return <MessageDetail target_id = {target_id}></MessageDetail>
   }
 
+export function formatDateTime(dateTime){
+    let newFormat = Date.parse(dateTime)
+    const d = new Date(newFormat)
+    return d.toLocaleString('en-US', {month:'long', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric'})
+}
+
 class MessageDetail extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +24,9 @@ class MessageDetail extends React.Component {
             user: "",
             message: "",
             redirect: false,
-            // updated: false,
+            dateTime: new Date().toISOString(),
+            recipient: null, 
+            reload: false,
         };
 
         this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -52,26 +60,49 @@ class MessageDetail extends React.Component {
 
     }
 
+    async componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
     
     async handleSubmit(event) {
         event.preventDefault();
+        
+        this.setState({ reload: true });
+        
+        const data = {
+            recipient: this.state.target.id,
+            sent: this.state.dateTime,
+            message: this.state.message
+        };
 
-        const data = this.input;
+        console.log("data:", data)
 
-        const url = `${process.env.REACT_APP_API_HOST}/api/messages/`
+        const url = `${process.env.REACT_APP_API_HOST}/api/messages/`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include'
         };
         const response = await fetch(url, fetchConfig);
+        console.log("response:", response)
         if(response.ok) {
-            const test = await response.json();
+            const newMessage = await response.json();
+            console.log("hello", newMessage)
             this.setState({
                 message: "",
+                reload: false
             })
+            const messagesURL = `${process.env.REACT_APP_API_HOST}/api/messages/${this.props.target_id}`;
+            const messageResponse = await fetch(messagesURL, {credentials: 'include'});
+            if (messageResponse.ok) {
+                this.setState({
+                    messages: await messageResponse.json(), 
+                })
+            };
         }
     }
     
@@ -91,7 +122,7 @@ class MessageDetail extends React.Component {
                 <h1>Chat with {this.state.target.first_name}</h1>
                 <div className="container mt-4">
                 
-                        <div className="card mx-auto" style={{maxWidth: 500}}>
+                        <div className="card mx-auto" style={{maxWidth: 500}} key={this.state.target.id}>
                             <div className="card-header bg-transparent">
                                 <div className="navbar navbar-expand p-0">
                                     <ul className="navbar-nav me-auto align-items-center">
@@ -166,7 +197,7 @@ class MessageDetail extends React.Component {
 
                             
                             return (<>
-                                <div className={textAlign}>
+                                <div className={textAlign} key={message.id}>
                                     <div className={targetAvatar}>
                                         <img src={photoSRC} class="img-fluid rounded-circle" />
                                     </div>
@@ -178,12 +209,12 @@ class MessageDetail extends React.Component {
                                         </div>
                                         <div>
                                             <div className="small">
-                                                {message.sent}
+                                                {formatDateTime(message.sent)}
                                             </div>
                                         </div>
                                     </div>
                                     <div className={userAvatar}>
-                                        <img src={this.state.user.photo} class="img-fluid rounded-circle" />
+                                        <img src={photoSRC} class="img-fluid rounded-circle" />
                                     </div>
                                 </div>
                             </>
@@ -192,7 +223,6 @@ class MessageDetail extends React.Component {
                                 <div>
                             <div className="MessageContainer" >
                                 <div className="MessagesList">
-                                {/* {this.renderMessages()} */}
                                 </div>
                                 <div style={{ float:"left", clear: "both" }}
                                     ref={(el) => { this.messagesEnd = el; }}>
@@ -207,7 +237,9 @@ class MessageDetail extends React.Component {
                                             <i className="fas fa-paperclip"></i>
                                         </button>
                                     </div>
-                                    <input type="text" className="form-control border-0" placeholder="Write a message..." />
+                                    <form onSubmit={this.handleSubmit} id="create-message" className="form-control border-0">
+                                        <input onChange={this.handleMessageChange} className="form-control border-0" value ={this.state.message} type="text"  placeholder="Write a message..." />
+                                    </form>
                                     <div className="input-group-text bg-transparent border-0">
                                         <button className="btn btn-light text-secondary">
                                             <i className="fas fa-smile"></i>

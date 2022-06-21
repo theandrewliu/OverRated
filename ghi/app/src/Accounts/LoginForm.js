@@ -33,7 +33,7 @@ class LoginForm extends React.Component{
         return(
         <div className="row">
             <label>Log In</label>
-            <div className="offset-3 col-6" style={{display: 'flex',  justifyContent:'center', alignItems:'center' }}>
+            <div className="offset-3 col-6" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                 <div className="shadow p-4 mt-4" >
                     <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                     <form onSubmit={this.handleSubmit} id="create-form" >

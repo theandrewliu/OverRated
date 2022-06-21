@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
+<<<<<<< HEAD:ghi/app/src/Profiles/SignupForm.js
 import './login.css';
+=======
+import '../Profiles/profile.css';
+>>>>>>> 2b94643a60a6170d22b3d86829bea47e1d982d5c:ghi/app/src/Accounts/SignupForm.js
 
 
 class SignupForm extends React.Component{
