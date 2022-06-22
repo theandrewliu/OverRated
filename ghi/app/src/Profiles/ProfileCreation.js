@@ -8,7 +8,8 @@ class ProfileForm extends React.Component {
         this.state = {
             photo: "",
             about: "",
-            height: 0,
+            height_ft: 0,
+            height_in: 0,
             job: "",
             education: "",
             gender: "",
@@ -37,24 +38,25 @@ class ProfileForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
 
-        const url = `${process.env.REACT_APP_API_HOST}/profiles`;
+        const url = `${process.env.REACT_APP_API_HOST}/profiles/new`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-                credentials: "include",
             },
+            credentials: "include",
         };
 
-        const response = await fetch(`${url}`, fetchConfig);
+        const response = await fetch(url, fetchConfig);
         if(response.ok){
             const userform = await response.json();
             console.log(userform);
             this.setState({
                 photo: "",
                 about: "",
-                height: 0,
+                height_ft: 0,
+                height_in: 0,
                 job: "",
                 education: "",
                 gender: "",
@@ -110,8 +112,30 @@ class ProfileForm extends React.Component {
         this.setState({ pronouns: value });
     }
     handleInterestedChange(event) {
-        const value = event.target.value;
-        this.setState({ interested: value });
+        const { value, checked } = event.target;
+        // console.log("the event.target.name", event.target.name);
+        // console.log("the value", value)
+        // console.log("the checked", checked)
+
+        let listed = this.state.interested;
+        // console.log("listed:", listed)
+        // console.log("in_array:", in_array);
+        // console.log("is value checked?", `${value} is ${checked}`);
+
+        if(checked) {
+            listed.push(value);
+            // console.log("This is listed", listed);
+        } else {      
+            let index = listed.indexOf(value)
+
+            if (index > -1 ){
+                listed.splice(index, 1);
+            }
+        }
+        this.setState({
+            interested: [ ...listed],
+        });
+        // console.log("this is the state", this.state.interested)
     }
     handleEthnicityChange(event) {
         const value = event.target.value;
@@ -198,13 +222,15 @@ class ProfileForm extends React.Component {
                     </div>
 {/* ------------------------Interested */}
                     <label htmlFor="interested">Interested In:</label>
-                    <div className="form-floating mb-3" onChange={this.handleInterestedChange} >
-                        <select>
-                        <option value=''>--Select Interest--</option>
-                        <option value={this.state.interested==="male"}>Male</option>
-                        <option value={this.state.interested==="female"}>Female</option>
-                        <option value={this.state.interested==="everyone"}>Everyone</option>
-                        </select>
+                    <div className="form-check m-3" onChange={this.handleInterestedChange} >
+
+                        <input type="checkbox" id={this.state.interested}
+                            value="male" name="interestedinmen" />&nbsp;Men &nbsp;&nbsp;&nbsp;
+
+                        <input type="checkbox" id={this.state.interested}
+                            value="female"  name="interestedinwomen" />&nbsp;Women &nbsp;&nbsp;
+                        <input type="checkbox" id={this.state.interested}
+                            value="other" name="interestedineveryone" />&nbsp;Everyone! &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
                     <label htmlFor="sexual_orientation">Sexual Orientation:</label>

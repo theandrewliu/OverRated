@@ -329,13 +329,12 @@ class ProfileForm extends React.Component {
 
                     <label htmlFor="interested">Interested In:</label>
                     <div className="form-check m-3" onChange={this.handleInterestedChange} >
-
-                        <input type="checkbox" id={this.state.interested}
+                        <input type="checkbox" id={this.state.interested==="male"}
                             value="male" name="interestedinmen" />&nbsp;Men &nbsp;&nbsp;&nbsp;
 
-                        <input type="checkbox" id={this.state.interested}
+                        <input type="checkbox" id={this.state.interested==="female"}
                             value="female"  name="interestedinwomen" />&nbsp;Women &nbsp;&nbsp;
-                        <input type="checkbox" id={this.state.interested}
+                        <input type="checkbox" id={this.state.interested==="other"}
                             value="other" name="interestedineveryone" />&nbsp;Everyone! &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
