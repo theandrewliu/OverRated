@@ -1,0 +1,4 @@
+This is what our .env file has
+
+AWS_SERVER_PUBLIC_KEY = "AKIA6EO2ISU2OM6J6CL2"
+AWS_SERVER_SECRET_KEY = "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"
