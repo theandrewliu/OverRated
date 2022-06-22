@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "profiles_api"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
