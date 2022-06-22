@@ -3,6 +3,12 @@ import { Navigate } from 'react-router-dom';
 import '../Profiles/profile.css';
 
 
+export function formatDateTime(dateTime){
+    let newFormat = Date.parse(dateTime)
+    const d = new Date(newFormat)
+    return d.toLocaleString('en-US', {year:'numeric', month:'long', day:'numeric'})
+}
+
 class SignupForm extends React.Component{
     constructor(props){
         super(props)
@@ -11,7 +17,7 @@ class SignupForm extends React.Component{
             username: '',
             first_name:'',
             last_name:'',
-            date_of_birth: new Date(),
+            date_of_birth: new Date().toISOString(),
             location:'',
             password: '',
             verify_password: '',
@@ -56,7 +62,7 @@ class SignupForm extends React.Component{
                 username: '',
                 first_name: '',
                 last_name: '',
-                date_of_birth: new Date(),
+                date_of_birth: new Date().toISOString(),
                 location: '',
                 interested: [],
                 password: '',
@@ -65,8 +71,11 @@ class SignupForm extends React.Component{
             });
         } else if (!response.ok){
             const message = ` An error: ${response.status} - ${response.statusText}`;
+            console.log("people", message);
             throw new Error(message);
-        }}
+        }            
+
+    }
     
     handleEmailChange(event) {
         const value = event.target.value;
@@ -103,18 +112,17 @@ class SignupForm extends React.Component{
     }
     handleInterestedChange(event) {
         const { value, checked } = event.target;
-        // console.log("the event.target.name", event.target.name);
-        // console.log("the value", value)
-        // console.log("the checked", checked)
+        console.log("the event.target.name", event.target.name);
+        console.log("the value", value)
+        console.log("the checked", checked)
 
         let listed = this.state.interested;
-        // console.log("listed:", listed)
-        // console.log("in_array:", in_array);
-        // console.log("is value checked?", `${value} is ${checked}`);
+        console.log("listed:", listed)
+        console.log("is value checked?", `${value} is ${checked}`);
 
         if(checked) {
             listed.push(value);
-            // console.log("This is listed", listed);
+            console.log("This is listed", listed);
         } else {      
             let index = listed.indexOf(value)
 
@@ -123,10 +131,11 @@ class SignupForm extends React.Component{
             }
         }
         this.setState({
-            interested: [ ...listed],
+            interested: [...listed]
         });
-        // console.log("this is the state", this.state.interested)
+        console.log("this is the state", this.state.interested)
     }
+
     
     validForm() {
         return this.state.password.length >= 8 &&
@@ -190,12 +199,12 @@ class SignupForm extends React.Component{
                         </div>
 {/* ------------------------Date */}
 
-                        <div className="form-floating mb-3">
-                            <input onChange={this.handleDate_of_BirthChange} value={this.state.date_of_birth} 
+                        {/* <div className="form-floating mb-3" {this.state.date_of_birth} >
+                            <input onChange={this.handleDate_of_BirthChange} value={formatDateTime(dateTime)}
                             placeholder="DOB" required type="date" name="date" 
                             id="date" className="form-control" />
                             <label htmlFor="date">Date of Birth</label>
-                        </div>
+                        </div> */}
 {/* ------------------------Location */}
 
                         <div className="form-floating mb-3">
