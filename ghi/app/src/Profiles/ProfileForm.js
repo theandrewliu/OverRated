@@ -281,13 +281,12 @@ class ProfileForm extends React.Component {
 
                     <label htmlFor="interested">Interested In:</label>
                     <div className="form-check m-3" onChange={this.handleInterestedChange} >
-
-                        <input type="checkbox" id={this.state.interested}
+                        <input type="checkbox" id={this.state.interested==="male"}
                             value="male" name="interestedinmen" />&nbsp;Men &nbsp;&nbsp;&nbsp;
 
-                        <input type="checkbox" id={this.state.interested}
+                        <input type="checkbox" id={this.state.interested==="female"}
                             value="female"  name="interestedinwomen" />&nbsp;Women &nbsp;&nbsp;
-                        <input type="checkbox" id={this.state.interested}
+                        <input type="checkbox" id={this.state.interested==="other"}
                             value="other" name="interestedineveryone" />&nbsp;Everyone! &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
@@ -310,7 +309,7 @@ class ProfileForm extends React.Component {
                     <label htmlFor="ethnicity">Ethnicity:</label>
                     <div className="form-floating mb-3" >
                         <select onChange={this.handleEthnicityChange} value={this.state.ethnicity}>
-                            <option value=''>--Select Sexual Orientation--</option>
+                            <option value=''>--Select Ethnicity--</option>
                             <option value="caucasian">Caucasian</option>
                             <option value="african_decent">African Decent</option>
                             <option value="native_american">Native American</option>

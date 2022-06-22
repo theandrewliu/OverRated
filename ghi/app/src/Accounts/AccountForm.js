@@ -1,5 +1,5 @@
-import React, { Navigate } from 'react';
-
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 
 class AccountForm extends React.Component {
@@ -23,48 +23,23 @@ class AccountForm extends React.Component {
         this.handleVerify_PasswordChange = this.handleVerify_PasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    async componentDidMount() {
-        const accountUrl = `${process.env.REACT_APP_API_HOST}/api/settings/`;
-        const accountResponse = await fetch(accountUrl, { credentials: "include"});
-
-        if (accountResponse.ok){
-            this.setState({
-                accounts: await accountResponse.json(),
-            });
-        }else if(accountResponse.ok===401){
-            this.setState({ redirect: true });
-        }
-    }
-
-    async deleteAccount(event){
-        event.preventDefault();
-        const deleteUrl = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
-        const fetchConfig = {method: "DELETE"}
-
-        const response = await fetch(deleteUrl, fetchConfig);
-        if(response.ok){
-            console.log(response);
-            window.location.reload();
-        }
-    };
 
 
-    async handleSubmit(event) {
+    async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
         console.log("Taco Taco", data);
-        const url = `${process.env.REACT_APP_API_HOST}/accounts/${this.state.user.id}`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-                credentials: "include",
             },
+            credentials: "include",
         };
 
         const response = await fetch(url, fetchConfig);
-        console.log("talking", response)
         if(response.ok){
             const accountform = await response.json();
             console.log("Taco Bueno", accountform);
@@ -76,10 +51,14 @@ class AccountForm extends React.Component {
                 password: '',
                 verify_password: '',
                 error: '',
-            })
-        } else if (!response.ok){
-            const message = ` An error: ${response.status} - ${response.statusText}`;
-            throw new Error(message);
+            });
+            if (response.ok) {
+                this.setState({
+                    profile: await response.json(),
+                });
+                }else if (response.status === 401){
+                this.setState({redirect: true})
+        }
     }
     }
 
@@ -173,14 +152,12 @@ class AccountForm extends React.Component {
                         <div className="form-floating mb-3" >
                             <input onChange={this.handlePasswordChange} value={this.state.password} 
                                 placeholder="Password" required type="password" name="password" id="password" />
-
                             <input onChange={this.handleVerify_PasswordChange} value={this.state.verify_password} 
-                                placeholder="Verify Password" required type="password" name="verify_password" id="verify-password" />
+                                placeholder="Verify Password" required type="password" name="verify-password" id="verify-password" />
                             <button disabled={!this.validForm()} className="btn btn-primary">Edit</button>
                         </div>
                     </form>
                 </div>
-                {/* <button onClick={() => this.deleteAccount(account_id)} type="button" className='btn btn-danger'>Delete Account</button> */}
             </div>
             </div>
         )
