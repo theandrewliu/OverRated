@@ -39,14 +39,21 @@ class SignupForm extends React.Component{
 
     async handleSubmit(event) {
         event.preventDefault();
-        const { email, username, first_name, last_name, date_of_birth, interested, password } = this.state;
-        const error = await this.props.signup(username, email, first_name, last_name, date_of_birth, interested, password);
-        this.setState({ error });
+        const data = { ...this.state };
+        data.interested = { interested: data.interested}
+        delete data.showPassword;
+        delete data.verify_password;
+        delete data.error;
+
+        // const error = await this.props.signup(username, email, first_name, last_name, location, date_of_birth, interested, password);
+        // this.setState({ error });
         
         const url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
+        // const wreakData = { email, username, first_name, last_name, date_of_birth, location, interested, password };
+        console.log("datkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjja", data);
         const fetchConfig = {
             method: "POST",
-            body: JSON.stringify({ email, username, first_name, last_name, date_of_birth, interested, password }),
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
                 credentials: "include",
@@ -56,13 +63,13 @@ class SignupForm extends React.Component{
         const response = await fetch(url, fetchConfig);
         if(response.ok){
             const accountform = await response.json();
-            console.log(accountform);
+            console.log("look out", accountform);
             this.setState({
                 email: '',
                 username: '',
                 first_name: '',
                 last_name: '',
-                date_of_birth: new Date().toISOString(),
+                date_of_birth: '',
                 location: '',
                 interested: [],
                 password: '',
@@ -95,7 +102,13 @@ class SignupForm extends React.Component{
     }
     handleDate_of_BirthChange(event) {
         const value = event.target.value;
+        let d = this.state.date_of_birth.indexOf("T");
+        console.log("today", this.state.date_of_birth.indexOf("T"));
+        const dateBirth = this.state.date_of_birth.slice(0, d + 1);
+        console.log("Day", dateBirth);
         this.setState({ date_of_birth: value });
+        
+        console.log("Date", Date(value));
     }
     handleLocationChange(event) {
         const value = event.target.value;
@@ -112,17 +125,11 @@ class SignupForm extends React.Component{
     }
     handleInterestedChange(event) {
         const { value, checked } = event.target;
-        console.log("the event.target.name", event.target.name);
-        console.log("the value", value)
-        console.log("the checked", checked)
 
         let listed = this.state.interested;
-        console.log("listed:", listed)
-        console.log("is value checked?", `${value} is ${checked}`);
 
         if(checked) {
             listed.push(value);
-            console.log("This is listed", listed);
         } else {      
             let index = listed.indexOf(value)
 
@@ -133,7 +140,6 @@ class SignupForm extends React.Component{
         this.setState({
             interested: [...listed]
         });
-        console.log("this is the state", this.state.interested)
     }
 
     
@@ -150,6 +156,8 @@ class SignupForm extends React.Component{
     }
     
     render() {
+
+        console.log("dateofb", this.state.date_of_birth);
         console.warn("Oops", this.state.showPassword);
         if (this.props.token) {
             return <Navigate to="/api/profiles/profiles" />;
@@ -199,18 +207,18 @@ class SignupForm extends React.Component{
                         </div>
 {/* ------------------------Date */}
 
-                        {/* <div className="form-floating mb-3" {this.state.date_of_birth} >
-                            <input onChange={this.handleDate_of_BirthChange} value={formatDateTime(dateTime)}
-                            placeholder="DOB" required type="date" name="date" 
+                        <div className="form-floating mb-3">
+                            <input onChange={this.handleDate_of_BirthChange} value={this.state.date_of_birth }  
+                            placeholder="yyyy-MM-dd" required type="date" name="date" 
                             id="date" className="form-control" />
                             <label htmlFor="date">Date of Birth</label>
-                        </div> */}
+                        </div>
 {/* ------------------------Location */}
 
                         <div className="form-floating mb-3">
                             <input onChange={this.handleLocationChange} value={this.state.location} 
-                            placeholder="Location" required type="text" name="location" 
-                            id="location" className="form-control" />
+                                placeholder="Location" required type="text" name="location" 
+                                id="location" className="form-control" />
                             <label htmlFor="location">Location</label>
                         </div>
 {/* ------------------------Interested */}
