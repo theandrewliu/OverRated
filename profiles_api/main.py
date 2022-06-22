@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from upload import upload
 import os
 
 from routers import (
@@ -32,3 +33,4 @@ app.include_router(profiles.router);
 app.include_router(accounts.router);
 app.include_router(chat.router);
 app.include_router(messages.router);
+app.include_router(upload.router);
