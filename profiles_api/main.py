@@ -33,4 +33,4 @@ app.include_router(profiles.router);
 app.include_router(accounts.router);
 app.include_router(chat.router);
 app.include_router(messages.router);
-app.include_router(upload.router);
+# app.include_router(upload.router);

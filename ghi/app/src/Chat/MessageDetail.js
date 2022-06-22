@@ -164,10 +164,6 @@ class MessageDetail extends React.Component {
                             <div className="card p-4 chat-box pb-4 mb-4">
 
 
-                            {console.log("messages", this.state.messages.messages)}
-                            {console.log("target", this.state.target)}
-                            {console.log("user", this.state.user)}
-
                             {this.state.messages.messages.map(message => {
                                 let photoSRC = ''
                                 let senderName = ''

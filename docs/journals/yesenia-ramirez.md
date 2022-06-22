@@ -235,3 +235,21 @@
     - Today, I learned how to refresh the page without having to do a reload window function. When the post was successfully submitted, we fetched the data again so it would update. 
 
 ---
+
+## June 21, 2022
+* Rate button
+    - This morning I had to add to the backend to show a list of user's ratings so I could implement when to show the rate button. 
+    - On the front end, I had to do some if statements so if a user has already rated a profile, then the rate button would disappear and would show a thank you message. 
+
+* Profile form
+    - Today, Andrew and I worked on fixing the height and interested inputs when a user updates their profile. We had to mess around with the interested to get it to show up the way it was expecting it in the backend. We had to make it into a list, then a dictionary and then our form was working! 
+
+* Messaging timer for fetching  
+    - Curtis helped us add a timer to fetch our messages so it can update when the other user sends a message. We added the timer to our componentDidMount and getMessages function. 
+
+* Upload photos
+    - Andrew and I started looking into how to upload photos. Curtis gave us a tip to use Amazon S3 and we started implementing the code but were having issues. We will tackle this tomorrow. 
+
+* What did I learn: 
+    - Today I learned how to set a timer to fetch data for us.
+    - Also I had practice with manipulating how data is sent in the fetch request. 
