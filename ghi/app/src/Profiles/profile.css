@@ -112,7 +112,6 @@ label {
 }
 
 .likebutton {
-    margin-left: 900px;
     background-color: #04AA6D;
     border: none;
     color: white;
@@ -122,13 +121,15 @@ label {
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
-    border-radius: 50%;
+    border-radius: 100%;
     min-width: 150px;
     min-height: 150px;
+    max-width: 150px;
+    max-height: 150px;
+    float: right;
   }
 
   .dislikebutton {
-    margin-left: 900px;
     background-color: #FE4D4D;
     border: none;
     color: white;
@@ -141,6 +142,8 @@ label {
     border-radius: 50%;
     min-width: 150px;
     min-height: 150px;
+    max-width: 150px;
+    max-height: 150px;
   }
 
 

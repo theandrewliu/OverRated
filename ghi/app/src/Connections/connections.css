@@ -28,3 +28,35 @@
 .test-button {
     float: right;
 }
+
+.contains_both {
+    padding: 5px;
+    width: 100%;
+    display: inline-block;
+    margin: auto; 
+  }
+  
+  .box_l {
+      float: left;
+      width: 45%;
+      height: 100px;
+  
+      padding: 5px;
+  }
+  
+  .box_r {
+      float: left;
+      width: 45%;
+      height: 100px;
+  
+      padding: 5px;
+      
+      display: flex;
+      align-items: center;
+      justify-content: right;
+  
+  }
+  
+  .clear-both {
+    clear: both;
+  }
