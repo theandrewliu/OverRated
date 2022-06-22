@@ -5,19 +5,11 @@ import { Navigate } from 'react-router-dom'
 
 // Fix the input box. imo they're too big
 
-function GrabId(){
-    const params = useParams();
-    const profile_id = params.id;
-    return <ProfileForm profile_id = {profile_id}></ProfileForm>
-  }
-
-// function preview() {
-//     frame.src = URL.createObjectURL(event.target.files[0])
-// }
-// function clearImage() {
-//     document.getElementById('formFile').value = null
-//     frame.src = ""
-// }
+// function GrabId(){
+//     const params = useParams();
+//     const profile_id = params.id;
+//     return <ProfileForm profile_id = {profile_id}></ProfileForm>
+//   }
 
 class ProfileForm extends React.Component {
     constructor(props){
@@ -38,7 +30,6 @@ class ProfileForm extends React.Component {
             location: "",
             redirect: false,
         };
-        console.log("this.state.profile", this.state.profile)
 
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
         this.handleAboutChange = this.handleAboutChange.bind(this);
@@ -54,6 +45,7 @@ class ProfileForm extends React.Component {
         this.handleEthnicityChange = this.handleEthnicityChange.bind(this);
         this.handleInterestedChange = this.handleInterestedChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleImageSubmit = this.handleImageSubmit.bind(this);
     }
         
     async getMyDetails() {
@@ -93,6 +85,41 @@ class ProfileForm extends React.Component {
         this.getMyDetails();
     }
 
+    async handleImageSubmit(event){
+        event.preventDefault();
+        const photoData = this.state.photo;
+        let data = { photo: photoData }
+        console.log("photoData:", photoData)
+        
+        let formData = new FormData();
+        console.log("data photo:", data["photo"])
+        console.log("data photo name", data["photo"].name)
+        formData.append("file_obj", data["photo"], data["photo"].name)
+        
+        console.log("form data:", formData)
+        
+        const photoURL = `${process.env.REACT_APP_API_HOST}/photo/profile-photos`;
+        // console.log("photoURL:", photoURL)
+        
+        const fetchConfig = {
+            method: "POST",
+            body: formData,
+            credentials: "include",
+        };
+
+        const response = await fetch(photoURL, fetchConfig,);
+        if (response.ok){
+            const photoForm = await response.json()
+            console.log("profile picture here:", photoForm)
+            this.setState({
+                photo: photoData
+            })
+        } else if (!response.ok){
+            const message = `An error: ${response.status} - ${response.statusText}`;
+            throw new Error(message);
+        }  
+    }
+
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
@@ -103,6 +130,7 @@ class ProfileForm extends React.Component {
         delete data.height_in;
         delete data.profile;
         delete data.redirect;
+        delete data.photo
         
         const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
         const fetchConfig = {
@@ -144,7 +172,11 @@ class ProfileForm extends React.Component {
     }
     handlePhotoChange(event) {
         const value = event.target.value;
-        this.setState({ photo: value });
+
+        const andrew = event.target.files[0];
+
+        console.log("this is a test", andrew)
+        this.setState({ photo: andrew });
     }
     handleAboutChange(event) {
         const value = event.target.value;
@@ -231,14 +263,11 @@ class ProfileForm extends React.Component {
 
 {/* ------------------------Photos */}
 
-                    <form onSubmit={this.handleSubmit} id="create-form">
+                    <form onSubmit={this.handleImageSubmit} id="upload-image">
                     <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
-                        <input onChange={this.handlePhotoChange} value={this.state.photo} 
-                            type="file"  id="photo" multiple="" />
-
-                        <button onSubmit={this.handleSubmit} className="btn btn-primary" 
-                            value="Submit" form="create-form" type="submit">Upload</button>
+                        <input onChange={this.handlePhotoChange} placeholder="Image" type="file" accept=".jpg" id="photo"/>
+                        <button className="btn btn-primary" value="Submit" form="upload-image" type="submit">Upload</button>
                     </div>
                     </form>
 
@@ -256,7 +285,7 @@ class ProfileForm extends React.Component {
                     
 {/* ------------------------About */}
 
-                    <form onSubmit={this.handleSubmit} >
+                    <form onSubmit={this.handleSubmit} id="update-profile" >
                     <label htmlFor="about">About Me:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleAboutChange} type="textarea" name="textValue" 
@@ -381,7 +410,7 @@ class ProfileForm extends React.Component {
                         </select>    
                     </div>
                     <hr/>
-                    <button type="submit" className="btn btn-primary" value="Submit" form="create-form">Apply Changes</button>
+                    <button type="submit" className="btn btn-primary" value="Submit" form="update-profile">Apply Changes</button>
                     </form>
                 </div>
             </div>
@@ -390,4 +419,4 @@ class ProfileForm extends React.Component {
     }
 }
 
-export default GrabId;
+export default ProfileForm;
