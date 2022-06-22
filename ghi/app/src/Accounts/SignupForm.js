@@ -11,7 +11,7 @@ class SignupForm extends React.Component{
             username: '',
             first_name:'',
             last_name:'',
-            date_of_birth: '',
+            date_of_birth: new Date(),
             location:'',
             password: '',
             verify_password: '',
@@ -34,10 +34,10 @@ class SignupForm extends React.Component{
     async handleSubmit(event) {
         event.preventDefault();
         const { email, username, first_name, last_name, date_of_birth, interested, password } = this.state;
-        const error = await this.props.signup(username, email, date_of_birth, interested, password);
+        const error = await this.props.signup(username, email, first_name, last_name, date_of_birth, interested, password);
         this.setState({ error });
         
-        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify({ email, username, first_name, last_name, date_of_birth, interested, password }),
@@ -56,6 +56,7 @@ class SignupForm extends React.Component{
                 username: '',
                 first_name: '',
                 last_name: '',
+                date_of_birth: new Date(),
                 location: '',
                 interested: [],
                 password: '',
@@ -207,39 +208,35 @@ class SignupForm extends React.Component{
 
                         <label htmlFor="interested">Interested In:</label>
                             <div className="form-check m-3" require onChange={this.handleInterestedChange} >
+                            <input type="checkbox" id={this.state.interested==="male"}
+                                value="male" name="interestedinmen" />&nbsp;Men &nbsp;&nbsp;&nbsp;
 
-                                <input type="checkbox" id={this.state.interested}
-                                    value="male" name="male" />&nbsp;Men &nbsp;&nbsp;&nbsp;
-
-                                <input type="checkbox" id={this.state.interested}
-                                    value="female"  name="female" />&nbsp;Women &nbsp;&nbsp;
-
-                                <input type="checkbox" id={this.state.interested}
-                                    value="other" name="other" />&nbsp;Everyone! &nbsp;&nbsp;
+                            <input type="checkbox" id={this.state.interested==="female"}
+                                value="female"  name="interestedinwomen" />&nbsp;Women &nbsp;&nbsp;
+                            <input type="checkbox" id={this.state.interested==="other"}
+                                value="other" name="interestedineveryone" />&nbsp;Everyone! &nbsp;&nbsp;
                             </div>
 {/* ------------------------Password */}
 
-                        <div className="form-floating mb-3" onChange={this.handlePasswordChange}>
-                            <div className='passwords'>
-                            <input  value={this.state.password} 
-                                placeholder="Password" required type={this.state.showPassword ? "text" : "password"} name="password" 
-                                id="password" className="form-control" /> 
-                            <button className='input-group-text bg-dark text-light'
-                                    onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show
-                            </button>
-                            </div>
-                        </div>
-{/* ------------------------Password */}
-
-                        <div className="form-floating mb-3"  onChange={this.handleVerify_PasswordChange}>
-                        <div className='passwords'>
-                            <input value={this.state.verify_password} 
-                                placeholder="Verify Password" required type={this.state.showPassword ? "text" : "password"} name="verify-password" 
-                                id="verify-password" className="form-control" />
+                        <div className="form-floating mb-3" >
+                            <input  value={this.state.password} onChange={this.handlePasswordChange}
+                                placeholder="Password" required id={this.state.showPassword ? "text" : "password"} name="password" 
+                                type="password" className="form-control" /> 
+                                
                             <button className='input-group-text bg-dark text-light'
                                     onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show
                             </button>
                         </div>
+{/* ------------------------Password */}
+
+                        <div className="form-floating mb-3" >
+                            <input value={this.state.verify_password} onChange={this.handleVerify_PasswordChange}
+                                placeholder="Verify Password" required id={this.state.showPassword ? "text" : "password"} name="verify-password" 
+                                type="password" className="form-control" />
+
+                            <button className='input-group-text bg-dark text-light'
+                                    onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show
+                            </button>
                         </div>
 
                         <div>
