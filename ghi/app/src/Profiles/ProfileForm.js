@@ -1,8 +1,8 @@
 import React from "react";
 import './profile.css';
 import { useParams } from "react-router-dom";
+import { Navigate } from 'react-router-dom'
 
-// need to fix the height scale
 // Fix the input box. imo they're too big
 
 function GrabId(){
@@ -10,6 +10,14 @@ function GrabId(){
     const profile_id = params.id;
     return <ProfileForm profile_id = {profile_id}></ProfileForm>
   }
+
+// function preview() {
+//     frame.src = URL.createObjectURL(event.target.files[0])
+// }
+// function clearImage() {
+//     document.getElementById('formFile').value = null
+//     frame.src = ""
+// }
 
 class ProfileForm extends React.Component {
     constructor(props){
@@ -28,8 +36,10 @@ class ProfileForm extends React.Component {
             interested: [],
             ethnicity: "",
             location: "",
+            redirect: false,
         };
-        
+        console.log("this.state.profile", this.state.profile)
+
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
         this.handleAboutChange = this.handleAboutChange.bind(this);
         this.handleHeightFtChange = this.handleHeightFtChange.bind(this);
@@ -56,24 +66,44 @@ class ProfileForm extends React.Component {
         this.setState({
             profile: await response.json(),
         });
+        this.setState({
+            photo: null,
+            about: this.state.profile.about,
+            height_ft: Math.floor(this.state.profile.height/12),
+            height_in: this.state.profile.height%12,
+            job: this.state.profile.job,
+            education: this.state.profile.education,
+            gender: "",
+            sexual_orientation: this.state.profile.sexual_orientation,
+            religion: "",
+            pronouns: this.state.profile.pronouns,
+            interested: [],
+            ethnicity: this.state.profile.ethnicity,
+            location: this.state.profile.location,
+        })
         }else if (response.status === 401){
         this.setState({redirect: true})
         }
+        console.log("state in get my details:", this.state.profile)
     }
 
 
-  componentDidMount() {
-    this.getMyDetails();
-  }
+
+    componentDidMount() {
+        this.getMyDetails();
+    }
 
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
+        data.interested = { interested: data.interested}
         console.log("we're sending this data to the post", data);
         data.height = data.height_ft*12 + data.height_in
         delete data.height_ft;
         delete data.height_in;
-
+        delete data.profile;
+        delete data.redirect;
+        
         const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
         const fetchConfig = {
             method: "PUT",
@@ -89,20 +119,22 @@ class ProfileForm extends React.Component {
             const userform = await response.json();
             console.log(userform);
             this.setState({
-                photo: "",
-                about: "",
-                height_ft: 0,
-                height_in: 0,
-                job: "",
-                education: "",
-                gender: "",
-                sexual_orientation: "",
-                religion: "",
-                pronouns: "",
-                interested: [],
-                ethnicity: "",
-                location: "",
+                photo: null,
+                about: this.state.profile.about,
+                height_ft: Math.floor(this.state.profile.height/12),
+                height_in: this.state.profile.height%12,
+                job: this.state.profile.job,
+                education: this.state.profile.education,
+                gender: this.state.profile.gender,
+                sexual_orientation: this.state.profile.sexual_orientation,
+                religion: this.state.profile.religion,
+                pronouns: this.state.profile.pronouns,
+                interested: this.state.profile.interested,
+                ethnicity: this.state.profile.ethnicity,
+                location: this.state.profile.location,
+                redirect: true,
             });
+
         } else if (!response.ok){
             const message = `An error: ${response.status} - ${response.statusText}`;
             throw new Error(message);
@@ -160,18 +192,17 @@ class ProfileForm extends React.Component {
     }
     handleInterestedChange(event) {
         const { value, checked } = event.target;
-        // console.log("the event.target.name", event.target.name);
-        // console.log("the value", value)
-        // console.log("the checked", checked)
+        console.log("the event.target.name", event.target.name);
+        console.log("the value", value)
+        console.log("the checked", checked)
 
         let listed = this.state.interested;
-        // console.log("listed:", listed)
-        // console.log("in_array:", in_array);
-        // console.log("is value checked?", `${value} is ${checked}`);
+        console.log("listed:", listed)
+        console.log("is value checked?", `${value} is ${checked}`);
 
         if(checked) {
             listed.push(value);
-            // console.log("This is listed", listed);
+            console.log("This is listed", listed);
         } else {      
             let index = listed.indexOf(value)
 
@@ -180,12 +211,16 @@ class ProfileForm extends React.Component {
             }
         }
         this.setState({
-            interested: [ ...listed],
+            interested: [...listed]
         });
-        // console.log("this is the state", this.state.interested)
+        console.log("this is the state", this.state.interested)
     }
 
     render(){
+        if(this.state.redirect === true){
+            return <Navigate to = '/my_profile' />;
+          }
+          
         return (
             <div className="row">
             <div className="offset-3 col-6">
@@ -193,10 +228,10 @@ class ProfileForm extends React.Component {
                     <h1>Edit Your Information</h1>
                     <hr/>
                     <br></br>
-                    <form onSubmit={this.handleSubmit} id="create-form">
 
 {/* ------------------------Photos */}
 
+                    <form onSubmit={this.handleSubmit} id="create-form">
                     <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handlePhotoChange} value={this.state.photo} 
@@ -206,17 +241,30 @@ class ProfileForm extends React.Component {
                             value="Submit" form="create-form" type="submit">Upload</button>
                     </div>
                     </form>
+
+{/* ------------------------Messing with code */}
+
+                    {/* <div className="container col-md-6">
+                        <div className="mb-5">
+                            <label for="Image" className="form-label">Bootstrap 5 image Upload with Preview</label>
+                            <input className="form-control" type="file" id="formFile" />
+                            <button className="btn btn-primary mt-3">Click me</button>
+                        </div>
+                        <img id="frame" src="" className="img-fluid" />
+                    </div> */}
+
+                    
 {/* ------------------------About */}
 
                     <form onSubmit={this.handleSubmit} >
                     <label htmlFor="about">About Me:</label>
                     <div className="form-floating mb-3">
-                        <text onChange={this.handleAboutChange} type="textarea" name="textValue" 
+                        <input onChange={this.handleAboutChange} type="textarea" name="textValue" 
                             value={this.state.about} className="form-control" />
                     </div>
 {/* ------------------------Height */}
 
-                    <label htmlFor="height">Height:</label>
+                    <label htmlFor="height"> Height:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleHeightFtChange} type="number" placeholder="Feet" name="height_ft" min="1" max="8" value={this.state.height_ft} className="form-control"/>
                         <label htmlFor="feet">Feet</label>
@@ -310,11 +358,11 @@ class ProfileForm extends React.Component {
                     <label htmlFor="ethnicity">Ethnicity:</label>
                     <div className="form-floating mb-3" >
                         <select onChange={this.handleEthnicityChange} value={this.state.ethnicity}>
-                            <option value=''>--Select Sexual Orientation--</option>
+                            <option value=''>--Select Ethnicity--</option>
                             <option value="caucasian">Caucasian</option>
                             <option value="african_decent">African Decent</option>
                             <option value="native_american">Native American</option>
-
+                            <option value="hispanic">Hispanic</option>
                             <option value="asian">Asian</option>
                             <option value="pacific_islander">Hawaiian or Pacific Islander</option>
                             <option value="mixed">Mixed</option>
@@ -334,8 +382,7 @@ class ProfileForm extends React.Component {
                         </select>    
                     </div>
                     <hr/>
-                    <button className="btn btn-primary">
-                    Apply Changes</button>
+                    <button type="submit" className="btn btn-primary" value="Submit" form="create-form">Apply Changes</button>
                     </form>
                 </div>
             </div>

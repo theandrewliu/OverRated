@@ -39,31 +39,31 @@ class MessageDetail extends React.Component {
 
     async componentDidMount() {
         const targetURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.target_id}`;
-        const messagesURL = `${process.env.REACT_APP_API_HOST}/api/messages/${this.props.target_id}`;
         const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine/`;
 
         const targetResponse = await fetch(targetURL, {credentials: 'include'});
-        const messageResponse = await fetch(messagesURL, {credentials: 'include'});
         const userResponse = await fetch(userURL, {credentials: 'include'});
         
-        if (targetResponse.ok && messageResponse.ok && userResponse.ok) {
+        if (targetResponse.ok && userResponse.ok) {
             this.setState({
                 target: await targetResponse.json(),
-                messages: await messageResponse.json(),
                 user: await userResponse.json(),
             });
-        } else if (targetResponse.status === 401 || messageResponse.status === 401 || userResponse.status === 401) {
+        } else if (targetResponse.status === 401 || userResponse.status === 401) {
             this.setState({redirect: true})
         }
 
+        await this.getMessages()
         this.scrollToBottom();
-
+        this.timer = setTimeout(() => this.getMessages(),100)
+    }
+    componentWillUnmount() {
+        clearTimeout(this.timer)
     }
 
     async componentDidUpdate() {
         this.scrollToBottom();
     }
-
     
     async handleSubmit(event) {
         event.preventDefault();
@@ -96,14 +96,19 @@ class MessageDetail extends React.Component {
                 message: "",
                 reload: false
             })
-            const messagesURL = `${process.env.REACT_APP_API_HOST}/api/messages/${this.props.target_id}`;
-            const messageResponse = await fetch(messagesURL, {credentials: 'include'});
-            if (messageResponse.ok) {
-                this.setState({
-                    messages: await messageResponse.json(), 
-                })
-            };
+            this.getMessages()
         }
+    }
+
+    async getMessages() {
+        const messagesURL = `${process.env.REACT_APP_API_HOST}/api/messages/${this.props.target_id}`;
+        const messageResponse = await fetch(messagesURL, {credentials: 'include'});
+        if (messageResponse.ok) {
+            this.setState({
+                messages: await messageResponse.json(), 
+            })
+        };
+        this.timer = setTimeout(() => this.getMessages(),100)
     }
     
 
