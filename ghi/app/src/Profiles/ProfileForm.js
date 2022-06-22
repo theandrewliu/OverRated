@@ -3,21 +3,12 @@ import './profile.css';
 import { useParams } from "react-router-dom";
 import { Navigate } from 'react-router-dom'
 
-// Fix the input box. imo they're too big
 
 function GrabId(){
     const params = useParams();
     const profile_id = params.id;
     return <ProfileForm profile_id = {profile_id}></ProfileForm>
   }
-
-// function preview() {
-//     frame.src = URL.createObjectURL(event.target.files[0])
-// }
-// function clearImage() {
-//     document.getElementById('formFile').value = null
-//     frame.src = ""
-// }
 
 class ProfileForm extends React.Component {
     constructor(props){

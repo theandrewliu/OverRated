@@ -44,13 +44,8 @@ class SignupForm extends React.Component{
         delete data.showPassword;
         delete data.verify_password;
         delete data.error;
-
-        // const error = await this.props.signup(username, email, first_name, last_name, location, date_of_birth, interested, password);
-        // this.setState({ error });
         
         const url = `${process.env.REACT_APP_API_HOST}/api/profiles/profiles`;
-        // const wreakData = { email, username, first_name, last_name, date_of_birth, location, interested, password };
-        console.log("datkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjja", data);
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),

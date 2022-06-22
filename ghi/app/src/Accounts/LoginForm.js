@@ -26,23 +26,31 @@ class LoginForm extends React.Component{
                this.state.username
     }
     render(){
+
         if (this.props.token) {
             return <Navigate to="/my_profile" />;
         }
+
         return(
         <section className='login'>
         <div className="row_login">
-            <div className="offset-3 col-6" id="wrapper" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+
+            <div className="offset-3 col-6" id="wrapper"
+                style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+
                 <div className="shadow p-4 mt-4" id="outbox" >
                     <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                     <form onSubmit={this.handleSubmit} id="create-form" >
                         <h1>Log In</h1>
                         <hr/>
-                    
+
+                        <label htmlFor="Username">Username:</label>
                         <div className="form-floating mb-3">
-                            <input type='text' id="loginpage" name='username' placeholder='Username' 
+                            <input type='text' id="loginpage" name='Username' placeholder='Username' 
                                 required onChange={this.handleChange} />
                         </div>
+
+                        <label htmlFor="loginPass">Password:</label>
                         <div className="form-floating mb-3" >
                             <div className='loginpass'>
                             <input type='password' id="loginpagepass" name='password' placeholder='Password' 
