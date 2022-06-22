@@ -159,3 +159,8 @@ class RatingAvgOut(BaseModel):
 
 class RatingsList(BaseModel):
     ratings: list[RatingOut]
+
+
+class PhotoOut(BaseModel):
+    current_user: int
+    file_url: str

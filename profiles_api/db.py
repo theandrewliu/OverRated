@@ -725,3 +725,18 @@ class ProfileQueries:
 
 
                 return ratings
+            
+    def upload_photo(self, user_id, file_url):
+        with pool.connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE profiles
+                    SET photo = %s
+                    WHERE id = %s
+                    RETURNING id, photo
+                    """,
+                        [file_url, user_id]
+                )
+                photo_success = cursor.fetchone()
+                return photo_success

@@ -1,13 +1,13 @@
-# from pydantic import BaseSettings
+from pydantic import BaseSettings
+import os
 
 
-# class Settings(BaseSettings):
-#     AWS_SERVER_PUBLIC_KEY: str
-#     AWS_SERVER_SECRET_KEY: str
-
-#     class Config:
-#         env_file = '.env'
-#         env_file_encoding = 'utf-8'
+class Settings(BaseSettings):
+    AWS_SERVER_PUBLIC_KEY: str
+    AWS_SERVER_SECRET_KEY: str
 
 
-# settings = Settings(_env_file='.env', _env_file_encoding='utf-8')
+settings = Settings(
+    AWS_SERVER_PUBLIC_KEY = os.environ["AWS_SERVER_PUBLIC_KEY"],
+    AWS_SERVER_SECRET_KEY = os.environ["AWS_SERVER_SECRET_KEY"]
+)
