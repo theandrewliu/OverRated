@@ -1,7 +1,8 @@
 fastapi[all]==0.78.0
 uvicorn[standard]==0.17.6
-psycopg[binary,pool]==3.0.14
+psycopg[pool]==3.0.14
 pytest==7.1.2
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 boto3==1.24.14
+psycopg-pool==3.1.1
