@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import Union
 from .interested import Interested
 
+
 class ProfileCreateIn(BaseModel):
     username: str
     email: str
@@ -135,30 +136,10 @@ class MatchedProfile(BaseModel):
     match_id: int
 
 
-
 class MatchedList(BaseModel):
     page_count: int
     matches: list[MatchedProfile]
 
-
-class RatingIn(BaseModel):
-    rating: int
-    rating_of: int
-
-
-class RatingOut(BaseModel):
-    id: int
-    rating: int
-    rating_of: int
-    rating_by: int
-
-
-class RatingAvgOut(BaseModel):
-    average_rating: float
-
-
-class RatingsList(BaseModel):
-    ratings: list[RatingOut]
 
 
 class PhotoOut(BaseModel):

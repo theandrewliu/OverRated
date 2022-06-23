@@ -7,7 +7,8 @@ from routers import (
     profiles,
     accounts,
     chat,
-    messages
+    messages,
+    ratings
 )
 
 app = FastAPI()
