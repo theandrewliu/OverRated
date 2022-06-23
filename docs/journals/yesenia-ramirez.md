@@ -266,7 +266,7 @@
 
 * Login form
     - We fixed a bug where when the show password button was being clicked on, it was reading as it being the submit button for the form. We fixed this by changing the type of the button to "button" instead of "submit". 
-
+ 
 * Account form 
     - We noticed a bug where the user was not able to change their username as it was changing their token and logging them out, so we made it unavailable for a user to change their username. 
     - We also added placeholders in the input boxes to show their previous data since all the fields are required. Except for the password. 
