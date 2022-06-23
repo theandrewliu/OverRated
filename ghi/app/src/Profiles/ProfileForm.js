@@ -170,6 +170,7 @@ class ProfileForm extends React.Component {
     }
     handlePhotoChange(event) {
         const value = event.target.value;
+        console.log(value)
 
         const andrew = event.target.files[0];
 
