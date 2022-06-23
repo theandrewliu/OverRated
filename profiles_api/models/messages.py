@@ -28,10 +28,12 @@ class MessageListOut(BaseModel):
 class MessageList(BaseModel):
     messages: list[MessageListOut]
 
+
 class MessageIn(BaseModel):
     recipient: int
     sent: datetime
     message: str
+
 
 class MessageDetailOut(BaseModel):
     id: int
@@ -39,6 +41,7 @@ class MessageDetailOut(BaseModel):
     recipient: int
     sent: datetime
     message: str
+
 
 class MessageDetailListOut(BaseModel):
     messages: list[MessageDetailOut]

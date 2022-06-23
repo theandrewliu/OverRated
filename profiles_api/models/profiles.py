@@ -1,9 +1,9 @@
 from cgitb import text
 from datetime import date
-from sqlite3 import Timestamp
 from pydantic import BaseModel
 from typing import Union
 from .interested import Interested
+
 
 class ProfileCreateIn(BaseModel):
     username: str
@@ -14,22 +14,6 @@ class ProfileCreateIn(BaseModel):
     location: str | None
     date_of_birth: date | None
     interested: Interested
-
-
-class AccountUpdateIn(BaseModel):
-    username: str
-    email: str
-    password: str
-    first_name: str
-    last_name: str
-
-
-class AccountUpdateOut(BaseModel):
-    id: int
-    username: str
-    email: str
-    first_name: str
-    last_name: str
 
 
 class ProfileUpdateIn(BaseModel):
@@ -47,7 +31,6 @@ class ProfileUpdateIn(BaseModel):
     interested: Interested
 
 
-
 class ProfileUpdateOut(BaseModel):
     id: int
     location: str
@@ -62,6 +45,7 @@ class ProfileUpdateOut(BaseModel):
     ethnicity: Union[str, None]
     pronouns: Union[str, None]
     interested: list[str]
+
 
 class ProfileOutWithInterested(BaseModel):
     id: int
@@ -83,6 +67,7 @@ class ProfileOutWithInterested(BaseModel):
     pronouns: Union[str, None]
     interested: list[str]
     average_rating: Union[float, None]
+
 
 class ProfileOut(BaseModel):
     id: int
@@ -111,54 +96,6 @@ class ProfileList(BaseModel):
 
 class ProfileDeleteOperation(BaseModel):
     result: bool
-
-
-class SwipedOut(BaseModel):
-    id: int
-    active_user_id: int
-    target_user_id: int
-    liked: bool
-
-
-class SwipedIn(BaseModel):
-    target_user_id: int
-
-
-class MatchedProfile(BaseModel):
-    id: int
-    photo: Union[str, None]
-    first_name: str
-    last_name: str
-    location: str
-    date_of_birth: date
-    average_rating: Union[float, None]
-    match_id: int
-
-
-
-class MatchedList(BaseModel):
-    page_count: int
-    matches: list[MatchedProfile]
-
-
-class RatingIn(BaseModel):
-    rating: int
-    rating_of: int
-
-
-class RatingOut(BaseModel):
-    id: int
-    rating: int
-    rating_of: int
-    rating_by: int
-
-
-class RatingAvgOut(BaseModel):
-    average_rating: float
-
-
-class RatingsList(BaseModel):
-    ratings: list[RatingOut]
 
 
 class PhotoOut(BaseModel):

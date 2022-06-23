@@ -9,8 +9,8 @@ from models.messages import (
     MessageDetailListOut
 )
 from models.common import ErrorMessage
-from db import ProfileQueries, DuplicateUsername, DuplicateTarget
-from routers.accounts import pwd_context, User, get_current_user, HttpError
+from db.messages import MessageQueries, DuplicateUsername
+from routers.accounts import pwd_context, User, get_current_user
 
 
 router = APIRouter()
@@ -52,16 +52,20 @@ def row_to_message_detail(row):
     }
     return message
 
+
+# ---- Get a list of the 3 most recent conversations ---- #
 @router.get(
     "/api/messages",
     response_model=MessageList,
 )
-async def get_messages(query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+async def get_messages(query=Depends(MessageQueries), current_user: User = Depends(get_current_user)):
     rows = query.list_messages(current_user["id"])
     return {
         "messages": [row_to_message_list(row) for row in rows],
     }
 
+
+# ---- Send a message ---- #
 @router.post(
     "/api/messages",
     response_model=Union[MessageOut, ErrorMessage],
@@ -73,7 +77,7 @@ async def get_messages(query=Depends(ProfileQueries), current_user: User = Depen
 def create_message(
     profile: MessageIn,
     response: Response,
-    query=Depends(ProfileQueries),
+    query=Depends(MessageQueries),
     current_user: User = Depends(get_current_user)
 ):
     try:
@@ -89,6 +93,7 @@ def create_message(
         return {"message": "error message"}
 
 
+# ---- Get all the messages from one conversation ---- #
 @router.get(
     "/api/messages/{target_id}",
     response_model=Union[MessageDetailListOut, ErrorMessage],
@@ -97,7 +102,7 @@ def create_message(
         404: {"model": ErrorMessage}
     }
 )
-def get_message(target_id: int, response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+def get_message(target_id: int, response: Response, query=Depends(MessageQueries), current_user: User = Depends(get_current_user)):
     rows = query.get_messages(current_user["id"], target_id)
     if rows is None:
         response.status_code = status.HTTP_404_NOT_FOUND
