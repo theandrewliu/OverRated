@@ -274,3 +274,7 @@
 * What did I learn: 
     - Today, I learned about redirecting in a class component. We could not use a hook, so we found a way around that. Now I know how to do it! 
     - Today was a lot of debugging, which is nice practice but also extremely exhausting. But I feel good that our project is now fully functional. 
+
+---
+
+## June 23, 2022
