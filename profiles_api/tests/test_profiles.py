@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from db import ProfileQueries
+from db.profiles import ProfileQueries
+from db.matches import MatchQueries
 from unittest import TestCase
 from routers.profiles import (
   get_profiles,
   get_current_user,
+)
+from routers.matches import (
   liked,
   disliked
   )
@@ -17,11 +20,15 @@ class NormalProfileQueries(TestCase):
            [9, "test", "test", "test", "test", "test", "2002-02-22", "test", "test", 0, "test", "test", "test", "test", "test", "test", "test"]
         ]
 
-    def like_profile(self, id, target_user):
+    
+class NormalMatchQueries(TestCase):
+  def like_profile(self, id, target_user):
       return [1, 1, 2, True]
 
-    def dislike_profile(self, id, target_user):
-      return [1, 1, 2, True]
+  def dislike_profile(self, id, target_user):
+    return [1, 1, 2, True]
+
+
 
 
 async def override_fake_like():
@@ -92,7 +99,7 @@ def test_profile_list():
 
     
 def test_disliked():
-  app.dependency_overrides[ProfileQueries] = NormalProfileQueries
+  app.dependency_overrides[MatchQueries] = NormalMatchQueries
   app.dependency_overrides[get_current_user] = override_get_fake_user
   r = client.post("/api/profiles/1/disliked", json={
         "target_user_id": 3,
@@ -105,7 +112,7 @@ def test_disliked():
 
 
 def test_like():
-    app.dependency_overrides[ProfileQueries] = NormalProfileQueries
+    app.dependency_overrides[MatchQueries] = NormalMatchQueries
     app.dependency_overrides[get_current_user] = override_get_fake_user
     r = client.post("/api/profiles/1/liked", json={
         "target_user_id": 3,

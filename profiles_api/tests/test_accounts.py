@@ -1,12 +1,9 @@
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from db import ProfileQueries
+from db.profiles import ProfileQueries
 from unittest import TestCase
-from routers.profiles import (
-  update_account,
-  get_current_user,
-  )
-
+from routers.profiles import get_current_user
+from routers.accounts import update_account
 from main import app
 
 
