@@ -31,9 +31,11 @@ class LoginForm extends React.Component{
                this.state.username
     }
     render(){
+
         if (this.props.token) {
             return <Navigate to="/my_profile" />;
         }
+
         return(
     
         <div className='login'>
