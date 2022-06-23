@@ -1,0 +1,2 @@
+[flake8]
+exclude=profiles_api/db.py

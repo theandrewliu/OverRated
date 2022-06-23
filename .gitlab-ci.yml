@@ -1,0 +1,89 @@
+stages:
+  - test # Run tests first
+  - build # Run build after tests
+  - deploy
+
+api-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd profiles_api
+    - pip install -r requirements.txt
+    - python -m pytest # Run unit tests
+
+lint-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - pip install flake8
+    - flake8 profiles_api # Run flake8 on Python project to check
+      # for code quality
+
+build-front-end-job:
+  rules:
+    # Only run if the commit is on the main branch
+    - if: ($CI_COMMIT_BRANCH == "deploy" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
+  stage: build
+  image: node:lts-bullseye
+  needs:
+    - api-unit-test-job  # These two jobs must succeed for
+    - lint-test-job      # this build-job to run
+  script:
+    - cd ghi/app
+    - npm install
+    - npm run build  # Build the React application
+  artifacts:
+    paths:
+      - ghi/app/build/  # Save all of the files in the build path
+
+build-back-end-job:
+  rules:
+    # Only run if the commit is on the main branch
+    - if: ($CI_COMMIT_BRANCH == "deploy" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - cd profiles_api
+    - docker build -t ${CI_REGISTRY_IMAGE}/profiles_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/profiles_api:latest ${CI_REGISTRY_IMAGE}/profiles_api:$CI_JOB_ID
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push ${CI_REGISTRY_IMAGE}/profiles_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/profiles_api:latest
+
+# stages:
+#   - test # run tests first and have them pass
+#   - build # then build
+
+# variables: 
+#   MONGOHOST: fake
+#   MONGODATABASE: fake
+#   MONGOUSER: fake
+#   MONGOPASSWORD: fake
+
+# api-unit-test-job:
+#   image: python:3-bullseye
+#   stage: test
+#   script:
+#     - cd api
+#     - pip install -r requirements.txt 
+#     - python -m pytest 
+
+# lint-test-job:
+#   image: python:3-bullseye
+#   stage: test
+#   script:
+#     - pip install flake8
+#     - flake8 api
+
+# build-job:
+#   stage: build
+#   image: node:lts-bullseye
+#   needs: 
+#     - api-unit-test-job
+#     - lint-test-job
+#   script:
+#     - cd ghi
+#     - npm install
+#     - npm run build

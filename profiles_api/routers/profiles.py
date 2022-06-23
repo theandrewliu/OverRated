@@ -1,4 +1,3 @@
-from datetime import date
 from fastapi import APIRouter, Depends, Response, status
 from typing import Union
 from models.profiles import (
@@ -12,15 +11,15 @@ from models.profiles import (
     ProfileOutWithInterested,
     SwipedIn,
     SwipedOut,
-    MatchedList, 
-    RatingIn, 
+    MatchedList,
+    RatingIn,
     RatingOut,
     RatingAvgOut,
-    RatingsList
+    RatingsList,
 )
 from models.common import ErrorMessage
 from db import ProfileQueries, DuplicateUsername, DuplicateTarget
-from routers.accounts import pwd_context, User, get_current_user, HttpError
+from routers.accounts import pwd_context, User, get_current_user
 
 
 router = APIRouter()
@@ -31,44 +30,45 @@ def row_to_profile_list(row):
         "id": row[0],
         "username": row[1],
         "email": row[2],
-        "first_name":row[3],
-        "last_name":row[4],
-        "date_of_birth":row[6],
-        "location":row[5],
-        "photo":row[7],
-        "about":row[8],
-        "height":row[9],
-        "job":row[10],
-        "education":row[11],
-        "gender":row[12],
-        "sexual_orientation":row[13],
-        "religion":row[14],
-        "ethnicity":row[15],
-        "pronouns":row[16]
+        "first_name": row[3],
+        "last_name": row[4],
+        "date_of_birth": row[6],
+        "location": row[5],
+        "photo": row[7],
+        "about": row[8],
+        "height": row[9],
+        "job": row[10],
+        "education": row[11],
+        "gender": row[12],
+        "sexual_orientation": row[13],
+        "religion": row[14],
+        "ethnicity": row[15],
+        "pronouns": row[16],
     }
     return profile
+
 
 def row_to_profile(row):
     profile = {
         "id": row[0],
         "username": row[1],
         "email": row[2],
-        "first_name":row[3],
-        "last_name":row[4],
-        "date_of_birth":row[6],
-        "location":row[5],
-        "photo":row[7],
-        "about":row[8],
-        "height":row[9],
-        "job":row[10],
-        "education":row[11],
-        "gender":row[12],
-        "sexual_orientation":row[13],
-        "religion":row[14],
-        "ethnicity":row[15],
-        "pronouns":row[16],
-        "interested":row[17],
-        "average_rating": row[18]
+        "first_name": row[3],
+        "last_name": row[4],
+        "date_of_birth": row[6],
+        "location": row[5],
+        "photo": row[7],
+        "about": row[8],
+        "height": row[9],
+        "job": row[10],
+        "education": row[11],
+        "gender": row[12],
+        "sexual_orientation": row[13],
+        "religion": row[14],
+        "ethnicity": row[15],
+        "pronouns": row[16],
+        "interested": row[17],
+        "average_rating": row[18],
     }
     return profile
 
@@ -79,11 +79,11 @@ def row_to_profile_post(row):
         "username": row[1],
         "email": row[2],
         "password": row[3],
-        "first_name":row[4],
-        "last_name":row[5],
-        "date_of_birth":row[7],
-        "location":row[6],
-        "interested":row[8]
+        "first_name": row[4],
+        "last_name": row[5],
+        "date_of_birth": row[7],
+        "location": row[6],
+        "interested": row[8],
     }
     return profile
 
@@ -91,18 +91,18 @@ def row_to_profile_post(row):
 def row_to_profile_update(row):
     profile = {
         "id": row[0],
-        "location":row[5],
-        "photo":row[7],
-        "about":row[8],
-        "height":row[9],
-        "job":row[10],
-        "education":row[11],
-        "gender":row[12],
-        "sexual_orientation":row[13],
-        "religion":row[14],
-        "ethnicity":row[15],
-        "pronouns":row[16],
-        "interested":row[17]
+        "location": row[5],
+        "photo": row[7],
+        "about": row[8],
+        "height": row[9],
+        "job": row[10],
+        "education": row[11],
+        "gender": row[12],
+        "sexual_orientation": row[13],
+        "religion": row[14],
+        "ethnicity": row[15],
+        "pronouns": row[16],
+        "interested": row[17],
     }
     return profile
 
@@ -112,8 +112,8 @@ def row_to_account_update(row):
         "id": row[0],
         "username": row[1],
         "email": row[2],
-        "first_name":row[3],
-        "last_name":row[4],
+        "first_name": row[3],
+        "last_name": row[4],
     }
     return profile
 
@@ -123,7 +123,7 @@ def row_to_profile_swiped(row):
         "id": row[0],
         "active_user_id": row[1],
         "target_user_id": row[2],
-        "liked": row[3]
+        "liked": row[3],
     }
     return profile
 
@@ -137,7 +137,7 @@ def row_to_matched_list(row):
         "location": row[4],
         "date_of_birth": row[5],
         "average_rating": row[6],
-        "match_id": row[7]
+        "match_id": row[7],
     }
     return match
 
@@ -147,9 +147,10 @@ def row_to_rating(row):
         "id": row[0],
         "rating": row[1],
         "rating_of": row[2],
-        "rating_by": row[3]
+        "rating_by": row[3],
     }
     return rating
+
 
 def row_to_ratings_list(row):
     rating = {
@@ -161,12 +162,16 @@ def row_to_ratings_list(row):
     return rating
 
 
-# not using this anywhere at the moment 
+# not using this anywhere at the moment
 @router.get(
     "/api/profiles",
     response_model=ProfileList,
 )
-async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+async def get_profiles(
+    page: int = 0,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user),
+):
     page_count, rows = query.get_all_profiles(current_user["id"], page)
     return {
         "page_count": page_count,
@@ -174,35 +179,39 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
     }
 
 
-
 @router.get(
     "/api/profiles/mine",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
-    responses = {
+    responses={
         200: {"model": ProfileOutWithInterested},
-        404: {"model": ErrorMessage}
-    }
+        404: {"model": ErrorMessage},
+    },
 )
-def get_my_profile(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+def get_my_profile(
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user),
+):
     print("current user", current_user)
-    row = query.get_profile(current_user['id'])
+    row = query.get_profile(current_user["id"])
     if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
     return row_to_profile(row)
 
 
-
 # detail view of a specific profile
 @router.get(
     "/api/profiles/{profile_id}",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
-    responses = {
+    responses={
         200: {"model": ProfileOutWithInterested},
-        404: {"model": ErrorMessage}
-    }
+        404: {"model": ErrorMessage},
+    },
 )
-def get_profile(profile_id: int, response: Response, query=Depends(ProfileQueries)):
+def get_profile(
+    profile_id: int, response: Response, query=Depends(ProfileQueries)
+):
     row = query.get_profile(profile_id)
     if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
@@ -210,18 +219,21 @@ def get_profile(profile_id: int, response: Response, query=Depends(ProfileQuerie
     return row_to_profile(row)
 
 
-
-#to get a random profile 
+# to get a random profile
 @router.get(
     "/api/random",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
-    responses = {
+    responses={
         200: {"model": ProfileOutWithInterested},
-        404: {"model": ErrorMessage}
-    }
+        404: {"model": ErrorMessage},
+    },
 )
-def get_random_profile(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
-    row = query.get_random_profile(current_user['id'])
+def get_random_profile(
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user),
+):
+    row = query.get_random_profile(current_user["id"])
     if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile does not exist"}
@@ -233,13 +245,11 @@ def get_random_profile(response: Response, query=Depends(ProfileQueries), curren
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
     responses={
         200: {"model": ProfileOutWithInterested},
-        409: {"model": ErrorMessage}
+        409: {"model": ErrorMessage},
     },
 )
 def create_profile(
-    profile: ProfileCreateIn,
-    response: Response,
-    query=Depends(ProfileQueries)
+    profile: ProfileCreateIn, response: Response, query=Depends(ProfileQueries)
 ):
     try:
         hashed_password = pwd_context.hash(profile.password)
@@ -251,7 +261,7 @@ def create_profile(
             profile.last_name,
             profile.location,
             profile.date_of_birth,
-            profile.interested
+            profile.interested,
         )
         return row_to_profile_post(row)
     except DuplicateUsername:
@@ -292,7 +302,7 @@ async def update_profile(
             profile.religion,
             profile.ethnicity,
             profile.pronouns,
-            profile.interested
+            profile.interested,
         )
 
         if row is None:
@@ -308,11 +318,14 @@ async def update_profile(
     "/api/profiles/myself",
     response_model=ProfileDeleteOperation,
 )
-def delete_profile(current_user: User = Depends(get_current_user), query=Depends(ProfileQueries)):
+def delete_profile(
+    current_user: User = Depends(get_current_user),
+    query=Depends(ProfileQueries),
+):
     try:
         query.delete_profile(current_user["id"])
         return {"result": True}
-    except:
+    except Exception:
         return {"result": False}
 
 
@@ -330,7 +343,7 @@ def update_account(
     profile: AccountUpdateIn,
     response: Response,
     query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     try:
         hashed_password = pwd_context.hash(profile.password)
@@ -340,7 +353,7 @@ def update_account(
             profile.email,
             hashed_password,
             profile.first_name,
-            profile.last_name
+            profile.last_name,
         )
         # return AccountUpdateOut(
         #     id=row[0],
@@ -360,17 +373,14 @@ def update_account(
 @router.post(
     "/api/profiles/{target_user_id}/liked",
     response_model=Union[SwipedOut, ErrorMessage],
-    responses={
-        200: {"model": SwipedOut},
-        409: {"model": ErrorMessage}
-    },
+    responses={200: {"model": SwipedOut}, 409: {"model": ErrorMessage}},
 )
 def liked(
     profile: SwipedIn,
     target_user_id: int,
     response: Response,
     query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     try:
         row = query.like_profile(
@@ -386,19 +396,14 @@ def liked(
 @router.post(
     "/api/profiles/{target_user_id}/disliked",
     response_model=Union[SwipedOut, ErrorMessage],
-    responses={
-        200: {"model": SwipedOut},
-        409: {"model": ErrorMessage}
-    },
+    responses={200: {"model": SwipedOut}, 409: {"model": ErrorMessage}},
 )
 def disliked(
     profile: SwipedIn,
     target_user_id: int,
     response: Response,
     query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
-
-
+    current_user: User = Depends(get_current_user),
 ):
     try:
         row = query.dislike_profile(
@@ -415,8 +420,11 @@ def disliked(
     "/api/my-matches",
     response_model=MatchedList,
 )
-
-async def get_matches(page: int=0, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+async def get_matches(
+    page: int = 0,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user),
+):
     page_count, rows = query.list_matches(current_user["id"], page)
     return {
         "page_count": page_count,
@@ -427,21 +435,18 @@ async def get_matches(page: int=0, query=Depends(ProfileQueries), current_user: 
 @router.post(
     "/api/profiles/{target_user_id}/rating",
     response_model=Union[RatingOut, ErrorMessage],
-    responses={
-        200: {"model": RatingOut},
-        409: {"model": ErrorMessage}
-    },
+    responses={200: {"model": RatingOut}, 409: {"model": ErrorMessage}},
 )
 def create_rating(
     profile: RatingIn,
     target_user_id: int,
     response: Response,
     query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
-    try: 
+    try:
         row = query.create_rating(
-            profile.rating, 
+            profile.rating,
             target_user_id,
             current_user["id"],
         )
@@ -454,15 +459,10 @@ def create_rating(
 @router.get(
     "/api/profiles/{target_user_id}/average-rating",
     response_model=Union[RatingAvgOut, ErrorMessage],
-    responses = {
-        200: {"model": RatingAvgOut},
-        409: {"model": ErrorMessage}
-    },
+    responses={200: {"model": RatingAvgOut}, 409: {"model": ErrorMessage}},
 )
 def get_rating_avg(
-    target_user_id: int,
-    response: Response,
-    query = Depends(ProfileQueries)
+    target_user_id: int, response: Response, query=Depends(ProfileQueries)
 ):
     row = query.get_average_rating(target_user_id)
     if row is None:
@@ -474,13 +474,13 @@ def get_rating_avg(
 @router.get(
     "/api/my-ratings",
     response_model=RatingsList,
-    responses = {
-        200: {"model": RatingsList},
-        404: {"model": ErrorMessage}
-    }
+    responses={200: {"model": RatingsList}, 404: {"model": ErrorMessage}},
 )
-
-async def get_ratings(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+async def get_ratings(
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user),
+):
     rows = query.list_ratings(current_user["id"])
     if rows is None:
         response.status_code = status.HTTP_404_NOT_FOUND

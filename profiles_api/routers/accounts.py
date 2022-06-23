@@ -1,13 +1,20 @@
 from datetime import datetime, timedelta
 from db import ProfileQueries
-from fastapi import Depends, HTTPException, status, Response, Cookie, APIRouter, Request
+from fastapi import (
+    Depends,
+    HTTPException,
+    status,
+    Response,
+    Cookie,
+    APIRouter,
+    Request,
+)
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt, jws, JWSError
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from typing import Optional
 from json.decoder import JSONDecodeError
-import json
 import os
 
 SECRET_KEY = os.environ["SECRET_KEY"]
@@ -56,11 +63,8 @@ def get_user(repo: ProfileQueries, username: str):
     row = repo.get_profile_from_username(username)
     if not row:
         return None
-    return {
-        "id": row[0],
-        "username": row[1],
-        "password": row[2]
-    }
+    return {"id": row[0], "username": row[1], "password": row[2]}
+
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -88,7 +92,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 async def get_current_user(
     bearer_token: Optional[str] = Depends(oauth2_scheme),
-    cookie_token: Optional[str] | None = Cookie(default=None, alias=COOKIE_NAME),
+    cookie_token: Optional[str]
+    | None = Cookie(default=None, alias=COOKIE_NAME),
     repo: ProfileQueries = Depends(),
 ):
     credentials_exception = HTTPException(
@@ -113,14 +118,21 @@ async def get_current_user(
     return user
 
 
-async def get_current_active_user(current_user: User = Depends(get_current_user)):
+async def get_current_active_user(
+    current_user: User = Depends(get_current_user),
+):
     # if current_user.disabled:
     #     raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 
 @router.post("/token")
-async def login_for_access_token(response: Response, request: Request, form_data: OAuth2PasswordRequestForm = Depends(), repo: ProfileQueries = Depends()):
+async def login_for_access_token(
+    response: Response,
+    request: Request,
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    repo: ProfileQueries = Depends(),
+):
     user = authenticate_user(repo, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -137,7 +149,10 @@ async def login_for_access_token(response: Response, request: Request, form_data
 
     samesite = "none"
     secure = True
-    if "origin" in request.headers and "localhost" in request.headers["origin"]:
+    if (
+        "origin" in request.headers
+        and "localhost" in request.headers["origin"]
+    ):
         samesite = "lax"
         secure = False
     response.set_cookie(
@@ -156,7 +171,15 @@ async def get_token(request: Request):
         return {"token": request.cookies[COOKIE_NAME]}
 
 
-@router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
+@router.get(
+    "/users/me",
+    response_model=User,
+    responses={
+        200: {"model": User},
+        400: {"model": HttpError},
+        401: {"model": HttpError},
+    },
+)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
@@ -174,7 +197,10 @@ async def validate_token(access_token: AccessToken, response: Response):
 async def logout(request: Request, response: Response):
     samesite = "none"
     secure = True
-    if "origin" in request.headers and "localhost" in request.headers["origin"]:
+    if (
+        "origin" in request.headers
+        and "localhost" in request.headers["origin"]
+    ):
         samesite = "lax"
         secure = False
     response.delete_cookie(

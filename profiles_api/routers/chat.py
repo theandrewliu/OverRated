@@ -1,13 +1,8 @@
-from fastapi import (
-    APIRouter,
-    WebSocket,
-    WebSocketDisconnect,
-    Depends
-)
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
 from typing import List
 import json
 from datetime import datetime, timezone
-from db import ProfileQueries, DuplicateTarget, DuplicateUsername
+from db import ProfileQueries
 from routers.accounts import User, get_current_user
 
 
@@ -45,22 +40,26 @@ class ConnectionManager:
         profile: str,
         websocket: WebSocket,
     ):
-        payload = json.dumps({
-            "profile": profile,
-            "content": message,
-            "timestamp": timestamp(),
-            "message_id": self.next_message_id(),
-        })
+        payload = json.dumps(
+            {
+                "profile": profile,
+                "content": message,
+                "timestamp": timestamp(),
+                "message_id": self.next_message_id(),
+            }
+        )
         await websocket.send_text(payload)
 
     async def broadcast(self, message: str, profile: str):
-        payload = json.dumps({
-            "profile": profile,
-            "content": message,
-            "timestamp": timestamp(),
-            "message_id": self.next_message_id(),
-        })
-        print('active connections:', len(self.active_connections))
+        payload = json.dumps(
+            {
+                "profile": profile,
+                "content": message,
+                "timestamp": timestamp(),
+                "message_id": self.next_message_id(),
+            }
+        )
+        print("active connections:", len(self.active_connections))
         for connection in self.active_connections:
             await connection.send_text(payload)
 
@@ -77,7 +76,7 @@ async def websocket_endpoint(
     websocket: WebSocket,
     profile: str,
     current_user: User = Depends(get_current_user),
-    query=Depends(ProfileQueries)
+    query=Depends(ProfileQueries),
 ):
     await manager.connect(websocket, profile)
     try:
@@ -85,19 +84,16 @@ async def websocket_endpoint(
             message = await websocket.receive_text()
             await manager.broadcast(message, profile)
             test = query.create_message(
-                current_user["id"],
-                profile,
-                timestamp(),
-                message
+                current_user["id"], profile, timestamp(), message
             )
-            return({
+            return {
                 "id": test[0],
                 "match_id": test[1],
                 "sender": test[2],
                 "recipient": test[3],
                 "sent": test[4],
-                "message": test[5]
-            })
+                "message": test[5],
+            }
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast("Disconnected", profile)

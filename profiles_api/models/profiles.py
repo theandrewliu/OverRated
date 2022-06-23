@@ -1,9 +1,8 @@
-from cgitb import text
 from datetime import date
-from sqlite3 import Timestamp
 from pydantic import BaseModel
 from typing import Union
 from .interested import Interested
+
 
 class ProfileCreateIn(BaseModel):
     username: str
@@ -47,7 +46,6 @@ class ProfileUpdateIn(BaseModel):
     interested: Interested
 
 
-
 class ProfileUpdateOut(BaseModel):
     id: int
     location: str
@@ -62,6 +60,7 @@ class ProfileUpdateOut(BaseModel):
     ethnicity: Union[str, None]
     pronouns: Union[str, None]
     interested: list[str]
+
 
 class ProfileOutWithInterested(BaseModel):
     id: int
@@ -83,6 +82,7 @@ class ProfileOutWithInterested(BaseModel):
     pronouns: Union[str, None]
     interested: list[str]
     average_rating: Union[float, None]
+
 
 class ProfileOut(BaseModel):
     id: int
@@ -133,7 +133,6 @@ class MatchedProfile(BaseModel):
     date_of_birth: date
     average_rating: Union[float, None]
     match_id: int
-
 
 
 class MatchedList(BaseModel):
