@@ -28,7 +28,10 @@ class MessageQueries:
                     list_of_ids = cursor.fetchall()
                     list_of_target_ids = []
                     for id in list_of_ids:
-                        if id[0] == user_id and id[1] not in list_of_target_ids:
+                        if (
+                            id[0] == user_id
+                            and id[1] not in list_of_target_ids
+                        ):
                             list_of_target_ids.append(id[1])
                         elif id[0] not in list_of_target_ids:
                             list_of_target_ids.append(id[0])

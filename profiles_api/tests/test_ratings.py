@@ -33,6 +33,8 @@ client = TestClient(app)
 def test_create_rating():
     app.dependency_overrides[RatingQueries] = NormalRatingQueries
     app.dependency_overrides[get_current_user] = override_get_fake_user
-    r = client.post("/api/profiles/3/rating", json={"rating": 0, "rating_of": 0})
+    r = client.post(
+        "/api/profiles/3/rating", json={"rating": 0, "rating_of": 0}
+    )
     assert r.status_code == 200
     app.dependency_overrides = {}

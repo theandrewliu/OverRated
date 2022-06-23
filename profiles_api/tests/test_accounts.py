@@ -7,7 +7,9 @@ from main import app
 
 
 class AccountInfo(TestCase):
-    def update_account(self, id, username, email, password, first_name, last_name):
+    def update_account(
+        self, id, username, email, password, first_name, last_name
+    ):
         return [10, "test", "test", "test", "test"]
 
 

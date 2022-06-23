@@ -42,7 +42,11 @@ def test_create_message():
     app.dependency_overrides[get_current_user] = override_get_fake_user
     r = client.post(
         "/api/messages",
-        json={"recipient": 0, "sent": "2022-06-23T18:46:11.142Z", "message": "string"},
+        json={
+            "recipient": 0,
+            "sent": "2022-06-23T18:46:11.142Z",
+            "message": "string",
+        },
     )
     d = r.json()
     print("d:", d)

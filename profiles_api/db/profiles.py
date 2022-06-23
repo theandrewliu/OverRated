@@ -309,7 +309,15 @@ class ProfileQueries:
                 return profile
 
     def insert_profile(
-        self, username, email, password, first_name, last_name, location, dob, pfences
+        self,
+        username,
+        email,
+        password,
+        first_name,
+        last_name,
+        location,
+        dob,
+        pfences,
     ):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
@@ -412,7 +420,10 @@ class ProfileQueries:
                     preset = ["male", "female", "other"]
 
                     for i in preset:
-                        if i in list_of_interests and i not in pfences.interested:
+                        if (
+                            i in list_of_interests
+                            and i not in pfences.interested
+                        ):
                             cursor.execute(
                                 """
                                 DELETE FROM interested
@@ -420,7 +431,10 @@ class ProfileQueries:
                                 """,
                                 [id, i],
                             )
-                        if i not in list_of_interests and i in pfences.interested:
+                        if (
+                            i not in list_of_interests
+                            and i in pfences.interested
+                        ):
                             cursor.execute(
                                 """
                                 INSERT INTO interested(profile_id, interest)
@@ -436,7 +450,9 @@ class ProfileQueries:
                     raise DuplicateUsername
 
     # update login info
-    def update_account(self, id, username, email, password, first_name, last_name):
+    def update_account(
+        self, id, username, email, password, first_name, last_name
+    ):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 try:

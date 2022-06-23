@@ -10,7 +10,12 @@ router = APIRouter()
 
 
 def row_to_rating(row):
-    rating = {"id": row[0], "rating": row[1], "rating_of": row[2], "rating_by": row[3]}
+    rating = {
+        "id": row[0],
+        "rating": row[1],
+        "rating_of": row[2],
+        "rating_by": row[3],
+    }
     return rating
 
 

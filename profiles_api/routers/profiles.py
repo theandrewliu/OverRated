@@ -120,7 +120,10 @@ async def get_profiles(
 @router.get(
     "/api/profiles/mine",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
-    responses={200: {"model": ProfileOutWithInterested}, 404: {"model": ErrorMessage}},
+    responses={
+        200: {"model": ProfileOutWithInterested},
+        404: {"model": ErrorMessage},
+    },
 )
 def get_my_profile(
     response: Response,
@@ -139,9 +142,14 @@ def get_my_profile(
 @router.get(
     "/api/profiles/{profile_id}",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
-    responses={200: {"model": ProfileOutWithInterested}, 404: {"model": ErrorMessage}},
+    responses={
+        200: {"model": ProfileOutWithInterested},
+        404: {"model": ErrorMessage},
+    },
 )
-def get_profile(profile_id: int, response: Response, query=Depends(ProfileQueries)):
+def get_profile(
+    profile_id: int, response: Response, query=Depends(ProfileQueries)
+):
     row = query.get_profile(profile_id)
     if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
@@ -153,7 +161,10 @@ def get_profile(profile_id: int, response: Response, query=Depends(ProfileQuerie
 @router.get(
     "/api/random",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
-    responses={200: {"model": ProfileOutWithInterested}, 404: {"model": ErrorMessage}},
+    responses={
+        200: {"model": ProfileOutWithInterested},
+        404: {"model": ErrorMessage},
+    },
 )
 def get_random_profile(
     response: Response,
@@ -171,7 +182,10 @@ def get_random_profile(
 @router.post(
     "/api/profiles/profiles",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
-    responses={200: {"model": ProfileOutWithInterested}, 409: {"model": ErrorMessage}},
+    responses={
+        200: {"model": ProfileOutWithInterested},
+        409: {"model": ErrorMessage},
+    },
 )
 def create_profile(
     profile: ProfileCreateIn, response: Response, query=Depends(ProfileQueries)
@@ -243,7 +257,8 @@ async def update_profile(
     response_model=ProfileDeleteOperation,
 )
 def delete_profile(
-    current_user: User = Depends(get_current_user), query=Depends(ProfileQueries)
+    current_user: User = Depends(get_current_user),
+    query=Depends(ProfileQueries),
 ):
     try:
         query.delete_profile(current_user["id"])

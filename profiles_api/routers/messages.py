@@ -1,6 +1,11 @@
 from fastapi import APIRouter, Depends, Response, status
 from typing import Union
-from models.messages import MessageList, MessageOut, MessageIn, MessageDetailListOut
+from models.messages import (
+    MessageList,
+    MessageOut,
+    MessageIn,
+    MessageDetailListOut,
+)
 from models.common import ErrorMessage
 from db.messages import MessageQueries, DuplicateUsername
 from routers.accounts import User, get_current_user
@@ -53,7 +58,8 @@ def row_to_message_detail(row):
     response_model=MessageList,
 )
 async def get_messages(
-    query=Depends(MessageQueries), current_user: User = Depends(get_current_user)
+    query=Depends(MessageQueries),
+    current_user: User = Depends(get_current_user),
 ):
     rows = query.list_messages(current_user["id"])
     return {
@@ -75,7 +81,10 @@ def create_message(
 ):
     try:
         row = query.create_message(
-            current_user["id"], profile.recipient, profile.sent, profile.message
+            current_user["id"],
+            profile.recipient,
+            profile.sent,
+            profile.message,
         )
         return row_to_message(row)
     except DuplicateUsername:
@@ -87,7 +96,10 @@ def create_message(
 @router.get(
     "/api/messages/{target_id}",
     response_model=Union[MessageDetailListOut, ErrorMessage],
-    responses={200: {"model": MessageDetailListOut}, 404: {"model": ErrorMessage}},
+    responses={
+        200: {"model": MessageDetailListOut},
+        404: {"model": ErrorMessage},
+    },
 )
 def get_message(
     target_id: int,
