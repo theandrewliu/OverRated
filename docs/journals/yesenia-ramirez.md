@@ -253,3 +253,24 @@
 * What did I learn: 
     - Today I learned how to set a timer to fetch data for us.
     - Also I had practice with manipulating how data is sent in the fetch request. 
+
+---
+
+## June 22, 2022
+* Photo upload
+    - Today, Curtis helped us figure out how to implement the back end of uploading photos. Once we figured out Amazon S3, then Andrew and I were able to use our FastAPI skills to do the rest. 
+    - Front end: we had so much trouble with this. Mitch helped us to make the data into FormData and that is how we were able to upload our photo from the front. The image data we needed was the name and file data so we also had to change the value in the JSX to file instead of text. 
+
+* Sign-up form
+    - We added a redirect to the login page after someone creates an account. This took us a while to figure out as we needed to have redirect in the state and set it to false. Once the handleSubmit went through and the response was okay then we set the redirect to true. In the render, we then navigated to the login page if redirect was true. 
+
+* Login form
+    - We fixed a bug where when the show password button was being clicked on, it was reading as it being the submit button for the form. We fixed this by changing the type of the button to "button" instead of "submit". 
+
+* Account form 
+    - We noticed a bug where the user was not able to change their username as it was changing their token and logging them out, so we made it unavailable for a user to change their username. 
+    - We also added placeholders in the input boxes to show their previous data since all the fields are required. Except for the password. 
+
+* What did I learn: 
+    - Today, I learned about redirecting in a class component. We could not use a hook, so we found a way around that. Now I know how to do it! 
+    - Today was a lot of debugging, which is nice practice but also extremely exhausting. But I feel good that our project is now fully functional. 

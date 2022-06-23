@@ -12,7 +12,6 @@ import ProfileForm from './Profiles/ProfileForm';
 import ProfileDetail from './Profiles/ProfileDetail';
 import AccountForm from './Accounts/AccountForm';
 import ReviewForm from './Ratings/RatingForm';
-import ReviewList from './Ratings/ReviewList';
 import Explore from './Connections/Explorepg';
 import ProfileCreation from './Profiles/ProfileCreation';
 import MessageList from './Chat/MessageList';
@@ -40,12 +39,10 @@ function App() {
           <Route path="/my-matches" element={<ConnectionList token={token} />} />
           <Route path="/profiles/:id" element={<ConnectionsDetail token={token} />} />
           
-          <Route path="/accounts/myself" element={<AccountForm token={token} />} />
 
         <Route path="/my_profile"> 
           <Route index element={<ProfileDetail token={token}/>} />
           <Route path="/my_profile/account" element={<AccountForm token={token} />} />
-          <Route path="/my_profile/reviews" element={<ReviewList />} />
         </Route>
 
           <Route path="/login">

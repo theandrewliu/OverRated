@@ -11,12 +11,14 @@ from upload.s3_upload import upload_file_to_bucket
 
 router = APIRouter()
 
+
 def row_to_photo(row):
     photo = {
         "current_user": row[0],
         "file_url": row[1]
     }
     return photo
+
 
 @router.post(
     "/photo/{folder}", 
@@ -49,3 +51,4 @@ def upload_file(
     else:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="File could not be uploaded")
+                            
