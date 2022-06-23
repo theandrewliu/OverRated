@@ -107,7 +107,9 @@ def test_profile_list():
 def test_like():
     app.dependency_overrides[ProfileQueries] = NormalProfileQueries
     app.dependency_overrides[get_current_user] = override_get_fake_user
-    r = client.post("/api/profiles/1/liked")
+    r = client.post("/api/profiles/1/liked", json={
+        "target_user_id": 3,
+    })
     # d = r.json()
 
     assert r.status_code == 200
