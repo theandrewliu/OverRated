@@ -9,7 +9,7 @@ from models.messages import (
     MessageDetailListOut
 )
 from models.common import ErrorMessage
-from db import ProfileQueries, DuplicateUsername, DuplicateTarget
+from db.messages import MessageQueries, DuplicateUsername, DuplicateTarget
 from routers.accounts import pwd_context, User, get_current_user, HttpError
 
 
@@ -56,7 +56,7 @@ def row_to_message_detail(row):
     "/api/messages",
     response_model=MessageList,
 )
-async def get_messages(query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+async def get_messages(query=Depends(MessageQueries), current_user: User = Depends(get_current_user)):
     rows = query.list_messages(current_user["id"])
     return {
         "messages": [row_to_message_list(row) for row in rows],
@@ -73,7 +73,7 @@ async def get_messages(query=Depends(ProfileQueries), current_user: User = Depen
 def create_message(
     profile: MessageIn,
     response: Response,
-    query=Depends(ProfileQueries),
+    query=Depends(MessageQueries),
     current_user: User = Depends(get_current_user)
 ):
     try:
@@ -97,7 +97,7 @@ def create_message(
         404: {"model": ErrorMessage}
     }
 )
-def get_message(target_id: int, response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+def get_message(target_id: int, response: Response, query=Depends(MessageQueries), current_user: User = Depends(get_current_user)):
     rows = query.get_messages(current_user["id"], target_id)
     if rows is None:
         response.status_code = status.HTTP_404_NOT_FOUND

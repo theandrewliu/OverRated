@@ -21,7 +21,7 @@ from profiles_api.models.profiles import (
     RatingsList
 )
 from models.common import ErrorMessage
-from db import ProfileQueries, DuplicateUsername, DuplicateTarget
+from db.profiles import ProfileQueries, DuplicateUsername, DuplicateTarget
 from routers.accounts import pwd_context, User, get_current_user, HttpError
 
 
