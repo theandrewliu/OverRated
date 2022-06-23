@@ -8,6 +8,7 @@ from routers import (
     accounts,
     messages,
     ratings,
+    matches,
 )
 
 app = FastAPI()
@@ -34,3 +35,4 @@ app.include_router(accounts.router);
 app.include_router(messages.router);
 app.include_router(upload.router);
 app.include_router(ratings.router);
+app.include_router(matches.router);
