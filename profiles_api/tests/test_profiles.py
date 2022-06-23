@@ -33,7 +33,6 @@ async def override_fake_like():
   
 async def override_fake_disliked():
   return {'id': 1, 'active_user_id': 2, 'target_user_id': 3, 'disliked': True}
-  # return {'target_user_id': 1}
 
 async def override_get_fake_user():
   return {'id': 1, 'username': 'wowzer', 'email': 'wowzer@gmail.com', "full_name": 'your mom'}
