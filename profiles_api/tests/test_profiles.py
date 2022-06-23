@@ -30,7 +30,7 @@ class NormalProfileQueries(TestCase):
         ]
 
     def like_profile(self, id, target_user):
-        return 1
+        return [1, 1, 2, True]
 
 
 async def override_fake_like():
