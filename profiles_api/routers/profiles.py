@@ -1,7 +1,9 @@
 from datetime import date
 from fastapi import APIRouter, Depends, Response, status
 from typing import Union
-from models.profiles import (
+import sys 
+sys.path.append('./profiles_api')
+from profiles_api.models.profiles import (
     ProfileList,
     ProfileDeleteOperation,
     ProfileCreateIn,

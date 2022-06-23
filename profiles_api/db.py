@@ -1,7 +1,7 @@
 from math import ceil
+from psycopg.errors import UniqueViolation
 import random
 from psycopg_pool import ConnectionPool
-from psycopg.errors import UniqueViolation
 
 pool = ConnectionPool()
 

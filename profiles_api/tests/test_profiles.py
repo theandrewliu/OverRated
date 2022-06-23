@@ -5,7 +5,8 @@ from unittest import TestCase
 from routers.profiles import (
   get_profiles,
   get_current_user,
-  liked
+  liked,
+  disliked
   )
 from main import app
 
@@ -23,6 +24,9 @@ class NormalProfileQueries(TestCase):
 async def override_fake_like():
   return {'id': 1, 'active_user_id': 2, 'target_user_id': 3, 'liked': True}
   # return {'target_user_id': 1}
+  
+async def override_fake_disliked():
+  return {'id': 1, 'active_user_id': 2, 'target_user_id': 3, 'disliked': True}
 
 async def override_get_fake_user():
   return {'id': 1, 'username': 'wowzer', 'email': 'wowzer@gmail.com', "full_name": 'your mom'}
@@ -58,6 +62,7 @@ async def override_get_profiles():
 
 app.dependency_overrides[get_profiles] = override_get_profiles
 app.dependency_overrides[liked] = override_fake_like
+app.dependency_overrides[disliked] = override_fake_disliked
 app.dependency_overrides[get_current_user] = override_get_fake_user
 
 
@@ -83,7 +88,14 @@ def test_profile_list():
     app.dependency_overrides = {}
 
     
+def test_disliked():
+  app.dependency_overrides[ProfileQueries] = NormalProfileQueries
+  app.dependency_overrides[get_current_user] = override_get_fake_user
+  r = client.post('/api/profiles/1/disliked')
 
+  assert r.status_code == 200
+
+  app.dependency_overrides = {}
 
 
 
