@@ -10,11 +10,31 @@ from models.ratings import (
     RatingsList
 )
 from models.common import ErrorMessage
-from db import ProfileQueries, DuplicateTarget
+from db.ratings import RatingQueries, DuplicateTarget
 from routers.accounts import pwd_context, User, get_current_user
 
 
 router = APIRouter()
+
+
+def row_to_rating(row):
+    rating = {
+        "id": row[0],
+        "rating": row[1],
+        "rating_of": row[2],
+        "rating_by": row[3]
+    }
+    return rating
+
+
+def row_to_ratings_list(row):
+    rating = {
+        "id": row[0],
+        "rating": row[1],
+        "rating_of": row[2],
+        "rating_by": row[3],
+    }
+    return rating
 
 
 # ---- Rate a user ---- #
@@ -30,7 +50,7 @@ def create_rating(
     profile: RatingIn,
     target_user_id: int,
     response: Response,
-    query=Depends(ProfileQueries),
+    query=Depends(RatingQueries),
     current_user: User = Depends(get_current_user)
 ):
     try: 
@@ -57,7 +77,7 @@ def create_rating(
 def get_rating_avg(
     target_user_id: int,
     response: Response,
-    query = Depends(ProfileQueries)
+    query = Depends(RatingQueries)
 ):
     row = query.get_average_rating(target_user_id)
     if row is None:
@@ -75,7 +95,7 @@ def get_rating_avg(
         404: {"model": ErrorMessage}
     }
 )
-async def get_ratings(response: Response, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
+async def get_ratings(response: Response, query=Depends(RatingQueries), current_user: User = Depends(get_current_user)):
     rows = query.list_ratings(current_user["id"])
     if rows is None:
         response.status_code = status.HTTP_404_NOT_FOUND

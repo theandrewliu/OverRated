@@ -9,8 +9,8 @@ from models.messages import (
     MessageDetailListOut
 )
 from models.common import ErrorMessage
-from db.messages import MessageQueries, DuplicateUsername, DuplicateTarget
-from routers.accounts import pwd_context, User, get_current_user, HttpError
+from db.messages import MessageQueries, DuplicateUsername
+from routers.accounts import pwd_context, User, get_current_user
 
 
 router = APIRouter()
@@ -52,6 +52,8 @@ def row_to_message_detail(row):
     }
     return message
 
+
+# ---- Get a list of the 3 most recent conversations ---- #
 @router.get(
     "/api/messages",
     response_model=MessageList,
@@ -62,6 +64,8 @@ async def get_messages(query=Depends(MessageQueries), current_user: User = Depen
         "messages": [row_to_message_list(row) for row in rows],
     }
 
+
+# ---- Send a message ---- #
 @router.post(
     "/api/messages",
     response_model=Union[MessageOut, ErrorMessage],
@@ -89,6 +93,7 @@ def create_message(
         return {"message": "error message"}
 
 
+# ---- Get all the messages from one conversation ---- #
 @router.get(
     "/api/messages/{target_id}",
     response_model=Union[MessageDetailListOut, ErrorMessage],

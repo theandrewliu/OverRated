@@ -8,17 +8,12 @@ from models.profiles import (
     ProfileDeleteOperation,
     ProfileCreateIn,
     ProfileUpdateIn,
-    AccountUpdateIn,
     ProfileUpdateOut,
-    AccountUpdateOut,
     ProfileOutWithInterested,
-    SwipedIn,
-    SwipedOut,
-    MatchedList, 
 )
 from models.common import ErrorMessage
-from db.profiles import ProfileQueries, DuplicateUsername, DuplicateTarget
-from routers.accounts import pwd_context, User, get_current_user, HttpError
+from db.profiles import ProfileQueries, DuplicateUsername
+from routers.accounts import pwd_context, User, get_current_user
 
 
 router = APIRouter()
@@ -105,61 +100,7 @@ def row_to_profile_update(row):
     return profile
 
 
-def row_to_account_update(row):
-    profile = {
-        "id": row[0],
-        "username": row[1],
-        "email": row[2],
-        "first_name":row[3],
-        "last_name":row[4],
-    }
-    return profile
-
-
-def row_to_profile_swiped(row):
-    profile = {
-        "id": row[0],
-        "active_user_id": row[1],
-        "target_user_id": row[2],
-        "liked": row[3]
-    }
-    return profile
-
-
-def row_to_matched_list(row):
-    match = {
-        "id": row[0],
-        "photo": row[1],
-        "first_name": row[2],
-        "last_name": row[3],
-        "location": row[4],
-        "date_of_birth": row[5],
-        "average_rating": row[6],
-        "match_id": row[7]
-    }
-    return match
-
-
-def row_to_rating(row):
-    rating = {
-        "id": row[0],
-        "rating": row[1],
-        "rating_of": row[2],
-        "rating_by": row[3]
-    }
-    return rating
-
-def row_to_ratings_list(row):
-    rating = {
-        "id": row[0],
-        "rating": row[1],
-        "rating_of": row[2],
-        "rating_by": row[3],
-    }
-    return rating
-
-
-# not using this anywhere at the moment 
+# ---- List of all profiles ---- #
 @router.get(
     "/api/profiles",
     response_model=ProfileList,
@@ -172,7 +113,7 @@ async def get_profiles(page: int=0, query=Depends(ProfileQueries), current_user:
     }
 
 
-
+# ---- Gets current user's profile details ---- #
 @router.get(
     "/api/profiles/mine",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -190,8 +131,7 @@ def get_my_profile(response: Response, query=Depends(ProfileQueries), current_us
     return row_to_profile(row)
 
 
-
-# detail view of a specific profile
+# ---- Detail view of a specific profile ---- #
 @router.get(
     "/api/profiles/{profile_id}",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -208,8 +148,7 @@ def get_profile(profile_id: int, response: Response, query=Depends(ProfileQuerie
     return row_to_profile(row)
 
 
-
-#to get a random profile 
+# ---- Get a random filtered profile ---- #
 @router.get(
     "/api/random",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -226,6 +165,7 @@ def get_random_profile(response: Response, query=Depends(ProfileQueries), curren
     return row_to_profile(row)
 
 
+# ---- Create a profile ---- #
 @router.post(
     "/api/profiles/profiles",
     response_model=Union[ProfileOutWithInterested, ErrorMessage],
@@ -257,7 +197,7 @@ def create_profile(
         return {"message": f"{profile.username} username already exists"}
 
 
-# ------------------- update personal info
+# ---- Update a profile ---- #
 @router.put(
     "/api/profiles/myself",
     response_model=Union[ProfileUpdateOut, ErrorMessage],
@@ -268,12 +208,10 @@ def create_profile(
     },
 )
 async def update_profile(
-    # profile_id: int,
     profile: ProfileUpdateIn,
     response: Response,
     query=Depends(ProfileQueries),
     current_user: User = Depends(get_current_user),
-    # profile_id: current_user["id"],
 ):
     print(profile)
     try:
@@ -302,6 +240,7 @@ async def update_profile(
         return {"message": "Duplicate profile name"}
 
 
+# ---- Delete current user's profile ---- #
 @router.delete(
     "/api/profiles/myself",
     response_model=ProfileDeleteOperation,
@@ -312,111 +251,3 @@ def delete_profile(current_user: User = Depends(get_current_user), query=Depends
         return {"result": True}
     except:
         return {"result": False}
-
-
-# update login info
-@router.put(
-    "/api/accounts/myself",
-    response_model=Union[AccountUpdateOut, ErrorMessage],
-    responses={
-        200: {"model": AccountUpdateOut},
-        404: {"model": ErrorMessage},
-        409: {"model": ErrorMessage},
-    },
-)
-def update_account(
-    profile: AccountUpdateIn,
-    response: Response,
-    query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
-):
-    try:
-        hashed_password = pwd_context.hash(profile.password)
-        row = query.update_account(
-            current_user["id"],
-            profile.username,
-            profile.email,
-            hashed_password,
-            profile.first_name,
-            profile.last_name
-        )
-        # return AccountUpdateOut(
-        #     id=row[0],
-        #     username=row[1],
-        #     first_name=row[2],
-        #     last_name=row[3],
-        # )
-        if row is None:
-            response.status_code = status.HTTP_404_NOT_FOUND
-            return {"message": "Account not found"}
-        return row_to_account_update(row)
-    except DuplicateUsername:
-        response.status_code = status.HTTP_409_CONFLICT
-        return {"message": "Duplicate username"}
-
-
-@router.post(
-    "/api/profiles/{target_user_id}/liked",
-    response_model=Union[SwipedOut, ErrorMessage],
-    responses={
-        200: {"model": SwipedOut},
-        409: {"model": ErrorMessage}
-    },
-)
-def liked(
-    profile: SwipedIn,
-    target_user_id: int,
-    response: Response,
-    query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
-):
-    try:
-        row = query.like_profile(
-            current_user["id"],
-            target_user_id,
-        )
-        return row_to_profile_swiped(row)
-    except DuplicateTarget:
-        response.status_code = status.HTTP_409_CONFLICT
-        return {"message": f"Target User {target_user_id} was already swiped"}
-
-
-@router.post(
-    "/api/profiles/{target_user_id}/disliked",
-    response_model=Union[SwipedOut, ErrorMessage],
-    responses={
-        200: {"model": SwipedOut},
-        409: {"model": ErrorMessage}
-    },
-)
-def disliked(
-    profile: SwipedIn,
-    target_user_id: int,
-    response: Response,
-    query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
-
-
-):
-    try:
-        row = query.dislike_profile(
-            current_user["id"],
-            target_user_id,
-        )
-        return row_to_profile_swiped(row)
-    except DuplicateTarget:
-        response.status_code = status.HTTP_409_CONFLICT
-        return {"message": f"Target User {target_user_id} was already swiped"}
-
-
-@router.get(
-    "/api/my-matches",
-    response_model=MatchedList,
-)
-
-async def get_matches(page: int=0, query=Depends(ProfileQueries), current_user: User = Depends(get_current_user)):
-    page_count, rows = query.list_matches(current_user["id"], page)
-    return {
-        "page_count": page_count,
-        "matches": [row_to_matched_list(row) for row in rows],
-    }

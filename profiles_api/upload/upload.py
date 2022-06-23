@@ -2,7 +2,7 @@ from botocore.client import BaseClient
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi import File, UploadFile
 from fastapi.responses import JSONResponse
-from db import ProfileQueries
+from db.profiles import ProfileQueries
 from routers.accounts import User, get_current_user
 from models.profiles import PhotoOut
 

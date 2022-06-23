@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from db import ProfileQueries
+from db.profiles import ProfileQueries, DuplicateUsername
 from fastapi import Depends, HTTPException, status, Response, Cookie, APIRouter, Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt, jws, JWSError
@@ -7,8 +7,12 @@ from passlib.context import CryptContext
 from pydantic import BaseModel
 from typing import Optional
 from json.decoder import JSONDecodeError
-import json
 import os
+
+from models.accounts import (AccountUpdateIn, AccountUpdateOut)
+from typing import Union
+from models.common import ErrorMessage
+
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 ALGORITHM = "HS256"
@@ -183,3 +187,57 @@ async def logout(request: Request, response: Response):
         samesite=samesite,
         secure=secure,
     )
+
+
+def row_to_account_update(row):
+    profile = {
+        "id": row[0],
+        "username": row[1],
+        "email": row[2],
+        "first_name":row[3],
+        "last_name":row[4],
+    }
+    return profile
+
+
+# ---- Update account info ---- #
+@router.put(
+    "/api/accounts/myself",
+    response_model=Union[AccountUpdateOut, ErrorMessage],
+    responses={
+        200: {"model": AccountUpdateOut},
+        404: {"model": ErrorMessage},
+        409: {"model": ErrorMessage},
+    },
+)
+def update_account(
+    profile: AccountUpdateIn,
+    response: Response,
+    query=Depends(ProfileQueries),
+    current_user: User = Depends(get_current_user)
+):
+    try:
+        hashed_password = pwd_context.hash(profile.password)
+        row = query.update_account(
+            current_user["id"],
+            profile.username,
+            profile.email,
+            hashed_password,
+            profile.first_name,
+            profile.last_name
+        )
+        # return AccountUpdateOut(
+        #     id=row[0],
+        #     username=row[1],
+        #     first_name=row[2],
+        #     last_name=row[3],
+        # )
+        if row is None:
+            response.status_code = status.HTTP_404_NOT_FOUND
+            return {"message": "Account not found"}
+        return row_to_account_update(row)
+    except DuplicateUsername:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"message": "Duplicate username"}
+
+
