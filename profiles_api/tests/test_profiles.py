@@ -20,13 +20,16 @@ class NormalProfileQueries(TestCase):
     def like_profile(self, id, target_user):
       return [1, 1, 2, True]
 
+    def dislike_profile(self, id, target_user):
+      return [1, 1, 2, True]
+
 
 async def override_fake_like():
   return {'id': 1, 'active_user_id': 2, 'target_user_id': 3, 'liked': True}
   # return {'target_user_id': 1}
   
 async def override_fake_disliked():
-  return {'id': 1, 'active_user_id': 2, 'target_user_id': 3, 'disliked': True}
+  return {'id': 1, 'active_user_id': 2, 'target_user_id': 3, 'liked': True}
 
 async def override_get_fake_user():
   return {'id': 1, 'username': 'wowzer', 'email': 'wowzer@gmail.com', "full_name": 'your mom'}
@@ -91,7 +94,9 @@ def test_profile_list():
 def test_disliked():
   app.dependency_overrides[ProfileQueries] = NormalProfileQueries
   app.dependency_overrides[get_current_user] = override_get_fake_user
-  r = client.post('/api/profiles/1/disliked')
+  r = client.post("/api/profiles/1/disliked", json={
+        "target_user_id": 3,
+    })
 
   assert r.status_code == 200
 
