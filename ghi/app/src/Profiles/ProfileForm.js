@@ -338,7 +338,7 @@ class ProfileForm extends React.Component {
                         <input type="checkbox" id={this.state.interested==="female"}
                             value="female"  name="interestedinwomen" />&nbsp;Women &nbsp;&nbsp;
                         <input type="checkbox" id={this.state.interested==="other"}
-                            value="other" name="interestedineveryone" />&nbsp;Everyone! &nbsp;&nbsp;
+                            value="other" name="interestedineveryone" />&nbsp;Other &nbsp;&nbsp;
                     </div>
 {/* ------------------------Sexual */}
 

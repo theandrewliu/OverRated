@@ -60,7 +60,6 @@ class LoginForm extends React.Component{
                                 </button>
                             </div>
                             <hr/>
-                            <br></br>
                             <div>
                                 <button 
                                     type="submit"
