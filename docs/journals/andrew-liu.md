@@ -53,5 +53,8 @@ For today, I started using bootstrap to add aesthetics to the my profile page. O
 # June 20, 2022
 Today I helped Yesenia with her chat box by editing the handleSubmit function so that after the message posts, another get response is made so that the list can refresh after sending a message. I implemented the autoscrolldown that is used when the page first opens into a a didUpdate function that checks if data has been updated so that after the successful post followed by the get, the list of messages will scroll to the bottom. We also fixed how the list of chats was displayed. Now it's the icon on the left side followed by the name and most recent message on the right side. 
 
-#June 21, 2022
+# June 21, 2022
 Today, I worked on the profile edit form to be able to get a response.ok, I made it so the height was more user friendly to edit and helped out Yesenia with getting the list of interests to be updated correctly in the state depending on which boxes were checked. We also made it so most of the input fields would be automagically filled with the previous information. We couldnt get the checkboxes or radial buttons to be filled out automatically but it doesn't hinder anything so we decided to leave it as is.
+
+# June 22, 2022
+Today, Yesenia and I finally got the image upload to work and tie in with the AWS S3. We learned about having

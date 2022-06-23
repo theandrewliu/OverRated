@@ -2,21 +2,14 @@ import React from "react";
 import './profile.css';
 import { Navigate } from 'react-router-dom'
 
-
-// function GrabId(){
-//     const params = useParams();
-//     const profile_id = params.id;
-//     return <ProfileForm profile_id = {profile_id}></ProfileForm>
-//   }
-
 class ProfileForm extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             photo: "",
             about: "",
-            height_ft: 0,
-            height_in: 0,
+            height_ft: 1,
+            height_in: 1,
             job: "",
             education: "",
             gender: "",
@@ -169,13 +162,8 @@ class ProfileForm extends React.Component {
     }
     }
     handlePhotoChange(event) {
-        const value = event.target.value;
-        console.log(value)
-
-        const andrew = event.target.files[0];
-
-        console.log("this is a test", andrew)
-        this.setState({ photo: andrew });
+        const file = event.target.files[0];
+        this.setState({ photo: file });
     }
     handleAboutChange(event) {
         const value = event.target.value;
@@ -261,7 +249,6 @@ class ProfileForm extends React.Component {
                     <br></br>
 
 {/* ------------------------Photos */}
-
                     <form onSubmit={this.handleImageSubmit} id="upload-image">
                     <label htmlFor="height">Photos:</label>
                     <div className="form-floating mb-3">
@@ -269,18 +256,6 @@ class ProfileForm extends React.Component {
                         <button className="btn btn-primary" value="Submit" form="upload-image" type="submit">Upload</button>
                     </div>
                     </form>
-
-{/* ------------------------Messing with code */}
-
-                    {/* <div className="container col-md-6">
-                        <div className="mb-5">
-                            <label for="Image" className="form-label">Bootstrap 5 image Upload with Preview</label>
-                            <input className="form-control" type="file" id="formFile" />
-                            <button className="btn btn-primary mt-3">Click me</button>
-                        </div>
-                        <img id="frame" src="" className="img-fluid" />
-                    </div> */}
-
                     
 {/* ------------------------About */}
 
@@ -288,7 +263,7 @@ class ProfileForm extends React.Component {
                     <label htmlFor="about">About Me:</label>
                     <div className="form-floating mb-3">
                         <input onChange={this.handleAboutChange} type="textarea" name="textValue" 
-                            value={this.state.about} className="form-control" />
+                            value={this.state.about} className="form-control" placeholder="hello"/>
                     </div>
 {/* ------------------------Height */}
 
@@ -306,7 +281,7 @@ class ProfileForm extends React.Component {
                     <label htmlFor="job">Job Title:</label>
                     <div className="form-floating mb-3" id="form_input">
                         <input onChange={this.handleJobChange} value={this.state.job} 
-                            placeholder="Job" type="text" name="job" 
+                            placeholder={this.state.job} type="text" name="job" 
                             id="job" className="form-control" />
                     </div>
  {/* ------------------------Education */}

@@ -62,7 +62,7 @@ class ProfileDetail extends React.Component {
       return (
         <>
         <Link className = 'buttonA' to='/profiles/myself'>Profile Settings</Link>
-        <Link className = 'buttonB' to='/accounts/myself'>Account Settings</Link>
+        <Link className = 'buttonB' to='/my_profile/account'>Account Settings</Link>
         <div className="container">
           <div className="row">
             <div className = "col-sm border border-light rounded-3">
