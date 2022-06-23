@@ -1,5 +1,4 @@
 from psycopg_pool import ConnectionPool
-from psycopg.errors import UniqueViolation
 
 pool = ConnectionPool()
 
@@ -7,8 +6,10 @@ pool = ConnectionPool()
 class DuplicateUsername(RuntimeError):
     pass
 
+
 class DuplicateTarget(RuntimeError):
     pass
+
 
 class RatingQueries:
     def create_rating(self, rating, user_id, target_id):
@@ -21,10 +22,10 @@ class RatingQueries:
                         VALUES (%s, %s, %s)
                         RETURNING id, rating, rating_of, rating_by
                         """,
-                            [rating, user_id, target_id]
+                        [rating, user_id, target_id],
                     )
                     return cursor.fetchone()
-                except:
+                except Exception:
                     print("DID NOT RUN THE SQL INJECTION")
 
     def get_average_rating(self, target_id):
@@ -37,13 +38,13 @@ class RatingQueries:
                         FROM ratings
                         WHERE rating_of = %s
                         """,
-                            [target_id]
+                        [target_id],
                     )
                     average = cursor.fetchone()
                     print("average_rating:", float(average[0]))
                     print("type", type(float(average[0])))
                     return float(average[0])
-                except:
+                except Exception:
                     print("DID NOT RUN THE SQL STUFF")
 
     def list_ratings(self, user_id):
@@ -59,9 +60,8 @@ class RatingQueries:
                     FROM ratings
                     WHERE rating_by = %s
                     """,
-                        [user_id],
+                    [user_id],
                 )
                 ratings = list(cursor.fetchall())
-
 
                 return ratings

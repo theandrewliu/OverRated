@@ -1,4 +1,3 @@
-from cgitb import text
 from datetime import date
 from pydantic import BaseModel
 from typing import Union

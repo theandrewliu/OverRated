@@ -1,5 +1,5 @@
 from psycopg_pool import ConnectionPool
-from psycopg.errors import UniqueViolation
+
 
 pool = ConnectionPool()
 
@@ -7,8 +7,10 @@ pool = ConnectionPool()
 class DuplicateUsername(RuntimeError):
     pass
 
+
 class DuplicateTarget(RuntimeError):
     pass
+
 
 class MessageQueries:
     def list_messages(self, user_id):
@@ -21,7 +23,7 @@ class MessageQueries:
                         FROM matches
                         WHERE user1 = %s or user2 = %s
                         """,
-                            [user_id, user_id]
+                        [user_id, user_id],
                     )
                     list_of_ids = cursor.fetchall()
                     list_of_target_ids = []
@@ -32,7 +34,7 @@ class MessageQueries:
                             list_of_target_ids.append(id[0])
                         else:
                             pass
-                
+
                     chats = []
                     for target_id in list_of_target_ids:
                         cursor.execute(
@@ -41,27 +43,29 @@ class MessageQueries:
                             FROM profiles
                             WHERE id = %s
                             """,
-                                [target_id]
+                            [target_id],
                         )
                         profile = list(cursor.fetchone())
-                    
+
                         cursor.execute(
                             """
-                            SELECT id, match_id, sender, recipient, sent, message
+                            SELECT id, match_id, sender,
+                                recipient, sent, message
                             FROM chats
-                            WHERE (recipient = %s AND sender = %s) OR (recipient = %s AND sender =%s)
+                            WHERE (recipient = %s AND sender = %s)
+                                OR (recipient = %s AND sender =%s)
                             ORDER BY id DESC LIMIT 1
                             """,
-                                [user_id, target_id, target_id, user_id],
+                            [user_id, target_id, target_id, user_id],
                         )
                         target = cursor.fetchone()
-                
-                        if target == None:
+
+                        if target is None:
                             continue
                         profile.append(list(target))
                         chats.append(profile)
                     return chats
-                except:
+                except Exception:
                     print("I dun goofed")
 
     def create_message(self, sender, recipient, sent, message):
@@ -72,24 +76,28 @@ class MessageQueries:
                         """
                         SELECT id
                         FROM matches
-                        WHERE (user1 = %s AND user2 = %s) OR (user1 = %s AND user2 = %s)
+                        WHERE (user1 = %s AND user2 = %s)
+                            OR (user1 = %s AND user2 = %s)
                         """,
-                            [sender, recipient, recipient, sender]
+                        [sender, recipient, recipient, sender],
                     )
                     match_id = cursor.fetchone()[0]
-                    
+
                     cursor.execute(
                         """
-                        INSERT INTO chats(match_id, sender, recipient, sent, message)
+                        INSERT INTO chats(
+                            match_id, sender,
+                            recipient, sent, message)
                         VALUES (%s, %s, %s, %s, %s)
-                        RETURNING id, match_id, sender, recipient, sent, message
+                        RETURNING id, match_id,
+                            sender, recipient, sent, message
                         """,
-                            [match_id, sender, recipient, sent, message]
+                        [match_id, sender, recipient, sent, message],
                     )
                     output = cursor.fetchone()
-                    
+
                     return list(output)
-                except:
+                except Exception:
                     print("didn't do the job")
 
     def get_messages(self, user, target):
@@ -100,13 +108,14 @@ class MessageQueries:
                         """
                         SELECT id, sender, recipient, sent, message
                         FROM chats
-                        WHERE (sender = %s AND recipient = %s) OR (sender = %s AND recipient = %s)
+                        WHERE (sender = %s AND recipient = %s)
+                            OR (sender = %s AND recipient = %s)
                         ORDER BY id
                         """,
-                            [user, target, target, user]
+                        [user, target, target, user],
                     )
                     chats = list(cursor.fetchall())
-                
+
                     return chats
-                except:
+                except Exception:
                     print("not working")

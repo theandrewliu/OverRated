@@ -1,6 +1,5 @@
 from math import ceil
 from psycopg_pool import ConnectionPool
-from psycopg.errors import UniqueViolation
 
 pool = ConnectionPool()
 
@@ -8,8 +7,10 @@ pool = ConnectionPool()
 class DuplicateUsername(RuntimeError):
     pass
 
+
 class DuplicateTarget(RuntimeError):
     pass
+
 
 class MatchQueries:
     def like_profile(self, id, target_user):
@@ -22,52 +23,51 @@ class MatchQueries:
                         VALUES (%s,%s,TRUE)
                         RETURNING id, active_user, target_user, liked
                         """,
-                            [id,target_user]
+                        [id, target_user],
                     )
                     like = list(cursor.fetchone())
 
                     cursor.execute(
                         """
-                        SELECT 
+                        SELECT
                             active_user
                             , target_user
                             , liked
-                        FROM liked 
+                        FROM liked
                         WHERE active_user = %s
                         """,
-                            [target_user]
+                        [target_user],
                     )
                     list_of_likes = list(cursor.fetchall())
                     for likes in list_of_likes:
-                        if id == likes[1]: # if active user is swiped by target user
+                        if id == likes[1]:
                             if likes[2]:
                                 cursor.execute(
                                     """
-                                    INSERT INTO matches(user1, user2, created_on)
+                                    INSERT INTO matches(user1,user2,created_on)
                                     VALUES (%s, %s, CURRENT_TIMESTAMP)
                                     RETURNING id, user1, user2, created_on
                                     """,
-                                        [id, target_user]
-                                )
-                                blah = cursor.fetchone()
-                                cursor.execute(
-                                    """
-                                    DELETE FROM liked
-                                    WHERE active_user = %s AND target_user = %s
-                                    """,
-                                        [id, target_user]
+                                    [id, target_user],
                                 )
                                 cursor.execute(
                                     """
                                     DELETE FROM liked
                                     WHERE active_user = %s AND target_user = %s
                                     """,
-                                        [target_user, id]
+                                    [id, target_user],
+                                )
+                                cursor.execute(
+                                    """
+                                    DELETE FROM liked
+                                    WHERE active_user = %s AND target_user = %s
+                                    """,
+                                    [target_user, id],
                                 )
                     return like
-                except:
+                except Exception:
                     print("idk what went wrong bro lol")
-                
+
     def dislike_profile(self, id, target_user):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
@@ -78,13 +78,13 @@ class MatchQueries:
                         VALUES (%s,%s,FALSE)
                         RETURNING id, active_user, target_user, liked
                         """,
-                            [id,target_user]
+                        [id, target_user],
                     )
                     return cursor.fetchone()
-                except:
+                except Exception:
                     print("idk what went wrong bro lol")
 
-    def list_matches(self, user_id, page: int=0):
+    def list_matches(self, user_id, page: int = 0):
         with pool.connection() as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -102,21 +102,21 @@ class MatchQueries:
                     WHERE user1 = %s OR user2 = %s
                     LIMIT 10 OFFSET %s
                     """,
-                        [user_id, user_id, page * 10],
+                    [user_id, user_id, page * 10],
                 )
                 matches = list(cursor.fetchall())
-                target_matches =[]
+                target_matches = []
                 for match in matches:
                     if match[0] == user_id:
                         target_matches.append([match[1], match[2]])
                     elif match[1] == user_id:
                         target_matches.append([match[0], match[2]])
-                
-                profile_list=[]
+
+                profile_list = []
                 for target in target_matches:
                     cursor.execute(
                         """
-                        SELECT id 
+                        SELECT id
                             , photo
                             , first_name
                             , last_name
@@ -125,25 +125,23 @@ class MatchQueries:
                         FROM profiles
                         WHERE id = %s
                         """,
-                            [target[0]]
+                        [target[0]],
                     )
                     specific_match = list(cursor.fetchone())
 
                     cursor.execute(
-                    """
+                        """
                     SELECT AVG(rating)::numeric(10,2) AS average_rating
                     FROM ratings
                     WHERE rating_of = %s
                     """,
-                        [specific_match[0]]
+                        [specific_match[0]],
                     )
                     average = cursor.fetchone()
-                    print("average",average)
+                    print("average", average)
 
-                    
                     specific_match.append(average[0])
                     specific_match.append(target[1])
-
 
                     profile_list.append(specific_match)
 

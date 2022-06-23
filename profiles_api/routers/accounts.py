@@ -9,7 +9,7 @@ from typing import Optional
 from json.decoder import JSONDecodeError
 import os
 
-from models.accounts import (AccountUpdateIn, AccountUpdateOut)
+from models.accounts import AccountUpdateIn, AccountUpdateOut
 from typing import Union
 from models.common import ErrorMessage
 
@@ -60,11 +60,8 @@ def get_user(repo: ProfileQueries, username: str):
     row = repo.get_profile_from_username(username)
     if not row:
         return None
-    return {
-        "id": row[0],
-        "username": row[1],
-        "password": row[2]
-    }
+    return {"id": row[0], "username": row[1], "password": row[2]}
+
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -119,12 +116,17 @@ async def get_current_user(
 
 async def get_current_active_user(current_user: User = Depends(get_current_user)):
     # if current_user.disabled:
-    #     raise HTTPException(status_code=400, detail="Inactive user")
+    # raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 
 @router.post("/token")
-async def login_for_access_token(response: Response, request: Request, form_data: OAuth2PasswordRequestForm = Depends(), repo: ProfileQueries = Depends()):
+async def login_for_access_token(
+    response: Response,
+    request: Request,
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    repo: ProfileQueries = Depends(),
+):
     user = authenticate_user(repo, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -160,7 +162,15 @@ async def get_token(request: Request):
         return {"token": request.cookies[COOKIE_NAME]}
 
 
-@router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
+@router.get(
+    "/users/me",
+    response_model=User,
+    responses={
+        200: {"model": User},
+        400: {"model": HttpError},
+        401: {"model": HttpError},
+    },
+)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
@@ -194,8 +204,8 @@ def row_to_account_update(row):
         "id": row[0],
         "username": row[1],
         "email": row[2],
-        "first_name":row[3],
-        "last_name":row[4],
+        "first_name": row[3],
+        "last_name": row[4],
     }
     return profile
 
@@ -214,7 +224,7 @@ def update_account(
     profile: AccountUpdateIn,
     response: Response,
     query=Depends(ProfileQueries),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     try:
         hashed_password = pwd_context.hash(profile.password)
@@ -224,7 +234,7 @@ def update_account(
             profile.email,
             hashed_password,
             profile.first_name,
-            profile.last_name
+            profile.last_name,
         )
         # return AccountUpdateOut(
         #     id=row[0],
@@ -239,5 +249,3 @@ def update_account(
     except DuplicateUsername:
         response.status_code = status.HTTP_409_CONFLICT
         return {"message": "Duplicate username"}
-
-
