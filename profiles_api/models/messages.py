@@ -1,5 +1,4 @@
 from datetime import datetime
-from sqlite3 import Timestamp
 from pydantic import BaseModel
 from typing import Union
 

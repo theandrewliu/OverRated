@@ -90,7 +90,7 @@ class ProfileForm extends React.Component {
         console.log("form data:", formData)
         
         const photoURL = `${process.env.REACT_APP_API_HOST}/photo/profile-photos`;
-        // console.log("photoURL:", photoURL)
+        console.log("photoURL:", photoURL)
         
         const fetchConfig = {
             method: "POST",

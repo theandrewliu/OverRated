@@ -8,6 +8,6 @@ class Settings(BaseSettings):
 
 
 settings = Settings(
-    AWS_SERVER_PUBLIC_KEY = os.environ["AWS_SERVER_PUBLIC_KEY"],
-    AWS_SERVER_SECRET_KEY = os.environ["AWS_SERVER_SECRET_KEY"]
+    AWS_SERVER_PUBLIC_KEY=os.environ["AWS_SERVER_PUBLIC_KEY"],
+    AWS_SERVER_SECRET_KEY=os.environ["AWS_SERVER_SECRET_KEY"],
 )
