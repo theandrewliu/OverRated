@@ -52,3 +52,62 @@ build-back-end-job:
     - docker push ${CI_REGISTRY_IMAGE}/profiles_api:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/profiles_api:latest
 
+deploy-back-end-job-heroku:
+  rules:
+    # Only run if the commit is on the main branch
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  stage: deploy
+  needs:
+   - build-back-end-job
+  image: docker:20.10.16
+  services:
+   - docker 20.10.16-dind
+  script:
+    # You're going to need to do this for each of your services
+    # Make sure you change the name from /web to the names of the
+    # images created in the previous job
+
+    # Logs in and pulls the image from the GitLab image registry
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker pull ${CI_REGISTRY_IMAGE}/api:latest
+
+    # Authenticates with the Heroku image registry
+    - docker login --username_ --password=$HEROKU_API_KEY registry.heroku.commit
+
+    # Adds the name of your Heroku app to the image
+    - docker tag ${CI_REGISTRY_IMAGE}/api:latest registry.heroku.com/$HEROKU_STAGING_APP/web:latest
+
+    # Pushes the image to the Heroku image registry
+    - docker push registry.heroku.com/$HEROKU_STAGING_APP/web:latest
+
+heroku-release:
+  stage: deploy
+  image: node:10.17-alpine
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  needs:
+    - deploy-back-end-job-heroku
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
+    - heroku container:release web --app $HEROKU_STAGING_APP
+
+# This is an easy way to deploy a React app using GitLab
+# Pages. Then, you can access your application from
+# gitlab.io.
+
+pages:
+  stage: deploy
+  rules:
+    # Only run if the commit is tagged with git tag
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  dependencies:
+    - build-front-end-job
+  needs:
+    - build-front-end-job
+  script:
+    - mv ghi/app public
+  artifacts:
+    paths:
+      - public
