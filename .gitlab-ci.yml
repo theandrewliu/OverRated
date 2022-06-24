@@ -28,7 +28,7 @@ build-front-end-job:
   needs:
     - api-unit-test-job  # These two jobs must succeed for
     - lint-test-job      # this build-job to run
-  script:
+  script: # What is getting typed in the terminal
     - cd ghi/app
     - npm install
     - npm run build  # Build the React application
@@ -75,7 +75,7 @@ deploy-back-end-job-heroku:
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
     # Adds the name of your Heroku app to the image
-    - docker tag ${CI_REGISTRY_IMAGE}/api:latest registry.heroku.com/$HEROKU_STAGING_APP/web:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/profiles_api:latest registry.heroku.com/$HEROKU_STAGING_APP/web:latest
 
     # Pushes the image to the Heroku image registry
     - docker push registry.heroku.com/$HEROKU_STAGING_APP/web:latest
@@ -97,7 +97,7 @@ heroku-release:
 # Pages. Then, you can access your application from
 # gitlab.io.
 
-pages:
+pages: # takes our React application and deploys it to GitLab pages
   stage: deploy
   rules:
     # Only run if the commit is tagged with git tag
@@ -107,7 +107,7 @@ pages:
   needs:
     - build-front-end-job
   script:
-    - mv ghi/app public
+    - mv ghi/app/build/ public
   artifacts:
     paths:
       - public
