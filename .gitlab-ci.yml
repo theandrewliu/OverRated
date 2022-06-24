@@ -72,7 +72,7 @@ deploy-back-end-job-heroku:
     - docker pull ${CI_REGISTRY_IMAGE}/profiles_api:latest
 
     # Authenticates with the Heroku image registry
-    - docker login --username_ --password=$HEROKU_API_KEY registry.heroku.commit
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
     # Adds the name of your Heroku app to the image
     - docker tag ${CI_REGISTRY_IMAGE}/api:latest registry.heroku.com/$HEROKU_STAGING_APP/web:latest
