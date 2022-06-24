@@ -278,3 +278,14 @@
 ---
 
 ## June 23, 2022
+* Refactored code
+    - Today I refactored our router functions and models into different sub-directories to have it all organized. 
+
+* Create message test
+    - Today I coded a test function to test if our create message was working.
+
+* Black, Flake8 and ci.yml
+    - We set up our ci.yml and ran black and flake8 to fix our code. 
+
+* What did I learn:
+    - Today I learned more about tests and how to write them! 

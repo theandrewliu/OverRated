@@ -58,3 +58,7 @@ Today, I worked on the profile edit form to be able to get a response.ok, I made
 
 # June 22, 2022
 Today, Yesenia and I finally got the image upload to work and tie in with the AWS S3. We learned about having to use FormData to send a response to our code because of how image data has both name and file data. We also had to change value to file in the HTML. Along with getting image uploads to work, we got account form to work by removing the ability to change username because the login token relied username so the moment someone changes it, it will cause the user to be unable to access the page and have to relog in with the new username. In the profile form we fixed the show password button to display the text version of the password. In the login form we fixed the show password button to also display the text password. There was in issue with the show password button submitting the form when pressed and it was because we didn't have "type="button"". 
+
+# June 23, 2022
+Today, I refactored the db.py and broke converted db into a subdirectory with different py files grouped based on their function. Ratings, Messages, Profiles, and Matches have their own separate py files now. We also went through the code as a group to fix any errors caused by Flake8. Curtis helped with getting our CI.yml file set up and we passed our unit tests, lint tests, and build stages when pushing to gitLab.
+Today I also wrote a test case for Ratings that managed to pass thanks to Corey. All we have to do now is deploy onto heroku!
