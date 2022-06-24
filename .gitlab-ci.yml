@@ -61,7 +61,7 @@ deploy-back-end-job-heroku:
    - build-back-end-job
   image: docker:20.10.16
   services:
-   - docker 20.10.16-dind
+   - docker:20.10.16-dind
   script:
     # You're going to need to do this for each of your services
     # Make sure you change the name from /web to the names of the
@@ -69,7 +69,7 @@ deploy-back-end-job-heroku:
 
     # Logs in and pulls the image from the GitLab image registry
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker pull ${CI_REGISTRY_IMAGE}/api:latest
+    - docker pull ${CI_REGISTRY_IMAGE}/profiles_api:latest
 
     # Authenticates with the Heroku image registry
     - docker login --username_ --password=$HEROKU_API_KEY registry.heroku.commit
