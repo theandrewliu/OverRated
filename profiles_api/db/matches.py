@@ -1,7 +1,5 @@
 from math import ceil
-from psycopg_pool import ConnectionPool
-
-pool = ConnectionPool()
+from .pool import pool
 
 
 class DuplicateUsername(RuntimeError):

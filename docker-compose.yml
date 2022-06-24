@@ -26,10 +26,7 @@ services: # Container that we want to run
     volumes:
       - ./profiles_api:/app
     environment:
-      PGHOST: postgres #changed name from db to postgres
-      PGDATABASE: overrated
-      PGUSER: overrated
-      PGPASSWORD: overrated
+      DATABASE_URL: postgresql://overrated:overrated@postgres/overrated
       SECRET_KEY: 10a62668ff6b1fc0ac7ea61128a50c997748d21d7926b6b2a7fe870c9f9b7d46
       AWS_SERVER_PUBLIC_KEY: ${AWS_SERVER_PUBLIC_KEY}
       AWS_SERVER_SECRET_KEY: ${AWS_SERVER_SECRET_KEY}
