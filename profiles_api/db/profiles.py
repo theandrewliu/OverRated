@@ -1,8 +1,6 @@
 from math import ceil
-from psycopg_pool import ConnectionPool
+from .pool import pool
 from psycopg.errors import UniqueViolation
-
-pool = ConnectionPool()
 
 
 class DuplicateUsername(RuntimeError):
