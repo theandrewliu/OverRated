@@ -1,5 +1,6 @@
 from math import ceil
 from .pool import pool
+from datetime import datetime
 
 
 class DuplicateUsername(RuntimeError):
@@ -48,6 +49,7 @@ class MatchQueries:
                                     """,
                                     [id, target_user],
                                 )
+                                match = cursor.fetchone()
                                 cursor.execute(
                                     """
                                     DELETE FROM liked
@@ -61,6 +63,18 @@ class MatchQueries:
                                     WHERE active_user = %s AND target_user = %s
                                     """,
                                     [target_user, id],
+                                )
+                                cursor.execute(
+                                    """
+                                    INSERT INTO chats(
+                                        match_id, sender,
+                                        recipient, sent, message)
+                                    VALUES (%s, %s, %s, %s, %s)
+                                    RETURNING id, match_id,
+                                        sender, recipient, sent, message
+                                    """,
+                                        [match[0],id,target_user,datetime.today(),"We've Matched"],
+
                                 )
                     return like
                 except Exception:
