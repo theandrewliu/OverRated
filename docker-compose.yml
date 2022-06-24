@@ -30,9 +30,9 @@ services: # Container that we want to run
       PGDATABASE: overrated
       PGUSER: overrated
       PGPASSWORD: overrated
-      SECRET_KEY: 89e0509c7553c4e5ebcb324b718fc8f37e9d02a41c2eb72967dd3c13bd67af15
-      AWS_SERVER_PUBLIC_KEY: AKIA6EO2ISU2OM6J6CL2
-      AWS_SERVER_SECRET_KEY: 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
+      SECRET_KEY: 10a62668ff6b1fc0ac7ea61128a50c997748d21d7926b6b2a7fe870c9f9b7d46
+      AWS_SERVER_PUBLIC_KEY: ${AWS_SERVER_PUBLIC_KEY}
+      AWS_SERVER_SECRET_KEY: ${AWS_SERVER_SECRET_KEY}
   postgres:
     image: postgres:14-bullseye
     ports:
