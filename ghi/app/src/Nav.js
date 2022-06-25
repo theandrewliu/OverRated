@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import './nav.css';
+import './css.nav.css';
 import logo from "./logo.png"
 
 function Nav(props) {
@@ -24,9 +24,6 @@ function Nav(props) {
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/messages">Messages</NavLink>
                   </li>
-                  {/* <li className="nav-item">
-                    <NavLink className="nav-link" to="/meetups">Meet Ups</NavLink>
-                  </li> */}
                 </> :
                 <>
                 </>
