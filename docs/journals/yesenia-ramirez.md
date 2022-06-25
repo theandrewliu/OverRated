@@ -289,3 +289,9 @@
 
 * What did I learn:
     - Today I learned more about tests and how to write them! 
+
+---
+
+## June 24, 2022
+* Deploy
+    - We deployed today. It was a mess. All our code broke and not sure why. We are getting a lot of 404's and just have no idea how to fix it. Sad. 

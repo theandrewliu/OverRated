@@ -41,7 +41,6 @@ services: # Container that we want to run
       - overrated:/var/lib/postgresql/data
     environment:
       # Password for the postgres superuser
-      # See 01-create-databases.sql for the name/password
       #   for the user of the application database
       POSTGRES_PASSWORD: secret
   # db: # not sure about db directories
