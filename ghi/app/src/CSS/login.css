@@ -13,8 +13,8 @@
 }
 
 #outbox {
-  background-color: #ffb189;
-  padding: 15px 5px;
+  background-color: #e0c5bb;
+  padding: 25px 20px;
   box-sizing: border-box;
   width: 320px;
   clear: both;
@@ -31,7 +31,7 @@
     width: 150px;
     height: 60px;
     padding: 20px;
-    background-color: #ffb189;
+    background-color: #0a1f25;
     color: white;
     border-radius: 5px;
     font-weight: bold;

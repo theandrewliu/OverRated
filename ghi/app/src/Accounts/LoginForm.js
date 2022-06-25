@@ -48,18 +48,18 @@ class LoginForm extends React.Component{
                             <hr/>
                         
                             <div className="form-floating mb-3">
-                                <input type='text' id="loginpagepass" name='username' placeholder='Username' 
+                                <input type='text' id="username" name='username' placeholder='Username' 
                                     required onChange={this.handleChange} />
                             </div>
                             <div className="form-floating mb-3" >
                                 <input type={this.state.showPassword ? "text" : "password"} id="loginpagepass" name='password' placeholder='Password' 
                                     required onChange={this.handleChange} />
-
                                 <button className='input-group-text bg-dark text-light' type="button"
                                     onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show Password
                                 </button>
                             </div>
                             <hr/>
+                            <br></br>
                             <div>
                                 <button 
                                     type="submit"
