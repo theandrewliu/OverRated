@@ -1,0 +1,62 @@
+
+
+.font-face-na{
+  font-family:"NotablyAbsentRegular-8M2zJ";
+}
+.termsandconditions{
+  width: 20%;
+  margin-left: 530px;
+}
+
+#container {
+  background-image: url('image1.jpg');
+  background-size: cover;
+  background-position: left; 
+  width: 100vw;
+  height: 100vh; 
+  background-repeat: no-repeat;
+  margin-left: -321px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  animation: change 20s infinite linear;
+  animation-delay: 2s;
+}
+#mainover{
+  top: 100px;
+}
+.mainlink{
+  background: #c99061;
+  color: black;
+  padding: 10px 24px;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 20px;
+}
+.mainlink:hover {
+  background-color: rgb(5, 216, 216);
+  color: blueviolet;
+}
+
+@keyframes change {
+  0%
+  {
+    background-image: url('image2.jpg');
+  }
+  25%
+  {
+    background-image: url('image3.jpg');
+  }
+  50%
+  {
+    background-image: url('image4.jpg');
+  }
+  75%
+  {
+    background-image: url('image5.jpg');
+  }
+  100%
+  {
+    background-image: url('image6.jpg');
+  }
+}

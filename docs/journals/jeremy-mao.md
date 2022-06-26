@@ -37,15 +37,21 @@ Working on the websocket chat I was able to have the username show. I was having
 
 ## June 15, 2022
 The team and I were having problems with the websocket chat. Team was able to come up with an idea on creating our own chat. Everyone finished with brainstroming about the chat feature. 
+
 ## June 16, 2022
 I went through the rabbit hole of learning more about CSS. I was able to learn about sections and how the background images works with react. CSS is a much easier language. Transition background images is a feature I'd be interested in adding. 
+
 ## June 20, 2022
 I as able to get help from Jeff with working on adding a checkbox input. I had difficulty with the error as it wanted a dictionary but was set as a list in the backend. 
+
 ## June 21, 2022
 I was able to get help from my teammates to finally get all the inputs finally fixed. I was having difficulties with the problem but Andrew flew right through them. 
+
 ## June 22, 2022
 We worked on our Test Cases. I was able to create a test case for the LoginForm.js file but unfortunately, npm run wasn't working. I attempted a fix with jeff to replace test to jest. Unfortunatly, I wasn't able fix he error for the day. I switched to writing a Test Case for the backend. 
+
 ## June 23, 2022
 I was able to write a test case for the dislike button and a test case for update profile. We watched Andrew and Yesenia write their test cases on screen. We waited to have our app to deploy
+
 ## June 24, 2022
 We worked with Curtis to deploy our app through Horoku. It took a minute for us to fix the little errors we had along the way but excited to have it deployed.

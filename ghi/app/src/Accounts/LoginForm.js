@@ -3,15 +3,6 @@ import { Navigate, Link } from 'react-router-dom';
 import '../CSS/login.css';
 
 
-const containerStyle= {
-    width: '100vw',
-    height: '100vh',
-    backgroundImage: `url($'{/bike.JPG'})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-}
-
 class LoginForm extends React.Component{
     state={
         username:'',
@@ -48,7 +39,7 @@ class LoginForm extends React.Component{
 
         return(
     
-            <div className="row_login" style={containerStyle}>
+            <div className="row_login" >
                 <div className="offset-3 col-6" id="wrapper" >
                     <div className="shadow p-4 mt-4" id="outbox" >
                         <div dangerouslySetInnerHTML={{__html: this.state.error}} />

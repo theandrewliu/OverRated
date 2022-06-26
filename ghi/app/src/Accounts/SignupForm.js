@@ -165,8 +165,8 @@ class SignupForm extends React.Component{
         // }
 
         return (
-            <div className="row" id="signuptop">
-                <div className="offset-3 col-6" id="offset">
+            <div className="signup" id="signuptop">
+                <div className="offset-3" id="offset">
                     <div className="shadow p-4 mt-4" id="signupf">
                         <h1>Create an Account</h1>
                         <hr/>

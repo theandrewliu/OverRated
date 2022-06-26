@@ -12,7 +12,7 @@ function Nav(props) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse font-face-na sizer" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav me-auto">
               { token ?
                 <>
                   <li className="nav-item" >
@@ -29,7 +29,7 @@ function Nav(props) {
                 </>
               }
           </ul>
-          <ul className="navbar-nav ml-auto">
+          <ul className="navbar-nav">
                 { token ?
                   <>
                     <li className="nav-item">
