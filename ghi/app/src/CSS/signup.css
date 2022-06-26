@@ -1,0 +1,75 @@
+#signuptop{
+    background-image: url('beach.jpg');
+    background-size: cover;
+    background-position: left; 
+    width: 100vw;
+    height: 100vh; 
+    background-repeat: no-repeat;
+    margin-left: -321px;
+    display: flex;
+
+  }
+  
+#signupf {
+  position: absolute;
+  width: 400px;
+  top: 70px;
+  margin: 0;
+}
+#signupf :hover {
+  filter: brightness(95%);
+}
+
+#offset{
+  float: left;
+  width: 50%;
+}
+
+#signuppassword {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  #verify-password {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  #location {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  #date {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  #last_name {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  #first_name {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  #username {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  #email {
+    padding: 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }

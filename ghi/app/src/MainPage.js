@@ -16,10 +16,8 @@ function MainPage() {
           The premiere solution for loneliness!
         </p>
       <br></br>
-      <img src="/images/overratedlogo.png" alt="" className="picture" />
       </div>
-      <div>
-
+      <div id="termswbutton">
         <p className="termsandconditions">
         By clicking Join, you agree to our Terms. 
         Learn how we process your data in our Privacy Policy and Cookies Policy.
@@ -28,11 +26,6 @@ function MainPage() {
             <Link to="/login/new" className="btn btn-primary btn-lg px-4 gap-3">Find your Love Today!</Link>
             </div>
           </div>
-        </div>
-        <div className="col2">
-        <div className="logo">
-      <img src="/images/Cute.png" alt="" className="pictures" />
-      </div>
         </div>
       </div>
     </div>

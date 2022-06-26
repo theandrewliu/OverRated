@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import '../Profiles/profile.css';
+import { Navigate, Link } from 'react-router-dom';
+import '../CSS/signup.css';
 
 
 export function formatDateTime(dateTime){
@@ -165,9 +165,9 @@ class SignupForm extends React.Component{
         // }
 
         return (
-            <div className="row">
-                <div className="offset-3 col-6">
-                    <div className="shadow p-4 mt-4">
+            <div className="row" id="signuptop">
+                <div className="offset-3 col-6" id="offset">
+                    <div className="shadow p-4 mt-4" id="signupf">
                         <h1>Create an Account</h1>
                         <hr/>
                         <br></br>
@@ -179,48 +179,41 @@ class SignupForm extends React.Component{
                         <div className="form-floating mb-3">
                             <input onChange={this.handleEmailChange} value={this.state.email} 
                             placeholder="Email" required type="email" name="email" 
-                            id="email" className="form-control" />
-                            <label htmlFor="email">Email</label>
+                            id="email" />
                         </div>
 {/* ------------------------Username */}
 
                         <div className="form-floating mb-3">
                             <input onChange={this.handleUsernameChange} value={this.state.username} 
                             placeholder="Username" required type="text" name="username" 
-                            id="username" className="form-control" />
-                            <label htmlFor="username">Username</label>
+                            id="username" />
                         </div>
 {/* ------------------------First */}
 
                         <div className="form-floating mb-3" >
                             <input value={this.state.first_name} onChange={this.handleFirstNameChange}
                             placeholder="First Name" required type="text" name="first_name" 
-                            id="first_name" className="form-control" />
-                            <label htmlFor="first_name">First Name</label>
+                            id="first_name" />
                         </div>
 {/* ------------------------Last */}
 
                         <div className="form-floating mb-3" >
                             <input value={this.state.last_name} onChange={this.handleLastNameChange}
                             placeholder="Last Name" required type="text" name="last_name" 
-                            id="last_name" className="form-control" />
-                            <label htmlFor="last_name">Last name</label>
+                            id="last_name" />
                         </div>
 {/* ------------------------Date */}
 
                         <div className="form-floating mb-3">
                             <input onChange={this.handleDate_of_BirthChange} value={this.state.date_of_birth }  
                             placeholder="yyyy-MM-dd" required type="date" name="date" 
-                            id="date" className="form-control" />
-                            <label htmlFor="date">Date of Birth</label>
+                            id="date" />
                         </div>
 {/* ------------------------Location */}
-
                         <div className="form-floating mb-3">
                             <input onChange={this.handleLocationChange} value={this.state.location} 
                                 placeholder="Location" required type="text" name="location" 
-                                id="location" className="form-control" />
-                            <label htmlFor="location">Location</label>
+                                id="location" />
                         </div>
 {/* ------------------------Interested */}
 
@@ -235,21 +228,17 @@ class SignupForm extends React.Component{
                                 value="other" name="interestedineveryone" />&nbsp;Other&nbsp;&nbsp;
                             </div>
 {/* ------------------------Password */}
-
                         <div className="form-floating mb-3" >
                             <input  value={this.state.password} onChange={this.handlePasswordChange}
                                 placeholder="Password" required type={this.state.showPassword ? "text" : "password"} name="password" 
-                                id="password" className="form-control"/> 
-                            <label htmlFor="password">Password</label>
+                                id="signuppassword" /> 
 
                         </div>
 {/* ------------------------Password */}
-
                         <div className="form-floating mb-3" >
                             <input value={this.state.verify_password} onChange={this.handleVerify_PasswordChange}
                                 placeholder="Verify Password" required type={this.state.showPassword ? "text" : "password"} name="verify-password" 
-                                id="verify-password" className="form-control" />
-                            <label htmlFor="verify_password">Verify Password</label>
+                                id="verify-password"  />
 
                             <button className='input-group-text bg-dark text-light' type ="button"
                                     onClick={() => this.setState({showPassword: !this.state.showPassword})}>Show Password
@@ -263,9 +252,15 @@ class SignupForm extends React.Component{
                         </div>
                         <br></br>
                         <button disabled={!this.validForm()} className="btn btn-primary" type="submit">Sign Up</button>
+                        <div className='tolgoin'>
+                            Already Have an Account?  <Link to='/login'>Sign In</Link> 
+                        </div>
+
                         </form>
                     </div>
                 </div>
+
+
             </div>
         )
     }
