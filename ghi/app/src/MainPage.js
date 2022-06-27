@@ -16,15 +16,6 @@ function MainPage() {
           The premiere solution for loneliness!
         </p>
       <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
       </div>
       <div id="terms">
         <p className="termsandconditions">
