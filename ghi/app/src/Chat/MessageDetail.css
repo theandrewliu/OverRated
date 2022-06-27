@@ -2,7 +2,15 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid #e84118;
+    border: 2px solid #f1976b;
+    padding: 2px;
+}
+
+.avatarPhoto {
+    max-width: 43px;
+    max-height: 43px;
+    min-width: 43px;
+    min-height: 43px;
     padding: 2px;
 }
 

@@ -132,9 +132,9 @@ class MessageDetail extends React.Component {
                                 <div className="navbar navbar-expand p-0">
                                     <ul className="navbar-nav me-auto align-items-center">
                                         <li className="nav-item">
-                                            <a href="#!" className="nav-link chat-link">
+                                            <a href={`/profiles/${this.state.target.id}`} className="nav-link chat-link">
                                                 <div className="avatar">
-                                                    <img src={photoSRC} class="img-fluid rounded-circle" alt='photoSRC' />
+                                                    <img src={photoSRC} className="avatarPhoto img-fluid rounded-circle" alt='photoSRC' />
                                                 </div>
                                             </a>
                                         </li>
@@ -201,7 +201,7 @@ class MessageDetail extends React.Component {
                             return (<>
                                 <div className={textAlign} key={message.id}>
                                     <div className={targetAvatar}>
-                                        <img src={photoSRC} class="img-fluid rounded-circle" alt="photoSRC"/>
+                                        <img src={photoSRC} class="avatarPhoto img-fluid rounded-circle" alt="photoSRC"/>
                                     </div>
                                     <div className="pe-2">
                                         <div>
@@ -216,7 +216,7 @@ class MessageDetail extends React.Component {
                                         </div>
                                     </div>
                                     <div className={userAvatar}>
-                                        <img src={photoSRC} class="img-fluid rounded-circle" alt="photoSRC"/>
+                                        <img src={photoSRC} class="avatarPhoto img-fluid rounded-circle" alt="photoSRC"/>
                                     </div>
                                 </div>
                             </>
