@@ -1,9 +1,9 @@
 .row_login{
-  background-image: url("bike.jpg"); 
+  background-image: url("bike.JPG");
   background-size: cover;
-  background-position: center; 
+  background-position: center;
   width: 100vw;
-  height: 100vh; 
+  height: 100vh;
   background-repeat: no-repeat;
 }
 
@@ -24,7 +24,7 @@
   margin: 5px 0px;
   border-radius: 5px;
   border: 1px solid gray;
-} 
+}
 
 #loginpagepass {
   padding: 15px;
