@@ -14,6 +14,8 @@ function MainPage() {
       <div className="logo">
       <p className="description">
           The premiere solution for loneliness!
+          <br></br>
+          Ending One Night Stands.
         </p>
       </div>
       <footer>

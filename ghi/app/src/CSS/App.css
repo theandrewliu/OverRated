@@ -4,7 +4,7 @@
   font-family:"NotablyAbsentRegular-8M2zJ";
 }
 .description{
-  color: #f1976b;
+  color: #f37435;
   background-position: center;
   
 }
@@ -54,6 +54,7 @@ footer {
 
 .mainlink{
   background: #c99061;
+  color: black;
   padding: 10px 24px;
   text-decoration: none;
   font-size: 18px;

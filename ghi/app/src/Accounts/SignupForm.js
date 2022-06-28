@@ -170,70 +170,72 @@ class SignupForm extends React.Component{
                     <div className="shadow p-4 mt-4" id="signupf">
                         <h1>Create an Account</h1>
                         <hr/>
+                        
                         <br></br>
-
                         <div dangerouslySetInnerHTML={{__html: this.state.error}} />
                         <form onSubmit={this.handleSubmit} id="create-form">
-{/* ------------------------Email */}
 
+{/* ------------------------Email */}
                         <div className="form-floating mb-3">
                             <input onChange={this.handleEmailChange} value={this.state.email} 
                             placeholder="Email" required type="email" name="email" 
                             id="email" />
                         </div>
-{/* ------------------------Username */}
 
+{/* ------------------------Username */}
                         <div className="form-floating mb-3">
                             <input onChange={this.handleUsernameChange} value={this.state.username} 
                             placeholder="Username" required type="text" name="username" 
                             id="username" />
                         </div>
+                        
 {/* ------------------------First */}
-
                         <div className="form-floating mb-3" >
                             <input value={this.state.first_name} onChange={this.handleFirstNameChange}
                             placeholder="First Name" required type="text" name="first_name" 
                             id="first_name" />
                         </div>
-{/* ------------------------Last */}
 
+{/* ------------------------Last */}
                         <div className="form-floating mb-3" >
                             <input value={this.state.last_name} onChange={this.handleLastNameChange}
                             placeholder="Last Name" required type="text" name="last_name" 
                             id="last_name" />
                         </div>
-{/* ------------------------Date */}
 
+{/* ------------------------Date */}
                         <div className="form-floating mb-3">
                             <input onChange={this.handleDate_of_BirthChange} value={this.state.date_of_birth }  
                             placeholder="yyyy-MM-dd" required type="date" name="date" 
                             id="date" />
                         </div>
+
 {/* ------------------------Location */}
                         <div className="form-floating mb-3">
                             <input onChange={this.handleLocationChange} value={this.state.location} 
                                 placeholder="Location" required type="text" name="location" 
                                 id="location" />
                         </div>
-{/* ------------------------Interested */}
 
+{/* ------------------------Interested */}
                         <label htmlFor="interested">Interested In:</label>
                             <div className="form-check m-3" require onChange={this.handleInterestedChange} >
-                            <input type="checkbox" id={this.state.interested==="male"}
-                                value="male" name="interestedinmen" />&nbsp;Men&nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" id={this.state.interested==="male"}
+                                    value="male" name="interestedinmen" />&nbsp;Men&nbsp;&nbsp;&nbsp;
 
-                            <input type="checkbox" id={this.state.interested==="female"}
-                                value="female"  name="interestedinwomen" />&nbsp;Women&nbsp;&nbsp;
-                            <input type="checkbox" id={this.state.interested==="other"}
-                                value="other" name="interestedineveryone" />&nbsp;Other&nbsp;&nbsp;
+                                <input type="checkbox" id={this.state.interested==="female"}
+                                    value="female"  name="interestedinwomen" />&nbsp;Women&nbsp;&nbsp;
+                                <input type="checkbox" id={this.state.interested==="other"}
+                                    value="other" name="interestedineveryone" />&nbsp;Other&nbsp;&nbsp;
                             </div>
+
 {/* ------------------------Password */}
                         <div className="form-floating mb-3" >
                             <input  value={this.state.password} onChange={this.handlePasswordChange}
                                 placeholder="Password" required type={this.state.showPassword ? "text" : "password"} name="password" 
                                 id="signuppassword" /> 
-
                         </div>
+
 {/* ------------------------Password */}
                         <div className="form-floating mb-3" >
                             <input value={this.state.verify_password} onChange={this.handleVerify_PasswordChange}
@@ -250,17 +252,15 @@ class SignupForm extends React.Component{
                             <label htmlFor="terms_condition">&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.youtube.com/watch?v=oHg5SJYRHA0&ab_channel=cotter548">
                                 Terms and Conditions</a></label>
                         </div>
+
                         <br></br>
                         <button disabled={!this.validForm()} className="btn btn-primary" type="submit">Sign Up</button>
                         <div className='tolgoin'>
                             Already Have an Account?  <Link to='/login'>Sign In</Link> 
                         </div>
-
                         </form>
                     </div>
                 </div>
-
-
             </div>
         )
     }
