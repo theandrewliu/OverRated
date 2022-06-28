@@ -167,7 +167,6 @@ class MessageDetail extends React.Component {
                                 let userAvatar = ''
                             
                                 if (message.sender === this.state.target.id) {
-                                    senderName = this.state.target.first_name
                                     photoSRC = this.state.target.photo
                                     textAlign = "d-flex align-items-baseline mb-4"
                                     targetAvatar = "position-relative avatar"

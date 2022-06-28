@@ -100,7 +100,6 @@ class SignupForm extends React.Component{
     }
     handleDate_of_BirthChange(event) {
         const value = event.target.value;
-        let d = this.state.date_of_birth.indexOf("T");
         this.setState({ date_of_birth: value });
     }
     handleLocationChange(event) {
