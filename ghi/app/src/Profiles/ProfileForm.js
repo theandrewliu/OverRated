@@ -382,7 +382,7 @@ class ProfileForm extends React.Component {
               <label htmlFor="gender">Gender:</label>
               <div onChange={this.handleGenderChange} value={this.state.gender}>
                 <img
-                  src="/images/Male.png"
+                  src={process.env.PUBLIC_URL+"/images/Male.png"}
                   alt="gender"
                   width="60"
                   height="80"

@@ -70,7 +70,7 @@ class MessageList extends React.Component {
             return (
               <ul className="list-unstyled mb-0" key={message.match_id}>
                 <li className="p-2 border-bottom" style={{backgroundColor: 'eee'}} >
-                  <a href={`/messages/${targetID}`} className="d-flex justify-content-between" style={{textDecoration: 'none'}}>
+                  <a href={`messages/${targetID}`} className="d-flex justify-content-between" style={{textDecoration: 'none'}}>
                     <div className="d-flex flex-row">
                       <img src={photo} alt="avatar"
                         className="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" />
