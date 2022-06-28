@@ -54,7 +54,7 @@ class ProfileDetail extends React.Component {
 
       let photo = this.state.profile.photo 
       if (this.state.profile.photo === null) {
-          photo = "/images/blank-profile-pic.png"
+          photo = "images/blank-profile-pic.png"
       }
       
       
@@ -70,7 +70,6 @@ class ProfileDetail extends React.Component {
                   {this.state.profile.first_name + " " + this.state.profile.last_name}
                 </h1>            
                 <img src={ photo } className="img-fluid rounded-4" alt="pic" width="70%" height="70%" />
-                {console.log("photo", this.state.profile)}
             </div>
             <div className="col-sm">
               <table className="table table-condensed table-sm table-hover">

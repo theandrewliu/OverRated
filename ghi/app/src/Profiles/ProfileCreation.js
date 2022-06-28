@@ -51,7 +51,6 @@ class ProfileForm extends React.Component {
         const response = await fetch(url, fetchConfig);
         if(response.ok){
             const userform = await response.json();
-            console.log(userform);
             this.setState({
                 photo: "",
                 about: "",
@@ -113,18 +112,10 @@ class ProfileForm extends React.Component {
     }
     handleInterestedChange(event) {
         const { value, checked } = event.target;
-        // console.log("the event.target.name", event.target.name);
-        // console.log("the value", value)
-        // console.log("the checked", checked)
-
         let listed = this.state.interested;
-        // console.log("listed:", listed)
-        // console.log("in_array:", in_array);
-        // console.log("is value checked?", `${value} is ${checked}`);
 
         if(checked) {
             listed.push(value);
-            // console.log("This is listed", listed);
         } else {      
             let index = listed.indexOf(value)
 
@@ -135,7 +126,6 @@ class ProfileForm extends React.Component {
         this.setState({
             interested: [ ...listed],
         });
-        // console.log("this is the state", this.state.interested)
     }
     handleEthnicityChange(event) {
         const value = event.target.value;
@@ -211,13 +201,13 @@ class ProfileForm extends React.Component {
 {/* --------------------Gender */}
                     <label htmlFor="gender">Gender:</label>
                     <div onChange={this.handleGenderChange} >
-                        <img src="/images/Male.png" alt="gender" width="60" height="80"></img>
+                        <img src={process.env.PUBLIC_URL+"/images/Male.png"} alt="gender" width="60" height="80"></img>
                             <input type="radio" value={this.state.gender==="male"} name="gender" />: Male
 
-                        <img src="/images/Female.png" alt="gender" width="60" height="80"></img>
+                        <img src={process.env.PUBLIC_URL+"/images/Female.png"} alt="gender" width="60" height="80"></img>
                             <input type="radio" value={this.state.gender==="female"} name="gender" />: Female
 
-                        <img src="/images/Intersex.png" alt="gender" width="60" height="80"></img>
+                        <img src={process.env.PUBLIC_URL+"/images/Intersex.png"} alt="gender" width="60" height="80"></img>
                             <input type="radio" value={this.state.gender==="other"} name="gender" />: Inter-Sex
                     </div>
 {/* ------------------------Interested */}

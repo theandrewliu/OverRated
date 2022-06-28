@@ -96,7 +96,7 @@ class ConnectionList extends React.Component {
                               <Link to ={`profiles/${match.id}`}>
                             <div className= "profileDetail" >
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="70%" height="70%" />
-                              <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="70%" height="70%" />
+                              <img className ={photoNull} src={process.env.PUBLIC_URL+"/images/blank-profile-pic.png"} alt="pic" width="70%" height="70%" />
                             </div>
                             </Link>
                             <div class="contains_both">

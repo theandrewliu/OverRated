@@ -42,8 +42,6 @@ class ConnectionsDetail extends React.Component {
       rating_of: this.state.targetUser.id
     };
 
-    console.log("the state", data)
-
     const rating_url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}/rating`;
     const fetchConfig = {
       method: "POST",
@@ -56,7 +54,6 @@ class ConnectionsDetail extends React.Component {
     const response = await fetch(rating_url, fetchConfig);
     if(response.ok) {
       const new_rating =await response.json();
-      console.log(new_rating)
       this.setState({
         rating: "",
         rating_of: ""

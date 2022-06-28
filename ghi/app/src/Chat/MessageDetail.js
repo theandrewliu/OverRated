@@ -76,8 +76,6 @@ class MessageDetail extends React.Component {
             message: this.state.message
         };
 
-        console.log("data:", data)
-
         const url = `${process.env.REACT_APP_API_HOST}/api/messages`;
         const fetchConfig = {
             method: "POST",
@@ -88,10 +86,8 @@ class MessageDetail extends React.Component {
             credentials: 'include'
         };
         const response = await fetch(url, fetchConfig);
-        console.log("response:", response)
         if(response.ok) {
             const newMessage = await response.json();
-            console.log("hello", newMessage)
             this.setState({
                 message: "",
                 reload: false
@@ -181,7 +177,6 @@ class MessageDetail extends React.Component {
                                 }
                                 if (message.sender === this.state.user.id) {
                                     senderName = this.state.user.first_name
-                                    console.log("senderName:", senderName);
                                     photoSRC = this.state.user.photo
                                     textAlign = "d-flex align-items-baseline text-end justify-content-end mb-4"
                                     userAvatar = "position-relative avatar"

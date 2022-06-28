@@ -42,8 +42,7 @@ class AccountForm extends React.Component {
             first_name: this.state.profile.first_name,
             last_name: this.state.profile.last_name,
         })
-        console.log("this is the state", this.state)
-        console.log("this is username if exists", this.state.username)
+
         }else if (response.status === 401){
         this.setState({redirect: true})
         }
@@ -53,7 +52,6 @@ class AccountForm extends React.Component {
     async handleSubmit(event){
         event.preventDefault();
         const data = {...this.state};
-        console.log("Taco Taco", data);
         delete data.redirect
         delete data.error
         delete data.profile
@@ -71,7 +69,6 @@ class AccountForm extends React.Component {
         const response = await fetch(url, fetchConfig);
         if(response.ok){
             const accountform = await response.json();
-            console.log("Taco Bueno", accountform);
             this.setState({
                 redirect: true
             });

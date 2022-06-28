@@ -65,7 +65,6 @@ class ProfileForm extends React.Component {
         ethnicity: profile.ethnicity,
         location: profile.location,
       });
-      console.log("state in get my details:", profile);
     } else if (response.status === 401) {
       this.setState({ redirect: true });
     }
@@ -79,17 +78,12 @@ class ProfileForm extends React.Component {
     event.preventDefault();
     const photoData = this.state.photo;
     let data = { photo: photoData };
-    console.log("photoData:", photoData);
 
     let formData = new FormData();
-    console.log("data photo:", data["photo"]);
-    console.log("data photo name", data["photo"].name);
     formData.append("file_obj", data["photo"], data["photo"].name);
 
-    console.log("form data:", formData);
 
     const photoURL = `${process.env.REACT_APP_API_HOST}/photo/profile-photos`;
-    console.log("photoURL:", photoURL);
 
     const fetchConfig = {
       method: "POST",
@@ -100,7 +94,6 @@ class ProfileForm extends React.Component {
     const response = await fetch(photoURL, fetchConfig);
     if (response.ok) {
       const photoForm = await response.json();
-      console.log("profile picture here:", photoForm);
       this.setState({
         photo: photoData,
       });
@@ -114,7 +107,6 @@ class ProfileForm extends React.Component {
     event.preventDefault();
     const data = { ...this.state };
     data.interested = { interested: data.interested };
-    console.log("we're sending this data to the post", data);
     data.height = data.height_ft * 12 + data.height_in;
     delete data.height_ft;
     delete data.height_in;
@@ -135,7 +127,6 @@ class ProfileForm extends React.Component {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const userform = await response.json();
-      console.log("userform here:", userform);
       this.setState({
         photo: null,
         about: this.state.profile.about,
@@ -156,7 +147,6 @@ class ProfileForm extends React.Component {
       const message = `An error: ${response.status} - ${response.statusText}`;
       throw new Error(message);
     } else {
-      console.log("Not Good");
     }
   }
   handlePhotoChange(event) {
@@ -209,17 +199,11 @@ class ProfileForm extends React.Component {
   }
   handleInterestedChange(event) {
     const { value, checked } = event.target;
-    console.log("the event.target.name", event.target.name);
-    console.log("the value", value);
-    console.log("the checked", checked);
 
     let listed = this.state.interested;
-    console.log("listed:", listed);
-    console.log("is value checked?", `${value} is ${checked}`);
 
     if (checked) {
       listed.push(value);
-      console.log("This is listed", listed);
     } else {
       let index = listed.indexOf(value);
 
@@ -230,7 +214,6 @@ class ProfileForm extends React.Component {
     this.setState({
       interested: [...listed],
     });
-    console.log("this is the state", this.state.interested);
   }
 
   render() {
@@ -390,7 +373,7 @@ class ProfileForm extends React.Component {
                 <input type="radio" value="male" name="gender" />
                 &nbsp; Male
                 <img
-                  src="images/Female.png"
+                  src={process.env.PUBLIC_URL+"/images/Female.png"}
                   alt="gender"
                   width="60"
                   height="80"
@@ -398,7 +381,7 @@ class ProfileForm extends React.Component {
                 <input type="radio" value="female" name="gender" />
                 &nbsp; Female
                 <img
-                  src="/images/Intersex.png"
+                  src={process.env.PUBLIC_URL+"/images/Intersex.png"}
                   alt="gender"
                   width="60"
                   height="80"

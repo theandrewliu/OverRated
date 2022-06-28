@@ -150,12 +150,10 @@ class MatchQueries:
                         [specific_match[0]],
                     )
                     average = cursor.fetchone()
-                    print("average", average)
 
                     specific_match.append(average[0])
                     specific_match.append(target[1])
 
                     profile_list.append(specific_match)
 
-                print("my profile list", profile_list)
                 return page_count, list(profile_list)

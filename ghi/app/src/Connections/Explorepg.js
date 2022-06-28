@@ -82,7 +82,6 @@ class ProfileDetail extends React.Component {
           'Content-Type': 'application/json',
       },
     });
-    console.log("test", response)
     if (response.ok) {
         window.location.reload(false);
     }
