@@ -128,7 +128,7 @@ class MessageDetail extends React.Component {
                                 <div className="navbar navbar-expand p-0">
                                     <ul className="navbar-nav me-auto align-items-center">
                                         <li className="nav-item">
-                                            <a href={`profiles/${this.state.target.id}`} className="nav-link chat-link">
+                                            <a href={`${process.env.PUBLIC_URL}profiles/${this.state.target.id}`} className="nav-link chat-link">
                                                 <div className="avatar">
                                                     <img src={photoSRC} className="avatarPhoto img-fluid rounded-circle" alt='photoSRC' />
                                                 </div>
