@@ -35,8 +35,6 @@ class ReviewForm extends React.Component{
         };
         const response = await fetch(review_formURL, fetchConfig);
         if(response.ok){
-            const new_salesperson = await response.json();
-            console.log(new_salesperson);
             this.setState({
                 username: '',
                 review: '',

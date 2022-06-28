@@ -64,7 +64,7 @@ class ProfileQueries:
                     [user_id, page * 10],
                 )
                 rows = cursor.fetchall()
-                print("rows:", rows)
+                
                 return page_count, list(rows)
 
     def get_profile_from_username(self, username: str):
@@ -139,7 +139,6 @@ class ProfileQueries:
                 average = cursor.fetchone()
                 profile.append(average[0])
 
-                print("whole profile", profile)
                 return profile
 
     def get_random_profile(self, active_id):
@@ -299,11 +298,9 @@ class ProfileQueries:
                     [profile[0]],
                 )
                 average = cursor.fetchone()
-                print("profile_id", profile[0])
-                print("AVERAGE", average)
+               
                 profile.append(average[0])
-                print("whole profile", profile)
-
+               
                 return profile
 
     def insert_profile(

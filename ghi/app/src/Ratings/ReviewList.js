@@ -32,7 +32,6 @@ class ReviewList extends React.Component {
   }
   
     render() {
-      console.log(this.state)
       if(this.state.redirect === true){
         return <Navigate to = '/review' />;
       }

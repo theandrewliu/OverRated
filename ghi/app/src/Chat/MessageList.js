@@ -50,16 +50,13 @@ class MessageList extends React.Component {
           <b>Your Messages</b>
         </h1>
 
-        {console.log("corey test:", this.state)}
-        {console.log("matches", this.state.matches.matches)}
-        {console.log("messages", this.state.messages.messages)}
-        {console.log("user", this.state.user)}
+
 
         <div className="message-layout">
           {this.state.messages.messages.map((message) => {
             let photo = message.photo;
             if (message.photo === null) {
-              photo = "/images/blank-profile-pic.png";
+              photo = "images/blank-profile-pic.png";
             }
 
             let targetID = message.recipient;

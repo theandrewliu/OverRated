@@ -62,8 +62,6 @@ class SignupForm extends React.Component{
 
         const response = await fetch(url, fetchConfig);
         if(response.ok){
-            const accountform = await response.json();
-            console.log("look out", accountform);
             this.setState({
                 email: '',
                 username: '',
@@ -79,7 +77,6 @@ class SignupForm extends React.Component{
             });
         } else if (!response.ok){
             const message = ` An error: ${response.status} - ${response.statusText}`;
-            console.log("people", message);
             throw new Error(message);
         }            
 
@@ -103,13 +100,7 @@ class SignupForm extends React.Component{
     }
     handleDate_of_BirthChange(event) {
         const value = event.target.value;
-        let d = this.state.date_of_birth.indexOf("T");
-        console.log("today", this.state.date_of_birth.indexOf("T"));
-        const dateBirth = this.state.date_of_birth.slice(0, d + 1);
-        console.log("Day", dateBirth);
         this.setState({ date_of_birth: value });
-        
-        console.log("Date", Date(value));
     }
     handleLocationChange(event) {
         const value = event.target.value;

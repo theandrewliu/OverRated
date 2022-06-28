@@ -38,8 +38,6 @@ class RatingQueries:
                         [target_id],
                     )
                     average = cursor.fetchone()
-                    print("average_rating:", float(average[0]))
-                    print("type", type(float(average[0])))
                     return float(average[0])
                 except Exception:
                     print("DID NOT RUN THE SQL STUFF")
