@@ -390,7 +390,7 @@ class ProfileForm extends React.Component {
                 <input type="radio" value="male" name="gender" />
                 &nbsp; Male
                 <img
-                  src="/images/Female.png"
+                  src="images/Female.png"
                   alt="gender"
                   width="60"
                   height="80"
