@@ -161,7 +161,6 @@ class MessageDetail extends React.Component {
 
                             {this.state.messages.messages.map(message => {
                                 let photoSRC = ''
-                                let senderName = ''
                                 let textAlign = ''
                                 let targetAvatar = ''
                                 let userAvatar = ''
