@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import './MessageDetail.css';
+import blankpic from "../blank-profile-pic.png"
 
 
 function MessagesDetailGrabber(){
@@ -115,7 +116,7 @@ class MessageDetail extends React.Component {
     render() {
         let photoSRC = this.state.target.photo
         if (this.state.target.photo === null) {
-            photoSRC = "/images/blank-profile-pic.png"
+            photoSRC = blankpic
         }
         return(
             <>
@@ -180,11 +181,11 @@ class MessageDetail extends React.Component {
                                 
                                 }
                                 if (message.sender === this.state.target.id && this.state.target.photo === null) {
-                                    photoSRC = "/images/blank-profile-pic.png"
+                                    photoSRC = blankpic
                                 } 
 
                                 if (message.sender === this.state.user.id && this.state.user.photo === null) {
-                                    photoSRC = "/images/blank-profile-pic.png"
+                                    photoSRC = blankpic
                                 } 
 
 
