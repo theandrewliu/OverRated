@@ -46,28 +46,28 @@ class ProfileForm extends React.Component {
         });
         
         if (response.ok) {
+            const profile = await response.json();
+
         this.setState({
-            profile: await response.json(),
-        });
-        this.setState({
+            profile: profile,
             photo: null,
-            about: this.state.profile.about,
-            height_ft: Math.floor(this.state.profile.height/12),
-            height_in: this.state.profile.height%12,
-            job: this.state.profile.job,
-            education: this.state.profile.education,
+            about: profile.about,
+            height_ft: Math.floor(profile.height/12),
+            height_in: profile.height%12,
+            job: profile.job,
+            education: profile.education,
             gender: "",
-            sexual_orientation: this.state.profile.sexual_orientation,
+            sexual_orientation: profile.sexual_orientation,
             religion: "",
-            pronouns: this.state.profile.pronouns,
+            pronouns: profile.pronouns,
             interested: [],
-            ethnicity: this.state.profile.ethnicity,
-            location: this.state.profile.location,
+            ethnicity: profile.ethnicity,
+            location: profile.location,
         })
         }else if (response.status === 401){
         this.setState({redirect: true})
         }
-        console.log("state in get my details:", this.state.profile)
+        console.log("state in get my details:", profile)
     }
 
 

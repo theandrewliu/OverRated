@@ -24,7 +24,7 @@ class ReviewForm extends React.Component{
         event.preventDefault();
         const data = {...this.state};
 
-        const review_formURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.target_id}/rating/`;
+        const review_formURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.target_id}/rating`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),

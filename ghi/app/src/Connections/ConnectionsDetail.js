@@ -44,7 +44,7 @@ class ConnectionsDetail extends React.Component {
 
     console.log("the state", data)
 
-    const rating_url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}/rating/`;
+    const rating_url = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}/rating`;
     const fetchConfig = {
       method: "POST",
             body: JSON.stringify(data),
@@ -67,7 +67,7 @@ class ConnectionsDetail extends React.Component {
   async componentDidMount() {
     const targetURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.profile_id}`;
     const ratingsURL = `${process.env.REACT_APP_API_HOST}/api/my-ratings`;
-    const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine/`;
+    const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
     
     const targetResponse = await fetch(targetURL, {credentials: 'include'});
     const ratingsResponse = await fetch(ratingsURL, {credentials: 'include'});

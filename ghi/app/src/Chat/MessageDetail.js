@@ -39,7 +39,7 @@ class MessageDetail extends React.Component {
 
     async componentDidMount() {
         const targetURL = `${process.env.REACT_APP_API_HOST}/api/profiles/${this.props.target_id}`;
-        const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine/`;
+        const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
 
         const targetResponse = await fetch(targetURL, {credentials: 'include'});
         const userResponse = await fetch(userURL, {credentials: 'include'});
@@ -78,7 +78,7 @@ class MessageDetail extends React.Component {
 
         console.log("data:", data)
 
-        const url = `${process.env.REACT_APP_API_HOST}/api/messages/`;
+        const url = `${process.env.REACT_APP_API_HOST}/api/messages`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -132,7 +132,7 @@ class MessageDetail extends React.Component {
                                 <div className="navbar navbar-expand p-0">
                                     <ul className="navbar-nav me-auto align-items-center">
                                         <li className="nav-item">
-                                            <a href={`/profiles/${this.state.target.id}`} className="nav-link chat-link">
+                                            <a href={`profiles/${this.state.target.id}`} className="nav-link chat-link">
                                                 <div className="avatar">
                                                     <img src={photoSRC} className="avatarPhoto img-fluid rounded-circle" alt='photoSRC' />
                                                 </div>

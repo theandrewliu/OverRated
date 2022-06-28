@@ -93,7 +93,7 @@ class ConnectionList extends React.Component {
                             }
                           return (
                             <div className = "connect-card" key = {match.id}>
-                              <Link to ={`/profiles/${match.id}/`}>
+                              <Link to ={`profiles/${match.id}`}>
                             <div className= "profileDetail" >
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="70%" height="70%" />
                               <img className ={photoNull} src="/images/blank-profile-pic.png" alt="pic" width="70%" height="70%" />
@@ -108,7 +108,7 @@ class ConnectionList extends React.Component {
                             </div>
                             <div class="box_r">
                                 <div className ="test-button">
-                                <a href={`/messages/${match.id}`} className ="btn btn-primary">Message Me</a></div>
+                                <a href={`messages/${match.id}`} className ="btn btn-primary">Message Me</a></div>
                                 <div class="clear-both"></div>
                             </div>
                             </div>
