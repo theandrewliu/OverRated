@@ -4,7 +4,6 @@
   font-family:"NotablyAbsentRegular-8M2zJ";
 }
 .termsandconditions{
-  width: 20%;
   color: orange;
   
 }
@@ -25,7 +24,12 @@
 #mainover{
   top: 100px;
 }
-
+footer {
+  position:fixed;
+  bottom: 50px;
+  width: 300px;
+  text-align: center;
+  }
 
 .mainlink{
   background: #c99061;
@@ -61,5 +65,8 @@
     background-image: url('image6.jpg');
   }
 }
-
+#terms {
+  margin: auto;
+  width: 50%;
+}
 

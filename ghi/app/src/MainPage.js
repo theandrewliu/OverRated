@@ -18,16 +18,13 @@ function MainPage() {
       <br></br>
       </div>
       <footer>
-            <div id="terms">
-              <div>
+      <div className="link">
         <p className="termsandconditions">
         By clicking Join, you agree to our Terms. 
         Learn how we process your data in our Privacy Policy and Cookies Policy.
         </p>
-        </div>
-        <div className="link">
+       
             <Link to="/login/new" className="mainlink">Find your Love Today!</Link>
-            </div>
           </div>
     </footer>
         </div>
