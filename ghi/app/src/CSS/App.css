@@ -3,9 +3,32 @@
 .font-face-na{
   font-family:"NotablyAbsentRegular-8M2zJ";
 }
-.termsandconditions{
-  color: orange;
+.description{
+  color: #f1976b;
+  background-position: center;
   
+}
+#mainover {
+  color: #fff;
+  font-size: 92px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  background: linear-gradient(to right,#f1976b 10%, #30f067 50%, #25abe8 60%);
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2.5s linear infinite;
+  display: inline-block;
+}
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
 }
 
 .mainpage {
@@ -21,14 +44,12 @@
   animation: change 30s infinite linear;
   animation-delay: 2s;
 }
-#mainover{
-  top: 100px;
-}
+
 footer {
-  position:fixed;
   bottom: 50px;
-  width: 300px;
   text-align: center;
+  justify-content: center;
+
   }
 
 .mainlink{

@@ -15,14 +15,10 @@ function MainPage() {
       <p className="description">
           The premiere solution for loneliness!
         </p>
-      <br></br>
       </div>
       <footer>
       <div className="link">
-        <p className="termsandconditions">
-        By clicking Join, you agree to our Terms. 
-        Learn how we process your data in our Privacy Policy and Cookies Policy.
-        </p>
+
        
             <Link to="/login/new" className="mainlink">Find your Love Today!</Link>
           </div>
