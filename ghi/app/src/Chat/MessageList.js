@@ -15,9 +15,9 @@ class MessageList extends React.Component {
   }
 
   async componentDidMount() {
-    const matchesURL = `${process.env.REACT_APP_API_HOST}/api/my-matches/`;
-    const messagesURL = `${process.env.REACT_APP_API_HOST}/api/messages/`;
-    const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine/`;
+    const matchesURL = `${process.env.REACT_APP_API_HOST}/api/my-matches`;
+    const messagesURL = `${process.env.REACT_APP_API_HOST}/api/messages`;
+    const userURL = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
 
     const matchesResponse = await fetch(matchesURL, { credentials: "include" });
     const messageResponse = await fetch(messagesURL, {

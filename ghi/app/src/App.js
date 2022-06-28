@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Nav from './Nav';
 import './CSS/index.css';
 import Logout from './Accounts/Logout';
@@ -39,9 +39,9 @@ function App() {
           <Route path="/random" element={<Explore token={token} />} />
           <Route path="/my-matches" element={<ConnectionList token={token} />} />
           <Route path="/profiles/:id" element={<ConnectionsDetail token={token} />} />
-          
 
-        <Route path="/my_profile"> 
+
+        <Route path="/my_profile">
           <Route index element={<ProfileDetail token={token}/>} />
           <Route path="/my_profile/account" element={<AccountForm token={token} />} />
         </Route>
@@ -56,6 +56,7 @@ function App() {
             <Route path="/profiles/myself" element={<ProfileForm token={token}/>} />
           </Route>
 
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
     </BrowserRouter>
   );
