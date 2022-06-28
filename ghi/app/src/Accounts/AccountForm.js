@@ -68,7 +68,6 @@ class AccountForm extends React.Component {
 
         const response = await fetch(url, fetchConfig);
         if(response.ok){
-            const accountform = await response.json();
             this.setState({
                 redirect: true
             });

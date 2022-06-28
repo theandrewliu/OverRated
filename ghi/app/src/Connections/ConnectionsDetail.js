@@ -53,7 +53,6 @@ class ConnectionsDetail extends React.Component {
     };
     const response = await fetch(rating_url, fetchConfig);
     if(response.ok) {
-      const new_rating =await response.json();
       this.setState({
         rating: "",
         rating_of: ""

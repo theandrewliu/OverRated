@@ -62,7 +62,6 @@ class SignupForm extends React.Component{
 
         const response = await fetch(url, fetchConfig);
         if(response.ok){
-            const accountform = await response.json();
             this.setState({
                 email: '',
                 username: '',
@@ -102,7 +101,6 @@ class SignupForm extends React.Component{
     handleDate_of_BirthChange(event) {
         const value = event.target.value;
         let d = this.state.date_of_birth.indexOf("T");
-        const dateBirth = this.state.date_of_birth.slice(0, d + 1);
         this.setState({ date_of_birth: value });
     }
     handleLocationChange(event) {

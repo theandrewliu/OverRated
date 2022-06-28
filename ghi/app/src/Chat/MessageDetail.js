@@ -87,7 +87,6 @@ class MessageDetail extends React.Component {
         };
         const response = await fetch(url, fetchConfig);
         if(response.ok) {
-            const newMessage = await response.json();
             this.setState({
                 message: "",
                 reload: false
@@ -176,7 +175,6 @@ class MessageDetail extends React.Component {
 
                                 }
                                 if (message.sender === this.state.user.id) {
-                                    senderName = this.state.user.first_name
                                     photoSRC = this.state.user.photo
                                     textAlign = "d-flex align-items-baseline text-end justify-content-end mb-4"
                                     userAvatar = "position-relative avatar"

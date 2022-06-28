@@ -50,7 +50,6 @@ class ProfileForm extends React.Component {
 
         const response = await fetch(url, fetchConfig);
         if(response.ok){
-            const userform = await response.json();
             this.setState({
                 photo: "",
                 about: "",

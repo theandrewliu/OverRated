@@ -93,7 +93,6 @@ class ProfileForm extends React.Component {
 
     const response = await fetch(photoURL, fetchConfig);
     if (response.ok) {
-      const photoForm = await response.json();
       this.setState({
         photo: photoData,
       });
@@ -126,7 +125,6 @@ class ProfileForm extends React.Component {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const userform = await response.json();
       this.setState({
         photo: null,
         about: this.state.profile.about,
