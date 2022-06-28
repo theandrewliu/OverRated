@@ -28,7 +28,6 @@ function App() {
     <div className="navColor">
     <Nav token={token} />
     </div>
-      <div className="container">
         <Routes>
 
           <Route path="/" element={<MainPage />} />
@@ -58,7 +57,6 @@ function App() {
           </Route>
 
         </Routes>
-      </div>
     </BrowserRouter>
   );
 }

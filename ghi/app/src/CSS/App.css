@@ -5,31 +5,30 @@
 }
 .termsandconditions{
   width: 20%;
-  margin-left: 530px;
-  text-decoration-color: black;
+  color: orange;
+  
 }
 
-#container {
+.mainpage {
   background-image: url('image1.jpg');
   background-size: cover;
-  background-position: left; 
+  background-position: center; 
   width: 100vw;
   height: 100vh; 
   background-repeat: no-repeat;
-  margin-left: -321px;
   display: flex;
   text-align: center;
   justify-content: center;
   animation: change 30s infinite linear;
   animation-delay: 2s;
-  transform: 1s;
 }
 #mainover{
   top: 100px;
 }
+
+
 .mainlink{
   background: #c99061;
-  color: black;
   padding: 10px 24px;
   text-decoration: none;
   font-size: 18px;
@@ -41,7 +40,7 @@
 }
 
 @keyframes change {
-  0%
+  1%
   {
     background-image: url('image2.jpg');
   }
@@ -62,3 +61,5 @@
     background-image: url('image6.jpg');
   }
 }
+
+

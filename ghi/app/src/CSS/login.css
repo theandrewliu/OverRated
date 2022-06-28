@@ -1,25 +1,20 @@
 .row_login{
   background-image: url("bike.jpg"); 
   background-size: cover;
-  background-position: left; 
+  background-position: center; 
   width: 100vw;
   height: 100vh; 
   background-repeat: no-repeat;
-  margin-left: -321px;
-  display: flex;
 }
 
 #outbox {
   position: absolute;
   left: 30px;
-  width: 350px;
-  height: 550px;
   opacity: 0.9;
-  margin-bottom: -100px;
-  top: 150px;
-  border-radius: 5%;
+  border-radius: 8%;
   background-color: rgba(255, 252, 252, 0.661);
 }
+
 #outbox :hover {
   filter: brightness(95%);
 }
