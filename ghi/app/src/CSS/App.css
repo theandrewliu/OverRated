@@ -22,7 +22,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: textclip 2.5s linear infinite;
+  animation: textclip 3s linear infinite;
   display: inline-block;
 }
 @keyframes textclip {
@@ -58,6 +58,7 @@ footer {
   text-decoration: none;
   font-size: 18px;
   border-radius: 20px;
+  color: black;
 }
 .mainlink:hover {
   background-color: rgb(5, 216, 216);

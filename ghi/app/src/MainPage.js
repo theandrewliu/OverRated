@@ -13,7 +13,9 @@ function MainPage() {
       <h1 className="display-5 fw-bold" id='mainover'>OverRated</h1>
       <div className="logo">
       <p className="description">
-          The premiere solution for loneliness!
+      The premiere solution for loneliness!
+          <br></br>
+          Ending One Night Stands.
         </p>
       </div>
       <footer>
