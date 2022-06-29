@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import './connections.css';
 import blankpic from "../blank-profile-pic.png"
 
