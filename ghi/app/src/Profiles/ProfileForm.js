@@ -51,7 +51,7 @@ class ProfileForm extends React.Component {
 
       this.setState({
         profile: profile,
-        photo: null,
+        photo: profile.photo,
         about: profile.about,
         height_ft: Math.floor(profile.height / 12),
         height_in: profile.height % 12,
