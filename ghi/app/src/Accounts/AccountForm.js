@@ -26,7 +26,7 @@ class AccountForm extends React.Component {
     }
 
 
-    async componentDidMount() {
+    async getMyDetails() {
         const url = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
         const response = await fetch(url, {
             credentials: 'include',
@@ -46,6 +46,9 @@ class AccountForm extends React.Component {
         this.setState({redirect: true})
         }
     }
+    componentDidMount() {
+        this.getMyDetails();
+      }
 
 
     async handleSubmit(event){
@@ -54,6 +57,7 @@ class AccountForm extends React.Component {
         delete data.redirect
         delete data.error
         delete data.profile
+        delete data.verify_password
 
         const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
         const fetchConfig = {
