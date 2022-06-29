@@ -33,16 +33,15 @@ class AccountForm extends React.Component {
         });
         
         if (response.ok) {
-        this.setState({
-            profile: await response.json(),
+            const profile = await response.json();
+            
+            this.setState({
+                profile: profile,
+                email: this.state.profile.email,
+                username: this.state.profile.username,
+                first_name: this.state.profile.first_name,
+                last_name: this.state.profile.last_name,
         });
-        this.setState({
-            email: this.state.profile.email,
-            username: this.state.profile.username,
-            first_name: this.state.profile.first_name,
-            last_name: this.state.profile.last_name,
-        })
-
         }else if (response.status === 401){
         this.setState({redirect: true})
         }

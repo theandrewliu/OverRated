@@ -4,6 +4,7 @@ import '../Profiles/profile.css';
 import { calculateAge, scoreToStar } from "./ConnectionsList";
 import { capitalize } from "../Profiles/ProfileDetail";
 import blankpic from "../blank-profile-pic.png"
+import { list_separate } from "../Profiles/ProfileDetail";
 
 
 function ConnectionsDetailGrabber(){
@@ -11,6 +12,8 @@ function ConnectionsDetailGrabber(){
   const profile_id = params.id;
   return <ConnectionsDetail profile_id = {profile_id}></ConnectionsDetail>
 }
+
+
 
 
 
@@ -108,45 +111,78 @@ class ConnectionsDetail extends React.Component {
 
       return (
         <>
-        <div className="profileContainer">
-          <div className = 'container pic-name' >
-              <h1>
-                {this.state.targetUser.first_name + " " + this.state.targetUser.last_name}
-              </h1>            
-              <img src={ photo } alt="pic" width="70%" height="70%" />
+        <div className="container">
+          <div className="row">
+            <div className = "col-sm border border-light rounded-3">
+                <h1>
+                  {this.state.targetUser.first_name + " " + this.state.targetUser.last_name}
+                </h1>            
+                <img src={ photo } className="img-fluid rounded-4" alt="pic" width="70%" height="70%" />
+            </div>
+            <div className="col-sm">
+              <table className="table table-condensed table-sm table-hover">
+                  <h1>
+                    Details
+                  </h1>
+                  <tbody>
+                    <tr>
+                    </tr>
+                    <tr>
+                      <td><b>Pronouns:</b> {this.state.targetUser.pronouns}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Age:</b> {calculateAge(this.state.targetUser.date_of_birth)}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Location:</b> {this.state.targetUser.location}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Height:</b> { feet } ft { inch } inch</td>
+                    </tr>
+                    <tr>
+                      <td><b>Job:</b> {this.state.targetUser.job}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Education:</b> {this.state.targetUser.education}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Interested In:</b> {list_separate(this.state.targetUser.interested)}</td>
+                    </tr>
+                    <tr>
+                      <td><text><b>Gender:</b> {capitalize(this.state.targetUser.gender)}</text></td>
+                    </tr>
+                    <tr>
+                      <td><b>Sexual Orientation:</b> {capitalize(this.state.targetUser.sexual_orientation)}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Religion:</b> {this.state.targetUser.religion}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Ethnicity:</b> {this.state.targetUser.ethnicity}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
           </div>
-          <div className="details">
-              <h1>
-                Details
-              </h1>
-              <div className><b>Pronouns:</b> {this.state.targetUser.pronouns}</div>
-              <div className><b>Age:</b> {calculateAge(this.state.targetUser.date_of_birth)}</div>
-              <div className><b>Location:</b> {this.state.targetUser.location}</div>
-              <div className><b>Height:</b> { feet } ft { inch } inch</div>
-              <div className><b>Job:</b> {this.state.targetUser.job}</div>
-              <div className><b>Education:</b> {this.state.targetUser.education}</div>
-              <div className><b>Gender:</b> {capitalize(this.state.targetUser.gender)}</div>
-              <div className><b>Sexual Orientation:</b> {capitalize(this.state.targetUser.sexual_orientation)}</div>
-              <div className><b>Religion:</b> {this.state.targetUser.religion}</div>
-              <div className><b>Ethnicity:</b> {this.state.targetUser.ethnicity}</div>
-          </div>
-          <div className="mySummary">
-               <h1>
-                About Me
-              </h1>
-            {this.state.targetUser.about}
-          </div>
-          <div className="reviews">
-              <h1>
-                Rating Average
-              </h1>
-            {scoreToStar(this.state.targetUser.average_rating)}
-            <div>
+          <div className="row">
+            <div className="col-sm">
+                  <h1>
+                    About Me
+                  </h1>
+                {this.state.targetUser.about}
+              </div>
+              <div className="col-sm">
+                  <h1>
+                    Rating Average
+                  </h1>
+                  {scoreToStar(this.state.targetUser.average_rating)}
+                  <div>
               <h3 className={ratingConfirmationMessage}>Thanks for rating {this.state.targetUser.first_name}!</h3>
               <button className={ratingButton} data-bs-toggle="modal" data-bs-target="#RatingModalCenter">Rate {this.state.targetUser.first_name}</button>
             </div>
+              </div>
+            </div>
           </div>
-        </div>
 
 
 
