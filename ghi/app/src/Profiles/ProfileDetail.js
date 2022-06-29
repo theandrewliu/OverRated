@@ -2,6 +2,8 @@ import React from "react";
 import { Navigate, Link } from "react-router-dom";
 import './profile.css';
 import { calculateAge, scoreToStar } from "../Connections/ConnectionsList";
+import blankpic from "../blank-profile-pic.png"
+
 
 export function capitalize(s) {
   return String(s).charAt(0).toUpperCase() + String(s).slice(1);
@@ -54,7 +56,7 @@ class ProfileDetail extends React.Component {
 
       let photo = this.state.profile.photo 
       if (this.state.profile.photo === null) {
-          photo = "images/blank-profile-pic.png"
+          photo = blankpic
       }
       
       

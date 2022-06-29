@@ -26,27 +26,29 @@ class AccountForm extends React.Component {
     }
 
 
-    async componentDidMount() {
+    async getMyDetails() {
         const url = `${process.env.REACT_APP_API_HOST}/api/profiles/mine`;
         const response = await fetch(url, {
             credentials: 'include',
         });
         
         if (response.ok) {
-        this.setState({
-            profile: await response.json(),
+            const profile = await response.json();
+            
+            this.setState({
+                profile: profile,
+                email: this.state.profile.email,
+                username: this.state.profile.username,
+                first_name: this.state.profile.first_name,
+                last_name: this.state.profile.last_name,
         });
-        this.setState({
-            email: this.state.profile.email,
-            username: this.state.profile.username,
-            first_name: this.state.profile.first_name,
-            last_name: this.state.profile.last_name,
-        })
-
         }else if (response.status === 401){
         this.setState({redirect: true})
         }
     }
+    componentDidMount() {
+        this.getMyDetails();
+      }
 
 
     async handleSubmit(event){
@@ -55,6 +57,7 @@ class AccountForm extends React.Component {
         delete data.redirect
         delete data.error
         delete data.profile
+        delete data.verify_password
 
         const url = `${process.env.REACT_APP_API_HOST}/api/accounts/myself`;
         const fetchConfig = {

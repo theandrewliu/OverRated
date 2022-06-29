@@ -1,7 +1,7 @@
 import React from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import './connections.css';
-
+import blankpic from "../blank-profile-pic.png"
 
 
 export function calculateAge(date_of_birth) {
@@ -93,12 +93,12 @@ class ConnectionList extends React.Component {
                             }
                           return (
                             <div className = "connect-card" key = {match.id}>
-                              <Link to ={`${process.env.PUBLIC_URL}/profiles/${match.id}`}>
+                              <a href={`${process.env.PUBLIC_URL}/profiles/${match.id}`}>
                             <div className= "profileDetail" >
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="70%" height="70%" />
-                              <img className ={photoNull} src={process.env.PUBLIC_URL+"/images/blank-profile-pic.png"} alt="pic" width="70%" height="70%" />
+                              <img className ={photoNull} src={blankpic} alt="pic" width="70%" height="70%" />
                             </div>
-                            </Link>
+                            </a>
                             <div class="contains_both">
                               <div class="box_l">
                               <div key={match.first_name}><b> {match.first_name + " " + match.last_name} </b> </div>
