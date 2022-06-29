@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { formatDateTime } from "./MessageDetail";
-import blankpic from "../black-profile-pic.png";
+import blankpic from "../blank-profile-pic.png";
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -61,7 +61,7 @@ class MessageList extends React.Component {
           {this.state.messages.messages.map((message) => {
             let photo = message.photo;
             if (message.photo === null) {
-              photo = "images/blank-profile-pic.png";
+              photo = blankpic;
             }
 
             let targetID = message.recipient;
