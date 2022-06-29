@@ -111,7 +111,7 @@ class ProfileForm extends React.Component {
     delete data.height_in;
     delete data.profile;
     delete data.redirect;
-    delete data.photo;
+
 
     const url = `${process.env.REACT_APP_API_HOST}/api/profiles/myself`;
     const fetchConfig = {
