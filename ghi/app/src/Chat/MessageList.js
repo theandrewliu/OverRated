@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { formatDateTime } from "./MessageDetail";
+import blankpic from "../blank-profile-pic.png";
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -44,6 +45,11 @@ class MessageList extends React.Component {
     if (this.state.redirect === true) {
       return <Navigate to="/login" />;
     }
+    let photoSRC = this.state.messages.photo
+    if (this.state.messages.photo === null) {
+        photoSRC = blankpic
+    }
+    console.log("state", this.state)
     return (
       <>
         <h1>
@@ -56,18 +62,13 @@ class MessageList extends React.Component {
           {this.state.messages.messages.map((message) => {
             let photo = message.photo;
             if (message.photo === null) {
-              photo = "images/blank-profile-pic.png";
-            }
-
-            let targetID = message.recipient;
-            if (targetID === this.state.user.id) {
-              targetID = message.sender;
+              photo = blankpic
             }
 
             return (
               <ul className="list-unstyled mb-0" key={message.match_id}>
                 <li className="p-2 border-bottom" style={{backgroundColor: 'eee'}} >
-                  <a href={`messages/${targetID}`} className="d-flex justify-content-between" style={{textDecoration: 'none'}}>
+                  <a href={`messages/${this.state.messages.id}`} className="d-flex justify-content-between" style={{textDecoration: 'none'}}>
                     <div className="d-flex flex-row">
                       <img src={photo} alt="avatar"
                         className="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" />

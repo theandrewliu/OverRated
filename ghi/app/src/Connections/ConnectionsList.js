@@ -93,7 +93,7 @@ class ConnectionList extends React.Component {
                             }
                           return (
                             <div className = "connect-card" key = {match.id}>
-                              <Link to ={`profiles/${match.id}`}>
+                              <Link to ={`${process.env.PUBLIC_URL}/profiles/${match.id}`}>
                             <div className= "profileDetail" >
                               <img className ={photoAvailable} src={ match.photo } alt="pic" width="70%" height="70%" />
                               <img className ={photoNull} src={process.env.PUBLIC_URL+"/images/blank-profile-pic.png"} alt="pic" width="70%" height="70%" />
