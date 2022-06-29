@@ -3,6 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import '../Profiles/profile.css';
 import { calculateAge, scoreToStar } from "./ConnectionsList";
 import { capitalize } from "../Profiles/ProfileDetail";
+import blankpic from "../blank-profile-pic.png"
 
 
 function ConnectionsDetailGrabber(){
@@ -92,7 +93,7 @@ class ConnectionsDetail extends React.Component {
 
     let photo = this.state.targetUser.photo 
     if (this.state.targetUser.photo === null) {
-        photo = "/images/blank-profile-pic.png"
+        photo = blankpic
     }  
     
     
