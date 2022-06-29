@@ -126,7 +126,6 @@ class ProfileForm extends React.Component {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       this.setState({
-        photo: this.state.profile.photo,
         about: this.state.profile.about,
         height_ft: Math.floor(this.state.profile.height / 12),
         height_in: this.state.profile.height % 12,
