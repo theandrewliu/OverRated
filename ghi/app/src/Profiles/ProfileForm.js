@@ -96,6 +96,7 @@ class ProfileForm extends React.Component {
       this.setState({
         photo: photoData,
       });
+      this.getMyDetails()
     } else if (!response.ok) {
       const message = `An error: ${response.status} - ${response.statusText}`;
       throw new Error(message);
