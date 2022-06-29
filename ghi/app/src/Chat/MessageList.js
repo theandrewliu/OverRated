@@ -45,11 +45,11 @@ class MessageList extends React.Component {
     if (this.state.redirect === true) {
       return <Navigate to="/login" />;
     }
-    let photoSRC = this.state.messages.photo
-    if (this.state.messages.photo === null) {
-        photoSRC = blankpic
-    }
-    console.log("state", this.state)
+    // let photoSRC = this.state.messages.photo
+    // if (this.state.messages.photo === null) {
+    //     photoSRC = blankpic
+    // }
+    // console.log("state", this.state)
     return (
       <>
         <h1>
