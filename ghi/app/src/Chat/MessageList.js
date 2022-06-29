@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { formatDateTime } from "./MessageDetail";
+import blankpic from "../black-profile-pic.png";
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -43,6 +44,10 @@ class MessageList extends React.Component {
   render() {
     if (this.state.redirect === true) {
       return <Navigate to="/login" />;
+    }
+    let photoSRC = this.state.target.photo
+    if (this.state.target.photo === null) {
+        photoSRC = blankpic
     }
     return (
       <>

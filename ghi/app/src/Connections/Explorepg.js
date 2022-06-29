@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import '../Profiles/profile.css';
 import { calculateAge, scoreToStar } from "./ConnectionsList";
 import { capitalize } from "../Profiles/ProfileDetail";
+import blankpic from "../blank-profile-pic.png"
 
 
 class ProfileDetail extends React.Component {
@@ -104,7 +105,7 @@ class ProfileDetail extends React.Component {
 
       let photo = this.state.theirprofile.photo 
       if (this.state.theirprofile.photo === null) {
-          photo = "/images/blank-profile-pic.png"
+          photo = blankpic
       }    
       return (
         <>
